@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Room" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
+      <FileName>Room.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoomTile" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>RoomTile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Drawn" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAQAgAAEAAAABAQAAAAABAAAgAAAIAAAAAAAAA=</HashCode>
+      <FileName>Drawn.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RClickable" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RClickable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSprite" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAAAAAAABAACAAAAAAAAAAAAAAAAAEAAQIAAAA=</HashCode>
+      <FileName>GameSprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Actor" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggQgAAAAEAgAAAAAAAAAAAAAgCAkAEg=</HashCode>
+      <FileName>Actor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>User.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rectangle" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAACAAAAAAAAIAAAAAAAAAiAAAAAAAAAAAQAIA=</HashCode>
+      <FileName>Rectangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="PlayerAnimation" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>main.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PlayerDirection" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAABAUCAQA=</HashCode>
+      <FileName>main.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Actor" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAwAAYAEggwgikAAUggCAAAAQAAAACAAgiAmBEg=</HashCode>
+      <FileName>Actor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAACAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Container" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEQAAIQAAAAAAAgAAAAAAAACgAAAAAAAAAAACAAQAAA=</HashCode>
+      <FileName>Container.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Drawn" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAQAIAAEAAAAhAQAAACABAAAgAgAIAAAAAAAAA=</HashCode>
+      <FileName>Drawn.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="7.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAAAgAAAAAAAAACIBQAACASAAAAAAAAAAA=</HashCode>
+      <FileName>Enemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipedContainer" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACABAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EquipedContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipedPanel" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAABEAgAAAAABAAQAQBAAAAjAAAAAAgAAAA=</HashCode>
+      <FileName>EquipedPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GamePanel" Collapsed="true">
+    <Position X="2.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACBAgCIDBAAACCAAACAAAAggAAAAAAUQKAAAA=</HashCode>
+      <FileName>GamePanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSprite" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAwJigAAAIAABAACBAAAAASIAAgAAAgAAMAAQACAAA=</HashCode>
+      <FileName>GameSprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroundItem" Collapsed="true">
+    <Position X="14.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAACAAAAAAAEAAAAQAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GroundItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuiElement" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAwAAgAAAAAAAABAAACAAAAAACBAAAAABAAAAA=</HashCode>
+      <FileName>GuiElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryContainer" Collapsed="true">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQCQAAAAAAAAACAAAAAAAgAAAAAAAAAAI=</HashCode>
+      <FileName>InventoryContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryPanel" Collapsed="true">
+    <Position X="2.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABEAgAAAAABAAQAABAAAAgAAAgAQgAAAA=</HashCode>
+      <FileName>InventoryPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADACAAAIAAAAAAEAAAAAAEAAAEAAAAAAACAAIABgA=</HashCode>
+      <FileName>Item.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RClickable" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RClickable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rectangle" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAACAAAAAAAAIAAAAAAAAAiAgAAAAAAAAAQAIA=</HashCode>
+      <FileName>Rectangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAABIAAAQAAQAAAQAAAAAAAAAgACA=</HashCode>
+      <FileName>Room.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoomTile" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACAIAAAAAAAAAAAAAAAIAQAAAgAACAAAACEAAAAAAA=</HashCode>
+      <FileName>RoomTile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpritePanel" Collapsed="true">
+    <Position X="5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAgAAAEAAAAAIAhAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>SpritePanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIQBAAAAAAAAAAAAAAACAAAAIIAIAAADAAAAAAIAAAA=</HashCode>
+      <FileName>User.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Label" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Label.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
