@@ -8,7 +8,7 @@ sf::Texture* BankPanel::bankBackground = new sf::Texture();
 BankPanel* BankPanel::instance = new BankPanel();
 
 
-BankPanel::BankPanel(int x,int y) : ScrollingPanel(x,(y*2),x,y){
+BankPanel::BankPanel(int x,int y) : ScrollingPanel(x,((float)(y-80)*2),x,y){
 	SetUp();
 	createPanelLabel = false;
 	instance = this;
@@ -60,23 +60,23 @@ void BankPanel::SetUp(){
 	{
 		for (int y = 0; y < 6; y++)
 		{
-			BankContainer* element = new BankContainer((y*80) + 8,((1+x)*80) + 8,"containerbackground.png");
+			BankContainer* element = new BankContainer((y*80) + 8,x*80,"containerbackground.png");
 			dynamicElements.insert(MyPair(std::to_string((x*6) + y), element));
 			std::cout << std::to_string((x*6) + y) << std::endl;
 		}
 	}
-	Button* exitButton = new Button(441,8,*Button::circleButtonBackground,*Button::x);
-	Label* bankLabel = new Label(140,22,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"Bank");
+	Button* exitButton = new Button(467,15,*Button::circleButtonBackground,*Button::x);
+	Label* bankLabel = new Label(164,33,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"Bank");
 	bankLabel->CenterText();
 	exitButton->SetScale(0.5,0.5);
 	exitButton->SetTarget(this);
 	exitButton->SetFunction("Close");
-	staticElements.insert(MyPair("BankLabel", bankLabel));
-	dynamicElements.insert(MyPair("ExitButton",exitButton));
+	backgroundElements.insert(MyPair("bankLabel", bankLabel));
+	backgroundElements.insert(MyPair("exitButton",exitButton));
 };
 void BankPanel::OnButtonEvent(std::string func){
 	if(func == "Close")
 		GamePanel::Close();
 	else
-		std::cout <<"they're not the same "  << " " << func << std::endl;
+		ScrollingPanel::OnButtonEvent(func);
 };

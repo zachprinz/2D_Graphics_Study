@@ -3,6 +3,7 @@
 #include "Drawn.h"
 
 std::vector<std::vector<sf::IntRect>> SlicedSpriteCreator::spriteParts;
+std::vector<std::vector<sf::IntRect>> SlicedSpriteCreator::scrollBarParts;
 
 sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCreator::SpriteStyle style){
 	sf::RenderTexture slicedSprite;
@@ -41,6 +42,32 @@ sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCr
 	std::cout << "New Sliced Sprite " << std::to_string(slicedSprite.getSize().x) << "," << std::to_string(slicedSprite.getSize().y) << std::endl;
 	return slicedSprite.getTexture();
 };
+
+sf::Texture SlicedSpriteCreator::GetSlicedScrollBar(float y){
+	sf::RenderTexture slicedSprite;
+	slicedSprite.create(24,y);
+	slicedSprite.clear(sf::Color(0,0,0,0));
+	std::vector<sf::IntRect> textParts = scrollBarParts[0];
+	std::vector<sf::Sprite> parts;
+	for(int x = 0; x < textParts.size(); x++){
+		sf::Sprite temp;
+		temp.setTexture(Drawn::gameTexture);
+		temp.setTextureRect(textParts[x]);
+		parts.push_back(temp);
+	}
+	float sideHeight = y - (textParts[0].height + textParts[2].height);
+	parts[1].setScale(parts[1].getScale().x,sideHeight / textParts[1].height);
+	parts[0].setPosition(0,0);
+	parts[1].setPosition(0,parts[0].getGlobalBounds().height);
+	parts[2].setPosition(0,parts[0].getGlobalBounds().height + parts[1].getGlobalBounds().height);
+	for(int x = 0; x < parts.size(); x++){
+			slicedSprite.draw(parts[x]);
+	}
+	slicedSprite.display();
+	std::cout << "New Sliced Scrollbar " << std::to_string(slicedSprite.getSize().x) << "," << std::to_string(slicedSprite.getSize().y) << std::endl;
+	return slicedSprite.getTexture();
+};
+
 void SlicedSpriteCreator::OnStart(){
 	for(int x = 0; x < Last; x++){
 		std::vector<sf::IntRect> tempTexts;
@@ -49,5 +76,13 @@ void SlicedSpriteCreator::OnStart(){
 			tempTexts.push_back(Drawn::GetTextureFromAtlas("slicedsprites/" + std::to_string(x) + "/" + std::to_string(y) + ".png"));
 		}
 		spriteParts.push_back(tempTexts);
+	}
+	for(int x = 0; x < 1; x++){
+		std::vector<sf::IntRect> tempTexts;
+		for(int y = 0; y < 3; y++){
+			sf::Texture tempText;
+			tempTexts.push_back(Drawn::GetTextureFromAtlas("slicedsprites/scrollBar/" + std::to_string(x) + "/" + std::to_string(y) + ".png"));
+		}
+		scrollBarParts.push_back(tempTexts);
 	}
 };

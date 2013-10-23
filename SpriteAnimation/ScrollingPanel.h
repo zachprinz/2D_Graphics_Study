@@ -21,11 +21,15 @@ public:
 	void SetPosition(int, int);
 	void Update(sf::RenderWindow&);
 	Rectangle* GetBounds();
+	void OnButtonEvent(std::string);
 private:
+	void SetUpScrollBar();
 	sf::View scrollView;
 	sf::Vector2f visibleSize;
 	sf::Texture backgroundWindowTexture;
+	sf::Texture scrollBarBackgroundTexture;
 	sf::Sprite* backgroundWindowSprite;
+	sf::Sprite* scrollBarBackgroundSprite;
 };
 
 #endif
