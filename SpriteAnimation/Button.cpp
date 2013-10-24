@@ -11,7 +11,7 @@ Button::Button(int x,int y,sf::Texture texture,sf::Texture fgTexture) : GuiEleme
 	foregroundSprite.setPosition(x,y);
 };
 Button::Button(int x,int y,std::string texture,sf::Texture fgTexture) : GuiElement(x,y,texture){
-	target = new GamePanel();
+	target = new GamePanel();// Should Really Remove this line... TODO
 	foregroundSpriteTexture = fgTexture;
 	foregroundSprite.setTexture(foregroundSpriteTexture);
 	foregroundSprite.setPosition(x,y);
@@ -22,6 +22,13 @@ Button::Button(int x,int y,std::string texture,std::string fgTexture) : GuiEleme
 	foregroundSprite.setTextureRect(Drawn::GetTextureFromAtlas(fgTexture));
 	foregroundSprite.setPosition(x,y);
 };
+Button::Button(int x,int y,sf::Texture texture,std::string fgTexture) : GuiElement(x,y,texture){
+	target = new GamePanel();
+	foregroundSprite.setTexture(Drawn::gameTexture);
+	foregroundSprite.setTextureRect(Drawn::GetTextureFromAtlas(fgTexture));
+	foregroundSprite.setPosition(x,y);
+};
+
 void Button::Update(sf::RenderTexture& panel){
 	panel.draw(sprite);
 	panel.draw(foregroundSprite);

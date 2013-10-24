@@ -107,9 +107,13 @@ int main()
 						User::player->GetInventory()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetInventory();
 					}
-					else if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y)){
+					else if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped()){
 						User::player->GetEquiped()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetEquiped();
+					}
+					else if(User::player->GetLevelPanel()->GetBounds()->Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetLevelPanel()){
+						User::player->GetLevelPanel()->OnHover(temp);
+						GamePanel::currentMousePanel = User::player->GetLevelPanel();
 					}
 					else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds()->Contains(temp.x,temp.y)){
 						User::player->GetBank()->OnHover(temp);
@@ -136,8 +140,12 @@ int main()
 						spritePanel.OnClick(temp);
 					if(User::player->GetInventory()->GetBounds()->Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
 						User::player->GetInventory()->OnClick(temp);
-					else if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y))
-						User::player->GetEquiped()->OnClick(temp);
+					else{
+						if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y))
+							User::player->GetEquiped()->OnClick(temp);
+						else if(User::player->GetLevelPanel()->GetBounds()->Contains(temp.x,temp.y))
+							User::player->GetLevelPanel()->OnClick(temp);
+					}
 					if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds()->Contains(temp.x,temp.y))
 						User::player->GetBank()->OnClick(temp);
 					if(actionBar.GetBounds()->Contains(temp.x,temp.y))

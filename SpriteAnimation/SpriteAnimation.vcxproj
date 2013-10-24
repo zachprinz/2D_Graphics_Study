@@ -112,6 +112,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LayeredPanel.cpp" />
+    <ClCompile Include="LevelPanel.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapPanel.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="LayeredPanel.h" />
+    <ClInclude Include="LevelPanel.h" />
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="MapPanel.h" />
     <ClInclude Include="ProgressBar.h" />

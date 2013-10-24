@@ -13,6 +13,7 @@ public:
 	Button(int,int,sf::Texture,sf::Texture);
 	Button(int,int,std::string,sf::Texture);
 	Button(int,int,std::string,std::string);
+	Button(int,int,sf::Texture,std::string);
 	void Update(sf::RenderTexture&);
 	void OnClick();
 	void SetScale(float,float);

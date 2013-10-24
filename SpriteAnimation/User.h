@@ -8,10 +8,10 @@
 #include "EquipedPanel.h"
 #include "LayeredPanel.h"
 #include "BankPanel.h"
+#include "LevelPanel.h"
 
 class User :  public Combatant
 {
-
 public:
 	User(int,int);
 	User();
@@ -25,6 +25,8 @@ public:
 	InventoryPanel* GetInventory();
 	void SetEquiped(EquipedPanel*);
 	EquipedPanel* GetEquiped();
+	void SetLevelPanel(LevelPanel*);
+	LevelPanel* GetLevelPanel();
 	BankPanel* GetBank();
 	bool GetIsAnyKeyPressed();
 	sf::Keyboard::Key currentKey;
@@ -43,9 +45,13 @@ public:
 	bool cKeyPressed;
 	void ChangeEquiped(int slot, int materialLevel);
 	void DrawUser(sf::RenderTexture*);
+	//enum Levels {Strength,Technique,Endurance,Speed,Woodcutting,Crafting,Mining,Smithing};
+	//enum SubLevels {
 	void AddExperience(std::string,std::string,int);
 	void AddSpendExperience(std::string,int);
 	void UpdateUnlockables(std::string,std::string);
+	int GetUserData(std::string, std::string, std::string);
+	int GetUserData(std::string, std::string);
 private:
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);
@@ -53,9 +59,9 @@ private:
 	LayeredPanel* layered;
 	EquipedPanel* equiped;
 	BankPanel* bank;
+	LevelPanel* levelPanel;
 	void SetUpImages();
 	void SetUpAttacks();
 	void SetUpAnimations();
 };
-
 #endif

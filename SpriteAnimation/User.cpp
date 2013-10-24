@@ -14,9 +14,11 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	bank = new BankPanel(480,480);
 	inventory = new InventoryPanel(320,480);
 	equiped = new EquipedPanel(320,480);
+	levelPanel = new LevelPanel(320,480);
 	std::vector<GamePanel*> temp;
 	temp.push_back(inventory);
 	temp.push_back(equiped);
+	temp.push_back(levelPanel);
 	std::cout << "About to create Layered Panel" << std::endl;
 	layered = new LayeredPanel(temp);
 	layered->SetPosition(1125,445);
@@ -111,6 +113,12 @@ BankPanel* User::GetBank(){
 }
 LayeredPanel* User::GetLayered(){
 	return layered;
+};
+void User::SetLevelPanel(LevelPanel* levelPanel){
+	this->levelPanel = levelPanel;
+};
+LevelPanel* User::GetLevelPanel(){
+	return levelPanel;
 };
 void User::SetUpImages(){
 	for(int x = 0; x < 5; x++){
@@ -395,4 +403,45 @@ void User::AddSpendExperience(std::string levelName, int add){
 	}
 	level.attribute("spendXP").set_value(std::stoi(level.attribute("spendXP").value()) + add);
 	doc.save_file("xml/userInfo.xml");
+};
+int User::GetUserData(std::string levelName, std::string subLevelName, std::string attributeName){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	pugi::xml_node subLevel;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			level = tool;
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				if(tool2.first_attribute().value() == subLevelName){
+					subLevel = tool2;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	for(pugi::xml_attribute tool = subLevel.first_attribute(); tool; tool = tool.next_attribute()){
+		if(tool.value() == attributeName)
+			return std::stoi(tool.value());
+	}
+};
+
+int User::GetUserData(std::string levelName,std::string attributeName){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	pugi::xml_node subLevel;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			level = tool;
+			break;
+		}
+	}
+	for(pugi::xml_attribute tool = level.first_attribute(); tool; tool = tool.next_attribute()){
+		if(tool.value() == attributeName)
+			return std::stoi(tool.value());
+	}
 };
