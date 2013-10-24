@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<User health="100" endurance="1000" positionX="x" positionY="y">
+	<LevelInfo>
+		<Level name="strength" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="block" description="Block more Damage" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="block1" unlock="block" value="5" level="0" />
+				<Unlock name="block2" unlock="block" value="5" level="3" />
+				<Unlock name="block3" unlock="block" value="5" level="6" />
+				<Unlock name="block4" unlock="block" value="5" level="9" />
+				<Unlock name="block5" unlock="block" value="5" level="11" />
+				<Unlock name="block6" unlock="block" value="5" level="14" />
+			</SubLevel>
+			<SubLevel name="weaponMaterials" description="Use Stronger Weapons" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Wood" unlock="useWoodWeapons" value="1" level="0" />
+				<Unlock name="Bronze" unlock="useBronzeWeapons" value="1" level="5" />
+				<Unlock name="Oak" unlock="useOakWeapons" value="1" level="5" />
+				<Unlock name="Iron" unlock="useIronWeapons" value="1" level="10" />
+				<Unlock name="Maple" unlock="useMapleWeapons" value="1" level="10" />
+				<Unlock name="Steel" unlock="useSteelWeapons" value="1" level="15" />
+				<Unlock name="Yew" unlock="useYewWeapons" value="1" level="15" />
+			</SubLevel>
+		</Level>
+		<Level name="endurance" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="run" description="Sprint for Longer" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="run1" unlock="runEndurance" value="5" level="0" />
+				<Unlock name="run2" unlock="runEndurance" value="5" level="3" />
+				<Unlock name="run3" unlock="runEndurance" value="5" level="6" />
+				<Unlock name="run4" unlock="runEndurance" value="5" level="9" />
+				<Unlock name="run5" unlock="runEndurance" value="5" level="11" />
+				<Unlock name="run6" unlock="runEndurance" value="5" level="14" />
+			</SubLevel>
+			<SubLevel name="combat" description="Fight for Longer" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="fight1" unlock="fightEndurance" value="5" level="0" />
+				<Unlock name="fight2" unlock="fightEndurance" value="5" level="3" />
+				<Unlock name="fight3" unlock="fightEndurance" value="5" level="6" />
+				<Unlock name="fight4" unlock="fightEndurance" value="5" level="9" />
+				<Unlock name="fight5" unlock="fightEndurance" value="5" level="11" />
+				<Unlock name="fight6" unlock="fightEndurance" value="5" level="14" />
+			</SubLevel>
+		</Level>
+		<Level name="speed" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="attack" description="Attack Faster" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="attack1" unlock="attackSpeed" value="5" level="0" />
+				<Unlock name="attack2" unlock="attackSpeed" value="5" level="3" />
+				<Unlock name="attack3" unlock="attackSpeed" value="5" level="6" />
+				<Unlock name="attack4" unlock="attackSpeed" value="5" level="9" />
+				<Unlock name="attack5" unlock="attackSpeed" value="5" level="11" />
+				<Unlock name="attack6" unlock="attackSpeed" value="5" level="14" />
+			</SubLevel>
+			<SubLevel name="evade" description="Evade more Often" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="evade1" unlock="evade" value="5" level="0" />
+				<Unlock name="evade2" unlock="evade" value="5" level="3" />
+				<Unlock name="evade3" unlock="evade" value="5" level="6" />
+				<Unlock name="evade4" unlock="evade" value="5" level="9" />
+				<Unlock name="evade5" unlock="evade" value="5" level="11" />
+				<Unlock name="evade6" unlock="evade" value="5" level="14" />
+			</SubLevel>
+		</Level>
+		<Level name="technique" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="weaponTypes" description="Use new Weapon Types" nextUnlock="Spear" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Sword" unlock="useSwords" value="1" level="0" />
+				<Unlock name="Bow" unlock="useBows" value="1" level="0" />
+				<Unlock name="Spear" unlock="useSpears" value="1" level="5" />
+				<Unlock name="Dagger" unlock="useDaggers" value="1" level="10" />
+				<Unlock name="CompoundBow" unlock="useCompoundBows" value="1" level="10" />
+				<Unlock name="GreatSword" unlock="useGreatSwords" value="1" level="15" />
+			</SubLevel>
+			<SubLevel name="accuracy" description="Miss Less Often" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="accuracy1" unlock="accuracy" value="5" level="0" />
+				<Unlock name="accuracy2" unlock="accuracy" value="5" level="3" />
+				<Unlock name="accuracy3" unlock="accuracy" value="5" level="6" />
+				<Unlock name="accuracy4" unlock="accuracy" value="5" level="9" />
+				<Unlock name="accuracy5" unlock="accuracy" value="5" level="11" />
+				<Unlock name="accuracy6" unlock="accuracy" value="5" level="14" />
+			</SubLevel>
+		</Level>
+		<Level name="woodcutting" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="axeMaterials" description="Use Stronger Axes" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Wood" unlock="useWoodAxes" value="1" level="0" />
+				<Unlock name="Bronze" unlock="useBronzeAxes" value="1" level="5" />
+				<Unlock name="Iron" unlock="useIronAxes" value="1" level="10" />
+				<Unlock name="Steel" unlock="useSteelAxes" value="1" level="15" />
+			</SubLevel>
+			<SubLevel name="treeTypes" description="Cut Better Trees" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Basic" unlock="chopBasicTrees" value="1" level="0" />
+				<Unlock name="Oak" unlock="chopOakTrees" value="1" level="9" />
+				<Unlock name="Maple" unlock="chopMapleTrees" value="1" level="15" />
+				<Unlock name="Yew" unlock="chopYewTrees" value="1" level="20" />
+			</SubLevel>
+		</Level>
+		<Level name="mining" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="pickMaterials" description="Use Stronger Picks" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Wood" unlock="useWoodPicks" value="1" level="0" />
+				<Unlock name="Bronze" unlock="useBronzePicks" value="1" level="5" />
+				<Unlock name="Iron" unlock="useIronPicks" value="1" level="10" />
+				<Unlock name="Steel" unlock="useSteelPicks" value="1" level="15" />
+			</SubLevel>
+			<SubLevel name="rockTypes" description="Mine Stronger Rocks" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Bronze" unlock="mineBronzeRocks" value="1" level="0" />
+				<Unlock name="Iron" unlock="mineIronRocks" value="1" level="9" />
+				<Unlock name="Steel" unlock="mineSteelRocks" value="1" level="15" />
+			</SubLevel>
+		</Level>
+		<Level name="smithing" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="items" description="Smith New Items" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Helmet" unlock="smithHelmets" value="1" level="5" />
+				<Unlock name="Sword" unlock="smithSwords" value="1" level="7" />
+				<Unlock name="Legs" unlock="smithLegs" value="1" level="10" />
+				<Unlock name="Torso" unlock="smithTorsos" value="1" level="13" />
+			</SubLevel>
+			<SubLevel name="materials" description="Smith with new Materials" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Wood" unlock="smithWoodItems" value="1" level="0" />
+				<Unlock name="Bronze" unlock="smithBronzeItems" value="1" level="8" />
+				<Unlock name="Iron" unlock="smithIronItems" value="1" level="16" />
+				<Unlock name="Steel" unlock="smithSteelItems" value="1" level="20" />
+			</SubLevel>
+		</Level>
+		<Level name="crafting" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1" spendXP="100">
+			<SubLevel name="items" description="Craft New Items" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Arrow" unlock="craftArrows" value="1" level="0" />
+				<Unlock name="Bow" unlock="craftBows" value="1" level="7" />
+			</SubLevel>
+			<SubLevel name="materials" description="Craft with new Materials" nextUnlock="test" unlockXP="1" level="1" totalXP="100" xpToNextLevel="1" xpPastCurrentLevel="1" maxXPForNextLevel="1" percent="1">
+				<Unlock name="Basic" unlock="craftBasicItems" value="1" level="0" />
+				<Unlock name="Oak" unlock="craftOakItems" value="1" level="9" />
+				<Unlock name="Maple" unlock="craftMapleItems" value="1" level="15" />
+				<Unlock name="Yew" unlock="craftYewItems" value="1" level="20" />
+			</SubLevel>
+		</Level>
+	</LevelInfo>
+	<UnlockableAbilities>
+		<Ability name="block" value="1" />
+		<Ability name="runEndurance" value="1" />
+		<Ability name="fightEndurance" value="1" />
+		<Ability name="attackSpeed" value="1" />
+		<Ability name="evade" value="1" />
+		<Ability name="accuracy" value="1" />
+		<Ability name="useWoodWeapons" value="0" />
+		<Ability name="useBronzeWeapons" value="0" />
+		<Ability name="useOakWeapons" value="0" />
+		<Ability name="useIronWeapons" value="0" />
+		<Ability name="useMapleWeapons" value="0" />
+		<Ability name="useSteelWeapons" value="0" />
+		<Ability name="useYewWeapons" value="0" />
+		<Ability name="useSwords" value="2" />
+		<Ability name="useBows" value="2" />
+		<Ability name="useSpears" value="0" />
+		<Ability name="useDaggers" value="0" />
+		<Ability name="useCompoundBows" value="0" />
+		<Ability name="useGreatSwords" value="0" />
+		<Ability name="useWoodAxes" value="0" />
+		<Ability name="useIronAxes" value="0" />
+		<Ability name="useSteelAxes" value="0" />
+		<Ability name="chopBasicTrees" value="0" />
+		<Ability name="chopOakTrees" value="0" />
+		<Ability name="chopMapleTrees" value="0" />
+		<Ability name="chopYewTrees" value="0" />
+		<Ability name="useWoodPicks" value="0" />
+		<Ability name="useBronzePicks" value="0" />
+		<Ability name="useIronPicks" value="0" />
+		<Ability name="useSteelPicks" value="0" />
+		<Ability name="mineBronzeRocks" value="0" />
+		<Ability name="mineIronRocks" value="0" />
+		<Ability name="mineSteelRocks" value="0" />
+		<Ability name="smithHelmets" value="0" />
+		<Ability name="smithSwords" value="0" />
+		<Ability name="smithLegs" value="0" />
+		<Ability name="smithTorsos" value="0" />
+		<Ability name="smithWoodItems" value="0" />
+		<Ability name="smithBronzeItems" value="0" />
+		<Ability name="smithIronItems" value="0" />
+		<Ability name="smithSteelItems" value="0" />
+		<Ability name="craftArrows" value="0" />
+		<Ability name="craftBows" value="0" />
+		<Ability name="craftBasicItems" value="0" />
+		<Ability name="craftOakItems" value="0" />
+		<Ability name="craftMapleItems" value="0" />
+		<Ability name="craftYewItems" value="0" />
+	</UnlockableAbilities>
+	<Inventory>
+		<Item name="">
+			<Item name="">
+				<Item name="">
+					<Item name="">
+						<Item name="">
+							<Item name="">
+								<Item name="">
+									<Item name="">
+										<Item name="">
+											<Item name="">
+												<Item name="">
+													<Item name="">
+														<Item name="">
+															<Item name="">
+																<Item name="">
+																	<Item name="">
+																		<Item name="">
+																			<Item name="">
+																				<Item name="">
+																					<Item name="">
+																						<Item name="">
+																							<Item name="">
+																								<Item name="">
+																									<Item name="">
+																										<Item name="">
+																											<Item name="" />
+																										</Item>
+																									</Item>
+																								</Item>
+																							</Item>
+																						</Item>
+																					</Item>
+																				</Item>
+																			</Item>
+																		</Item>
+																	</Item>
+																</Item>
+															</Item>
+														</Item>
+													</Item>
+												</Item>
+											</Item>
+										</Item>
+									</Item>
+								</Item>
+							</Item>
+						</Item>
+					</Item>
+				</Item>
+			</Item>
+		</Item>
+	</Inventory>
+</User>

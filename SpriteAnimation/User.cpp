@@ -35,6 +35,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	sKeyPressed = false;
 	cKeyPressed = false;
 	Drawn::gameTexture.setRepeated(false);
+	UpdateUnlockables("technique","weaponTypes");
 };
 void User::Update(sf::RenderTexture& window){
 	CheckUserInput();
@@ -269,4 +270,129 @@ void User::ChangeEquiped(int slot, int materialLevel){
 	//if(slot < itemSpriteSheets.size() && materialLevel < itemSpriteSheets[slot].size())
 		animationSheets[1 + slot] = itemSpriteSheets[slot][materialLevel];
 };
-
+void User::CalculateLevelData(std::string levelName){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			level = tool;
+			break;
+		}
+	}
+    int a = std::stoi(level.attribute("totalXP").value()) / 4;
+    float tempLevel = std::pow(a,(0.4f));
+    level.attribute("level").set_value((int)std::floor(tempLevel));
+    level.attribute("percent").set_value((int)((tempLevel - std::stoi(level.attribute("level").value())) * 100));
+    int totalXPTemp = std::stoi(level.attribute("totalXP").value());
+    for (int x = std::stoi(level.attribute("level").value()); x > 0; x--)
+    {
+        totalXPTemp -= (10 * ((int) std::sqrt(std::pow(x, 3)))) + 100;
+    } 
+    level.attribute("maxXPForNextLevel").set_value(10 * ((int)std::sqrt(std::pow(std::stoi(level.attribute("level").value()), 3)))) + 100;
+    level.attribute("xpPastCurrentLevel").set_value(totalXPTemp);
+    level.attribute("xpToNextLevel").set_value(std::stoi(level.attribute("maxXPForNextLevel").value()) - std::stoi(level.attribute("xpPastCurrentLevel").value()));
+    level.attribute("level").set_value(std::stoi(level.attribute("totalXP").value()));
+	doc.save_file("xml/userInfo.xml");
+};
+void User::CalculateLevelData(std::string levelName,std::string subLevelName){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				if(tool2.first_attribute().value() == subLevelName){
+					level = tool2;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	int beginLevel = std::stoi(level.attribute("level").value());
+    int a = std::stoi(level.attribute("totalXP").value()) / 4;
+    float tempLevel = std::pow(a,(0.4f));
+    level.attribute("level").set_value((int)std::floor(tempLevel));
+    level.attribute("percent").set_value((int)((tempLevel - std::stoi(level.attribute("level").value())) * 100));
+    int totalXPTemp = std::stoi(level.attribute("totalXP").value());
+    for (int x = std::stoi(level.attribute("level").value()); x > 0; x--)
+    {
+        totalXPTemp -= (10 * ((int) std::sqrt(std::pow(x, 3)))) + 100;
+    }
+    level.attribute("maxXPForNextLevel").set_value(10 * ((int)std::sqrt(std::pow(std::stoi(level.attribute("level").value()), 3)))) + 100;
+    level.attribute("xpPastCurrentLevel").set_value(totalXPTemp);
+    level.attribute("xpToNextLevel").set_value(std::stoi(level.attribute("maxXPForNextLevel").value()) - std::stoi(level.attribute("xpPastCurrentLevel").value()));
+    //level.attribute("level").set_value(std::stoi(level.attribute("totalXP").value()));
+	if(std::stoi(level.attribute("level").value()) > beginLevel){
+		UpdateUnlockables(levelName,subLevelName);
+	}
+	level.attribute("unlockXP").set_value(std::floor(4 * std::pow(std::stoi(level.find_child_by_attribute("name",level.attribute("nextUnlock").value()).attribute("level").value()), 2.5f)));
+	doc.save_file("xml/userInfo.xml");
+};
+void User::UpdateUnlockables(std::string levelName, std::string subLevelName){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				if(tool2.first_attribute().value() == subLevelName){
+					level = tool2;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	for(pugi::xml_node tool = level.first_child(); tool; tool = tool.next_sibling()){
+		if(std::stoi(level.attribute("level").value()) >= std::stoi(tool.attribute("level").value())){
+			(doc.child("User").child("UnlockableAbilities").find_child_by_attribute("name",tool.attribute("unlock").value())).attribute("value").set_value(std::stoi(doc.child("User").child("UnlockableAbilities").find_child_by_attribute("name", tool.attribute("unlock").value()).attribute("value").value()) + std::stoi(tool.attribute("value").value()));
+		}
+		else {
+			level.attribute("nextUnlock").set_value(tool.attribute("name").value());
+			break;
+		}
+	}
+	doc.save_file("xml/userInfo.xml");
+};
+void User::AddExperience(std::string levelName, std::string subLevelString, int add){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	pugi::xml_node subLevel;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			level = tool;
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				if(tool2.first_attribute().value() == subLevelString){
+					subLevel = tool2;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	level.attribute("totalXP").set_value(std::stoi(level.attribute("totalXP").value()) + add);
+	subLevel.attribute("totalXP").set_value(std::stoi(level.attribute("totalXP").value()) + add);
+	CalculateLevelData(levelName,subLevelString);
+	doc.save_file("xml/userInfo.xml");
+};
+void User::AddSpendExperience(std::string levelName, int add){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
+	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
+	pugi::xml_node level;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == levelName){
+			level = tool;
+			break;
+		}
+	}
+	level.attribute("spendXP").set_value(std::stoi(level.attribute("spendXP").value()) + add);
+	doc.save_file("xml/userInfo.xml");
+};

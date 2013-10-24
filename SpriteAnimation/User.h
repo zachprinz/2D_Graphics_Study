@@ -43,7 +43,12 @@ public:
 	bool cKeyPressed;
 	void ChangeEquiped(int slot, int materialLevel);
 	void DrawUser(sf::RenderTexture*);
+	void AddExperience(std::string,std::string,int);
+	void AddSpendExperience(std::string,int);
+	void UpdateUnlockables(std::string,std::string);
 private:
+	void CalculateLevelData(std::string);
+	void CalculateLevelData(std::string,std::string);
 	InventoryPanel* inventory;
 	LayeredPanel* layered;
 	EquipedPanel* equiped;
