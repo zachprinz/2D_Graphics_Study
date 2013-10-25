@@ -9,10 +9,12 @@
 class GuiElement : public RClickable
 {
 public:
-	GuiElement(int,int,sf::Texture,sf::Sprite*);
-	GuiElement(int,int,std::string,sf::Sprite*);
 	GuiElement(int,int,sf::Texture);
 	GuiElement(int,int,std::string textureName);
+	GuiElement(int,int,sf::Texture,sf::Texture);
+	GuiElement(int,int,std::string textureName,std::string fgTextureName);
+	GuiElement(int,int,std::string,sf::Texture);
+	GuiElement(int,int,sf::Texture,std::string);
 	void SetForegroundSprite(sf::Texture);
 	void SetForegroundSprite(sf::Texture,sf::IntRect);
 	void SetBackgroundSprite(sf::Texture);
@@ -21,11 +23,12 @@ public:
 	virtual void OnHover(bool);
 	Rectangle* GetBounds();
 	virtual void SetLocation(float,float);
-	sf::Sprite foregroundSprite;
+	//sf::Sprite foregroundSprite;
+	Drawn* foreground;
 	void SetOrgin(int,int);
 protected:
 	Rectangle elementBounds;
-	sf::Texture foregroundSpriteTexture;
+	//sf::Texture foregroundSpriteTexture;
 };
 
 #endif

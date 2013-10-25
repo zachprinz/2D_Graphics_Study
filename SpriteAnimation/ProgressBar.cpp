@@ -51,19 +51,17 @@ ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,b
 	background.setFillColor(sf::Color(255,0,0,255));
 	background.setOutlineColor(sf::Color::Black);
 	background.setOutlineThickness(1);
-	foreground = sf::RectangleShape(sf::Vector2f(26,2));
-	foreground.setFillColor(sf::Color(0,255,0,255));
-	foreground.setOutlineColor(sf::Color::Black);
-	foreground.setOutlineThickness(1);
-	foreground.setScale(*percent,1.f);
-	fg = &foreground;
+	foregroundRect = sf::RectangleShape(sf::Vector2f(26,2));
+	foregroundRect.setFillColor(sf::Color(0,255,0,255));
+	foregroundRect.setOutlineColor(sf::Color::Black);
+	foregroundRect.setOutlineThickness(1);
+	foregroundRect.setScale(*percent,1.f);
+	fg = &foregroundRect;
 	stationary = false;
 };
-ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,CreateBackground(length)){
-	foregroundSpriteTexture = CreateTiledTexture(length - 50,foregroundCenter);
-	foregroundSprite.setTexture(foregroundSpriteTexture);
-	foregroundSprite.setPosition(x + 25,y);
-	fg = &foregroundSprite;
+ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,CreateBackground(length),CreateTiledTexture(length - 50,foregroundCenter)){
+	foreground->GetSprite()->setPosition(x + 25,y);
+	fg = &(foregroundRect);
 	this->percent = percent;
 	stationary = true;
 };
@@ -73,16 +71,16 @@ ProgressBar::ProgressBar() : GuiElement(0,0,blankText) {
 void ProgressBar::Update(sf::RenderTexture& panel){
 	if(!stationary){
 		if(percent > 0)
-			foreground.setScale(*percent,1.f);
-		SetBarPosition(sf::Vector2f(relative->getPosition().x + 4,relative->getPosition().y - foreground.getSize().y));
+			foregroundRect.setScale(*percent,1.f);
+		SetBarPosition(sf::Vector2f(relative->getPosition().x + 4,relative->getPosition().y - foregroundRect.getSize().y));
 		panel.draw(background);
-		panel.draw(foreground);
+		panel.draw(foregroundRect);
 	}
 	else{
 		if(percent > 0)
-			((sf::Sprite*)fg)->setTextureRect(sf::IntRect(0,0,foregroundSpriteTexture.getSize().x * (*percent),25));
+			((sf::Sprite*)fg)->setTextureRect(sf::IntRect(0,0,foreground->GetSprite()->getTexture()->getSize().x * (*percent),25));
 		panel.draw(sprite);
-		panel.draw(foregroundSprite);
+		panel.draw(*foreground->GetSprite());
 	}
 };
 void ProgressBar::SetUp(){
@@ -95,11 +93,11 @@ void ProgressBar::SetUp(){
 void ProgressBar::SetBarPosition(sf::Vector2f pos){
 	if(!stationary){
 		background.setPosition(pos);
-		foreground.setPosition(pos);
+		foregroundRect.setPosition(pos);
 	}
 	else{
 		sprite.setPosition(pos);
-		foregroundSprite.setPosition(sf::Vector2f(pos.x + 25,pos.y));
+		foreground->GetSprite()->setPosition(sf::Vector2f(pos.x + 25,pos.y));
 	}
 };
 void ProgressBar::SetPercent(float* newPercent){

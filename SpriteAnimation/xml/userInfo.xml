@@ -142,8 +142,8 @@
 		<Ability name="useMapleWeapons" value="0" />
 		<Ability name="useSteelWeapons" value="0" />
 		<Ability name="useYewWeapons" value="0" />
-		<Ability name="useSwords" value="9" />
-		<Ability name="useBows" value="9" />
+		<Ability name="useSwords" value="74" />
+		<Ability name="useBows" value="74" />
 		<Ability name="useSpears" value="0" />
 		<Ability name="useDaggers" value="0" />
 		<Ability name="useCompoundBows" value="0" />

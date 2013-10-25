@@ -28,7 +28,7 @@ protected:
 	sf::Sprite* relative;
 	float* percent;
 	sf::Transformable* fg;
-	sf::RectangleShape foreground;
+	sf::RectangleShape foregroundRect;
 	sf::RectangleShape background;
 	sf::Vector2i offset;
 	void SetBarPosition(sf::Vector2f);

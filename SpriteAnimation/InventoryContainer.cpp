@@ -5,10 +5,10 @@
 #include "RClickMenu.h"
 #include "BankPanel.h"
 
-InventoryContainer::InventoryContainer(int x,int y,std::string text,sf::Sprite* fgSprite) : Container(x,y,text,fgSprite){
-	AddRClickOption(RClickMenu::Options::Drop);
-	AddRClickOption(RClickMenu::Options::Equip);
-};
+//InventoryContainer::InventoryContainer(int x,int y,std::string text,sf::Sprite* fgSprite) : Container(x,y,text,fgSprite){
+//	AddRClickOption(RClickMenu::Options::Drop);
+//	AddRClickOption(RClickMenu::Options::Equip);
+//};
 InventoryContainer::InventoryContainer(int x,int y,std::string text) : Container(x,y,text){
 	AddRClickOption(RClickMenu::Options::Drop);
 	AddRClickOption(RClickMenu::Options::Equip);

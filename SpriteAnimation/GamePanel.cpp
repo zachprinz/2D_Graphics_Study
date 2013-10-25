@@ -10,6 +10,7 @@ GamePanel* GamePanel::currentMousePanel;
 Drawn* GamePanel::currentMouseElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
+	currentMouseElement = new Drawn();
 	doUpdate = true;
 	createPanelLabel = true;
 	if(name == "Bank" || name == "Game" || name == "ActionBar" || "HUD")
@@ -107,10 +108,12 @@ void GamePanel::OnRClick(sf::Vector2i point){
 void GamePanel::OnHover(sf::Vector2i point){
 	for(MyPair x: dynamicElements){
 		if(x.second->GetSprite()->getGlobalBounds().contains(point.x - panelSprite.getPosition().x,point.y - panelSprite.getPosition().y)){
-			if(currentMouseElement != NULL)
-				currentMouseElement->OnHover(false);
-			currentMouseElement = x.second;
-			(x.second)->OnHover(true);
+			if(GamePanel::currentMouseElement != x.second){
+				if(currentMouseElement != NULL)
+					currentMouseElement->OnHover(false);
+				currentMouseElement = x.second;
+				(x.second)->OnHover(true);
+			}
 		}
 	}
 };

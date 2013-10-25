@@ -4,21 +4,21 @@
 
 Container::Container(int x,int y,std::string textureName) : GuiElement(x,y,textureName){
 	isFull = false;
-	foregroundSprite.setOrigin(foregroundSprite.getLocalBounds().width / 2, foregroundSprite.getLocalBounds().height);
+	foreground->GetSprite()->setOrigin(foreground->GetSprite()->getLocalBounds().width / 2, foreground->GetSprite()->getLocalBounds().height);
 	///foregroundSprite.setPosition(foregroundSprite.getPosition().x + 16, foregroundSprite.getPosition().y + 16);
 };
-Container::Container(int x,int y,std::string textureName, sf::Sprite* fgSprite) : GuiElement(x,y,textureName,fgSprite){
-	isFull = false;
-};
+//Container::Container(int x,int y,std::string textureName, sf::Sprite* fgSprite) : GuiElement(x,y,textureName,fgSprite){
+//	isFull = false;
+//};
 void Container::SetUp(){
 
 };
 void Container::AddItem(Item item){
 	ClearContents();
 	contents = item;
-	foregroundSprite.setTexture(Drawn::gameTexture);
-	foregroundSprite.setTextureRect(Drawn::GetTextureFromAtlas("itemsprites/" + item.GetId() + ".png"));
-	foregroundSprite.setScale(2,2);
+	foreground->GetSprite()->setTexture(Drawn::gameTexture);
+	foreground->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("itemsprites/" + item.GetId() + ".png"));
+	foreground->GetSprite()->setScale(2,2);
 	EnableRClick(item.name);
 	isFull = true;
 };
@@ -37,18 +37,20 @@ void Container::OnHover(bool hovered){
 	if(isFull && StatsPanel::instance->currentName != contents.name)
 		StatsPanel::instance->SetItem(&contents);
 	if(hovered){
-		foregroundSprite.setScale(foregroundSprite.getScale().x * 1.05, foregroundSprite.getScale().y * 1.05);
-		//CenterForeground();
+		foreground->ExpandBy(1.1,sf::seconds(0.1));
 	}
 	else{
-		foregroundSprite.setScale(foregroundSprite.getScale().x * 0.95238, foregroundSprite.getScale().y * 0.95238);
-		//CenterForeground();
+		foreground->ReturnExpand();
 	}
 };
 void Container::Update(sf::RenderTexture& panel){
+	if(foreground->GetIsExpanding()){
+		foreground->UpdateExpand();
+		//CenterForeground();
+	}
 	panel.draw(sprite);
 	if(isFull)
-		panel.draw(foregroundSprite);
+		panel.draw(*foreground->GetSprite());
 }
 bool Container::GetIsFull(){
 	return isFull;

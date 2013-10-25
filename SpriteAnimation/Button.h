@@ -24,7 +24,12 @@ public:
 	void SetTarget(GamePanel*);
 	void CenterForeground();
 	void OnHover(bool);
+	void SetMoveOnHover(bool);
+	void SetHoverMovePosition(sf::Vector2i);
 protected:
+	sf::Vector2i hoverMovePosition;
+	sf::Vector2i hoverMoveTarget;
+	bool moveOnHover;
 	GamePanel* target;
 	std::string function;
 };

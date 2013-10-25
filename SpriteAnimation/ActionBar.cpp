@@ -42,7 +42,7 @@ void ActionBar::SetUp(){
 	}
 	for(MyPair x: dynamicElements){
 		sheets.push_back(new sf::RectangleShape(sf::Vector2f(64,64)));
-		sheets[sheets.size() - 1]->setPosition(((Button*)(x.second))->foregroundSprite.getPosition());
+		sheets[sheets.size() - 1]->setPosition(((Button*)(x.second))->foreground->GetSprite()->getPosition());
 		sheets[sheets.size() - 1]->setFillColor(sf::Color(0,0,0,150));
 	}
 	GamePanel::SetUp();

@@ -10,7 +10,7 @@ class Container : public GuiElement
 {
 public:
 	Container(int,int,std::string);
-	Container(int,int,std::string, sf::Sprite*);
+	//Container(int,int,std::string, sf::Sprite*);
 	void SetUp();
 	void AddItem(Item item);
 	Item ClearContents();

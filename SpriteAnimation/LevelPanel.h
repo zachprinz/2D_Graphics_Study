@@ -17,6 +17,7 @@ public:
 	void AddElement(std::string,Drawn*);
 	bool CheckUpdate();
 	void OnButtonEvent(std::string);
+	void ResetButtonPositions();
 private:
 	void SetUp();
 };

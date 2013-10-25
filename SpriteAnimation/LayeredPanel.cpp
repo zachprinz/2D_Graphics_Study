@@ -59,6 +59,12 @@ void LayeredPanel::SetUp(){
 };
 void LayeredPanel::OnButtonEvent(std::string btnFunction){
 	std::cout << "Panel Switch Button Clicked" << std::endl;
+	if(btnFunction == "Levels" && panels[currentPanel]->GetName() != "Levels"){
+		for(int x = 0; x < panels.size(); x++){
+			if(panels[x]->GetName() == "Levels")
+				((LevelPanel*)panels[x])->ResetButtonPositions();
+		}
+	}
 	for(int x = 0; x < panels.size(); x++){
 		if(panels[x]->GetName() == btnFunction){
 			currentPanel = x;
