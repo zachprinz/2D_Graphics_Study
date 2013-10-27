@@ -64,5 +64,6 @@ void Label::CenterText(){
 	text.setPosition(sprite.getGlobalBounds().left + ((sprite.getGlobalBounds().width - text.getGlobalBounds().width) / 2),text.getPosition().y);
 };
 void Label::SetText(std::string str){
+	std::cout << text.getString().toAnsiString() << std::endl;
 	text.setString(str + "");
 };

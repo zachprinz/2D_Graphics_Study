@@ -150,7 +150,10 @@ int main()
 						User::player->GetBank()->OnClick(temp);
 					if(actionBar.GetBounds()->Contains(temp.x,temp.y))
 						actionBar.OnClick(temp);
-					if(User::player->GetLayered()->GetBounds()->Contains(temp.x,temp.y))
+					if(User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->GetBounds()->Contains(temp.x,temp.y)){
+						User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->OnClick(temp);
+					}
+					else if(User::player->GetLayered()->GetBounds()->Contains(temp.x,temp.y))
 						User::player->GetLayered()->OnClick(temp);
 					}
 				}

@@ -63,5 +63,6 @@ private:
 	void SetUpImages();
 	void SetUpAttacks();
 	void SetUpAnimations();
+	void SetUpLevels();
 };
 #endif
