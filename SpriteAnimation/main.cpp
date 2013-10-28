@@ -150,6 +150,8 @@ int main()
 						User::player->GetBank()->OnClick(temp);
 					if(actionBar.GetBounds()->Contains(temp.x,temp.y))
 						actionBar.OnClick(temp);
+					if(statsPanel.GetBounds()->Contains(temp.x,temp.y))
+						statsPanel.OnClick(temp);
 					if(User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->GetBounds()->Contains(temp.x,temp.y)){
 						User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->OnClick(temp);
 					}
@@ -185,11 +187,6 @@ int main()
 			}
         }
         window.clear();
-		//float currentTime = clock.restart().asSeconds();
-       // float fpsf = 1.f / (currentTime);
-        //lastTime = currentTime;
-		//fps.setString(std::to_string(fpsf).substr(0,2));
-		//window.draw(fps);
 		spritePanel.Update(window);
 		actionBar.Update(window);
 		mapPanel.Update(window);

@@ -56,6 +56,7 @@ void StatsPanel::SetLevel(std::string levelName){
 	((Drawn*)(levelMap["levelHeadline"]))->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("levelButtons/" + levelName + ".png"));//edit image path
 	((Label*)(levelMap["mainLevelBottomXP"]))->SetText("0");
 	((Label*)(levelMap["mainLevelCurrentXP"]))->SetText(level.attribute("xpPastCurrentLevel").value());
+	((Label*)(levelMap["spendXPValue"]))->SetText(level.attribute("spendXP").value());
 	((Label*)(levelMap["mainLevelTopXP"]))->GetText()->setString(level.attribute("maxXPForNextLevel").value());
 	((Label*)(levelMap["subLevelTitle0"]))->GetText()->setString(subLevels[0].attribute("name").value());
 	((Label*)(levelMap["subLevelTitle1"]))->GetText()->setString(subLevels[1].attribute("name").value());
@@ -151,30 +152,36 @@ void StatsPanel::SetUpLevelMap(){
 	Label* mainLevelBottomXP = new Label(8,45,"blank.png",Label::Fonts::Game,"0");
 	Label* mainLevelCurrentXP = new Label(140,45,"blank.png",Label::Fonts::Game,"50");
 	Label* mainLevelTopXP = new Label(345,45,"blank.png",Label::Fonts::Game,"100");
+	Label* spendXPLabel = new Label(8,440,"blank.png",Label::Fonts::Game,"Spend XP:");
+	Label* spendXPValue = new Label(100,440,"blank.png",Label::Fonts::Game,"100");
+	levelMap.insert(MyPair("spendXPLabel",spendXPLabel));
+	levelMap.insert(MyPair("spendXPValue",spendXPValue));
 	levelMap.insert(MyPair("levelHeadline",levelHeadline));
 	levelMap.insert(MyPair("mainLevelProgBar",mainLevelProgBar));
 	levelMap.insert(MyPair("mainLevelBottomXP",mainLevelBottomXP));
 	levelMap.insert(MyPair("mainLevelTopXP",mainLevelTopXP));
 	levelMap.insert(MyPair("mainLevelCurrentXP",mainLevelCurrentXP));
 	for(int x = 0; x < 2; x++){
+		int displacement = 135;
+		int displacement2 = 125;
 		std::cout << "Setting Up Sub Level" << std::endl;
-		Label* subLevelTitle = new Label(8,(x*150)+160,tempText,Label::Fonts::Game,"SubLevel:" + x);
-		Label* subLevelDescription = new Label(8,(x*150)+180,"blank.png",Label::Fonts::Game,"SubLevel Description Text.");
-		ProgressBar* subLevelProgBar = new ProgressBar(8,(150*x) + 210,350,&subLevelPercents[x]);
-		Label* subLevelBottomXP = new Label(8,(x*150)+235,"blank.png",Label::Fonts::Game,"0");
-		Label* subLevelCurrentXP = new Label(140,(x*150)+235,"blank.png",Label::Fonts::Game,"50");
-		Label* subLevelTopXP = new Label(345,(x*150)+235,"blank.png",Label::Fonts::Game,"100");
+		Label* subLevelTitle = new Label(8,(x*displacement2)+displacement,tempText,Label::Fonts::Game,"SubLevel:" + x);
+		Label* subLevelDescription = new Label(8,(x*displacement2)+displacement + 20,"blank.png",Label::Fonts::Game,"SubLevel Description Text.");
+		ProgressBar* subLevelProgBar = new ProgressBar(8,(x*displacement2) + displacement + 50,350,&subLevelPercents[x]);
+		Label* subLevelBottomXP = new Label(8,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"0");
+		Label* subLevelCurrentXP = new Label(140,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"50");
+		Label* subLevelTopXP = new Label(345,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"100");
 		sf::Texture tempText2;
 		tempText2.loadFromFile("buttonImages/plusButton.png");
-		Button* subLevelPlusButton = new Button(330,(x*150) + 205,tempText2,"blank.png");
+		Button* subLevelPlusButton = new Button(330,(x*displacement2) + displacement + 45,tempText2,"blank.png");
 		subLevelPlusButton->SetTarget(this);
 		subLevelPlusButton->SetFunction("plusButton" + std::to_string(x));
 		tempText2.loadFromFile("buttonImages/minusButton.png");
-		subLevelPlusButton->SetTarget(this);
-		subLevelPlusButton->SetFunction("minusButton" + std::to_string(x));
-		Button* subLevelMinusButton = new Button(3,(x*150) + 204,tempText2,"blank.png");
+		//Button* subLevelMinusButton = new Button(3,(x*displacement2) + displacement + 44,tempText2,"blank.png");
+		//subLevelMinusButton->SetTarget(this);
+		//subLevelMinusButton->SetFunction("minusButton" + std::to_string(x));
 		levelMap.insert(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));
-		levelMap.insert(MyPair("subLevelMinusButton" + std::to_string(x),subLevelMinusButton));
+		//levelMap.insert(MyPair("subLevelMinusButton" + std::to_string(x),subLevelMinusButton));
 		levelMap.insert(MyPair("subLevelPlusButton" + std::to_string(x),subLevelPlusButton));
 		levelMap.insert(MyPair("subLevelTitle" + std::to_string(x),subLevelTitle));
 		levelMap.insert(MyPair("subLevelDescription" + std::to_string(x),subLevelDescription));
@@ -192,16 +199,27 @@ bool StatsPanel::CheckUpdate(){
 		return false;
 };
 void StatsPanel::OnButtonEvent(std::string func){
-	if(func == "plusButton0")
+	if(func == "plusButton0"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),1);
-	else if(func == "plusButton1")
+		subLevelPercents[0] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"percent")))/100.0;
+	}
+	if(func == "plusButton1"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),1);
-	else if(func == "minusButton0")
+		subLevelPercents[1] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent")))/100.0;
+	}/*
+	if(func == "minusButton0"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),-1);
-	else if(func == "minusButton1")
+		subLevelPercents[0] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"percent")))/100.0;
+	}
+	if(func == "minusButton1"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),-1);
-	mainLevelPercent = (float)(User::player->GetUserData(currentName,"percent"))/100.0;
-	subLevelPercents[0] = (float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"percent"))/100.0;
-	subLevelPercents[1] = (float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent"))/100.0;
+		subLevelPercents[1] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent")))/100.0;
+	}*/
+	mainLevelPercent = ((float)(User::player->GetUserData(currentName,"percent")))/100.0;
 	doUpdate = true;
+	std::cout << "Percent" + std::to_string(mainLevelPercent) << std::endl;
+	((Label*)(levelMap["mainLevelCurrentXP"]))->SetText(std::to_string(User::player->GetUserData(currentName,"xpPastCurrentLevel")));
+	((Label*)(levelMap["subLevelCurrentXP0"]))->SetText(std::to_string(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"xpPastCurrentLevel")));
+	((Label*)(levelMap["subLevelCurrentXP1"]))->SetText(std::to_string(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"xpPastCurrentLevel")));
+	((Label*)(levelMap["spendXPValue"]))->SetText(std::to_string(User::player->GetUserData(currentName,"spendXP")));
 };

@@ -5,6 +5,7 @@
 #include <iterator>
 #include <vector>
 #include "Attack.h"
+#include "StatsPanel.h"
 
 User* User::player;
 
@@ -289,6 +290,7 @@ void User::CalculateLevelData(std::string levelName){
 			break;
 		}
 	}
+	std::cout << "Calculating" << std::endl;
 	int totalXPTemp = std::stoi(level.attribute("totalXP").value());
     int beginLevel = std::floor(std::pow((totalXPTemp / 4),0.4));
     level.attribute("level").set_value(beginLevel);
@@ -318,6 +320,7 @@ void User::CalculateLevelData(std::string levelName,std::string subLevelName){
 		}
 	}//40x2 + 360x = nextLevelXP
 	//
+	std::cout << "Calculating" << std::endl;
 	int totalXPTemp = std::stoi(level.attribute("totalXP").value());
     int beginLevel = std::floor(std::pow((totalXPTemp / 4),0.4));
     level.attribute("level").set_value(beginLevel);
@@ -330,6 +333,7 @@ void User::CalculateLevelData(std::string levelName,std::string subLevelName){
 	level.attribute("percent").set_value((int)(((float)totalXPTemp / ((float)maxXPForCurrentLevel))*100));
 	if(std::stoi(level.attribute("level").value()) > beginLevel){
 		UpdateUnlockables(levelName,subLevelName);
+		StatsPanel::instance->doUpdate = true;
 	}
 	//level.attribute("unlockXP").set_value(std::floor(4 * std::pow(std::stoi(level.find_child_by_attribute("nextUnlock",level.attribute("nextUnlock").value()).attribute("level").value()), 2.5f)));
 	doc.save_file("xml/userInfo.xml");
@@ -379,10 +383,14 @@ void User::AddExperience(std::string levelName, std::string subLevelString, int 
 			break;
 		}
 	}
-	level.attribute("totalXP").set_value(std::stoi(level.attribute("totalXP").value()) + add);
-	subLevel.attribute("totalXP").set_value(std::stoi(level.attribute("totalXP").value()) + add);
-	CalculateLevelData(levelName,subLevelString);
+	if(std::stoi(level.attribute("spendXP").value()) > 0){
+		level.attribute("totalXP").set_value(std::stoi(level.attribute("totalXP").value()) + add);
+		level.attribute("spendXP").set_value(std::stoi(level.attribute("spendXP").value()) - add);
+		subLevel.attribute("totalXP").set_value(std::stoi(subLevel.attribute("totalXP").value()) + add);
+	}
 	doc.save_file("xml/userInfo.xml");
+	CalculateLevelData(levelName);
+	CalculateLevelData(levelName,subLevelString);
 };
 void User::AddSpendExperience(std::string levelName, int add){
 	pugi::xml_document doc;
@@ -417,7 +425,7 @@ int User::GetUserData(std::string levelName, std::string subLevelName, std::stri
 		}
 	}
 	for(pugi::xml_attribute tool = subLevel.first_attribute(); tool; tool = tool.next_attribute()){
-		if(tool.value() == attributeName)
+		if(tool.name() == attributeName)
 			return std::stoi(tool.value());
 	}
 };
@@ -435,7 +443,7 @@ int User::GetUserData(std::string levelName,std::string attributeName){
 		}
 	}
 	for(pugi::xml_attribute tool = level.first_attribute(); tool; tool = tool.next_attribute()){
-		if(tool.value() == attributeName)
+		if(tool.name() == attributeName)
 			return std::stoi(tool.value());
 	}
 };
