@@ -77,11 +77,15 @@ void ProgressBar::Update(sf::RenderTexture& panel){
 		panel.draw(foregroundRect);
 	}
 	else{
-		if(percent > 0)
-			((sf::Sprite*)fg)->setTextureRect(sf::IntRect(0,0,foreground->GetSprite()->getTexture()->getSize().x * (*percent),25));
+		if(percent > 0){
+			foreground->GetSprite()->setTextureRect(sf::IntRect(0,0,foreground->GetSprite()->getTexture()->getSize().x * (*percent),25));
+		}
 		panel.draw(sprite);
 		panel.draw(*foreground->GetSprite());
 	}
+};
+float ProgressBar::GetPercent(){
+	return *percent;
 };
 void ProgressBar::SetUp(){
 	blankText.loadFromFile("blank.png");

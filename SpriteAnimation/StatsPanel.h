@@ -22,6 +22,7 @@ public:
 	std::string currentName;
 	void UpdateElements();
 	bool CheckUpdate();
+	void OnButtonEvent(std::string);
 private:
 	ElementList itemMap;
 	ElementList combatantMap;

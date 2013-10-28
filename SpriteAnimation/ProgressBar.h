@@ -19,6 +19,7 @@ public:
 	static sf::Texture CreateBackground(int length);
 	static sf::Texture CreateTiledTexture(int length, sf::Texture);
 	bool stationary;
+	float GetPercent();
 protected:
 	static sf::Texture blankText;
 	static sf::Texture backgroundLeft;

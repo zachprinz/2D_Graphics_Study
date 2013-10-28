@@ -129,50 +129,50 @@
 		</Level>
 	</LevelInfo>
 	<UnlockableAbilities>
-		<Ability name="block" value="56" />
-		<Ability name="runEndurance" value="51" />
-		<Ability name="fightEndurance" value="51" />
-		<Ability name="attackSpeed" value="51" />
-		<Ability name="evade" value="51" />
-		<Ability name="accuracy" value="51" />
-		<Ability name="useWoodWeapons" value="5" />
+		<Ability name="block" value="236" />
+		<Ability name="runEndurance" value="231" />
+		<Ability name="fightEndurance" value="231" />
+		<Ability name="attackSpeed" value="231" />
+		<Ability name="evade" value="231" />
+		<Ability name="accuracy" value="231" />
+		<Ability name="useWoodWeapons" value="23" />
 		<Ability name="useBronzeWeapons" value="0" />
 		<Ability name="useOakWeapons" value="0" />
 		<Ability name="useIronWeapons" value="0" />
 		<Ability name="useMapleWeapons" value="0" />
 		<Ability name="useSteelWeapons" value="0" />
 		<Ability name="useYewWeapons" value="0" />
-		<Ability name="useSwords" value="104" />
-		<Ability name="useBows" value="104" />
+		<Ability name="useSwords" value="122" />
+		<Ability name="useBows" value="122" />
 		<Ability name="useSpears" value="0" />
 		<Ability name="useDaggers" value="0" />
 		<Ability name="useCompoundBows" value="0" />
 		<Ability name="useGreatSwords" value="0" />
-		<Ability name="useWoodAxes" value="5" />
+		<Ability name="useWoodAxes" value="23" />
 		<Ability name="useIronAxes" value="0" />
 		<Ability name="useSteelAxes" value="0" />
-		<Ability name="chopBasicTrees" value="5" />
+		<Ability name="chopBasicTrees" value="23" />
 		<Ability name="chopOakTrees" value="0" />
 		<Ability name="chopMapleTrees" value="0" />
 		<Ability name="chopYewTrees" value="0" />
-		<Ability name="useWoodPicks" value="5" />
+		<Ability name="useWoodPicks" value="23" />
 		<Ability name="useBronzePicks" value="0" />
 		<Ability name="useIronPicks" value="0" />
 		<Ability name="useSteelPicks" value="0" />
-		<Ability name="mineBronzeRocks" value="5" />
+		<Ability name="mineBronzeRocks" value="23" />
 		<Ability name="mineIronRocks" value="0" />
 		<Ability name="mineSteelRocks" value="0" />
 		<Ability name="smithHelmets" value="0" />
 		<Ability name="smithSwords" value="0" />
 		<Ability name="smithLegs" value="0" />
 		<Ability name="smithTorsos" value="0" />
-		<Ability name="smithWoodItems" value="5" />
+		<Ability name="smithWoodItems" value="23" />
 		<Ability name="smithBronzeItems" value="0" />
 		<Ability name="smithIronItems" value="0" />
 		<Ability name="smithSteelItems" value="0" />
-		<Ability name="craftArrows" value="5" />
+		<Ability name="craftArrows" value="23" />
 		<Ability name="craftBows" value="0" />
-		<Ability name="craftBasicItems" value="5" />
+		<Ability name="craftBasicItems" value="23" />
 		<Ability name="craftOakItems" value="0" />
 		<Ability name="craftMapleItems" value="0" />
 		<Ability name="craftYewItems" value="0" />
