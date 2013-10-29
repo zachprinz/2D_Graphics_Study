@@ -20,8 +20,8 @@
 				<Unlock name="Yew" unlock="useYewWeapons" value="1" level="15" />
 			</SubLevel>
 		</Level>
-		<Level name="endurance" level="3" totalXP="126" xpToNextLevel="2" maxXPForNextLevel="128" xpPastCurrentLevel="64" percent="98" tempXP="0" spendXP="96">
-			<SubLevel name="run" description="Sprint for Longer" nextUnlock="run3" level="3" totalXP="122" xpToNextLevel="6" maxXPForNextLevel="128" xpPastCurrentLevel="60" percent="95" tempXP="0" spendXP="100">
+		<Level name="endurance" level="4" totalXP="129" xpToNextLevel="94" maxXPForNextLevel="223" xpPastCurrentLevel="1" percent="57" tempXP="0" spendXP="93">
+			<SubLevel name="run" description="Sprint for Longer" nextUnlock="run3" level="3" totalXP="125" xpToNextLevel="3" maxXPForNextLevel="128" xpPastCurrentLevel="63" percent="97" tempXP="0" spendXP="100">
 				<Unlock name="run1" unlock="runEndurance" value="5" level="0" />
 				<Unlock name="run2" unlock="runEndurance" value="5" level="3" />
 				<Unlock name="run3" unlock="runEndurance" value="5" level="6" />
@@ -38,7 +38,7 @@
 				<Unlock name="fight6" unlock="fightEndurance" value="5" level="14" />
 			</SubLevel>
 		</Level>
-		<Level name="speed" level="3" totalXP="110" xpToNextLevel="18" maxXPForNextLevel="128" xpPastCurrentLevel="48" percent="85" tempXP="0" spendXP="90">
+		<Level name="speed" level="3" totalXP="118" xpToNextLevel="10" maxXPForNextLevel="128" xpPastCurrentLevel="56" percent="92" tempXP="0" spendXP="82">
 			<SubLevel name="attack" description="Attack Faster" nextUnlock="attack3" level="3" totalXP="110" xpToNextLevel="18" maxXPForNextLevel="128" xpPastCurrentLevel="48" percent="85" tempXP="0" spendXP="100">
 				<Unlock name="attack1" unlock="attackSpeed" value="5" level="0" />
 				<Unlock name="attack2" unlock="attackSpeed" value="5" level="3" />
@@ -47,7 +47,7 @@
 				<Unlock name="attack5" unlock="attackSpeed" value="5" level="11" />
 				<Unlock name="attack6" unlock="attackSpeed" value="5" level="14" />
 			</SubLevel>
-			<SubLevel name="evade" description="Evade more Often" nextUnlock="evade3" level="3" totalXP="100" xpToNextLevel="28" maxXPForNextLevel="128" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
+			<SubLevel name="evade" description="Evade more Often" nextUnlock="evade3" level="3" totalXP="108" xpToNextLevel="20" maxXPForNextLevel="128" xpPastCurrentLevel="46" percent="84" tempXP="0" spendXP="100">
 				<Unlock name="evade1" unlock="evade" value="5" level="0" />
 				<Unlock name="evade2" unlock="evade" value="5" level="3" />
 				<Unlock name="evade3" unlock="evade" value="5" level="6" />
@@ -74,8 +74,8 @@
 				<Unlock name="accuracy6" unlock="accuracy" value="5" level="14" />
 			</SubLevel>
 		</Level>
-		<Level name="woodcutting" level="3" totalXP="115" xpToNextLevel="13" maxXPForNextLevel="128" xpPastCurrentLevel="53" percent="89" tempXP="0" spendXP="85">
-			<SubLevel name="axeMaterials" description="Use Stronger Axes" nextUnlock="Bronze" level="3" totalXP="104" xpToNextLevel="24" maxXPForNextLevel="128" xpPastCurrentLevel="42" percent="81" tempXP="0" spendXP="100">
+		<Level name="woodcutting" level="3" totalXP="124" xpToNextLevel="4" maxXPForNextLevel="128" xpPastCurrentLevel="62" percent="96" tempXP="0" spendXP="76">
+			<SubLevel name="axeMaterials" description="Use Stronger Axes" nextUnlock="Bronze" level="3" totalXP="113" xpToNextLevel="15" maxXPForNextLevel="128" xpPastCurrentLevel="51" percent="88" tempXP="0" spendXP="100">
 				<Unlock name="Wood" unlock="useWoodAxes" value="1" level="0" />
 				<Unlock name="Bronze" unlock="useBronzeAxes" value="1" level="5" />
 				<Unlock name="Iron" unlock="useIronAxes" value="1" level="10" />
@@ -88,8 +88,8 @@
 				<Unlock name="Yew" unlock="chopYewTrees" value="1" level="20" />
 			</SubLevel>
 		</Level>
-		<Level name="mining" level="4" totalXP="172" xpToNextLevel="51" maxXPForNextLevel="223" xpPastCurrentLevel="44" percent="77" tempXP="0" spendXP="74">
-			<SubLevel name="pickMaterials" description="Use Stronger Picks" nextUnlock="Bronze" level="4" totalXP="160" xpToNextLevel="63" maxXPForNextLevel="223" xpPastCurrentLevel="32" percent="71" tempXP="0" spendXP="100">
+		<Level name="mining" level="4" totalXP="180" xpToNextLevel="43" maxXPForNextLevel="223" xpPastCurrentLevel="52" percent="80" tempXP="0" spendXP="66">
+			<SubLevel name="pickMaterials" description="Use Stronger Picks" nextUnlock="Bronze" level="4" totalXP="168" xpToNextLevel="55" maxXPForNextLevel="223" xpPastCurrentLevel="40" percent="75" tempXP="0" spendXP="100">
 				<Unlock name="Wood" unlock="useWoodPicks" value="1" level="0" />
 				<Unlock name="Bronze" unlock="useBronzePicks" value="1" level="5" />
 				<Unlock name="Iron" unlock="useIronPicks" value="1" level="10" />
@@ -129,50 +129,50 @@
 		</Level>
 	</LevelInfo>
 	<UnlockableAbilities>
-		<Ability name="block" value="131" />
-		<Ability name="runEndurance" value="131" />
-		<Ability name="fightEndurance" value="131" />
-		<Ability name="attackSpeed" value="131" />
-		<Ability name="evade" value="131" />
-		<Ability name="accuracy" value="131" />
-		<Ability name="useWoodWeapons" value="13" />
-		<Ability name="useBronzeWeapons" value="1" />
-		<Ability name="useOakWeapons" value="1" />
+		<Ability name="block" value="201" />
+		<Ability name="runEndurance" value="201" />
+		<Ability name="fightEndurance" value="201" />
+		<Ability name="attackSpeed" value="201" />
+		<Ability name="evade" value="201" />
+		<Ability name="accuracy" value="201" />
+		<Ability name="useWoodWeapons" value="20" />
+		<Ability name="useBronzeWeapons" value="8" />
+		<Ability name="useOakWeapons" value="8" />
 		<Ability name="useIronWeapons" value="0" />
 		<Ability name="useMapleWeapons" value="0" />
 		<Ability name="useSteelWeapons" value="0" />
 		<Ability name="useYewWeapons" value="0" />
-		<Ability name="useSwords" value="13" />
-		<Ability name="useBows" value="13" />
+		<Ability name="useSwords" value="20" />
+		<Ability name="useBows" value="20" />
 		<Ability name="useSpears" value="0" />
 		<Ability name="useDaggers" value="0" />
 		<Ability name="useCompoundBows" value="0" />
 		<Ability name="useGreatSwords" value="0" />
-		<Ability name="useWoodAxes" value="13" />
+		<Ability name="useWoodAxes" value="20" />
 		<Ability name="useIronAxes" value="0" />
 		<Ability name="useSteelAxes" value="0" />
-		<Ability name="chopBasicTrees" value="13" />
+		<Ability name="chopBasicTrees" value="20" />
 		<Ability name="chopOakTrees" value="0" />
 		<Ability name="chopMapleTrees" value="0" />
 		<Ability name="chopYewTrees" value="0" />
-		<Ability name="useWoodPicks" value="13" />
+		<Ability name="useWoodPicks" value="20" />
 		<Ability name="useBronzePicks" value="0" />
 		<Ability name="useIronPicks" value="0" />
 		<Ability name="useSteelPicks" value="0" />
-		<Ability name="mineBronzeRocks" value="13" />
+		<Ability name="mineBronzeRocks" value="20" />
 		<Ability name="mineIronRocks" value="0" />
 		<Ability name="mineSteelRocks" value="0" />
 		<Ability name="smithHelmets" value="0" />
 		<Ability name="smithSwords" value="0" />
 		<Ability name="smithLegs" value="0" />
 		<Ability name="smithTorsos" value="0" />
-		<Ability name="smithWoodItems" value="13" />
+		<Ability name="smithWoodItems" value="20" />
 		<Ability name="smithBronzeItems" value="0" />
 		<Ability name="smithIronItems" value="0" />
 		<Ability name="smithSteelItems" value="0" />
-		<Ability name="craftArrows" value="13" />
+		<Ability name="craftArrows" value="20" />
 		<Ability name="craftBows" value="0" />
-		<Ability name="craftBasicItems" value="13" />
+		<Ability name="craftBasicItems" value="20" />
 		<Ability name="craftOakItems" value="0" />
 		<Ability name="craftMapleItems" value="0" />
 		<Ability name="craftYewItems" value="0" />

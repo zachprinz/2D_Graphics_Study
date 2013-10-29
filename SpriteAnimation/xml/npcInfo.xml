@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<NPCList>
+	<NPC name="Dr.Smith">
+		<Responce string="Hello there, how are you? If you're up for it I've got a task for you. See those angels over there? You need to kill at least two of them.">
+			<Requirement valueLocation="questionInfo/Eyes Peeled/currentObjective" valueValue="start"/>
+		</Responce>
+		
+		<Responce string="Marvelous, here, take this as a reward.">
+			<Requirement valueLocation="questionInfo/Eyes Peeled/currentObjective" valueValue="report back"/>
+		</Responce>
+	</NPC>
+	
+	<NPC name="">
+		<Responce string="">
+			<Requirement valueLocation="" valueValue=""/>
+		</Responce>
+	</NPC>
+
+</NPCList>

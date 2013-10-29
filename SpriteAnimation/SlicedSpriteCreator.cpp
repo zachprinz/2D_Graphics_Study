@@ -8,7 +8,7 @@ std::vector<std::vector<sf::IntRect>> SlicedSpriteCreator::scrollBarParts;
 sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCreator::SpriteStyle style){
 	sf::RenderTexture slicedSprite;
 	slicedSprite.create(x,y);
-	slicedSprite.clear(sf::Color(0,255,0,255));
+	slicedSprite.clear(sf::Color(0,0,0,0));
 	std::vector<sf::IntRect> textParts = spriteParts[style];
 	std::vector<sf::Sprite> parts;
 	for(int x = 0; x < textParts.size(); x++){
