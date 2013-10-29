@@ -20,6 +20,7 @@
 #include "StatsPanel.h"
 #include "ProgressBar.h"
 #include "HUDPanel.h"
+#include "TextPanel.h"
 
 int main()
 {
@@ -62,6 +63,9 @@ int main()
 	RClickMenu::OnStart();
 	SlicedSpriteCreator::OnStart();
 	ProgressBar::SetUp();
+
+	TextPanel textPanel(1004,175);
+	textPanel.SetPosition(62,740);
 
 	SpritePanel spritePanel(1024,800);
 	spritePanel.SetPosition(52,125);
@@ -136,7 +140,9 @@ int main()
 							RClickMenu::Close();
 					}
 					else{
-					if(spritePanel.GetBounds()->Contains(temp.x,temp.y))
+					if(textPanel.GetBounds()->Contains(temp.x,temp.y) && textPanel.GetIsPanelOpen())
+						textPanel.OnClick(temp);
+					else if(spritePanel.GetBounds()->Contains(temp.x,temp.y))
 						spritePanel.OnClick(temp);
 					if(User::player->GetInventory()->GetBounds()->Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
 						User::player->GetInventory()->OnClick(temp);
@@ -192,6 +198,7 @@ int main()
 		mapPanel.Update(window);
 		statsPanel.Update(window);
 		hudPanel.Update(window);
+		textPanel.Update(window);
 		hudPanel2.Update(window);
 		User::player->GetLayered()->Update(window);
 		User::player->GetBank()->Update(window);

@@ -127,6 +127,7 @@
     <ClCompile Include="SlicedSpriteCreator.cpp" />
     <ClCompile Include="SpritePanel.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
+    <ClCompile Include="TextPanel.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="SlicedSpriteCreator.h" />
     <ClInclude Include="SpritePanel.h" />
     <ClInclude Include="StatsPanel.h" />
+    <ClInclude Include="TextPanel.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
