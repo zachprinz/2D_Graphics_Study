@@ -52,6 +52,9 @@ public:
 	void UpdateUnlockables(std::string,std::string);
 	int GetUserData(std::string, std::string, std::string);
 	int GetUserData(std::string, std::string);
+	std::string GetQuestData(std::string,std::string);
+	void UpdateQuest(std::string);
+	void ResetXMLDocs();
 private:
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);

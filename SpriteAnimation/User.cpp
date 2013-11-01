@@ -10,6 +10,7 @@
 User* User::player;
 
 User::User(int x, int y) : Combatant(x,y,"User","User"){
+	ResetXMLDocs();
 	User::player = this;
 	sprite.setScale(0.85f,0.65f);
 	bank = new BankPanel(480,480);
@@ -460,4 +461,73 @@ void User::SetUpLevels(){
 				UpdateUnlockables(tool.attribute("name").value(),tool2.attribute("name").value());
 			}
 	}
+};
+std::string User::GetQuestData(std::string questName,std::string attrib){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/questInfo.xml");
+	pugi::xml_node atlas = doc.child("QuestLog");
+	pugi::xml_node quest;
+	pugi::xml_node subLevel;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == questName){
+			quest = tool;
+			break;
+		}
+	}
+	for(pugi::xml_attribute tool = quest.first_attribute(); tool; tool = tool.next_attribute()){
+		if(tool.name() == attrib)
+			return tool.value();
+	}
+};
+void User::UpdateQuest(std::string targetName){
+	std::cout << "Updateing Quest: " + targetName << std::endl;
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/questInfo.xml");
+	pugi::xml_node questLog = doc.child("QuestLog");
+	//What is this monstrosity.... what have i DONE!?!
+	//I call it... THE RAPE LOOP! A TRIPPLE FOR LOOP WITH 4 IF STATEMENTS muahahahahahah.
+	for(pugi::xml_node quest = questLog.first_child(); quest; quest = quest.next_sibling()){
+		for(pugi::xml_node objective = quest.first_child().first_child(); objective; objective = objective.next_sibling()){
+			if(0 == ((std::string)objective.attribute("name").as_string()).compare((std::string)quest.attribute("currentObjective").as_string())){//objective.attribute("status").value() == "incomplete" && 
+				std::cout << "Found the current objective." << std::endl;
+				for(pugi::xml_node requirement = objective.first_child(); requirement; requirement = requirement.next_sibling()){
+					if(requirement.attribute("targetName").value() == targetName){
+						std::cout << "You finished a requirement (or a portion of one.)" << std::endl;
+						requirement.attribute("requiredValue").set_value((std::stoi(requirement.attribute("requiredValue").value()) - 1));
+						if(std::stoi(requirement.attribute("requiredValue").value()) <= 0){
+							std::cout << "You ACTUALLY finished a requirement!" << std::endl;
+							objective.attribute("status").set_value("complete");
+							if(objective.next_sibling() != NULL)
+								quest.attribute("currentObjective").set_value(objective.next_sibling().attribute("name").value());
+							else{
+								quest.attribute("status").set_value("complete");
+								quest.attribute("currentObjective").set_value("none");
+								for(pugi::xml_node reward = quest.first_child().next_sibling().first_child(); reward; reward = reward.next_sibling()){
+									if(!((std::string)reward.attribute("xpLevel").value()).empty())
+										User::player->AddSpendExperience(reward.attribute("xpLevel").value(),reward.attribute("xpLevelAmount").as_int());
+									if(!((std::string)reward.attribute("xpSubLevel").value()).empty())
+										User::player->AddExperience(reward.attribute("xpLevel").value(),reward.attribute("xpSubLevel").value(),reward.attribute("xpSubLevelAmount").as_int());
+									if(!((std::string)reward.attribute("item").value()).empty())
+										User::player->GetInventory()->Add(Item(reward.attribute("item").value()));
+								}
+							}
+						}
+					}
+				}
+			break;
+			}
+			else{
+				std::cout << "Current Objective:" << (quest.attribute("currentObjective").as_string()) << ": Objective Name:" << objective.attribute("name").as_string() << ":" << std::endl;
+			}
+		};
+	}
+	doc.save_file("xml/questInfo.xml");
+};
+void User::ResetXMLDocs(){
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_file("xml/userInfoBackup.xml");
+		doc.save_file("xml/userInfo.xml");
+		pugi::xml_document doc2;
+		pugi::xml_parse_result result2 = doc2.load_file("xml/questInfoBackup.xml");
+		doc2.save_file("xml/questInfo.xml");
 };

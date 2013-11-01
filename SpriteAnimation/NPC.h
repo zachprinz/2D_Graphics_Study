@@ -16,6 +16,8 @@ public:
 	void OnClick();
 private:
 	void SetUpAnimations();
+	void MoveTowardPoint(sf::Vector2i);
+	std::string GetResponce();
 };
 
 #endif

@@ -18,6 +18,8 @@ public:
 	void OnButtonEvent(std::string);
 private:
 	int currentDisplayedPage;
+	int linesPerPage;
+	int charsPerLine;
 	std::vector<std::vector<std::string>> sortedText;
 	std::vector<std::string> pages;
 	float averageWidth;

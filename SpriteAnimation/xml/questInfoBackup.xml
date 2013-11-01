@@ -8,7 +8,7 @@
 			</Objective>
 			
 			<Objective name="kill the angels" description="Slay 2 of the angels on the west island." status="incomplete">
-				<Requirement type="kill"  targetName="cherub" requiredValue="2"/>
+				<Requirement type="kill"  targetName="Cherub" requiredValue="2"/>
 			</Objective>
 			
 			<Objective name="report back" description="Report back to Dr.Smith to claim your reward." status="incomplete">

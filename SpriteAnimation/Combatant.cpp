@@ -35,6 +35,7 @@ int Combatant::SpendEndurance(int end){
 	return endurance;
 };
 void Combatant::Die(){
+	User::player->UpdateQuest(name);
 	Drop();
 	GetRoomTile()->TryRemoveOcupant(GetTag());
 	SpritePanel::room->RemoveOcupant(GetTag());

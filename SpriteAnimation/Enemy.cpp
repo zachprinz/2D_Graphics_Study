@@ -8,7 +8,7 @@
 #include "Attack.h"
 #include "ScriptManager.h"
 
-Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,"Enemy",textureName){
+Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,name,textureName){
 	ScriptManager::CreateEnemy(name,this);
 	SetUpAttacks();
 	SetUpAnimations();

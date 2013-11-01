@@ -9,6 +9,7 @@
 TextPanel* TextPanel::instance;
 
 TextPanel::TextPanel(int x,int y) : GamePanel(x,y,"Text"){
+	instance = this;
 	SetUp();
 	height = 0;
 	averageWidth = 0;
@@ -21,7 +22,11 @@ TextPanel::TextPanel(int x,int y) : GamePanel(x,y,"Text"){
 			height = Label::fonts[0].getGlyph(x,30,false).bounds.height;
 	}
 	averageWidth = averageWidth / 26.0;
-	DisplayText("Where all the text will be displayed when there is text to be displayed by a npc character. Where all the be displayed. Where all the text will be put up on screen. Where all the text will be displayed. Where all the words that I want will be displayed. Where all the text will probobly, most likely, be displayed. Where all the text will be displayed. Where all the text will be shown next to the sprite panel. Where the first page of all of the text will be displayed. ");
+	//sf::Text tempText  = sf::Text(text,Label::fonts[0],30);
+	linesPerPage = (panel.getSize().y) / height;
+	linesPerPage--;
+	charsPerLine = (panel.getSize().x + 360) / averageWidth;
+	DisplayText("Welcome to my world. I made it. It's not quite finished but you should be able to find some stuff to do. Check out you're inventory and levels to the right. Try mousing over some items or enemies to take advantage of the stats panel. After you're aquainted with everything go talk to that mysterious man hanging out up there, see what he wants.");
 };
 void TextPanel::SetUp(){
 	GamePanel::SetUp();
@@ -41,16 +46,15 @@ void TextPanel::SetUp(){
 	dynamicElements.insert(MyPair("nextButton",nextButton));
 };
 void TextPanel::DisplayText(std::string text){
-	sf::Text tempText  = sf::Text(text,Label::fonts[0],30);
-	int linesPerPage = (panel.getSize().y) / height;
-	linesPerPage--;
-	int charsPerLine = (panel.getSize().x + 360) / averageWidth;
+	sortedText.clear();
+	pages.clear();
 	while(text.size() > 1){
 		std::vector<std::string> lines;
 		for(int x = 0; x < linesPerPage; x++){
-			if(text.find_last_of(' ',charsPerLine) == std::string::npos){
+			if(charsPerLine > text.size() || text.find_last_of(' ',charsPerLine) == std::string::npos){
 				text = text + "...";
 				lines.push_back(text);
+				text = "";
 				break;
 			}
 			else{

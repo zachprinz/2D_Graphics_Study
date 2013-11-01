@@ -9,14 +9,6 @@
 		<Responce string="Marvelous, here, take this as a reward.">
 			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="report back"/>
 		</Responce>
-		
-		<Responce string="Go finish off those angels already! You're waisting time...">
-			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="kill the angels"/>
-		</Responce>
-		
-		<Responce string="Thanks for getting rid of those pesky angels for me. It feels so nice to shut my eyes.">
-			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="none"/>
-		</Responce>
 	</NPC>
 	
 	<NPC name="">
