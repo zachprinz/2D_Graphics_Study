@@ -4,6 +4,7 @@
 #include "SlicedSpriteCreator.h"
 #include <MapLoader.h>
 #include "Enemy.h"
+#include "NPC.h"
 #include "User.h"
 #include "Bank.h"
 
@@ -89,6 +90,15 @@ void SpritePanel::LoadMapSprites(){
 			combatants.push_back("enemy" + std::to_string(enemy->GetTag()));
 			room->AddOcupant(enemy);
 			std::cout << "Created Enemy at: "  + std::to_string(enemy->GetGraphPositionA().x) + "," + std::to_string(enemy->GetGraphPositionA().y) << std::endl;
+		}
+		if(name == "NPC"){
+			NPC* npc= new NPC(xCor,yCor,sprites->objects[x].GetPropertyString("name") + ".png", sprites->objects[x].GetPropertyString("name"));
+			sf::FloatRect rect = sprites->objects[x].GetAABB();
+			int xCor2 = (((int)(rect.left + rect.width - 1)) / 32);
+			int yCor2 = (((int)(rect.height + rect.top - 1)) / 32);
+			AddElement("NPC" + std::to_string(npc->GetTag()), npc);
+			room->AddOcupant(npc);
+			std::cout << "Created NPC at: "  + std::to_string(npc->GetGraphPositionA().x) + "," + std::to_string(npc->GetGraphPositionA().y) << std::endl;
 		}
 		if(name == "Bank"){
 			Bank* bank = new Bank(xCor,yCor,"bank.png");

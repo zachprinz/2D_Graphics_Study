@@ -116,6 +116,7 @@
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapPanel.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RClickable.cpp" />
     <ClCompile Include="RClickMenu.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="LevelPanel.h" />
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="MapPanel.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RClickable.h" />
     <ClInclude Include="RClickMenu.h" />

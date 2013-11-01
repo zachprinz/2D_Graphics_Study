@@ -56,7 +56,7 @@
 				<Unlock name="evade6" unlock="evade" value="5" level="14" />
 			</SubLevel>
 		</Level>
-		<Level name="technique" level="4" totalXP="190" xpToNextLevel="33" maxXPForNextLevel="223" xpPastCurrentLevel="62" percent="85" tempXP="0" spendXP="75">
+		<Level name="technique" level="4" totalXP="194" xpToNextLevel="29" maxXPForNextLevel="223" xpPastCurrentLevel="66" percent="86" tempXP="0" spendXP="71">
 			<SubLevel name="weaponTypes" description="Use new Weapon Types" nextUnlock="Spear" level="4" totalXP="191" xpToNextLevel="32" maxXPForNextLevel="223" xpPastCurrentLevel="63" percent="85" tempXP="0" spendXP="100">
 				<Unlock name="Sword" unlock="useSwords" value="1" level="0" />
 				<Unlock name="Bow" unlock="useBows" value="1" level="0" />
@@ -65,7 +65,7 @@
 				<Unlock name="CompoundBow" unlock="useCompoundBows" value="1" level="10" />
 				<Unlock name="GreatSword" unlock="useGreatSwords" value="1" level="15" />
 			</SubLevel>
-			<SubLevel name="accuracy" description="Miss Less Often" nextUnlock="accuracy3" level="3" totalXP="100" xpToNextLevel="28" maxXPForNextLevel="128" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
+			<SubLevel name="accuracy" description="Miss Less Often" nextUnlock="accuracy3" level="3" totalXP="104" xpToNextLevel="24" maxXPForNextLevel="128" xpPastCurrentLevel="42" percent="81" tempXP="0" spendXP="100">
 				<Unlock name="accuracy1" unlock="accuracy" value="5" level="0" />
 				<Unlock name="accuracy2" unlock="accuracy" value="5" level="3" />
 				<Unlock name="accuracy3" unlock="accuracy" value="5" level="6" />
@@ -129,50 +129,50 @@
 		</Level>
 	</LevelInfo>
 	<UnlockableAbilities>
-		<Ability name="block" value="461" />
-		<Ability name="runEndurance" value="461" />
-		<Ability name="fightEndurance" value="461" />
-		<Ability name="attackSpeed" value="461" />
-		<Ability name="evade" value="461" />
-		<Ability name="accuracy" value="461" />
-		<Ability name="useWoodWeapons" value="46" />
-		<Ability name="useBronzeWeapons" value="34" />
-		<Ability name="useOakWeapons" value="34" />
+		<Ability name="block" value="521" />
+		<Ability name="runEndurance" value="521" />
+		<Ability name="fightEndurance" value="521" />
+		<Ability name="attackSpeed" value="521" />
+		<Ability name="evade" value="521" />
+		<Ability name="accuracy" value="521" />
+		<Ability name="useWoodWeapons" value="52" />
+		<Ability name="useBronzeWeapons" value="40" />
+		<Ability name="useOakWeapons" value="40" />
 		<Ability name="useIronWeapons" value="0" />
 		<Ability name="useMapleWeapons" value="0" />
 		<Ability name="useSteelWeapons" value="0" />
 		<Ability name="useYewWeapons" value="0" />
-		<Ability name="useSwords" value="46" />
-		<Ability name="useBows" value="46" />
+		<Ability name="useSwords" value="52" />
+		<Ability name="useBows" value="52" />
 		<Ability name="useSpears" value="0" />
 		<Ability name="useDaggers" value="0" />
 		<Ability name="useCompoundBows" value="0" />
 		<Ability name="useGreatSwords" value="0" />
-		<Ability name="useWoodAxes" value="46" />
+		<Ability name="useWoodAxes" value="52" />
 		<Ability name="useIronAxes" value="0" />
 		<Ability name="useSteelAxes" value="0" />
-		<Ability name="chopBasicTrees" value="46" />
+		<Ability name="chopBasicTrees" value="52" />
 		<Ability name="chopOakTrees" value="0" />
 		<Ability name="chopMapleTrees" value="0" />
 		<Ability name="chopYewTrees" value="0" />
-		<Ability name="useWoodPicks" value="46" />
+		<Ability name="useWoodPicks" value="52" />
 		<Ability name="useBronzePicks" value="0" />
 		<Ability name="useIronPicks" value="0" />
 		<Ability name="useSteelPicks" value="0" />
-		<Ability name="mineBronzeRocks" value="46" />
+		<Ability name="mineBronzeRocks" value="52" />
 		<Ability name="mineIronRocks" value="0" />
 		<Ability name="mineSteelRocks" value="0" />
 		<Ability name="smithHelmets" value="0" />
 		<Ability name="smithSwords" value="0" />
 		<Ability name="smithLegs" value="0" />
 		<Ability name="smithTorsos" value="0" />
-		<Ability name="smithWoodItems" value="46" />
+		<Ability name="smithWoodItems" value="52" />
 		<Ability name="smithBronzeItems" value="0" />
 		<Ability name="smithIronItems" value="0" />
 		<Ability name="smithSteelItems" value="0" />
-		<Ability name="craftArrows" value="46" />
+		<Ability name="craftArrows" value="52" />
 		<Ability name="craftBows" value="0" />
-		<Ability name="craftBasicItems" value="46" />
+		<Ability name="craftBasicItems" value="52" />
 		<Ability name="craftOakItems" value="0" />
 		<Ability name="craftMapleItems" value="0" />
 		<Ability name="craftYewItems" value="0" />
