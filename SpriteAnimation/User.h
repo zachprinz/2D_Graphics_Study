@@ -58,6 +58,7 @@ public:
 private:
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);
+	bool oversize;
 	InventoryPanel* inventory;
 	LayeredPanel* layered;
 	EquipedPanel* equiped;
@@ -67,5 +68,6 @@ private:
 	void SetUpAttacks();
 	void SetUpAnimations();
 	void SetUpLevels();
+	void GetUserWeaponImage(sf::RenderTexture*);
 };
 #endif

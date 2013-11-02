@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <User health="100" endurance="1000" positionX="x" positionY="y">
 	<LevelInfo>
-		<Level name="strength" level="3" totalXP="113" xpToNextLevel="15" xpPastCurrentLevel="51" percent="88" tempXP="0" spendXP="162">
-			<SubLevel name="block" description="Block more Damage" nextUnlock="block3" level="3" totalXP="113" xpToNextLevel="15" xpPastCurrentLevel="51" percent="88" tempXP="0" spendXP="100">
+		<Level name="strength" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
+			<SubLevel name="block" description="Block more Damage" nextUnlock="block3" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 				<Unlock name="block1" unlock="block" value="5" level="0" />
 				<Unlock name="block2" unlock="block" value="5" level="3" />
 				<Unlock name="block3" unlock="block" value="5" level="6" />
@@ -20,7 +20,7 @@
 				<Unlock name="Yew" unlock="useYewWeapons" value="1" level="15" />
 			</SubLevel>
 		</Level>
-		<Level name="endurance" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="175">
+		<Level name="endurance" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 			<SubLevel name="run" description="Sprint for Longer" nextUnlock="run3" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 				<Unlock name="run1" unlock="runEndurance" value="5" level="0" />
 				<Unlock name="run2" unlock="runEndurance" value="5" level="3" />
@@ -38,7 +38,7 @@
 				<Unlock name="fight6" unlock="fightEndurance" value="5" level="14" />
 			</SubLevel>
 		</Level>
-		<Level name="speed" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="175">
+		<Level name="speed" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 			<SubLevel name="attack" description="Attack Faster" nextUnlock="attack3" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 				<Unlock name="attack1" unlock="attackSpeed" value="5" level="0" />
 				<Unlock name="attack2" unlock="attackSpeed" value="5" level="3" />
@@ -56,7 +56,7 @@
 				<Unlock name="evade6" unlock="evade" value="5" level="14" />
 			</SubLevel>
 		</Level>
-		<Level name="technique" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="175">
+		<Level name="technique" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 			<SubLevel name="weaponTypes" description="Use new Weapon Types" nextUnlock="Spear" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
 				<Unlock name="Sword" unlock="useSwords" value="1" level="0" />
 				<Unlock name="Bow" unlock="useBows" value="1" level="0" />

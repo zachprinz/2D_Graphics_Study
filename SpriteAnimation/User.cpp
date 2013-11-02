@@ -11,6 +11,7 @@ User* User::player;
 
 User::User(int x, int y) : Combatant(x,y,"User","User"){
 	ResetXMLDocs();
+	oversize = true;
 	User::player = this;
 	sprite.setScale(0.85f,0.65f);
 	bank = new BankPanel(480,480);
@@ -77,11 +78,31 @@ void User::Update(sf::RenderTexture& window){
 void User::DrawUser(sf::RenderTexture* window){
 	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
 	for(int x = 0; x < animationSheets.size(); x++){
-		sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
-		window->draw(sprite);
+		if(x != 2){
+			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
+			window->draw(sprite);
+		}
+	}
+	if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
+		std::cout << "Getting Sword Animation" << std::endl;
+		GetUserWeaponImage(window);
 	}
 	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
+
 };
+void User::GetUserWeaponImage(sf::RenderTexture* window){
+	if(oversize){
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
+		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
+		window->draw(sprite);
+		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
+	}
+	else{
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
+		window->draw(sprite);
+	}
+};
+
 void User::Interact(){
 	std::cout << "Ocupant Found on Tile:" + GetRoomTile(movement.x,movement.y)->ocupants.size() << std::endl;
 	//for(int x = 0; x < GetRoomTile(movement.x,movement.y)->ocupants.size(); x++){

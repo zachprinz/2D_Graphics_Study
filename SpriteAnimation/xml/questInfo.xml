@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <QuestLog>
-	<Quest name="Eyes Peeled" currentObjective="none" status="complete">
+	<Quest name="Eyes Peeled" currentObjective="kill the angels" status="incomplete">
 		<Objectives>
 			<Objective name="start" description="Talk to the man watching the angels." status="complete">
 				<Requirement type="talk" targetName="Dr.Smith" requiredValue="0" />
 			</Objective>
-			<Objective name="kill the angels" description="Slay 2 of the angels on the west island." status="complete">
-				<Requirement type="kill" targetName="Cherub" requiredValue="0" />
+			<Objective name="kill the angels" description="Slay 2 of the angels on the west island." status="incomplete">
+				<Requirement type="kill" targetName="Cherub" requiredValue="2" />
 			</Objective>
-			<Objective name="report back" description="Report back to Dr.Smith to claim your reward." status="complete">
-				<Requirement type="talk" targetName="Dr.Smith" requiredValue="0" />
+			<Objective name="report back" description="Report back to Dr.Smith to claim your reward." status="incomplete">
+				<Requirement type="talk" targetName="Dr.Smith" requiredValue="1" />
 			</Objective>
 		</Objectives>
 		<Rewards>

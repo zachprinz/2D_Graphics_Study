@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<WeaponList>
+	<Daggers ranged="false">
+		<Dagger name="Wood Dagger" id="0" str="0" end="0" speed="4" tech="2" cost="">
+		<Dagger name="Bronze Dagger" id="0" str="0" end="0" speed="13" tech="6" cost="">
+		<Dagger name="Iron Dagger" id="0" str="0" end="0" speed="23" tech="15" cost="">
+		<Dagger name="Steel Dagger" id="0" str="0" end="0" speed="61" tech="23" cost="">
+		<Attacks>
+			<Attack name="Simple Stab" damageMult="1" anim="Slash" cooldown="2">
+				<EffectedTile direction="Forward" distance="1"/>
+			</Attack>
+			<Attack name="Round Slash" damageMult="0.8" anim="Slash" cooldown="6">
+				<EffectedTile direction="Forward" distance="1"/>
+				<EffectedTile direction="Left" distance="1"/>
+				<EffectedTile direction="Right" distance="1"/>
+			</Attack>			
+			<Attack name="Quick Slash" damageMult="0.2" anim="Slash" cooldown="0.4">
+				<EffectedTile direction="Forward" distance="1"/>
+			</Attack>			
+		</Attacks>
+	</Daggers>
+	
+	<Swords ranged="false">
+		<Sword name="Wood Sword" id="0" str="2" end="1" speed="1" tech="1" cost="">
+		<Sword name="Bronze Sword" id="0" str="5" end="7" speed="6" tech="7" cost="">
+		<Sword name="Iron Sword" id="0" str="13" end="14" speed="15" tech="14" cost="">
+		<Sword name="Steel Sword" id="0" str="24" end="22" speed="20" tech="24" cost="">
+		<Attacks>
+			<Attack name="Simple Slash" damageMult="1" anim="Slash" cooldown="2">
+				<EffectedTile direction="Forward" distance="1"/>
+			</Attack>
+			<Attack name="Reaching Jab" damageMult="1.2" anim="Slash" cooldown="5">
+				<EffectedTile direction="Forward" distance="1"/>
+				<EffectedTile direction="Forward" distance="2"/>
+			</Attack>			
+			<Attack name="Reaching Slash" damageMult="0.75" anim="Slash" cooldown="15">
+				<EffectedTile direction="Forward" distance="1"/>
+				<EffectedTile direction="Left" distance="1"/>
+				<EffectedTile direction="Right" distance="1"/>
+				<EffectedTile direction="Forward" distance="2"/>
+				<EffectedTile direction="Left" distance="2"/>
+				<EffectedTile direction="Right" distance="2"/>
+			</Attack>			
+		</Attacks>
+	</Swords>
+	
+	<Spears ranged="false">
+		<Spear name="Wood Spear" id="0" str="1" end="0" speed="2" tech="4" cost="">
+		<Spear name="Bronze Spear" id="0" str="4" end="0" speed="8" tech="13" cost="">
+		<Spear name="Iron Spear" id="0" str="12" end="0" speed="16" tech="22" cost="">
+		<Spear name="Steel Spear" id="0" str="20" end="0" speed="27" tech="40" cost="">
+		<Attacks>
+			<Attack name="Simple Jab" damageMult="1" anim="Stab" cooldown="2">
+				<EffectedTile direction="Forward" distance="1"/>
+			</Attack>
+			<Attack name="Long Jab" damageMult="1.25" anim="Stab" cooldown="5">
+				<EffectedTile direction="Forward" distance="1"/>
+				<EffectedTile direction="Forward" distance="2"/>
+			</Attack>			
+			<Attack name="Lunging Jab" damageMult="1.3" anim="Stab" cooldown="7">
+				<EffectedTile direction="Forward" distance="2"/>
+				<EffectedTile direction="Forward" distance="3"/>
+			</Attack>			
+		</Attacks>
+	</Spears>
+	
+	<Bow ranged="true">
+		<Bow name="Wood Bow" id="0" str="10" end="4" speed="6" tech="2" cost="">
+		<Bow name="Recurve Bow" id="0" str="45" end="4" speed="15" tech="5" cost="">
+		<Bow name="Great Bow" id="0" str="70" end="4" speed="2" tech="15" cost="">
+		<Attacks>
+			<Attack name="" damageMult="" anim="Shoot" cooldown="">
+				<EffectedTile direction="" distance=""/>
+			</Attack>
+			<Attack name="" damageMult="" anim="Shoot" cooldown="">
+				<EffectedTile direction="" distance=""/>
+			</Attack>			
+			<Attack name="" damageMult="" anim="Shoot" cooldown="">
+				<EffectedTile direction="" distance=""/>
+			</Attack>			
+		</Attacks>
+	</Bows>
+	
+	<Sabers ranged="false">
+		<Saber name="Wood Saber" id="0" str="2" end="5" speed="1" tech="1" cost="">
+		<Saber name="Bronze Saber" id="0" str="6" end="17" speed="6" tech="4" cost="">
+		<Saber name="Iron Saber" id="0" str="9" end="29" speed="15" tech="13" cost="">
+		<Saber name="Steel Saber" id="0" str="12" end="51" speed="18" tech="27" cost="">
+		<Attacks>
+			<Attack name="Quick Round Slash" damageMult="0.5" anim="Slash" cooldown="0.4">
+				<EffectedTile direction="Forward" distance="1"/>
+				<EffectedTile direction="Left" distance="1"/>
+				<EffectedTIle direction="Right" distance="1"/>
+			</Attack>
+			<Attack name="Rough Slash" damageMult="1.3" anim="Slash" cooldown="7">
+				<EffectedTile direction="Left" distance="1"/>
+				<EffectedTile direction="Right" distance="1"/>
+			</Attack>			
+			<Attack name="Devestating Slash" damageMult="2.5" anim="Slash" cooldown="20">
+				<EffectedTile direction="Forward" distance="1"/>
+			</Attack>			
+		</Attacks>
+	</Sabers>
+</WeaponList>
