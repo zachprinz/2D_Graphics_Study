@@ -8,9 +8,9 @@
 class Item
 {
 public:
-	Item(std::string);
+	Item(int);
 	Item();
-	std::string GetId();
+	int GetId();
 	int GetPrice();
 	int GetSlot();
 	std::string GetName();
@@ -21,11 +21,13 @@ public:
 	std::string name;
 	LevelSet itemLevels;
 	int GetMaterialLevel();
+	std::string imageName;
 private:
+	static void SetUpItem(int,Item*);
 	int materialLevel;
 	sf::Texture spriteTexture;
 	sf::Texture containerTexture;
-	std::string id;
+	int id;
 	//LevelSet stats;
 	int price;
 };

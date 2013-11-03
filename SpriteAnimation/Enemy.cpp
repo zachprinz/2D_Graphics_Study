@@ -120,7 +120,7 @@ void Enemy::LaunchAction(Actions action){
 
 	}
 };
-void Enemy::AddDrop(std::string item,float chance){
+void Enemy::AddDrop(int item,float chance){
 	std::cout << "Drop Added: " + item << std::endl;
 	drops.push_back(item);
 	dropChances.push_back(chance);

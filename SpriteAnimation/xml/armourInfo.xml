@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ArmourList>
+	<Slot slot="0" name="Helmet">
+		<Armour name="Wood Helmet" id="0" str="3" end="0" tech="0" speed="10" image="0" cost="0"/>
+		<Armour name="Bronze Helmet" id="0" str="7" end="0" tech="0" speed="7" image="0" cost="0"/>
+		<Armour name="Iron Helmet" id="0" str="11" end="0" tech="0" speed="3" image="0" cost="0"/>
+		<Armour name="Steel Helmet" id="0" str="18" end="0" tech="0" speed="3" image="0" cost="0"/>
+	</Slot>
+		<Slot slot="2" name="Torso">
+		<Armour name="Wood Torso" id="0" str="6" end="0" tech="0" speed="3" image="0" cost="0"/>
+		<Armour name="Bronze Torso" id="0" str="12" end="0" tech="0" speed="4" image="0" cost="0"/>
+		<Armour name="Iron Torso" id="0" str="20" end="0" tech="0" speed="3" image="0" cost="0"/>
+		<Armour name="Steel Torso" id="0" str="35" end="0" tech="0" speed="4" image="0" cost="0"/>
+	</Slot>	
+	<Slot slot="3" name="Shield">
+		<Armour name="Wood Shield" id="0" str="7" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Bronze Shield" id="0" str="14" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Iron Shield" id="0" str="20" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Steel Shield" id="0" str="33" end="0" tech="0" speed="0" image="0" cost="0"/>
+	</Slot>
+	<Slot slot="4" name="Legs">
+		<Armour name="Wood Legs" id="0" str="5" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Bronze Legs" id="0" str="10" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Iron Legs" id="0" str="13" end="0" tech="0" speed="0" image="0" cost="0"/>
+		<Armour name="Steel Legs" id="0" str="22" end="0" tech="0" speed="0" image="0" cost="0"/>
+	</Slot>
+</ArmourList>

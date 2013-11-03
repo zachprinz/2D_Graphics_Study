@@ -156,7 +156,7 @@ void User::SetUpImages(){
 	tempIntRect = GetTextureFromAtlas("userspritesheets/body/light.png");
 	animationSheets.push_back(tempIntRect);
 	for(int x = 0; x < 5; x++){
-		animationSheets.push_back(itemSpriteSheets[x][2]);
+		animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/2.png"));
 	}
 };
 void User::SetUpAttacks(){
@@ -297,9 +297,8 @@ void User::SetUpAnimations(){
 sf::Vector2i User::GetTailPoint(){
 	return tailPoint;
 };
-void User::ChangeEquiped(int slot, int materialLevel){
-	//if(slot < itemSpriteSheets.size() && materialLevel < itemSpriteSheets[slot].size())
-		animationSheets[1 + slot] = itemSpriteSheets[slot][materialLevel];
+void User::ChangeEquiped(Item* item){
+		animationSheets[item->GetSlot() + 1] = Drawn::GetTextureFromAtlas("userspritesheets/" + item->imageName);
 };
 void User::CalculateLevelData(std::string levelName){
 	pugi::xml_document doc;
@@ -529,7 +528,7 @@ void User::UpdateQuest(std::string targetName){
 									if(!((std::string)reward.attribute("xpSubLevel").value()).empty())
 										User::player->AddExperience(reward.attribute("xpLevel").value(),reward.attribute("xpSubLevel").value(),reward.attribute("xpSubLevelAmount").as_int());
 									if(!((std::string)reward.attribute("item").value()).empty())
-										User::player->GetInventory()->Add(Item(reward.attribute("item").value()));
+										User::player->GetInventory()->Add(Item(reward.attribute("item").as_int()));
 								}
 							}
 						}

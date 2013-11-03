@@ -3,7 +3,7 @@
 #include "User.h"
 #include "SpritePanel.h"
 
-GroundItem::GroundItem(int x, int y, Item myItem) : GameSprite(x,y,"itemsprites/" + myItem.GetId() + ".png"){
+GroundItem::GroundItem(int x, int y, Item myItem) : GameSprite(x,y,"itemsprites/" + myItem.imageName){
 	item = myItem;
 	SetZ(1);
 	isVisible = true;

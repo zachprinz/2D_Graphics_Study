@@ -43,7 +43,7 @@ public:
 	bool dKeyPressed;
 	bool sKeyPressed;
 	bool cKeyPressed;
-	void ChangeEquiped(int slot, int materialLevel);
+	void ChangeEquiped(Item*);
 	void DrawUser(sf::RenderTexture*);
 	//enum Levels {Strength,Technique,Endurance,Speed,Woodcutting,Crafting,Mining,Smithing};
 	//enum SubLevels {

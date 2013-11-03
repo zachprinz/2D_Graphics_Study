@@ -18,7 +18,7 @@ public:
 	void OnClick();
 	void OnActionComplete(Actions);
 	void LaunchAction(Actions);
-	void AddDrop(std::string,float);
+	void AddDrop(int,float);
 	void SetName(std::string);
 	void Drop();
 	//void OnRoomChange();
@@ -35,7 +35,7 @@ private:
 	Mode currentMode;
 	std::vector<sf::Vector2i> patrolPoints;
 	int currentPatrolTargetPoint;
-	std::vector<std::string> drops;
+	std::vector<int> drops;
 	std::vector<float> dropChances;
 };
 

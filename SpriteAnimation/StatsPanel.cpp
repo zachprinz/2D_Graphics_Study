@@ -27,7 +27,7 @@ void StatsPanel::SetItem(Item* item){
 	((Label*)(itemMap["MiningValue"]))->SetText(std::to_string(item->itemLevels.mining));
 	((Label*)(itemMap["Name"]))->SetText(item->GetName());
 	((Label*)(itemMap["Name"]))->CenterText();
-	((Button*)(itemMap["Image"]))->foreground->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("itemsprites/" + item->GetId() + ".png"));
+	((Button*)(itemMap["Image"]))->foreground->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("itemsprites/" + std::to_string(item->GetId()) + ".png"));
 	((Button*)(itemMap["Image"]))->CenterForeground();
 	currentName = item->GetName();
 	dynamicElements = itemMap;

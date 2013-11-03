@@ -18,7 +18,7 @@ public:
 	static SpritePanel* instance;
 	void AddElement(std::string,Drawn*);
 	static sf::Texture* spritePanelBackground;
-	void SpawnItem(std::string,int,int,Room*);
+	void SpawnItem(int,int,int,Room*);
 	tmx::MapLoader* ml;
 	std::vector<tmx::MapLayer*> otherLayers;
 	std::vector<tmx::MapLayer*> highLayers;

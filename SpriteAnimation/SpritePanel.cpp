@@ -75,7 +75,7 @@ void SpritePanel::LoadMapSprites(){
 		int yCor = (((int)sprites->objects[x].GetPosition().y) / 32);
 		sf::Texture tempText;
 		if(name == "Item"){
-			SpawnItem(sprites->objects[x].GetPropertyString("id"),xCor,yCor,room);
+			SpawnItem(std::stoi(sprites->objects[x].GetPropertyString("id")),xCor,yCor,room);
 		}
 		if(name == "Enemy"){
 			Enemy* enemy = new Enemy(xCor,yCor,sprites->objects[x].GetPropertyString("name") + ".png", sprites->objects[x].GetPropertyString("name"));
@@ -135,7 +135,7 @@ void SpritePanel::AddElement(std::string name, Drawn* element){
 void SpritePanel::SetUp(){
 	GamePanel::SetUp();
 }
-void SpritePanel::SpawnItem(std::string id,int x,int y,Room* room){
+void SpritePanel::SpawnItem(int id,int x,int y,Room* room){
 	Item tempItem(id);
 	std::cout << tempItem.GetId() << " Spawned at: " << x << ", " << y << std::endl;
 	GroundItem* tempPoints = new GroundItem(x,y,tempItem);

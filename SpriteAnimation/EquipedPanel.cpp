@@ -25,7 +25,7 @@ EquipedContainer* EquipedPanel::GetSlotContainer(int slot){
 };
 void EquipedPanel::Equip(Item item){
 	doUpdate = true;
-	User::player->ChangeEquiped(item.GetSlot(), item.GetMaterialLevel());
+	User::player->ChangeEquiped(&item);
 	//HUDPanel::instance->UpdateUserImage();
 	GetSlotContainer(item.GetSlot())->AddItem(item);
 };

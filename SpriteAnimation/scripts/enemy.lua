@@ -9,7 +9,7 @@ function Enemy:new(nameA,dropsA)
 end
 
 local enemy = {}
- enemy["cherub"] = Enemy:new('Cherub',{{"0_1",0.5},{"0_2",0.25}})
+ enemy["cherub"] = Enemy:new('Cherub',{{1,0.5},{2,0.25}})
 
 function createEnemy(enemyName)
 	instanceEnemy:SetName(enemy[enemyName]["name"])

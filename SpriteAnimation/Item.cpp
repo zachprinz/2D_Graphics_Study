@@ -2,12 +2,30 @@
 #include "SFML/Graphics.hpp"
 #include "ScriptManager.h"
 #include "Drawn.h"
+#include "pugixml\pugixml.hpp"
 
-Item::Item(std::string ida){
-	id = ida;
-	itemLevels = LevelSet();
-	ScriptManager::CreateItem(id,this);
-	materialLevel = std::stoi(id.substr(2,id.length()));
+Item::Item(int id){
+	this->id = id;
+	SetUpItem(id,this);
+	//itemLevels = LevelSet();
+	//ScriptManager::CreateItem(id,this);
+	//materialLevel = std::stoi(id.substr(2,id.length()));
+};
+void Item::SetUpItem(int id,Item* item){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/itemInfo.xml");
+	pugi::xml_node atlas = doc.child("ArmourList");
+	pugi::xml_node itemInfo;
+	for(pugi::xml_node armour = atlas.first_child(); armour; armour = armour.next_sibling()){
+		if(std::stoi(armour.attribute("id").value()) == id){
+			itemInfo = armour;
+			break;
+		}
+	}
+	item->itemLevels = LevelSet(itemInfo.attribute("str").as_int(),itemInfo.attribute("end").as_int(),itemInfo.attribute("speed").as_int(),itemInfo.attribute("tech").as_int(),0,0,0,0);
+	item->slot = itemInfo.attribute("slot").as_int();
+	item->name = itemInfo.attribute("name").value();
+	item->imageName = itemInfo.attribute("image").value();
 };
 void Item::SetUp(int slot){
 	this->slot = slot;
@@ -15,7 +33,7 @@ void Item::SetUp(int slot){
 Item::Item(){
 
 }
-std::string Item::GetId(){
+int Item::GetId(){
 	return id;
 };
 int Item::GetPrice(){
