@@ -16,6 +16,7 @@ void EquipedContainer::OnClick(){
 };
 void EquipedContainer::Remove(){
 		User::player->GetInventory()->Add(GetContents());
+		User::player->RemoveEquipment(GetContents().GetSlot());
 		ClearContents();
 };
 void EquipedContainer::OnMenuSelection(std::string selection){

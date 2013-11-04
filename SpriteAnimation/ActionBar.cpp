@@ -6,6 +6,7 @@
 ActionBar* ActionBar::instance;
 
 ActionBar::ActionBar(int x ,int y) : GamePanel(x,y,"ActionBar"){
+	instance = this;
 	SetUp();
 };
 ActionBar::ActionBar(){
@@ -21,6 +22,15 @@ void ActionBar::UpdateElements(){
 		panel.draw(*sheets[x]);
 	}
 };
+void ActionBar::UpdateActionImages(){
+	Combatant::AttackMap::iterator it = User::player->attacks.begin();
+	for(int x = 0; x < User::player->attacks.size(); x++){//Combatant::AttackPair x: User::player->attacks){
+		Button* tempButton = ((Button*)dynamicElements["Button" + std::to_string(x)]);
+		tempButton->SetForegroundSprite(it->second->hudTexture);
+		((Button*)dynamicElements["Button" + std::to_string(x)])->CenterForeground();
+		it++;
+	}
+};
 void ActionBar::SetUp(){
 	sf::Texture attackBackgroundTexture;
 	sf::Texture defaultHudTexture;
@@ -31,6 +41,7 @@ void ActionBar::SetUp(){
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(std::to_string(dynamicElements.size()));
 		tempButton->CenterForeground();
+		std::cout << "Button" << std::to_string(dynamicElements.size()) << std::endl;
 		dynamicElements.insert(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
 	}
 	for(int x = dynamicElements.size(); x < 9; x++){

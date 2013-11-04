@@ -14,6 +14,7 @@ public:
 	static ActionBar* instance;
 	void AddElement(std::string,Drawn*);
 	void UpdateElements();
+	void UpdateActionImages();
 	void SetUp();
 	void OnButtonEvent(std::string);
 	bool CheckUpdate();

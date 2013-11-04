@@ -44,6 +44,7 @@ public:
 	bool sKeyPressed;
 	bool cKeyPressed;
 	void ChangeEquiped(Item*);
+	void RemoveEquipment(int);
 	void DrawUser(sf::RenderTexture*);
 	//enum Levels {Strength,Technique,Endurance,Speed,Woodcutting,Crafting,Mining,Smithing};
 	//enum SubLevels {
@@ -55,6 +56,7 @@ public:
 	std::string GetQuestData(std::string,std::string);
 	void UpdateQuest(std::string);
 	void ResetXMLDocs();
+	void SetUpAttacks(std::string);
 private:
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);
@@ -65,7 +67,6 @@ private:
 	BankPanel* bank;
 	LevelPanel* levelPanel;
 	void SetUpImages();
-	void SetUpAttacks();
 	void SetUpAnimations();
 	void SetUpLevels();
 	void GetUserWeaponImage(sf::RenderTexture*);

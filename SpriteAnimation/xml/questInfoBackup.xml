@@ -16,7 +16,7 @@
 			</Objective>
 		</Objectives>
 		<Rewards>
-			<Reward goldAmount="" xpLevel="strength" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item="1_3"/>
+			<Reward goldAmount="" xpLevel="strength" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item="106"/>
 			<Reward goldAmount="" xpLevel="endurance" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/>
 			<Reward goldAmount="" xpLevel="technique" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/>
 			<Reward goldAmount="" xpLevel="speed" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/>

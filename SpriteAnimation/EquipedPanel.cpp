@@ -4,6 +4,7 @@
 #include "Label.h"
 #include "User.h"
 #include "HUDPanel.h"
+#include "ActionBar.h"
 
 sf::Texture* EquipedPanel::equipedBackground = new sf::Texture();
 EquipedPanel* EquipedPanel::instance = new EquipedPanel();
@@ -26,6 +27,10 @@ EquipedContainer* EquipedPanel::GetSlotContainer(int slot){
 void EquipedPanel::Equip(Item item){
 	doUpdate = true;
 	User::player->ChangeEquiped(&item);
+	if(item.GetSlot() == 1){
+		User::player->SetUpAttacks(item.GetAttackSet());
+		ActionBar::instance->UpdateActionImages();
+	}
 	//HUDPanel::instance->UpdateUserImage();
 	GetSlotContainer(item.GetSlot())->AddItem(item);
 };

@@ -6,6 +6,7 @@
 #include <vector>
 #include "Attack.h"
 #include "StatsPanel.h"
+#include "ActionBar.h"
 
 User* User::player;
 
@@ -26,7 +27,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	layered = new LayeredPanel(temp);
 	layered->SetPosition(1125,445);
 	SetUpImages();
-	SetUpAttacks();
+	SetUpAttacks("default");
 	SetUpAnimations();
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
@@ -91,7 +92,7 @@ void User::DrawUser(sf::RenderTexture* window){
 
 };
 void User::GetUserWeaponImage(sf::RenderTexture* window){
-	if(oversize){
+	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
 		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
 		window->draw(sprite);
@@ -156,25 +157,33 @@ void User::SetUpImages(){
 	tempIntRect = GetTextureFromAtlas("userspritesheets/body/light.png");
 	animationSheets.push_back(tempIntRect);
 	for(int x = 0; x < 5; x++){
-		animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/2.png"));
+		if(x != 1)
+			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/default.png"));
+		if(x == 1)
+			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/1/default.png"));
 	}
 };
-void User::SetUpAttacks(){
-	std::vector<sf::Vector2i> atkOffset;
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,1));
-	AddAttack(new Attack("One",1.f,atkOffset,1,0,0));
-	currentAttacks.push_back("One");
-	atkOffset.clear();
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,1));
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,2));
-	AddAttack(new Attack("Two",1.f,atkOffset,3,0,0));
-	currentAttacks.push_back("Two");
-	atkOffset.clear();
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,1));
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Left,1));
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Right,1));
-	AddAttack(new Attack("Three",1.f,atkOffset,6,0,0));
-	currentAttacks.push_back("Three");
+void User::SetUpAttacks(std::string attackSetName){
+	attacks.clear();
+	currentAttacks.clear();
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/actionInfo.xml");
+	pugi::xml_node atlas = doc.child("Actions");
+	pugi::xml_node attackSet;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(tool.first_attribute().value() == attackSetName){
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				std::cout << "Setting up a new attack!" << std::endl;
+				std::vector<sf::Vector2i> atkOffset;
+				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
+					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
+				}
+				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0));
+				currentAttacks.push_back(tool2.attribute("name").value());
+			}
+			break;
+		}
+	}
 };
 bool User::GetIsAnyKeyPressed(){
 			if((sf::Keyboard::isKeyPressed(sf::Keyboard::D)
@@ -280,7 +289,7 @@ void User::LaunchAction(Actions action){
 	switch(action){
 	case(Attacking):{
 		LaunchAttack(nextAttack);
-		SetAnimation(animations["Slash"],currentAnimationDir);
+		SetAnimation(animations[((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetAnimation()],currentAnimationDir);
 					}
 					break;
 
@@ -298,8 +307,11 @@ sf::Vector2i User::GetTailPoint(){
 	return tailPoint;
 };
 void User::ChangeEquiped(Item* item){
-		animationSheets[item->GetSlot() + 1] = Drawn::GetTextureFromAtlas("userspritesheets/" + item->imageName);
+	animationSheets[item->GetSlot() + 1] = Drawn::GetTextureFromAtlas("userspritesheets/" + item->imageName);
 };
+void User::RemoveEquipment(int slot){
+	animationSheets[slot + 1] = Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(slot) + "/default.png");
+}
 void User::CalculateLevelData(std::string levelName){
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
