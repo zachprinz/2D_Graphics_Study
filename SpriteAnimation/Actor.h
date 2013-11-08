@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
 #include "GameSprite.h"
+#include "pugixml\pugixml.hpp"
 
 class Actor : public GameSprite
 {
@@ -45,7 +46,7 @@ public:
 	Animation* currentAnimation;
 	sf::Vector2i currentAnimationPos;
 	std::vector<sf::IntRect> animationSheets;
-	void UpdateCurrentActorTexture();
+	//void UpdateCurrentActorTexture();
 	sf::Clock animationClock;
 	bool UpdateAnimation();
 	//sf::Texture GetSpriteTexture();
@@ -54,7 +55,13 @@ public:
 	static sf::Clock elapsedTimeClock;
 	static sf::Time elapsedTime;
 	sf::Texture GetActorTexture();
+	void UpdateBoundries();
+	void SetUpAnimation();
+	void Draw(sf::RenderTexture*);
 protected:
+	pugi::xml_node boundriesNode;
+	pugi::xml_document boundriesDoc;
+	pugi::xml_parse_result boundriesResult;
 	std::string name;
 	bool CheckTile(int x,int y);
 	virtual void Update(sf::RenderTexture&);

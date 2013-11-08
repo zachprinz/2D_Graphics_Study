@@ -57,6 +57,7 @@ public:
 	void UpdateQuest(std::string);
 	void ResetXMLDocs();
 	void SetUpAttacks(std::string);
+	void GetUserWeaponImage(sf::RenderTexture*);
 private:
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);
@@ -67,8 +68,6 @@ private:
 	BankPanel* bank;
 	LevelPanel* levelPanel;
 	void SetUpImages();
-	void SetUpAnimations();
 	void SetUpLevels();
-	void GetUserWeaponImage(sf::RenderTexture*);
 };
 #endif

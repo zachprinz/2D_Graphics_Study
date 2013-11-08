@@ -29,7 +29,6 @@ private:
 	//Inventory inventory;
 	//UserLevels levels;
 	void MoveTowardPoint(sf::Vector2i);
-	void SetUpAnimations();
 	void SetUpAttacks();
 	bool aggressive;
 	Mode currentMode;

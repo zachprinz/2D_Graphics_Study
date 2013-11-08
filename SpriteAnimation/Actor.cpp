@@ -18,7 +18,11 @@ Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprit
 	playAnimation = true;
 	movement = sf::Vector2i(0,0);
 	currentAction = NoAction;
+	boundriesResult = boundriesDoc.load_file("xml/lpcboundries.xml");
+	boundriesNode = boundriesDoc.first_child();
 	SetZ(2);
+	SetUpAnimation();
+	sprite.setScale(0.85f,0.65f);
 };
 Actor::Actor(){
 
@@ -143,8 +147,25 @@ void Actor::Update(sf::RenderTexture& panel){
 	if(isVisible){
 		UpdateRoomTile();
 		UpdateAnimation();
+		GameSprite::Update(panel);
 	}
 }
+void Actor::Draw(sf::RenderTexture* window){
+	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
+	for(int x = 0; x < animationSheets.size(); x++){
+		if(x != 2){
+			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
+			window->draw(sprite);
+		}
+	}
+	if(this == User::player){
+		if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
+			std::cout << "Getting Sword Animation" << std::endl;
+			User::player->GetUserWeaponImage(window);
+		}
+	}
+	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
+};
 void Actor::OnClick(){
 
 };
@@ -169,11 +190,21 @@ sf::Vector2i Actor::GetLeft(){
 sf::Vector2i Actor::GetRight(){
 	return sf::Vector2i(-1 * (abs(abs(movement.x) - 1) * (movement.x - movement.y)),-1 * (abs(abs(movement.y) - 1) * (movement.x - movement.y)));
 };
+void Actor::SetUpAnimation(){
+	AddAnimation(new Animation("Cast",0.05,7,64,0,2,1,3));
+	AddAnimation(new Animation("Stab",0.05,8,64,4,6,5,7));
+	AddAnimation(new Animation("Walk",0.04,9,64,8,10,9,11));
+	AddAnimation(new Animation("Slash",0.05,6,64,12,14,13,15));
+	AddAnimation(new Animation("Shoot",0.05,13,64,16,18,17,19));
+	AddAnimation(new Animation("Die",0.075,6,64,20,20,20,20));
+};
 bool Actor::UpdateAnimation(){
 	if(animationClock.getElapsedTime() > currentAnimation->timePerFrame){
 		sprite.setColor(sf::Color(255,255,255,255));
 		animationClock.restart();
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
+		ClearBoundries();
+		UpdateBoundries();
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));
 			showHit = false;
@@ -193,10 +224,50 @@ bool Actor::UpdateAnimation(){
 	else
 		return false;
 };
-//sf::Texture Actor::GetSpriteTexture(){
+void Actor::UpdateBoundries(){
+	pugi::xml_node animationBoundsNode;
+	pugi::xml_node dirBoundsNode;
+	pugi::xml_node frameBoundsNode;
+	for(pugi::xml_node curAnimationBoundsNode = boundriesNode.first_child(); curAnimationBoundsNode; curAnimationBoundsNode = curAnimationBoundsNode.next_sibling()){
+		if(curAnimationBoundsNode.attribute("name").as_string() == currentAnimation->name){
+			animationBoundsNode = curAnimationBoundsNode;
+			break;
+		}
+	}
+	for(pugi::xml_node dirBounds = animationBoundsNode.first_child(); dirBounds; dirBounds = dirBounds.next_sibling()){
+		if(dirBounds.attribute("dir").as_int() == currentAnimationDir){
+			dirBoundsNode = dirBounds;
+			break;
+		}
+	}
+	int x = 0;
+	int curPos = currentAnimationPos.x;
+	if(currentAnimation->name == "Walk")
+		curPos--;
+	for(pugi::xml_node frameBounds = dirBoundsNode.first_child(); frameBounds; frameBounds = frameBounds.next_sibling()){
+		if(x == curPos){
+			frameBoundsNode = frameBounds;
+			break;
+		}
+		else{
+			x++;
+		}
+	}
+	for(pugi::xml_node polygon = frameBoundsNode.first_child(); polygon; polygon = polygon.next_sibling()){
+		sf::ConvexShape poly;
+		poly.setPointCount(polygon.attribute("numVertexes").as_int());
 
-//};
-void Actor::UpdateCurrentActorTexture(){ // Try just moving around 6 sprites, might be more adventagious than this.
+		pugi::xml_node vertex = polygon.first_child();
+		for(int x = 0; x < polygon.attribute("numVertexes").as_int(); x++){
+			if(x != 0)
+				vertex = vertex.next_sibling();
+			poly.setPoint(x,sf::Vector2f(vertex.attribute("x").as_int(),vertex.attribute("y").as_int()));
+		}
+		poly.setFillColor(sf::Color(43,119,173,170));
+		GameSprite::AddBoundryPolygon(poly);
+	}
+}
+/*void Actor::UpdateCurrentActorTexture(){ // Try just moving around 6 sprites, might be more adventagious than this.
 	animationPallate.clear(sf::Color(0,0,0,0));
 	for(int x = 0; x < animationSheets.size(); x++){
 		animationSprite.setTextureRect(animationSheets[x]);
@@ -206,7 +277,7 @@ void Actor::UpdateCurrentActorTexture(){ // Try just moving around 6 sprites, mi
 	texture = animationPallate.getTexture();
 	texture.setSmooth(true);
 	sprite.setTexture(texture);
-};
+};*/
 void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
 	if(currentAnimation->name != anim->name || currentAnimationDir != dir){
 		currentAnimation = anim;

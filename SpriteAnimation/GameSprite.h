@@ -24,7 +24,13 @@ public:
 	void SetLocation(float,float);
 	virtual void OnClick();
 	virtual void OnHover();
+	static bool displayDebug;
+	virtual void Update(sf::RenderTexture&);
+	void AddBoundryPolygon(sf::ConvexShape);
+	void ClearBoundries();
+	void DrawBoundries(sf::RenderTexture&);
 protected:
+	std::vector<sf::ConvexShape> boundries;
 	RoomTile* GetRoomTile();
 	RoomTile* GetRoomTile(int,int);
 	void UpdateRoomTile();

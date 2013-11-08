@@ -13,17 +13,17 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	SetUpAnimations();
 	this->name = name;
 	animationSheets.push_back(GetTextureFromAtlas(textureName));
-	animationPallate.create(64,64);
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Left;
 	SetAnimation(animations["Walk"],Animation::Left);
-	sprite.setTextureRect(sf::IntRect(0,0,32,32));
+	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	animationPallate.create(96,128);
-	UpdateCurrentActorTexture();
+	//UpdateCurrentActorTexture();
 };
 void NPC::Update(sf::RenderTexture& window){
 	Actor::Update(window);
-	window.draw(sprite);
+	Draw(&window);
+	DrawBoundries(window);
 };
 void NPC::Interact(){
 	MoveTowardPoint(User::player->GetGraphPositionA());

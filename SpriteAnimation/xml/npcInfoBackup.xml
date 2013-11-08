@@ -2,17 +2,25 @@
 
 <NPCList>
 	<NPC name="Dr.Smith">
-		<Responce string="Hello there, how are you? If you're up for it I've got a task for you. See those angels over there? You need to kill at least two of them.">
+		<Responce npc="Dr.Smith" quest="Eyes Peeled" string="Hello there, how are you? If you're up for it I've got a task for you. See those angels over there? You need to kill at least two of them.">
 			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="start"/>
 		</Responce>
 		
-		<Responce string="Marvelous, here, take this as a reward.">
+		<Responce npc="Dr.Smith" quest="Eyes Peeled" string="Marvelous, here, take this as a reward.">
 			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="report back"/>
+		</Responce>
+		
+		<Responce npc="Dr.Smith" quest="Eyes Peeled" string="Go finish off those angels already! You're waisting time...">
+			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="kill the angels"/>
+		</Responce>
+		
+		<Responce npc="Dr.Smith" quest="Eyes Peeled" string="Thanks for getting rid of those pesky angels for me. It feels so nice to shut my eyes.">
+			<Requirement questName="Eyes Peeled" questAtrib="currentObjective" valueValue="none"/>
 		</Responce>
 	</NPC>
 	
 	<NPC name="">
-		<Responce string="">
+		<Responce npc="" quest="" string="">
 			<Requirement questName="" questAtrib="" valueValue=""/>
 		</Responce>
 	</NPC>

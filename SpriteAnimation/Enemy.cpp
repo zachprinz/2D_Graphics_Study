@@ -10,16 +10,14 @@
 
 Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,name,textureName){
 	ScriptManager::CreateEnemy(name,this);
-	SetUpAttacks();
-	SetUpAnimations();
 	animationSheets.push_back(GetTextureFromAtlas(textureName));
-	animationPallate.create(64,64);
+	SetUpAttacks();
+	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
 	SetAnimation(animations["Walk"],Animation::Down);
-	sprite.setTextureRect(sf::IntRect(0,0,32,32));
-	animationPallate.create(96,128);
-	UpdateCurrentActorTexture();
+	//animationPallate.create(96,128);
+	//UpdateCurrentActorTexture();
 	currentPatrolTargetPoint = 0;
 	currentMode = Patrol;
 };
@@ -59,7 +57,8 @@ void Enemy::Update(sf::RenderTexture& window){
 	Combatant::Update(window);
 	Actor::Update(window);
 	UpdateEffectedTiles();
-	window.draw(sprite);
+	Draw(&window);
+	DrawBoundries(window);
 };
 void Enemy::AddPatrolPoint(sf::Vector2i a){
 	patrolPoints.push_back(a);
@@ -89,9 +88,6 @@ void Enemy::Interact(){
 void Enemy::OnClick(){
 	Interact();
 }
-void Enemy::SetUpAnimations(){
-		AddAnimation(new Animation("Walk",0.075,3,32,3,0,1,2));
-};
 void Enemy::SetUpAttacks(){
 	std::vector<sf::Vector2i> atkOffset;
 	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,1));

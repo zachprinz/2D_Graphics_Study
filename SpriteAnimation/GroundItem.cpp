@@ -15,6 +15,7 @@ void GroundItem::Update(sf::RenderTexture& window){
 		if(isVisible){
 			UpdateRoomTile();
 			window.draw(sprite);
+			GameSprite::Update(window);
 		}
 };
 void GroundItem::PickUp(){

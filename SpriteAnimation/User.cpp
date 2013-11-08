@@ -14,7 +14,6 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	ResetXMLDocs();
 	oversize = true;
 	User::player = this;
-	sprite.setScale(0.85f,0.65f);
 	bank = new BankPanel(480,480);
 	inventory = new InventoryPanel(320,480);
 	equiped = new EquipedPanel(320,480);
@@ -28,7 +27,6 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	layered->SetPosition(1125,445);
 	SetUpImages();
 	SetUpAttacks("default");
-	SetUpAnimations();
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
@@ -74,22 +72,8 @@ void User::Update(sf::RenderTexture& window){
 	}
 	Combatant::Update(window);
 	Actor::Update(window);
-	DrawUser(&window);
-};
-void User::DrawUser(sf::RenderTexture* window){
-	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
-	for(int x = 0; x < animationSheets.size(); x++){
-		if(x != 2){
-			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
-			window->draw(sprite);
-		}
-	}
-	if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
-		std::cout << "Getting Sword Animation" << std::endl;
-		GetUserWeaponImage(window);
-	}
-	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
-
+	Draw(&window);
+	DrawBoundries(window);
 };
 void User::GetUserWeaponImage(sf::RenderTexture* window){
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
@@ -294,14 +278,6 @@ void User::LaunchAction(Actions action){
 					break;
 
 	}
-};
-void User::SetUpAnimations(){
-	AddAnimation(new Animation("Cast",0.05,7,64,0,2,1,3));
-	AddAnimation(new Animation("Stab",0.05,8,64,4,6,5,7));
-	AddAnimation(new Animation("Walk",0.04,9,64,8,10,9,11));
-	AddAnimation(new Animation("Slash",0.05,6,64,12,14,13,15));
-	AddAnimation(new Animation("Shoot",0.05,13,64,16,18,17,19));
-	AddAnimation(new Animation("Die",0.075,6,64,20,20,20,20));
 };
 sf::Vector2i User::GetTailPoint(){
 	return tailPoint;

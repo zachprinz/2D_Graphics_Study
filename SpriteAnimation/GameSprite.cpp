@@ -2,8 +2,10 @@
 #include "Room.h"
 #include <iostream>
 #include "SpritePanel.h"
+#include "User.h"
 
 int GameSprite::tagCount = 0;
+bool GameSprite::displayDebug = true;
 
 GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textureName){
 	graphPositionA = sf::Vector2i(x,y);
@@ -12,6 +14,25 @@ GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textur
 	z = 0;
 	tag = tagCount;
 	tagCount++;
+};
+void GameSprite::Update(sf::RenderTexture& panel){
+	if(displayDebug){
+		panel.draw(GetRoomTile()->getVisual());
+	}
+	DrawBoundries(panel);
+};
+void GameSprite::DrawBoundries(sf::RenderTexture& panel){
+	for(int x = 0; x < boundries.size(); x++){
+			boundries[x].setScale(0.85f,0.65f);
+			boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x + 15.25,GetSprite()->getPosition().y + 14.5));
+			panel.draw(boundries[x]);
+	}
+};
+void GameSprite::AddBoundryPolygon(sf::ConvexShape poly){
+	boundries.push_back(poly);
+};
+void GameSprite::ClearBoundries(){
+	boundries.clear();
 };
 GameSprite::GameSprite(){
 
