@@ -14,6 +14,7 @@ public:
 	void Update(sf::RenderTexture&);
 	void PickUp();
 	void Interact();
+	void SetUpBoundries();
 private:
 	Item item;
 };

@@ -282,7 +282,10 @@ void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
 	if(currentAnimation->name != anim->name || currentAnimationDir != dir){
 		currentAnimation = anim;
 		currentAnimationDir = dir;
-		currentAnimationPos.x = 0;
+		if(anim->name == "Walk")
+			currentAnimationPos.x = 1;
+		else
+			currentAnimationPos.x = 0;
 		currentAnimationPos.y = currentAnimation->GetY(dir);
 	}
 }

@@ -25,7 +25,7 @@ int main()
 
 		//draw
 		renderWindow.clear();
-		ml.Draw(renderWindow); 
+		renderWindow.draw(ml);
 		ml.Draw(renderWindow, tmx::MapLayer::Debug);//draw with debug information shown
 		renderWindow.display();
 	}

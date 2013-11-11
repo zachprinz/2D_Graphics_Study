@@ -40,6 +40,8 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	cKeyPressed = false;
 	Drawn::gameTexture.setRepeated(false);
 	SetUpLevels();
+	UpdateAnimation();
+	UpdateBoundries();
 };
 void User::Update(sf::RenderTexture& window){
 	CheckUserInput();

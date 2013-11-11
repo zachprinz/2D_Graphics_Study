@@ -15,7 +15,7 @@ Room* SpritePanel::room = new Room();
 
 SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	ml = new tmx::MapLoader("maps/");
-    ml->Load("test.tmx");
+    ml->Load("test1.tmx");
 	for(int x = 0; x < ml->GetLayers().size(); x++){
 		if(ml->GetLayers()[x].name == "objects2" || ml->GetLayers()[x].name == "objects3")
 			highLayers.push_back(&ml->GetLayers()[x]);

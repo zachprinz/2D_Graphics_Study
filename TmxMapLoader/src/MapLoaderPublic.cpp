@@ -1,6 +1,7 @@
 /*********************************************************************
 Matt Marchant 2013
 SFML Tiled Map Loader - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
+						http://trederia.blogspot.com/2013/05/tiled-map-loader-for-sfml.html
 
 The zlib license has been used to make this software fully compatible
 with SFML. See http://www.sfml-dev.org/license.php
@@ -31,7 +32,7 @@ it freely, subject to the following restrictions:
 using namespace tmx;
 
 //ctor
-MapLoader::MapLoader(const std::string mapDirectory)
+MapLoader::MapLoader(const std::string& mapDirectory)
 	: m_width			(1u),
 	m_height			(1u),
 	m_tileWidth			(1u),
@@ -43,7 +44,6 @@ MapLoader::MapLoader(const std::string mapDirectory)
 {
 	//reserve some space to help reduce reallocations
 	m_layers.reserve(10);
-	m_tileTextures.reserve(80);
 
 	//check map directory contains trailing slash
 	if(!m_mapDirectory.empty() && *m_mapDirectory.rbegin() != '/')
@@ -56,14 +56,14 @@ MapLoader::~MapLoader()
 
 }
 
-const bool MapLoader::Load(std::string map)
+bool MapLoader::Load(const std::string& map)
 {
-	map = m_mapDirectory + map;
+	std::string mapPath = m_mapDirectory + map;
 	m_Unload(); //clear any old data first
 
 	//parse map xml, return on error
 	pugi::xml_document mapDoc;
-	pugi::xml_parse_result result = mapDoc.load_file(map.c_str());
+	pugi::xml_parse_result result = mapDoc.load_file(mapPath.c_str());
 	if(!result)
 	{
 		std::cout << "Failed to open " << map << std::endl;
@@ -79,10 +79,8 @@ const bool MapLoader::Load(std::string map)
 		return m_mapLoaded = false;
 	}
 	if(!(m_mapLoaded = m_ParseMapNode(mapNode))) return false;
-
 	//load map textures / tilesets
 	if(!(m_mapLoaded = m_ParseTileSets(mapNode))) return false;
-
 
 	//actually we need to traverse map node children and parse each layer as found
 	pugi::xml_node currentNode = mapNode.first_child();
@@ -148,27 +146,9 @@ std::vector<MapObject*> MapLoader::QueryQuadTree(const sf::FloatRect& testArea)
 void MapLoader::Draw(sf::RenderTarget& rt)
 {
 	m_SetDrawingBounds(rt.getView());
-	for(auto layer = m_layers.begin(); layer != m_layers.end(); ++layer)
-	{
-		if(!layer->visible) continue; //skip invisible layers
-		for(unsigned i = 0; i < layer->vertexArrays.size(); i++)
-		{
-			rt.draw(layer->vertexArrays[i], &m_tilesetTextures[i]);
-		}
-		if(layer->type == ObjectGroup || layer->type == ImageLayer)
-		{
-			//draw tiles used on objects
-			for(auto tile = layer->tiles.begin(); tile != layer->tiles.end(); ++tile)
-			{
-				//draw tile if in bounds and is not transparent
-				if((m_bounds.contains(tile->sprite.getPosition()) && tile->sprite.getColor().a)
-					|| layer->type == ImageLayer) //always draw image layer
-				{
-					rt.draw(tile->sprite, tile->renderStates);
-				}
-			}
-		}
-	}
+
+	for(auto&& layer : m_layers)
+		m_DrawLayer(rt, layer);
 }
 
 void MapLoader::Draw(sf::RenderTarget& rt, MapLayer::DrawType type)
@@ -198,54 +178,23 @@ void MapLoader::Draw(sf::RenderTarget& rt, MapLayer::DrawType type)
 		{
 			if(layer.type = ObjectGroup)
 			{
-			for(auto object : layer.objects)		
-				object.DrawDebugShape(rt);
+				for(auto& object : layer.objects)		
+					object.DrawDebugShape(rt);
 			}
 		}
 		rt.draw(m_gridVertices);
-		m_rootNode.DebugDraw(rt);
+		//m_rootNode.DebugDraw(rt);
 		break;
 	}
 }
 
 void MapLoader::Draw(sf::RenderTarget& rt, sf::Uint16 index)
 {
+	m_SetDrawingBounds(rt.getView());
 	m_DrawLayer(rt, m_layers[index]);
 }
 
-//legacy draw function, avoid using this if possible
-void MapLoader::Draw2(sf::RenderTarget& rt, bool debug)
-{
-	if(!m_mapLoaded) return; //no need to log this really
-	//draw only visible tiles
-	m_SetDrawingBounds(rt.getView());
-	for(auto layer = m_layers.begin(); layer != m_layers.end(); ++layer)
-	{
-		if(!layer->visible) continue; //skip invisible layers
-		for(auto tile = layer->tiles.begin(); tile != layer->tiles.end(); ++tile)
-		{
-			//draw tile if in bounds and is not transparent
-			if((m_bounds.contains(tile->sprite.getPosition()) && tile->sprite.getColor().a)
-				|| layer->type == ImageLayer) //always draw image layer
-			{
-				rt.draw(tile->sprite, tile->renderStates);
-			}
-		}
-		if(debug && layer->type == ObjectGroup)
-		{
-			//draw debug shapes for each object
-			for(auto object = layer->objects.begin(); object != layer->objects.end(); ++object)
-				object->DrawDebugShape(rt);
-		}
-	}
-	if(debug)
-	{
-		rt.draw(m_gridVertices);
-		m_rootNode.DebugDraw(rt);
-	}
-}
-
-const sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projectedCoords)
+sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projectedCoords)
 {
 	//skip converting if we don't actually have an isometric map loaded
 	if(m_orientation != Isometric) return projectedCoords;
@@ -253,7 +202,7 @@ const sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projecte
 	return sf::Vector2f(projectedCoords.x - projectedCoords.y, (projectedCoords.x / m_tileRatio) + (projectedCoords.y / m_tileRatio));
 }
 
-const sf::Vector2f MapLoader::OrthogonalToIsometric(const sf::Vector2f& worldCoords)
+sf::Vector2f MapLoader::OrthogonalToIsometric(const sf::Vector2f& worldCoords)
 {
 	if(m_orientation != Isometric) return worldCoords;
 

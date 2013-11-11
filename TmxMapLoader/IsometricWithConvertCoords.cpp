@@ -36,7 +36,7 @@ int main()
 
 		//draw map
 		renderWindow.clear();
-		ml.Draw(renderWindow);
+		renderWindow.draw(ml);
 		if(debug)ml.Draw(renderWindow, tmx::MapLayer::Debug);
 		renderWindow.display();
 

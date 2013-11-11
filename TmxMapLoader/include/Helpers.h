@@ -53,6 +53,22 @@ namespace Helpers
 		{
 			return lv.x * rv.x + lv.y * rv.y;
 		}
+
+		//Returns a given vector with its length normalized to 1
+		static const sf::Vector2f Normalize(sf::Vector2f source)
+		{
+			float length = std::sqrt(Dot(source, source));
+			if (length != 0) source /= length;
+				//return sf::Vector2f(source.x / length, source.y / length);
+			//else
+			return source;
+		}
+
+		//Returns angle in degrees of a given vector where 0 is horizontal
+		static const float GetAngle(const sf::Vector2f& source)
+		{
+			return atan2(source.y , source.x) * 180.f / 3.14159265f;
+		}
 	};
 };
 

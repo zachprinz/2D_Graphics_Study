@@ -9,7 +9,6 @@
 #include "ScriptManager.h"
 
 NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NPC",textureName){
-	//ScriptManager::CreateEnemy(name,this);
 	SetUpAnimations();
 	this->name = name;
 	animationSheets.push_back(GetTextureFromAtlas(textureName));
@@ -17,8 +16,9 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	currentAnimationDir = Animation::Left;
 	SetAnimation(animations["Walk"],Animation::Left);
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
-	animationPallate.create(96,128);
-	//UpdateCurrentActorTexture();
+	UpdateRoomTile();
+	UpdateAnimation();
+	UpdateBoundries();
 };
 void NPC::Update(sf::RenderTexture& window){
 	Actor::Update(window);

@@ -16,10 +16,9 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
 	SetAnimation(animations["Walk"],Animation::Down);
-	//animationPallate.create(96,128);
-	//UpdateCurrentActorTexture();
 	currentPatrolTargetPoint = 0;
 	currentMode = Patrol;
+	UpdateBoundries();
 };
 void Enemy::Update(sf::RenderTexture& window){
 	if(currentDirection == None){

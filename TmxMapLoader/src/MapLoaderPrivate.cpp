@@ -1,6 +1,7 @@
 /*********************************************************************
 Matt Marchant 2013
 SFML Tiled Map Loader - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
+						http://trederia.blogspot.com/2013/05/tiled-map-loader-for-sfml.html
 
 The zlib license has been used to make this software fully compatible
 with SFML. See http://www.sfml-dev.org/license.php
@@ -28,15 +29,15 @@ it freely, subject to the following restrictions:
 
 #include <MapLoader.h>
 #include <sstream>
-#include <zlib.h>
+//#include <zlib.h>
 #include <cstring>
 
 using namespace tmx;
 
 void MapLoader::m_Unload()
 {
+	m_tilesetTextures.clear();
 	m_layers.clear();
-	m_tileTextures.clear();
 	m_imageLayerTextures.clear();
 	m_mapLoaded = false;
 	m_quadTreeAvailable = false;
@@ -59,7 +60,7 @@ void MapLoader::m_SetDrawingBounds(const sf::View& view)
 	m_bounds = bounds;
 }
 
-const bool MapLoader::m_ParseMapNode(const pugi::xml_node& mapNode)
+bool MapLoader::m_ParseMapNode(const pugi::xml_node& mapNode)
 {
 	//parse tile properties
 	if(!(m_width = mapNode.attribute("width").as_int()) ||
@@ -106,7 +107,7 @@ const bool MapLoader::m_ParseMapNode(const pugi::xml_node& mapNode)
 	return true;
 }
 
-const bool MapLoader::m_ParseTileSets(const pugi::xml_node& mapNode)
+bool MapLoader::m_ParseTileSets(const pugi::xml_node& mapNode)
 {
 	pugi::xml_node tileset;
 	if(!(tileset = mapNode.child("tileset")))
@@ -115,13 +116,6 @@ const bool MapLoader::m_ParseTileSets(const pugi::xml_node& mapNode)
 		return false;
 	}
 	std::cout << "Caching image files, please wait..." << std::endl;
-
-	//first tile should always be transparent / empty as GIDs start at 1
-	if(!m_tileTextures.empty()) m_tileTextures.clear();
-	sf::Image temp;
-	temp.create(m_tileWidth, m_tileHeight, sf::Color::Transparent);
-	m_tileTextures.push_back(sf::Texture());
-	m_tileTextures.back().loadFromImage(temp);
 
 	//empty vertex tile
 	m_tileInfo.push_back(TileInfo());
@@ -157,11 +151,10 @@ const bool MapLoader::m_ParseTileSets(const pugi::xml_node& mapNode)
 		tileset = tileset.next_sibling("tileset");
 	}
 
-	std::cout << "Cached " << m_tileTextures.size() << " tiles." << std::endl;
 	return true;
 }
 
-const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
+bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 {
 	sf::Uint16 tileWidth, tileHeight, spacing, margin;
 
@@ -189,15 +182,15 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 	std::string imagePath;
 	imagePath = m_mapDirectory + imageNode.attribute("source").as_string();
 
-	std::shared_ptr<sf::Image> sourceImage = m_LoadImage(imagePath);
+	sf::Image sourceImage = m_LoadImage(imagePath);
 
 	//add transparency mask from colour if it exists
 	if(imageNode.attribute("trans"))
-		sourceImage->createMaskFromColor(m_ColourFromHex(imageNode.attribute("trans").as_string()));
+		sourceImage.createMaskFromColor(m_ColourFromHex(imageNode.attribute("trans").as_string()));
 
 	//store image as a texture for drawing with vertex array
 	sf::Texture tileset;
-	tileset.loadFromImage(*sourceImage);
+	tileset.loadFromImage(sourceImage);
 	m_tilesetTextures.push_back(tileset);
 
 	//parse offset node if it exists - TODO store somewhere tileset info can be referenced
@@ -210,8 +203,8 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 	//TODO parse any tile properties and store with offset above
 
 	//slice into tiles
-	int columns = sourceImage->getSize().x / tileWidth;
-	int rows = sourceImage->getSize().y / tileHeight;
+	int columns = (sourceImage.getSize().x - margin) / (tileWidth + spacing);
+	int rows = (sourceImage.getSize().y - margin) / (tileHeight + spacing);
 
 	for (int y = 0; y < rows; y++)
 	{
@@ -225,15 +218,8 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 			rect.left += spacing;
 			rect.width = tileWidth;
 
-			sf::Image temp;
-			temp.create(tileWidth, tileHeight, sf::Color::Transparent);
-			temp.copy(*sourceImage, 0u, 0u, rect, true);
-			sf::Texture texture;
-			texture.loadFromImage(temp);
-			m_tileTextures.push_back(texture);
-
 			//store texture coords and tileset index for vertex array
-			m_tileInfo.push_back(TileInfo(rect, 
+			m_tileInfo.push_back(TileInfo(rect,
 				sf::Vector2f(static_cast<float>(rect.width), static_cast<float>(rect.height)),
 				m_tilesetTextures.size() - 1u));
 		}
@@ -243,7 +229,7 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 	return true;
 }
 
-const bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
+bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
 {
 	std::cout << "Found standard map layer " << layerNode.attribute("name").as_string() << std::endl;
 
@@ -284,6 +270,7 @@ const bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
 			byteArray.reserve(expectedSize);
 
 			//check for compression (only used with base64 encoded data)
+			/*
 			if(dataNode.attribute("compression"))
 			{
 				std::string compression	= dataNode.attribute("compression").as_string();
@@ -299,9 +286,9 @@ const bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
 			}
 			else //uncompressed
 			{
-				for(auto i = data.cbegin(); i != data.cend(); ++i)
-					byteArray.push_back(*i);
-			}
+			*/
+			for(auto i = data.cbegin(); i != data.cend(); ++i)
+				byteArray.push_back(*i);
 
 			//extract tile GIDs using bitshift (See https://github.com/bjorn/tiled/wiki/TMX-Map-Format#data) and add the tiles to layer
 			sf::Uint16 x, y;
@@ -396,21 +383,6 @@ void MapLoader::m_AddTileToLayer(MapLayer& layer, sf::Uint16 x, sf::Uint16 y, sf
 {
 	sf::Uint8 opacity = static_cast<sf::Uint8>(255.f * layer.opacity);
 	sf::Color colour = sf::Color(255u, 255u, 255u, opacity);
-	MapTile tile;
-	tile.gridCoord = sf::Vector2i(x, y);
-	tile.sprite.setTexture(m_tileTextures[gid]);
-	tile.sprite.setColor(colour);
-	//update origin of isometric tiles
-	if(m_orientation == Isometric) tile.sprite.setOrigin(static_cast<float>(m_tileWidth / 2), static_cast<float>(m_tileHeight / 2));
-	tile.sprite.setPosition(static_cast<float>(m_tileWidth * x), static_cast<float>(m_tileHeight * y));
-
-	//tiles with a size other than the map grid need to be offset
-	if(m_tileTextures[gid].getSize().y != m_tileHeight)
-	{
-		tile.sprite.move(0.f, static_cast<float>(m_tileHeight - m_tileTextures[gid].getSize().y));
-	}
-
-	layer.tiles.push_back(tile);
 
 	//update the layer's vertex array(s)
 	sf::Vertex v0, v1, v2, v3;
@@ -425,7 +397,7 @@ void MapLoader::m_AddTileToLayer(MapLayer& layer, sf::Uint16 x, sf::Uint16 y, sf
 	v1.position = sf::Vector2f(static_cast<float>(m_tileWidth * x) + m_tileInfo[gid].Size.x, static_cast<float>(m_tileHeight * y));
 	v2.position = sf::Vector2f(static_cast<float>(m_tileWidth * x) + m_tileInfo[gid].Size.x, static_cast<float>(m_tileHeight * y) + m_tileInfo[gid].Size.y);
 	v3.position = sf::Vector2f(static_cast<float>(m_tileWidth * x), static_cast<float>(m_tileHeight * y) + m_tileInfo[gid].Size.y);
-	
+
 	//offset tiles with size not equal to map grid size
 	sf::Uint16 tileHeight = static_cast<sf::Uint16>(m_tileInfo[gid].Size.y);
 	if(tileHeight != m_tileHeight)
@@ -461,10 +433,9 @@ void MapLoader::m_AddTileToLayer(MapLayer& layer, sf::Uint16 x, sf::Uint16 y, sf
 	layer.vertexArrays[m_tileInfo[gid].TileSetId].append(v1);
 	layer.vertexArrays[m_tileInfo[gid].TileSetId].append(v2);
 	layer.vertexArrays[m_tileInfo[gid].TileSetId].append(v3);
-
 }
 
-const bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
+bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 {
 	std::cout << "Found object layer " << groupNode.attribute("name").as_string() << std::endl;
 
@@ -601,7 +572,9 @@ const bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 			int gid = objectNode.attribute("gid").as_int();
 			std::cout << "Found object with tile GID " << gid << std::endl;
 			MapTile tile;
-			tile.sprite.setTexture(m_tileTextures[gid]);
+			TileInfo info = m_tileInfo[gid];
+			tile.sprite.setTexture(m_tilesetTextures[info.TileSetId]);
+			tile.sprite.setTextureRect(info.SubRect);
 			tile.sprite.setRotation(object.GetRotation());
 			tile.sprite.setColor(sf::Color(255u, 255u, 255u, static_cast<sf::Uint8>(255.f * layer.opacity)));
 			tile.sprite.setPosition(object.GetPosition());
@@ -610,8 +583,8 @@ const bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 			object.SetShapeType(Tile);
 
 			//create bounding poly
-			float width = static_cast<float>(m_tileTextures[gid].getSize().x);
-			float height = static_cast<float>(m_tileTextures[gid].getSize().y);
+			float width = static_cast<float>(info.Size.x);
+			float height = static_cast<float>(info.Size.y);
 			object.AddPoint(sf::Vector2f());
 			object.AddPoint(sf::Vector2f(width, 0.f));
 			object.AddPoint(sf::Vector2f(width, height));
@@ -634,6 +607,9 @@ const bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 		debugColour.a = static_cast<sf::Uint8>(255.f * layer.opacity);
 		object.CreateDebugShape(debugColour);
 
+		//creates line segments from any available points
+		object.CreateSegments();
+
 		//add objects to vector
 		layer.objects.push_back(object);
 		objectNode = objectNode.next_sibling("object");
@@ -644,7 +620,7 @@ const bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 	return true;
 }
 
-const bool MapLoader::m_ParseImageLayer(const pugi::xml_node& imageLayerNode)
+bool MapLoader::m_ParseImageLayer(const pugi::xml_node& imageLayerNode)
 {
 	std::cout << "Found image layer " << imageLayerNode.attribute("name").as_string() << std::endl;
 
@@ -657,17 +633,17 @@ const bool MapLoader::m_ParseImageLayer(const pugi::xml_node& imageLayerNode)
 	}
 
 	std::string imageName = m_mapDirectory + imageNode.attribute("source").as_string();
-	std::shared_ptr<sf::Image> image = m_LoadImage(imageName);
+	sf::Image image = m_LoadImage(imageName);
 
 	//set transparency if required
 	if(imageNode.attribute("trans"))
 	{
-		image->createMaskFromColor(m_ColourFromHex(imageNode.attribute("trans").as_string()));
+		image.createMaskFromColor(m_ColourFromHex(imageNode.attribute("trans").as_string()));
 	}
 
 	//load image to texture
 	sf::Texture texture;
-	texture.loadFromImage(*image);
+	texture.loadFromImage(image);
 	m_imageLayerTextures.push_back(texture);
 
 	//add texture to layer as sprite, set layer properties
@@ -706,7 +682,7 @@ void MapLoader::m_ParseLayerProperties(const pugi::xml_node& propertiesNode, Map
 	}
 }
 
-void MapLoader::m_CreateDebugGrid(void)
+void MapLoader::m_CreateDebugGrid()
 {
 	sf::Color debugColour(0u, 0u, 0u, 120u);
 	float mapHeight = static_cast<float>(m_tileHeight * m_height);
@@ -748,13 +724,17 @@ void MapLoader::m_SetIsometricCoords(MapLayer& layer)
 	}
 }
 
-void MapLoader::m_DrawLayer(sf::RenderTarget& rt, const MapLayer& layer)
+void MapLoader::m_DrawLayer(sf::RenderTarget& rt, MapLayer& layer)
 {
 	if(!layer.visible) return; //skip invisible layers
-	m_SetDrawingBounds(rt.getView());
+
 	for(unsigned i = 0; i < layer.vertexArrays.size(); i++)
 	{
-		rt.draw(layer.vertexArrays[i], &m_tilesetTextures[i]);
+		if(layer.vertexArrays[i].getBounds().intersects(m_bounds))
+		{
+			layer.States.texture = &m_tilesetTextures[i];
+			rt.draw(layer.vertexArrays[i], layer.States);
+		}
 	}
 	if(layer.type == ObjectGroup || layer.type == ImageLayer)
 	{
@@ -771,8 +751,55 @@ void MapLoader::m_DrawLayer(sf::RenderTarget& rt, const MapLayer& layer)
 	}
 }
 
+void MapLoader::draw(sf::RenderTarget& rt, sf::RenderStates states) const
+{
+	sf::View view  = rt.getView();
+	sf::FloatRect bounds;
+	bounds.left = view.getCenter().x - (view.getSize().x / 2.f);
+	bounds.top = view.getCenter().y - (view.getSize().y / 2.f);
+	bounds.width = view.getSize().x;
+	bounds.height = view.getSize().y;
+
+	//add a tile border to prevent gaps appearing
+	bounds.left -= static_cast<float>(m_tileWidth);
+	bounds.top -= static_cast<float>(m_tileHeight);
+	bounds.width += static_cast<float>(m_tileWidth * 2);
+	bounds.height += static_cast<float>(m_tileHeight * 2);
+	m_bounds = bounds;
+
+
+	for(auto&& layer : m_layers)
+	{
+		if(!layer.visible) continue; //skip invisible layers
+
+		for(unsigned i = 0; i < layer.vertexArrays.size(); i++)
+		{
+			if(layer.vertexArrays[i].getBounds().intersects(m_bounds))
+			{
+				states = layer.States;
+				states.texture = &m_tilesetTextures[i];
+				rt.draw(layer.vertexArrays[i], states);
+			}
+		}
+		if(layer.type == ObjectGroup || layer.type == ImageLayer)
+		{
+			//draw tiles used on objects
+			for(auto tile = layer.tiles.begin(); tile != layer.tiles.end(); ++tile)
+			{
+				//draw tile if in bounds and is not transparent
+				if((m_bounds.contains(tile->sprite.getPosition()) && tile->sprite.getColor().a)
+					|| layer.type == ImageLayer) //always draw image layer
+				{
+					rt.draw(tile->sprite, tile->renderStates);
+				}
+			}
+		}
+	}
+		
+}
+
 //decoding and utility functions
-const sf::Color MapLoader::m_ColourFromHex(const char* hexStr) const
+sf::Color MapLoader::m_ColourFromHex(const char* hexStr) const
 {
 	//TODO proper checking valid string length
 	unsigned int value, r, g, b;
@@ -785,8 +812,8 @@ const sf::Color MapLoader::m_ColourFromHex(const char* hexStr) const
 
 	return sf::Color(r, g, b);
 }
-
-const bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& dest, int inSize, int expectedSize)
+/*
+bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& dest, int inSize, int expectedSize)
 {
 	if(!source)
 	{
@@ -866,23 +893,21 @@ const bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char
 	delete[] byteArray;
 	return true;
 }
-
-std::shared_ptr<sf::Image> MapLoader::m_LoadImage(std::string path)
+*/
+sf::Image& MapLoader::m_LoadImage(std::string path)
 {
-	//first check if image is already loaded
-	for(auto image : m_cachedImages)
-	{
-		if(image.first == path)
-			return image.second;
-	}
+	auto i = m_cachedImages.find(path);
+	if(i != m_cachedImages.end())
+		return *i->second;
+
 	//else attempt to load
 	std::shared_ptr<sf::Image> newImage = std::shared_ptr<sf::Image>(new sf::Image());
-	if(!newImage->loadFromFile(path))
+	if(path.empty() || !newImage->loadFromFile(path))
 	{
 		newImage->create(20u, 20u, sf::Color::Yellow);
 	}
 	m_cachedImages[path] = newImage;
-	return newImage;
+	return *m_cachedImages[path];//newImage;
 }
 
 //base64 decode function taken from:

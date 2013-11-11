@@ -1,6 +1,7 @@
 /*********************************************************************
 Matt Marchant 2013
 SFML Tiled Map Loader - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
+						http://trederia.blogspot.com/2013/05/tiled-map-loader-for-sfml.html
 
 The zlib license has been used to make this software fully compatible
 with SFML. See http://www.sfml-dev.org/license.php
@@ -25,6 +26,8 @@ it freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any
    source distribution.
 *********************************************************************/
+
+
 
 ///source for QuadTreeNode class///
 #include <QuadTreeNode.h>

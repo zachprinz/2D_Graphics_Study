@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Item" color="#ffff7f">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+ <objecttype name="Enemy" color="#00ffff">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+ <objecttype name="Bank" color="#aa55ff">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+ <objecttype name="User" color="#000000">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+ <objecttype name="NPC" color="#005500">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+ <objecttype name="Ambience" color="#3b3da4">
+    <properties>
+		<property name="id" value="2"/>
+	</properties>
+ </objecttype>
+</objecttypes>

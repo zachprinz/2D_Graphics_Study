@@ -55,7 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Misc\TmxMapLoader\include;C:\Misc\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,10 +84,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\MapLoaderPrivate.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\MapLoaderPublic.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\pugixml\pugixml.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\QuadTreeNode.cpp" />
+    <ClCompile Include="..\TmxMapLoader\src\MapLoaderPrivate.cpp" />
+    <ClCompile Include="..\TmxMapLoader\src\MapLoaderPublic.cpp" />
+    <ClCompile Include="..\TmxMapLoader\src\MapObject.cpp" />
+    <ClCompile Include="..\TmxMapLoader\src\QuadTreeNode.cpp" />
     <ClCompile Include="ActionBar.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Animation.cpp" />

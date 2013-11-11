@@ -73,7 +73,7 @@ load a map file
 
 and draw it in your main loop
 
-    ml.Draw(renderTarget);
+    renderTarget.draw(ml);
 
 
 Note that the constructor takes a path to the directory containing the map files as a parameter (with
@@ -165,3 +165,19 @@ Revision History
 	   Updated: minimum version of visual studio required is now VS11
 
 060813 0.5 Updated: tileset images are cached and reused when the same tileset is used more than once
+
+280813 0.6 Updated: optimised draw calls by checking if a tileset vertex array is actually visible before
+		    drawing
+	   Fixed: Textures not properly being flushed when loading new maps causing tile sets to be incorrectly
+		   displayed
+           Added: MapLayer RenderStates property and setter for shader
+
+041013 0.7 Added: Getters for object first / last points
+	   Removed: old Draw2 function
+ 	   Updated: constness of some function parameters
+	   Updated: inherited load class from sf::Drawable and sf::NonCopyable
+	   Updated: removed tile caching in favour of drawing objects via sprites with subrects for significantly
+		    improved loading times - particularly with large or multiple tile sets
+291013 0.8 Updated: Refactored object class and cleaned up interface
+	   Added: utility functions to MapObject class for collision calculations
+	   
