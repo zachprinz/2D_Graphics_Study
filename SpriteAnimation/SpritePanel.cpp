@@ -7,6 +7,7 @@
 #include "NPC.h"
 #include "User.h"
 #include "Bank.h"
+#include "AmbienceObject.h"
 
 sf::Texture* SpritePanel::spritePanelBackground = new sf::Texture();
 SpritePanel* SpritePanel::instance = new SpritePanel();
@@ -15,7 +16,7 @@ Room* SpritePanel::room = new Room();
 
 SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	ml = new tmx::MapLoader("maps/");
-    ml->Load("test1.tmx");
+    ml->Load("testNew.tmx");
 	for(int x = 0; x < ml->GetLayers().size(); x++){
 		if(ml->GetLayers()[x].name == "objects2" || ml->GetLayers()[x].name == "objects3")
 			highLayers.push_back(&ml->GetLayers()[x]);
@@ -30,6 +31,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	createPanelLabel = false;
 	SetUp();
 	LoadMapCollisions();
+	LoadMapAmbience();
 	LoadMapSprites();
 };
 SpritePanel::SpritePanel(){
@@ -44,20 +46,21 @@ void SpritePanel::LoadMapCollisions(){
 			break;
 		}
 	}
-	std::cout << " Loading Map Collisions " << std::endl;
+	std::cout << " Loading Map Collisions... ";
 	for(int x = 0; x < objLayer->objects.size(); x++){
 		sf::FloatRect rect = objLayer->objects[x].GetAABB();
 		int yCor = (((int)rect.top) / 32);
 		int xCor = (((int)rect.left) / 32);
 		int xCor2 = (((int)(rect.left + rect.width - 1)) / 32);
 		int yCor2 = (((int)(rect.height + rect.top - 1)) / 32);
-		std::cout << std::to_string(xCor) << "," << std::to_string(yCor) << " " << std::to_string(xCor2) << "," << std::to_string(yCor2) << std::endl;
+		//std::cout << std::to_string(xCor) << "," << std::to_string(yCor) << " " << std::to_string(xCor2) << "," << std::to_string(yCor2) << std::endl;
 		for(int y = xCor; y <= xCor2; y++){
 			for(int z = yCor; z <= yCor2; z++){
 				room->roomTiles[z][y].SetBlocked();
 			}
 		}
 	}
+	std::cout << "Done" << std::endl;
 };
 void SpritePanel::LoadMapSprites(){
 	std::vector<tmx::MapLayer> layers = ml->GetLayers();
@@ -107,11 +110,32 @@ void SpritePanel::LoadMapSprites(){
 		}
 		if(name == "User"){
 			User* user = new User(xCor,yCor);
-			//AddElement("user",user);
 			room->AddOcupant(user);
 		}
 	}
 }
+void SpritePanel::LoadMapAmbience(){
+	std::vector<tmx::MapLayer> layers = ml->GetLayers();
+	tmx::MapLayer* ambienceObjects;
+	for(int x = 0; x < layers.size(); x++){
+		if(layers[x].name == "ambience"){
+			std::cout << " Loading Map Ambience " << std::to_string(layers[x].objects.size()) << std::endl;
+			ambienceObjects = &layers[x];
+			break;
+		}
+	}
+	for(int x = 0; x < ambienceObjects->objects.size(); x++){
+		std::string name = ambienceObjects->objects[x].GetType();
+		int xCor = (((int)ambienceObjects->objects[x].GetPosition().x) / 32);
+		int yCor = (((int)ambienceObjects->objects[x].GetPosition().y - (int)ambienceObjects->objects[x].GetSize().y) / 32);
+		sf::Texture tempText;
+		if(name == "Ambience"){
+			AmbienceObject* ambObj = new AmbienceObject(xCor,yCor,&ambienceObjects->objects[x]);
+			AddElement("AmbienceObject" + std::to_string(ambObj->GetTag()), ambObj);
+			room->AddOcupant(ambObj);
+		}
+	}
+};
 void SpritePanel::UpdateElements(){
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
@@ -125,6 +149,9 @@ void SpritePanel::UpdateElements(){
 	ml->Draw(panel);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
+	}
+	for(int x = 0; x < AmbienceObject::tags.size(); x++){
+		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(panel);
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
@@ -141,9 +168,9 @@ void SpritePanel::SpawnItem(int id,int x,int y,Room* room){
 	GroundItem* tempPoints = new GroundItem(x,y,tempItem);
 	room->AddOcupant(tempPoints);
 	AddElement(std::to_string(tempPoints->GetTag()),tempPoints);
-	for(MyPair x: dynamicElements){
-		std::cout << x.first << std::endl;
-	}
+	//for(MyPair x: dynamicElements){
+	//	std::cout << x.first << std::endl;
+	//}
 };
 void SpritePanel::MoveCamera(float x, float y){
 	view.reset(sf::FloatRect(view.getViewport().left + x,view.getViewport().top + y,512,512));

@@ -56,15 +56,17 @@ BankContainer* BankPanel::FindContainerOf(Item item){
 	}
 };
 void BankPanel::SetUp(){
+	std::cout << "Setting up bank slots...";
 	for (int x = 0; x < 10; x++)
 	{
 		for (int y = 0; y < 6; y++)
 		{
 			BankContainer* element = new BankContainer((y*80) + 8,x*80,"containerbackground.png");
 			dynamicElements.insert(MyPair(std::to_string((x*6) + y), element));
-			std::cout << std::to_string((x*6) + y) << std::endl;
+			//std::cout << std::to_string((x*6) + y) << std::endl;
 		}
 	}
+	std::cout << " Done" << std::endl;
 	Button* exitButton = new Button(467,15,*Button::circleButtonBackground,*Button::x);
 	Label* bankLabel = new Label(164,33,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"Bank");
 	bankLabel->CenterText();

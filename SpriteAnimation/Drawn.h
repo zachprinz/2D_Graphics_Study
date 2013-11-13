@@ -43,7 +43,6 @@ protected:
 	float moveAngle;
 	float distanceMoved;
 	float moveDistance;
-
 	sf::Clock expandClock;
 	sf::Vector2f targetScale;
 	sf::Vector2f homeScale;

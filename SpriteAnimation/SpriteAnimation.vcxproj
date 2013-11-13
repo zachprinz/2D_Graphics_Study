@@ -91,6 +91,7 @@
     <ClCompile Include="..\TmxMapLoader\src\QuadTreeNode.cpp" />
     <ClCompile Include="ActionBar.cpp" />
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AmbienceObject.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Attack.cpp" />
     <ClCompile Include="Bank.cpp" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="ActionBar.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="AmbienceObject.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Attack.h" />
     <ClInclude Include="Bank.h" />

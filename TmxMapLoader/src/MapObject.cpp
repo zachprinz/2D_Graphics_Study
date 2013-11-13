@@ -43,7 +43,7 @@ MapObject::MapObject()
 	//you need to select your own font here as SFML no longer
 	//supports a default font. If you do not plan to use this
 	//during debugging it can be ignored.
-	if(!m_debugFont.loadFromFile("assets/fonts/default.ttf"))
+	if(!m_debugFont.loadFromFile("gamefont.ttf"))
 	{
 		//feel free to supress these messages
 		std::cout << "If you wish to output text during debugging please specify a font file in the map object class" << std::endl;
@@ -209,9 +209,16 @@ void MapObject::CreateSegments()
 	if(m_shape != Polyline) //close shape
 		m_polySegs.push_back(Segment(*(m_polypoints.end() - 1), *m_polypoints.begin()));
 
-	std::cout << "Added " << m_polySegs.size() << " segments to Map Object" << std::endl;
+	//std::cout << "Added " << m_polySegs.size() << " segments to Map Object" << std::endl;
 }
 
+sf::Vector2f MapObject::GetSize(){
+	return mSize;
+}
+
+void MapObject::SetmSize(sf::Vector2f sz){
+	mSize = sz;
+};
 
 //private
 sf::Vector2f MapObject::m_CalcCentre() const

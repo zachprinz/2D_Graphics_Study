@@ -49,6 +49,7 @@ void GroundItem::SetUpBoundries(){
 				vertex = vertex.next_sibling();
 			poly.setPoint(x,sf::Vector2f(vertex.attribute("x").as_int(),vertex.attribute("y").as_int()));
 		}
+		poly.setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 2,GetSprite()->getPosition().y + GetSprite()->getLocalBounds().height / 2));
 		poly.setFillColor(sf::Color(43,119,173,170));
 		GameSprite::AddBoundryPolygon(poly);
 	}

@@ -147,6 +147,12 @@ void Actor::Update(sf::RenderTexture& panel){
 	if(isVisible){
 		UpdateRoomTile();
 		UpdateAnimation();
+		Draw(&panel);
+		for(int x = 0; x < boundries.size(); x++){
+			boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
+			boundries[x].setScale(0.85f,0.65f);
+			//boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition()));
+		}
 		GameSprite::Update(panel);
 	}
 }

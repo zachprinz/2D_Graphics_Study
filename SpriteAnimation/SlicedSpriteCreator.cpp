@@ -25,7 +25,7 @@ sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCr
 	parts[3].setScale(parts[3].getScale().x,sideHeight / textParts[3].height);
 	parts[4].setScale(parts[4].getScale().x,sideHeight / textParts[3].height);
 	parts[5].setScale(parts[5].getScale().x,sideHeight / textParts[3].height);
-	std::cout << "X Scale: " << std::to_string(parts[4].getScale().x) << " Y Scale: " << std::to_string(parts[4].getScale().y) << std::endl;
+	//std::cout << "X Scale: " << std::to_string(parts[4].getScale().x) << " Y Scale: " << std::to_string(parts[4].getScale().y) << std::endl;
 	parts[0].setPosition(0,0);
 	parts[1].setPosition(parts[0].getGlobalBounds().width,0);
 	parts[2].setPosition(parts[1].getGlobalBounds().width + parts[2].getGlobalBounds().width,0);
@@ -39,7 +39,7 @@ sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCr
 			slicedSprite.draw(parts[x]);
 	}
 	slicedSprite.display();
-	std::cout << "New Sliced Sprite " << std::to_string(slicedSprite.getSize().x) << "," << std::to_string(slicedSprite.getSize().y) << std::endl;
+	//std::cout << "New Sliced Sprite " << std::to_string(slicedSprite.getSize().x) << "," << std::to_string(slicedSprite.getSize().y) << std::endl;
 	return slicedSprite.getTexture();
 };
 

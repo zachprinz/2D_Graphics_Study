@@ -61,11 +61,13 @@ void EquipedPanel::SetUp(){
 	int slotPosX[] = {125,32,125,233,125};
 	int slotPosY[] = {20,220,107,220,235};
 	GamePanel::SetUp();
+	std::cout << "Creating Equiped Slots...";
 	for (int x = 0; x < 5; x++){
 		EquipedContainer* element = new EquipedContainer(slotPosX[x],slotPosY[x],"containerbackground.png");
 		dynamicElements.insert(MyPair(std::to_string(x), element));
-		std::cout << std::to_string(x) << std::endl;
+		//std::cout << std::to_string(x) << std::endl;
 	}
+	std::cout << " Done" << std::endl;
 	Drawn* background = new Drawn("equipedbackground.png");
 	staticElements.insert(MyPair("userImage", background));
 };

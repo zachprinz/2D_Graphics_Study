@@ -164,7 +164,6 @@ void StatsPanel::SetUpLevelMap(){
 	for(int x = 0; x < 2; x++){
 		int displacement = 135;
 		int displacement2 = 125;
-		std::cout << "Setting Up Sub Level" << std::endl;
 		Label* subLevelTitle = new Label(8,(x*displacement2)+displacement,tempText,Label::Fonts::Game,"SubLevel:" + x);
 		Label* subLevelDescription = new Label(8,(x*displacement2)+displacement + 20,"blank.png",Label::Fonts::Game,"SubLevel Description Text.");
 		ProgressBar* subLevelProgBar = new ProgressBar(8,(x*displacement2) + displacement + 50,350,&subLevelPercents[x]);

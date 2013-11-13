@@ -54,10 +54,7 @@ void Enemy::Update(sf::RenderTexture& window){
 		}
 	}
 	Combatant::Update(window);
-	Actor::Update(window);
 	UpdateEffectedTiles();
-	Draw(&window);
-	DrawBoundries(window);
 };
 void Enemy::AddPatrolPoint(sf::Vector2i a){
 	patrolPoints.push_back(a);
@@ -116,7 +113,7 @@ void Enemy::LaunchAction(Actions action){
 	}
 };
 void Enemy::AddDrop(int item,float chance){
-	std::cout << "Drop Added: " + item << std::endl;
+	//std::cout << "Drop Added: " + item << std::endl;
 	drops.push_back(item);
 	dropChances.push_back(chance);
 };

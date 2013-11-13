@@ -173,9 +173,16 @@ bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 	pugi::xml_node imageNode;
 	if(!(imageNode = tilesetNode.child("image")) || !imageNode.attribute("source"))
 	{
-		std::cout << "Missing image data in tmx file. Map not loaded." << std::endl;
-		m_Unload();
-		return false;
+		if(imageNode = tilesetNode.child("tile")){
+			std::cout << "Found a \"Collection\" Tileset." << std::endl;
+		}
+		while(imageNode.next_sibling().name() == "tile"){
+			std::cout << "Found another tile" << std::endl;
+		}
+		//std::cout << "Missing image data in tmx file. Map not loaded." << std::endl;
+		//m_Unload();
+		//return false;
+		return true;
 	}
 
 	//process image from disk
@@ -540,13 +547,13 @@ bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 				std::cout << "Points for polygon or polyline object are missing" << std::endl;
 			}
 		}
-		else if(!objectNode.attribute("gid")) //invalid  attributes
+		/*else if(!objectNode.attribute("gid")) //invalid  attributes
 		{
-			std::cout << "Objects with no parameters found, skipping.." << std::endl;
+			std::cout << "\ parameters found, skipping.." << std::endl;
 			objectNode = objectNode.next_sibling("object");
 			continue;
 		}
-
+		*/
 		//parse object node property values
 		if(pugi::xml_node propertiesNode = objectNode.child("properties"))
 		{
@@ -591,6 +598,7 @@ bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 			object.AddPoint(sf::Vector2f(0.f, height));
 			object.SetSize(sf::Vector2f(width, height));
 		}
+		//1
 		object.SetParent(layer.name);
 
 		//call objects create debug shape function with colour / opacity
@@ -605,11 +613,17 @@ bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 		}
 		else debugColour = sf::Color(127u, 127u, 127u);
 		debugColour.a = static_cast<sf::Uint8>(255.f * layer.opacity);
-		object.CreateDebugShape(debugColour);
+
+		if(!objectNode.attribute("agid"))
+			object.CreateDebugShape(debugColour);
 
 		//creates line segments from any available points
-		object.CreateSegments();
-
+		if(!objectNode.attribute("agid"))
+			object.CreateSegments();
+		if(objectNode.attribute("agid") && object.GetType() == "Ambience"){
+			object.SetmSize(sf::Vector2f(1,std::stoi(object.GetPropertyString("height"))));
+			std::cout << "mSize Height: " << std::to_string(object.GetSize().y) << std::endl;
+		}
 		//add objects to vector
 		layer.objects.push_back(object);
 		objectNode = objectNode.next_sibling("object");

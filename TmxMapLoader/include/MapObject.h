@@ -65,7 +65,8 @@ namespace tmx
 		};
 	public:
 		MapObject();
-
+		sf::Vector2f GetSize();
+		void SetmSize(sf::Vector2f);
 		//**accessors**//
 		//returns empty string if property not found
 		std::string GetPropertyString(const std::string& name);
@@ -138,6 +139,7 @@ private:
 		std::map <std::string, std::string> m_properties;//map of custom name/value properties
 		float m_rotation; //not yet implemented in official TILED release
 		bool m_visible;
+		sf::Vector2f mSize;
 		std::vector<sf::Vector2f> m_polypoints; //list of points defining any polygonal shape
 		MapObjectShape m_shape;
 		sf::VertexArray m_debugShape;

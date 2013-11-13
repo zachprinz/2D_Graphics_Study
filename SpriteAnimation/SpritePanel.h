@@ -34,6 +34,7 @@ public:
 	std::vector<std::string> combatants;
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();
+	void LoadMapAmbience();
 private:
 	void SetUp();
 	std::vector<GroundItem*> spawnedItems;

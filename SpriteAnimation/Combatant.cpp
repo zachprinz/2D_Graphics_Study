@@ -66,6 +66,7 @@ void Combatant::Update(sf::RenderTexture& panel){
 	for(AttackPair x: attacks){
 		x.second->Update();
 	}
+	Actor::Update(panel);
 }
 void Combatant::UpdateBar(sf::RenderTexture& panel){
 	if(inCombat || health < 100){

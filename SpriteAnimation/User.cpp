@@ -73,9 +73,7 @@ void User::Update(sf::RenderTexture& window){
 		}
 	}
 	Combatant::Update(window);
-	Actor::Update(window);
-	Draw(&window);
-	DrawBoundries(window);
+	//DrawBoundries(window);
 };
 void User::GetUserWeaponImage(sf::RenderTexture* window){
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
@@ -83,6 +81,7 @@ void User::GetUserWeaponImage(sf::RenderTexture* window){
 		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
 		window->draw(sprite);
 		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 	}
 	else{
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
@@ -159,7 +158,7 @@ void User::SetUpAttacks(std::string attackSetName){
 	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
 		if(tool.first_attribute().value() == attackSetName){
 			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
-				std::cout << "Setting up a new attack!" << std::endl;
+				//std::cout << "Setting up a new attack!" << std::endl;
 				std::vector<sf::Vector2i> atkOffset;
 				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
 					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
@@ -301,7 +300,6 @@ void User::CalculateLevelData(std::string levelName){
 			break;
 		}
 	}
-	std::cout << "Calculating" << std::endl;
 	int totalXPTemp = std::stoi(level.attribute("totalXP").value());
     int beginLevel = std::floor(std::pow((totalXPTemp / 4),0.4));
     level.attribute("level").set_value(beginLevel);
@@ -331,7 +329,7 @@ void User::CalculateLevelData(std::string levelName,std::string subLevelName){
 		}
 	}//40x2 + 360x = nextLevelXP
 	//
-	std::cout << "Calculating" << std::endl;
+	//std::cout << "Calculating" << std::endl;
 	int totalXPTemp = std::stoi(level.attribute("totalXP").value());
     int beginLevel = std::floor(std::pow((totalXPTemp / 4),0.4));
     level.attribute("level").set_value(beginLevel);
@@ -464,6 +462,7 @@ void User::SetUpLevels(){
 	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
 	pugi::xml_node level;
 	pugi::xml_node subLevel;
+	std::cout << "Setting up user Level Data... ";
 	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
 		CalculateLevelData(tool.attribute("name").value());
 			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
@@ -471,6 +470,7 @@ void User::SetUpLevels(){
 				UpdateUnlockables(tool.attribute("name").value(),tool2.attribute("name").value());
 			}
 	}
+	std::cout << "Done" << std::endl;
 };
 std::string User::GetQuestData(std::string questName,std::string attrib){
 	pugi::xml_document doc;

@@ -5,7 +5,7 @@
 #include "User.h"
 
 int GameSprite::tagCount = 0;
-bool GameSprite::displayDebug = true;
+bool GameSprite::displayDebug = false;
 
 GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textureName){
 	graphPositionA = sf::Vector2i(x,y);
@@ -22,10 +22,10 @@ void GameSprite::Update(sf::RenderTexture& panel){
 	DrawBoundries(panel);
 };
 void GameSprite::DrawBoundries(sf::RenderTexture& panel){
-	for(int x = 0; x < boundries.size(); x++){
-			boundries[x].setScale(0.85f,0.65f);
-			boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x + 15.25,GetSprite()->getPosition().y + 14.5));
+	if(displayDebug){
+		for(int x = 0; x < boundries.size(); x++){
 			panel.draw(boundries[x]);
+		}
 	}
 };
 void GameSprite::AddBoundryPolygon(sf::ConvexShape poly){
