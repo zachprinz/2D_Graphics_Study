@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "RClickable.h"
-#include "Rectangle.h"
+#include "ARectangle.h"
 
 class GuiElement : public RClickable
 {
@@ -21,13 +21,13 @@ public:
 	virtual void Update(sf::RenderTexture&);
 	virtual void OnClick();
 	virtual void OnHover(bool);
-	Rectangle* GetBounds();
+	ARectangle* GetBounds();
 	virtual void SetLocation(float,float);
 	//sf::Sprite foregroundSprite;
 	Drawn* foreground;
 	void SetOrgin(int,int);
 protected:
-	Rectangle elementBounds;
+	ARectangle elementBounds;
 	//sf::Texture foregroundSpriteTexture;
 };
 

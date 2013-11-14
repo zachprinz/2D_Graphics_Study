@@ -22,7 +22,7 @@ GamePanel::GamePanel(int x, int y, std::string name){
 	else
 		backgroundPanel.create(x + 16, y + 16);
 	panel.create(x,y);
-	panelBounds = Rectangle(0,0,x,y);
+	panelBounds = ARectangle(0,0,x,y);
 	panelName = name;
 	panel.setSmooth(true);
 	panelSprite.setTexture(panel.getTexture());
@@ -117,7 +117,7 @@ void GamePanel::OnHover(sf::Vector2i point){
 		}
 	}
 };
-Rectangle* GamePanel::GetBounds(){
+ARectangle* GamePanel::GetBounds(){
 	return &panelBounds;
 }
 void GamePanel::RemoveDynamicElement(std::string key){

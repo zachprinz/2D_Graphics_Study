@@ -59,7 +59,7 @@ void GuiElement::OnClick(){
 void GuiElement::OnHover(bool hovered){
 
 };
-Rectangle* GuiElement::GetBounds(){
+ARectangle* GuiElement::GetBounds(){
 	return &elementBounds;
 }
 void GuiElement::SetLocation(float x,float y){

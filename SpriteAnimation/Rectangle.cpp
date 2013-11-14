@@ -1,24 +1,24 @@
-#include "Rectangle.h"
+#include "ARectangle.h"
 
-Rectangle::Rectangle(int x, int y, int width, int height){
+ARectangle::ARectangle(int x, int y, int width, int height){
 	startPoint = sf::Vector2i(x,y);
 	size = sf::Vector2i(width,height);
 };
-bool Rectangle::Intersects(Rectangle rect){
+bool ARectangle::Intersects(ARectangle rect){
 	if(!rect.CheckCorners(this) && !CheckCorners(&rect))
 		return false;
 	else
 		return true;
 };
-Rectangle::Rectangle(){
+ARectangle::ARectangle(){
 	startPoint = sf::Vector2i(0,0);
 	size = sf::Vector2i(0,0);
 };
-void Rectangle::SetRectangle(int x,int y,int width,int height){
+void ARectangle::SetRectangle(int x,int y,int width,int height){
 	startPoint = sf::Vector2i(x,y);
 	size = sf::Vector2i(width,height);
 };
-bool Rectangle::CheckCorners(Rectangle* rectB){
+bool ARectangle::CheckCorners(ARectangle* rectB){
 	if(Contains(rectB->startPoint.x, rectB->startPoint.y)
 		|| Contains(rectB->startPoint.x, rectB->startPoint.y + rectB->size.y)
 		|| Contains(rectB->startPoint.x + rectB->size.x, rectB->startPoint.y + rectB->size.y)
@@ -27,16 +27,16 @@ bool Rectangle::CheckCorners(Rectangle* rectB){
 	else
 		return false;
 };
-bool Rectangle::Contains(int x,int y){
+bool ARectangle::Contains(int x,int y){
 	if(x > startPoint.x && x < startPoint.x + size.x && y > startPoint.y && y < startPoint.y + size.y)
 		return true;
 	else 
 		return false;
 };
-void Rectangle::SetPosition(int x,int y){
+void ARectangle::SetPosition(int x,int y){
 	startPoint.x = x;
 	startPoint.y = y;
 };
-sf::Vector2i Rectangle::GetSize(){
+sf::Vector2i ARectangle::GetSize(){
 	return size;
 };

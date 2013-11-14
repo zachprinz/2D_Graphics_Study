@@ -8,13 +8,19 @@
 #include "User.h"
 #include "Bank.h"
 #include "AmbienceObject.h"
+#include "LTBL/Light/LightSystem.h"
+#include "LTBL/Constructs/AABB.h"
+#include "LTBL/Constructs/Vec2f.h"
+#include "LightObject.h"
 
 sf::Texture* SpritePanel::spritePanelBackground = new sf::Texture();
 SpritePanel* SpritePanel::instance = new SpritePanel();
+sf::RenderWindow* SpritePanel::mainWindow;
 Room* SpritePanel::room = new Room();
 
 
-SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
+SpritePanel::SpritePanel(int x, int y,sf::RenderWindow* mWindow) : GamePanel(x,y,"Game"){
+	//mainWindow = mWindow;
 	ml = new tmx::MapLoader("maps/");
     ml->Load("testNew.tmx");
 	for(int x = 0; x < ml->GetLayers().size(); x++){
@@ -30,6 +36,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	instance = this;
 	createPanelLabel = false;
 	SetUp();
+	lightSystem = new ltbl::LightSystem(AABB(Vec2f(0.0f,0.0f),Vec2f(static_cast<float>(panel.getSize().x),static_cast<float>(panel.getSize().y))), mainWindow,"images/lightData/lightFin.png","images/lightData/lightAttenuationShader.frag");
 	LoadMapCollisions();
 	LoadMapAmbience();
 	LoadMapSprites();
@@ -112,6 +119,13 @@ void SpritePanel::LoadMapSprites(){
 			User* user = new User(xCor,yCor);
 			room->AddOcupant(user);
 		}
+		if(name == "Light"){
+			yCor = (((int)sprites->objects[x].GetPosition().y - (int)sprites->objects[x].GetSize().y) / 32);
+			LightObject* lightObj = new LightObject(xCor,yCor,&sprites->objects[x]);
+			AddElement("LightObject" + std::to_string(lightObj->GetTag()), lightObj);
+			room->AddOcupant(lightObj);
+			lightSystem->AddLight(lightObj->getLight());
+		}
 	}
 }
 void SpritePanel::LoadMapAmbience(){
@@ -124,6 +138,7 @@ void SpritePanel::LoadMapAmbience(){
 			break;
 		}
 	}
+
 	for(int x = 0; x < ambienceObjects->objects.size(); x++){
 		std::string name = ambienceObjects->objects[x].GetType();
 		int xCor = (((int)ambienceObjects->objects[x].GetPosition().x) / 32);
@@ -155,6 +170,8 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
+	//lightSystem->RenderLights();
+	//lightSystem->RenderLightTexture();
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
 	dynamicElements.insert(MyPair(name, element));

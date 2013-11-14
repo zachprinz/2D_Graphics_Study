@@ -14,6 +14,7 @@ class AmbienceObject :  public GameSprite
 public:
 	AmbienceObject(int,int,std::string,std::string);
 	AmbienceObject(int,int,tmx::MapObject*);
+	AmbienceObject(int,int,tmx::MapObject*,bool);
 	void Update(sf::RenderTexture&);
 	void Update2(sf::RenderTexture&);
 	void Interact();

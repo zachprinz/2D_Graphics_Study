@@ -5,15 +5,15 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include "GamePanel.h"
-#include "Room.h"
 #include "GroundItem.h"
 #include <MapLoader.h>
 #include "Room.h"
+#include "LTBL/Light/LightSystem.h"
 
 class SpritePanel : public GamePanel
 {
 public:
-	SpritePanel(int,int);
+	SpritePanel(int,int,sf::RenderWindow*);
 	SpritePanel();
 	static SpritePanel* instance;
 	void AddElement(std::string,Drawn*);
@@ -35,6 +35,8 @@ public:
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();
 	void LoadMapAmbience();
+	ltbl::LightSystem* lightSystem;
+	static sf::RenderWindow* mainWindow;
 private:
 	void SetUp();
 	std::vector<GroundItem*> spawnedItems;

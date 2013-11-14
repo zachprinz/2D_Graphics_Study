@@ -153,7 +153,7 @@ void MapObject::CreateDebugShape(const sf::Color& colour)
 	//precompute shape values for intersection testing
 	m_CalcTestValues();
 
-	//create the AABB for quad tree testing
+	//create the AABB for bind(NULL) tree testing
 	m_CreateAABB();
 }
 

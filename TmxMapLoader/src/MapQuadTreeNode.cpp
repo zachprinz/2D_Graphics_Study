@@ -29,8 +29,8 @@ it freely, subject to the following restrictions:
 
 
 
-///source for QuadTreeNode class///
-#include <QuadTreeNode.h>
+///source for MapQuadTreeNode class///
+#include <MapQuadTreeNode.h>
 
 using namespace tmx;
 
@@ -47,7 +47,7 @@ void QuadTreeRoot::Clear(const sf::FloatRect& newBounds)
 	m_depth = 0;
 }
 
-std::vector<MapObject*> QuadTreeNode::Retrieve(const sf::FloatRect& bounds, sf::Uint16& searchDepth)
+std::vector<MapObject*> MapQuadTreeNode::Retrieve(const sf::FloatRect& bounds, sf::Uint16& searchDepth)
 {	
 	searchDepth = m_level;
 	std::vector<MapObject*> foundObjects;
@@ -63,7 +63,7 @@ std::vector<MapObject*> QuadTreeNode::Retrieve(const sf::FloatRect& bounds, sf::
 		//add all objects of child nodes which intersect test area
 		for(auto child = m_children.begin(); child != m_children.end(); ++child)
 		{
-			QuadTreeNode& node = **child;
+			MapQuadTreeNode& node = **child;
 			if(bounds.intersects(node.m_bounds))
 			{
 				std::vector<MapObject*> childObjects = node.Retrieve(bounds, searchDepth);
@@ -78,7 +78,7 @@ std::vector<MapObject*> QuadTreeNode::Retrieve(const sf::FloatRect& bounds, sf::
 	return foundObjects;
 }
 
-void QuadTreeNode::Insert(MapObject& object)
+void MapQuadTreeNode::Insert(MapObject& object)
 {	
 	//check if an object falls completely outside a node
 	if(!object.GetAABB().intersects(m_bounds)) return;
@@ -123,14 +123,14 @@ void QuadTreeNode::Insert(MapObject& object)
 	}
 }
 
-void QuadTreeNode::DebugDraw(sf::RenderTarget& rt)
+void MapQuadTreeNode::DebugDraw(sf::RenderTarget& rt)
 {
 	//recursively draw children
 	if(!m_children.empty())
 	{
 		for(auto child = m_children.begin(); child != m_children.end(); ++child)
 		{
-			QuadTreeNode& node = **child;
+			MapQuadTreeNode& node = **child;
 			node.DebugDraw(rt);
 		}
 	}
@@ -140,20 +140,20 @@ void QuadTreeNode::DebugDraw(sf::RenderTarget& rt)
 
 
 //private functions//
-void QuadTreeNode::m_Split(void)
+void MapQuadTreeNode::m_Split(void)
 {
 	const float halfWidth = m_bounds.width / 2.f;
 	const float halfHeight = m_bounds.height / 2.f;
 	const float x = m_bounds.left;
 	const float y = m_bounds.top;
  
-	m_children.push_back(std::shared_ptr<QuadTreeNode>(new QuadTreeNode(m_level + 1, sf::FloatRect(x + halfWidth, y, halfWidth, halfHeight))));
-	m_children.push_back(std::shared_ptr<QuadTreeNode>(new QuadTreeNode(m_level + 1, sf::FloatRect(x, y, halfWidth, halfHeight))));
-	m_children.push_back(std::shared_ptr<QuadTreeNode>(new QuadTreeNode(m_level + 1, sf::FloatRect(x, y + halfHeight, halfWidth, halfHeight))));
-	m_children.push_back(std::shared_ptr<QuadTreeNode>(new QuadTreeNode(m_level + 1, sf::FloatRect(x+ halfWidth, y + halfHeight, halfWidth, halfHeight))));
+	m_children.push_back(std::shared_ptr<MapQuadTreeNode>(new MapQuadTreeNode(m_level + 1, sf::FloatRect(x + halfWidth, y, halfWidth, halfHeight))));
+	m_children.push_back(std::shared_ptr<MapQuadTreeNode>(new MapQuadTreeNode(m_level + 1, sf::FloatRect(x, y, halfWidth, halfHeight))));
+	m_children.push_back(std::shared_ptr<MapQuadTreeNode>(new MapQuadTreeNode(m_level + 1, sf::FloatRect(x, y + halfHeight, halfWidth, halfHeight))));
+	m_children.push_back(std::shared_ptr<MapQuadTreeNode>(new MapQuadTreeNode(m_level + 1, sf::FloatRect(x+ halfWidth, y + halfHeight, halfWidth, halfHeight))));
 }
 
-sf::Int16 QuadTreeNode::m_GetIndex(const sf::FloatRect& bounds)
+sf::Int16 MapQuadTreeNode::m_GetIndex(const sf::FloatRect& bounds)
 {
 	sf::Int16 index = -1;
 	float verticalMidpoint = m_bounds.left + (m_bounds.width / 2.f);

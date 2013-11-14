@@ -135,7 +135,6 @@ void MapLoader::UpdateQuadTree(const sf::FloatRect& rootArea)
 	}
 	m_quadTreeAvailable = true;
 }
-
 std::vector<MapObject*> MapLoader::QueryQuadTree(const sf::FloatRect& testArea)
 {
 	//quad tree must be updated at least once with UpdateQuadTree before we can call this

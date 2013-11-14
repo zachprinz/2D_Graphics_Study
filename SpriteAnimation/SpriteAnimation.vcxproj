@@ -55,13 +55,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Light;C:\Misc\glew-1.6.0\include</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib;C:\Misc\lua\msvc-11.0-x86;C:\Misc\luabind\msvc-11.0-x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib;C:\Misc\lua\msvc-11.0-x86;C:\Misc\luabind\msvc-11.0-x86;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Light;C:\Misc\glew-1.6.0\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,10 +86,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\pugixml\pugixml.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\ConvexHull.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\EmissiveLight.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\Light.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\LightSystem.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\Light_Point.cpp" />
+    <ClCompile Include="..\Light\LTBL\Light\ShadowFin.cpp" />
+    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTree.cpp" />
+    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTreeNode.cpp" />
+    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTreeOccupant.cpp" />
+    <ClCompile Include="..\Light\LTBL\QuadTree\StaticQuadTree.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapLoaderPrivate.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapLoaderPublic.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapObject.cpp" />
-    <ClCompile Include="..\TmxMapLoader\src\QuadTreeNode.cpp" />
+    <ClCompile Include="..\TmxMapLoader\src\MapQuadTreeNode.cpp" />
+    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="ActionBar.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AmbienceObject.cpp" />
@@ -98,6 +110,7 @@
     <ClCompile Include="BankContainer.cpp" />
     <ClCompile Include="BankPanel.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Color3f.cpp" />
     <ClCompile Include="Combatant.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Drawn.cpp" />
@@ -116,9 +129,11 @@
     <ClCompile Include="LayeredPanel.cpp" />
     <ClCompile Include="LevelPanel.cpp" />
     <ClCompile Include="LevelSet.cpp" />
+    <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapPanel.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Point2i.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RClickable.cpp" />
     <ClCompile Include="RClickMenu.cpp" />
@@ -132,6 +147,7 @@
     <ClCompile Include="StatsPanel.cpp" />
     <ClCompile Include="TextPanel.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="Vec2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionBar.h" />
@@ -161,12 +177,13 @@
     <ClInclude Include="LayeredPanel.h" />
     <ClInclude Include="LevelPanel.h" />
     <ClInclude Include="LevelSet.h" />
+    <ClInclude Include="LightObject.h" />
     <ClInclude Include="MapPanel.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RClickable.h" />
     <ClInclude Include="RClickMenu.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="ARectangle.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomTile.h" />

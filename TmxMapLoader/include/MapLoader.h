@@ -30,7 +30,7 @@ it freely, subject to the following restrictions:
 #ifndef MAP_LOADER_H_
 #define MAP_LOADER_H_
 
-#include <QuadTreeNode.h>
+#include <MapQuadTreeNode.h>
 #include <iostream>
 #include <pugixml/pugixml.hpp>
 #include <array>

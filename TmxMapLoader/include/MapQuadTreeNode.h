@@ -44,10 +44,10 @@ it freely, subject to the following restrictions:
 
 namespace tmx
 {
-	class QuadTreeNode
+	class MapQuadTreeNode
 	{
 	public:
-		QuadTreeNode(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f))
+		MapQuadTreeNode(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f))
 			: MAX_OBJECTS(5u), MAX_LEVELS(5u), m_level(level),
 			m_bounds(bounds)
 		{ 
@@ -60,7 +60,7 @@ namespace tmx
 
 		};
 
-		virtual ~QuadTreeNode(){};
+		virtual ~MapQuadTreeNode(){};
 
 		//fills vector with references to all objects which
 		//appear in quads which are contained or intersect bounds.
@@ -78,7 +78,7 @@ namespace tmx
 		sf::Uint16 m_level;
 		sf::FloatRect m_bounds;
 		std::vector<MapObject*> m_objects; //objects contained in current node
-		std::vector< std::shared_ptr<QuadTreeNode> > m_children; //vector of child nodes
+		std::vector< std::shared_ptr<MapQuadTreeNode> > m_children; //vector of child nodes
 		sf::RectangleShape m_debugShape;
 
 		//returns the index of the child node into which the givens bounds fits.
@@ -91,19 +91,19 @@ namespace tmx
 
 	};
 
-	//specialisation of QuadTreeNode for counting tree depth
-	class QuadTreeRoot : public QuadTreeNode
+	//specialisation of MapQuadTreeNode for counting tree depth
+	class QuadTreeRoot : public MapQuadTreeNode
 	{
 	public:
 		QuadTreeRoot(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f))
-			: QuadTreeNode(level, bounds), m_depth(0u), m_searchDepth(0u){};
+			: MapQuadTreeNode(level, bounds), m_depth(0u), m_searchDepth(0u){};
 
 		//clears node and all children
 		void Clear(const sf::FloatRect& newBounds);
 		//retrieves all objects in quads which contains or intersect test area
 		std::vector<MapObject*> Retrieve(const sf::FloatRect& bounds)
 		{
-			return QuadTreeNode::Retrieve(bounds, m_searchDepth);
+			return MapQuadTreeNode::Retrieve(bounds, m_searchDepth);
 		}
 
 	private:

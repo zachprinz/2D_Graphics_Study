@@ -40,7 +40,7 @@ void MapLoader::m_Unload()
 	m_layers.clear();
 	m_imageLayerTextures.clear();
 	m_mapLoaded = false;
-	m_quadTreeAvailable = false;
+	//m_bind()TreeAvailable = false;
 }
 
 void MapLoader::m_SetDrawingBounds(const sf::View& view)

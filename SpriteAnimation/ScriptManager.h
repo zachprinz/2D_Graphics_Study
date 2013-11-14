@@ -17,7 +17,7 @@ class Item;
 class ScriptManager
 {
 public:
-	static void InitiateLuaBind();
+	static void InitiateLuabind();
 	static void CreateBinds();
 	static void CreateItem(std::string id, Item*);
 	static void CreateEnemy(std::string name, Enemy*);

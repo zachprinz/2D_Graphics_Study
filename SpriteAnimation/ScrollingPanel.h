@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "ARectangle.h"
 #include <map>
 #include "GamePanel.h"
 #include "LevelSet.h"
@@ -20,7 +21,7 @@ public:
 	virtual bool CheckUpdate();
 	void SetPosition(int, int);
 	void Update(sf::RenderWindow&);
-	Rectangle* GetBounds();
+	ARectangle* GetBounds();
 	void OnButtonEvent(std::string);
 private:
 	void SetUpScrollBar();

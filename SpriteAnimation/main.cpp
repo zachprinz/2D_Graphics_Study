@@ -27,7 +27,7 @@ int main()
 	Drawn::gameTexture.loadFromFile("Atlas/GameAtlas.png");
 	Drawn::gameTexture.setSmooth(true);
 	Drawn::gameTexture.setRepeated(false);
-	ScriptManager::InitiateLuaBind();
+	ScriptManager::InitiateLuabind();
 	ScriptManager::CreateBinds();
     sf::Clock clock;
     float lastTime = 0;
@@ -66,8 +66,8 @@ int main()
 
 	TextPanel textPanel(1004,175);
 	textPanel.SetPosition(62,740);
-
-	SpritePanel spritePanel(1024,800);
+	SpritePanel::mainWindow = &window;
+	SpritePanel spritePanel(1024,800,&window);
 	spritePanel.SetPosition(52,125);
 	User::player->GetBank()->SetPosition(SpritePanel::instance->GetPosition().x + ((SpritePanel::instance->GetSize().x - 480) / 2),SpritePanel::instance->GetPosition().y + ((SpritePanel::instance->GetSize().y - 480) / 2));
 

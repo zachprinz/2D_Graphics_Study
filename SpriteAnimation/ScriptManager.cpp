@@ -18,7 +18,7 @@ using namespace luabind;
 
 lua_State* ScriptManager::L_;
 
-void ScriptManager::InitiateLuaBind(){
+void ScriptManager::InitiateLuabind(){
 	L_ = luaL_newstate();
 	luabind::open(L_);
     lua_register( L_, "_ALERT", lua_error );

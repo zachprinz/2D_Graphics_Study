@@ -29,9 +29,19 @@ void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	}
 };
 void GameSprite::AddBoundryPolygon(sf::ConvexShape poly){
+	hulls.push_back(new ltbl::ConvexHull());
+	hulls[hulls.size() - 1]->LoadShape(&poly);
+	hulls[hulls.size() -1]->CalculateNormals();
+	hulls[hulls.size()-1]->CalculateAABB();
+	hulls[hulls.size()-1]->SetWorldCenter(Vec2f(300.0f,300.0f));
+	SpritePanel::instance->lightSystem->AddConvexHull(hulls[hulls.size()-1]);
 	boundries.push_back(poly);
 };
 void GameSprite::ClearBoundries(){
+	for(int x = 0; x < hulls.size(); x++){
+		SpritePanel::instance->lightSystem->RemoveConvexHull(hulls[x]);
+	}
+	hulls.clear();
 	boundries.clear();
 };
 GameSprite::GameSprite(){

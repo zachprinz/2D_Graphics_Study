@@ -80,9 +80,9 @@ void ScrollingPanel::SetPosition(int x, int y){
 	GamePanel::SetPosition(x,y);
 	panelSprite.setPosition(panelSprite.getPosition().x + 13,panelSprite.getPosition().y + 80);
 };
-Rectangle* ScrollingPanel::GetBounds(){
+ARectangle* ScrollingPanel::GetBounds(){
 	sf::FloatRect temp = backgroundPanelSprite.getGlobalBounds();
-	return &Rectangle(temp.left,temp.top,temp.width,temp.height);
+	return &ARectangle(temp.left,temp.top,temp.width,temp.height);
 };
 void ScrollingPanel::OnButtonEvent(std::string function){
 	if(function == "ScrollUp")

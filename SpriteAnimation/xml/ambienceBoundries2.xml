@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with http://www.physicseditor.de -->
+<bodydef version="1.0">
+    <bodies numBodies="4">
+
+        <body name="tree_top_tall" dynamic="true" numFixtures="1">
+
+            <fixture
+                density="2"
+                friction="0"
+                restitution="0"
+                filter_categoryBits="1"
+                filter_groupIndex="0"
+                filter_maskBits="65535"
+                isSensor="false"
+                type="POLYGON"
+                numPolygons="16"
+                >
+
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-44.0000" y="18.0000" />
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-46.0000" y="22.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-40.0000" y="27.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                    <vertex x="-34.0000" y="31.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-44.0000" y="18.0000" />
+
+                    <vertex x="-47.0000" y="12.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-33.0000" y="-23.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-37.0000" y="-21.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="7">
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="-21.0000" y="-37.0000" />
+
+                    <vertex x="-18.0000" y="-42.0000" />
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="45.0000" y="-1.0000" />
+
+                    <vertex x="43.0000" y="13.0000" />
+
+                    <vertex x="34.0000" y="32.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-42.0000" y="-3.0000" />
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-46.0000" y="3.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="8.0000" y="69.0000" />
+
+                    <vertex x="-8.0000" y="69.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="12.0000" y="36.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-41.0000" y="-14.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="43.0000" y="13.0000" />
+
+                    <vertex x="45.0000" y="-1.0000" />
+
+                    <vertex x="47.0000" y="13.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-21.0000" y="-37.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="-33.0000" y="-23.0000" />
+
+                    <vertex x="-34.0000" y="-27.0000" />
+
+                    <vertex x="-28.0000" y="-35.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="32.0000" y="-27.0000" />
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="-18.0000" y="-42.0000" />
+
+                    <vertex x="19.0000" y="-41.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="32.0000" y="-27.0000" />
+
+                    <vertex x="35.0000" y="-28.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="-28.0000" y="34.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                </polygon>
+
+
+            </fixture>
+
+        </body>
+
+        <body name="tree_base" dynamic="true" numFixtures="1">
+
+            <fixture
+                density="2"
+                friction="0"
+                restitution="0"
+                filter_categoryBits="1"
+                filter_groupIndex="0"
+                filter_maskBits="65535"
+                isSensor="false"
+                type="POLYGON"
+                numPolygons="2"
+                >
+
+
+                <polygon numVertexes="7">
+
+                    <vertex x="8.0000" y="15.0000" />
+
+                    <vertex x="-4.0000" y="16.0000" />
+
+                    <vertex x="-12.0000" y="13.0000" />
+
+                    <vertex x="-11.0000" y="6.0000" />
+
+                    <vertex x="-8.0000" y="5.0000" />
+
+                    <vertex x="8.0000" y="4.0000" />
+
+                    <vertex x="13.0000" y="10.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="8.0000" y="4.0000" />
+
+                    <vertex x="-8.0000" y="5.0000" />
+
+                    <vertex x="-8.0000" y="-16.0000" />
+
+                    <vertex x="8.0000" y="-16.0000" />
+
+                </polygon>
+
+
+            </fixture>
+
+        </body>
+
+        <body name="tree_top" dynamic="true" numFixtures="1">
+
+            <fixture
+                density="2"
+                friction="0"
+                restitution="0"
+                filter_categoryBits="1"
+                filter_groupIndex="0"
+                filter_maskBits="65535"
+                isSensor="false"
+                type="POLYGON"
+                numPolygons="16"
+                >
+
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-44.0000" y="18.0000" />
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-46.0000" y="22.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="8.0000" y="53.0000" />
+
+                    <vertex x="-8.0000" y="53.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-40.0000" y="27.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                    <vertex x="-34.0000" y="31.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-41.0000" y="23.0000" />
+
+                    <vertex x="-44.0000" y="18.0000" />
+
+                    <vertex x="-47.0000" y="12.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-33.0000" y="-23.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-37.0000" y="-21.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="7">
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="-21.0000" y="-37.0000" />
+
+                    <vertex x="-18.0000" y="-42.0000" />
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="45.0000" y="-1.0000" />
+
+                    <vertex x="43.0000" y="13.0000" />
+
+                    <vertex x="34.0000" y="32.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-42.0000" y="-3.0000" />
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-46.0000" y="3.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="12.0000" y="36.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="-35.0000" y="26.0000" />
+
+                    <vertex x="-43.0000" y="9.0000" />
+
+                    <vertex x="-41.0000" y="-14.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="43.0000" y="13.0000" />
+
+                    <vertex x="45.0000" y="-1.0000" />
+
+                    <vertex x="47.0000" y="13.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="-21.0000" y="-37.0000" />
+
+                    <vertex x="16.0000" y="32.0000" />
+
+                    <vertex x="-33.0000" y="-23.0000" />
+
+                    <vertex x="-34.0000" y="-27.0000" />
+
+                    <vertex x="-28.0000" y="-35.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="32.0000" y="-27.0000" />
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="-18.0000" y="-42.0000" />
+
+                    <vertex x="19.0000" y="-41.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="37.0000" y="-14.0000" />
+
+                    <vertex x="32.0000" y="-27.0000" />
+
+                    <vertex x="35.0000" y="-28.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="-28.0000" y="34.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-36.0000" y="-18.0000" />
+
+                    <vertex x="9.0000" y="35.0000" />
+
+                    <vertex x="-8.0000" y="35.0000" />
+
+                    <vertex x="-28.0000" y="31.0000" />
+
+                </polygon>
+
+
+            </fixture>
+
+        </body>
+
+        <body name="light" dynamic="true" numFixtures="1">
+
+            <fixture
+                density="2"
+                friction="0"
+                restitution="0"
+                filter_categoryBits="1"
+                filter_groupIndex="0"
+                filter_maskBits="65535"
+                isSensor="false"
+                type="POLYGON"
+                numPolygons="3"
+                >
+
+
+                <polygon numVertexes="3">
+
+                    <vertex x="-4.0000" y="22.0000" />
+
+                    <vertex x="1.0000" y="16.0000" />
+
+                    <vertex x="4.0000" y="22.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="5">
+
+                    <vertex x="4.0000" y="-14.0000" />
+
+                    <vertex x="1.0000" y="-13.0000" />
+
+                    <vertex x="-1.0000" y="-13.0000" />
+
+                    <vertex x="-4.0000" y="-18.0000" />
+
+                    <vertex x="0.0000" y="-30.0000" />
+
+                </polygon>
+
+                <polygon numVertexes="4">
+
+                    <vertex x="-1.0000" y="-13.0000" />
+
+                    <vertex x="1.0000" y="-13.0000" />
+
+                    <vertex x="1.0000" y="16.0000" />
+
+                    <vertex x="-4.0000" y="22.0000" />
+
+                </polygon>
+
+
+            </fixture>
+
+        </body>
+
+    </bodies>
+    <metadata>
+        <format>1</format>
+        <ptm_ratio>32</ptm_ratio>
+    </metadata>
+</bodydef>

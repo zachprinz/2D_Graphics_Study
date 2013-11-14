@@ -13,6 +13,13 @@ AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj) : GameSprite(Get
 	tags.push_back(std::to_string(GetTag()));
 	UpdateRoomTile();
 };
+AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj,bool isLightObject) : GameSprite(GetPhysicalPosition(x,y,obj).x,GetPhysicalPosition(x,y,obj).y,"ambienceObjects/" +obj->GetPropertyString("physical") + ".png"){
+	std::cout << "Creating new Ambience Object| Physical: " << obj->GetPropertyString("physical") << " | Nonphysical: " << obj->GetPropertyString("nonphysical") << std::endl;
+	nonphysical = new GameSprite(x,y,"ambienceObjects/" + obj->GetPropertyString("nonphysical") + ".png");
+	SetUpBoundries(obj->GetPropertyString("nonphysical"),nonphysical);
+	SetUpBoundries(obj->GetPropertyString("physical"),this);
+	UpdateRoomTile();
+};
 void AmbienceObject::Update(sf::RenderTexture& window){
 	window.draw(sprite);
 	GameSprite::Update(window);
