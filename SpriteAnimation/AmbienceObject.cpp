@@ -16,9 +16,10 @@ AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj) : GameSprite(Get
 AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj,bool isLightObject) : GameSprite(GetPhysicalPosition(x,y,obj).x,GetPhysicalPosition(x,y,obj).y,"ambienceObjects/" +obj->GetPropertyString("physical") + ".png"){
 	std::cout << "Creating new Ambience Object| Physical: " << obj->GetPropertyString("physical") << " | Nonphysical: " << obj->GetPropertyString("nonphysical") << std::endl;
 	nonphysical = new GameSprite(x,y,"ambienceObjects/" + obj->GetPropertyString("nonphysical") + ".png");
-	SetUpBoundries(obj->GetPropertyString("nonphysical"),nonphysical);
-	SetUpBoundries(obj->GetPropertyString("physical"),this);
-	UpdateRoomTile();
+	//SetUpBoundries(obj->GetPropertyString("nonphysical"),nonphysical);
+	//SetUpBoundries(obj->GetPropertyString("physical"),this);
+	tags.push_back(std::to_string(GetTag()));
+	UpdateRoomTile();	
 };
 void AmbienceObject::Update(sf::RenderTexture& window){
 	window.draw(sprite);
@@ -27,6 +28,10 @@ void AmbienceObject::Update(sf::RenderTexture& window){
 void AmbienceObject::Update2(sf::RenderTexture& window){
 	window.draw(*(nonphysical->GetSprite()));
 	((GameSprite*)nonphysical)->Update(window);
+	//if(hulls.size() > 0)
+	//	hulls[0]->DebugDraw();
+	//nonphysical->DrawBoundries(window);
+	//DrawBoundries(window);
 };
 void AmbienceObject::Interact(){
 
@@ -60,8 +65,6 @@ void AmbienceObject::SetUpBoundries(std::string name, GameSprite* target){
 				vertex = vertex.next_sibling();
 			poly.setPoint(x,sf::Vector2f(vertex.attribute("x").as_int(),vertex.attribute("y").as_int()));
 		}
-		poly.setPosition(sf::Vector2f(target->GetSprite()->getPosition().x + target->GetSprite()->getLocalBounds().width / 2,target->GetSprite()->getPosition().y + + target->GetSprite()->getLocalBounds().height / 2));
-		poly.setFillColor(sf::Color(43,119,173,170));
 		target->AddBoundryPolygon(poly);
 	}
 };

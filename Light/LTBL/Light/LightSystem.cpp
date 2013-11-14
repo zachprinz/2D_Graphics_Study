@@ -34,7 +34,7 @@ namespace ltbl
 	{
 	}
 
-	LightSystem::LightSystem(const AABB &region, sf::RenderWindow* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath)
+	LightSystem::LightSystem(const AABB &region, sf::RenderTexture* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath)
 		: m_ambientColor(55, 55, 55), m_checkForHullIntersect(true),
 		m_prebuildTimer(0), m_pWin(pRenderWindow), m_useBloom(true), m_maxFins(1)
 	{
@@ -56,7 +56,7 @@ namespace ltbl
 		ClearEmissiveLights();
 	}
 
-	void LightSystem::Create(const AABB &region, sf::RenderWindow* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath)
+	void LightSystem::Create(const AABB &region, sf::RenderTexture* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath)
 	{
 		m_pWin = pRenderWindow;
 
@@ -264,7 +264,7 @@ namespace ltbl
 		// Render shadow fins
 		glEnable(GL_TEXTURE_2D);
 
-		m_softShadowTexture.bind(NULL);
+	sf::Texture::bind(&m_softShadowTexture);
 
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -486,10 +486,8 @@ namespace ltbl
 		if(m_currentRenderTexture != cur_lightTemp)
 		{
 			m_lightTempTexture.setActive();
-
 			//if(currentRenderTexture == cur_lightStatic)
 				SwitchWindowProjection();
-
 			m_currentRenderTexture = cur_lightTemp;
 		}
 	}
@@ -543,7 +541,7 @@ namespace ltbl
 	void LightSystem::ClearLightTexture(sf::RenderTexture &renTex)
 	{	
 		glLoadIdentity();
-				
+
 		renTex.clear(sf::Color::Transparent);
 
 		// Clear with quad, since glClear is not working for some reason... if results in very ugly artifacts. MUST clear with full color, with alpha!
@@ -714,7 +712,7 @@ namespace ltbl
 
 				if(pLight->m_shaderAttenuation)
 				{
-					m_lightAttenuationShader.bind(NULL);
+					sf::Shader::bind(&m_lightAttenuationShader);
 
 					if(pLight->AlwaysUpdate())
 						m_lightAttenuationShader.setParameter("lightPos", pLight->m_center.x - m_viewAABB.m_lowerBound.x, pLight->m_center.y - m_viewAABB.m_lowerBound.y);
@@ -729,7 +727,7 @@ namespace ltbl
 					// Render the current light
 					pLight->RenderLightSolidPortion();
 
-					m_lightAttenuationShader.bind(NULL);
+					sf::Shader::bind(NULL);
 				}
 				else
 					// Render the current light
@@ -774,7 +772,7 @@ namespace ltbl
 					SwitchComposition();
 					glLoadIdentity();
 
-					m_lightTempTexture.getTexture().bind(NULL);
+					sf::Texture::bind(&m_lightTempTexture.getTexture());
 
 					glBlendFunc(GL_ONE, GL_ONE);
 
@@ -792,7 +790,7 @@ namespace ltbl
 						SwitchBloom();
 						glLoadIdentity();
 
-						m_lightTempTexture.getTexture().bind(NULL);
+						sf::Texture::bind(&m_lightTempTexture.getTexture());
 
 						glBlendFunc(GL_ONE, GL_ONE);
 	
@@ -817,7 +815,7 @@ namespace ltbl
 					SwitchComposition();
 					CameraSetup();
 
-					pLight->m_pStaticTexture->getTexture().bind(NULL);
+					sf::Texture::bind(&pLight->m_pStaticTexture->getTexture());
 
 					glTranslatef(pLight->m_center.x - staticTextureOffset.x, pLight->m_center.y - staticTextureOffset.y, 0.0f);
 
@@ -842,7 +840,7 @@ namespace ltbl
 
 						glTranslatef(pLight->m_center.x - staticTextureOffset.x, pLight->m_center.y - staticTextureOffset.y, 0.0f);
 
-						pLight->m_pStaticTexture->getTexture().bind(NULL);
+						sf::Texture::bind(&pLight->m_pStaticTexture->getTexture());
 
 						glBlendFunc(GL_ONE, GL_ONE);
 	
@@ -867,7 +865,7 @@ namespace ltbl
 				SwitchComposition();
 
 				// Render existing texture
-				pLight->m_pStaticTexture->getTexture().bind(NULL);
+				sf::Texture::bind(&pLight->m_pStaticTexture->getTexture());
 
 				Vec2f staticTextureOffset(pLight->m_center - pLight->m_aabb.m_lowerBound);
 
@@ -895,7 +893,7 @@ namespace ltbl
 
 					glTranslatef(pLight->m_center.x - staticTextureOffset.x, pLight->m_center.y - staticTextureOffset.y, 0.0f);
 
-					pLight->m_pStaticTexture->getTexture().bind(NULL);
+					sf::Texture::bind(&pLight->m_pStaticTexture->getTexture());
 
 					glBlendFunc(GL_ONE, GL_ONE);
 	
@@ -962,7 +960,7 @@ namespace ltbl
 		// because SFML stores view transformations in the projection matrix
 		glTranslatef(m_viewAABB.GetLowerBound().x, -m_viewAABB.GetLowerBound().y, 0.0f);
 
-		m_compositionTexture.getTexture().bind(NULL);
+		sf::Texture::bind(&m_compositionTexture.getTexture());
 
 		// Set up color function to multiply the existing color with the render texture color
 		glBlendFunc(GL_DST_COLOR, GL_ZERO); // Seperate allows you to set color and alpha functions seperately
@@ -976,7 +974,7 @@ namespace ltbl
 
 		if(m_useBloom)
 		{
-			m_bloomTexture.getTexture().bind(NULL);
+			sf::Texture::bind(&m_bloomTexture.getTexture());
 
 			glBlendFunc(GL_ONE, GL_ONE);
 

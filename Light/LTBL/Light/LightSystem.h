@@ -42,7 +42,7 @@ namespace ltbl
 	class LightSystem
 	{
 	private:
-		sf::RenderWindow* m_pWin;
+		sf::RenderTexture* m_pWin;
 
 		std::unordered_set<Light*> m_lights;
 	
@@ -72,7 +72,6 @@ namespace ltbl
 		int AddExtraFins(const ConvexHull &hull, std::vector<ShadowFin> &fins, const Light &light, int boundryIndex, bool wrapCW, Vec2f &mainUmbraRoot, Vec2f &mainUmbraVec);
 
 		void CameraSetup();
-		void SetUp(const AABB &region);
 
 		// Switching between render textures
 		void SwitchLightTemp();
@@ -91,6 +90,7 @@ namespace ltbl
 
 	public:
 		AABB m_viewAABB;
+		void SetUp(const AABB &region);
 
 		sf::Color m_ambientColor;
 
@@ -100,10 +100,10 @@ namespace ltbl
 		unsigned int m_maxFins;
 
 		LightSystem();
-		LightSystem(const AABB &region, sf::RenderWindow* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath);
+		LightSystem(const AABB &region, sf::RenderTexture* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath);
 		~LightSystem();
 
-		void Create(const AABB &region, sf::RenderWindow* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath);
+		void Create(const AABB &region, sf::RenderTexture* pRenderWindow, const std::string &finImagePath, const std::string &lightAttenuationShaderPath);
 
 		void SetView(const sf::View &view);
 

@@ -69,8 +69,9 @@ namespace qdt
 		// Render outside root AABB's
 		glColor3f(0.5f, 0.2f, 0.1f);
 
-		for(std::unordered_set<QuadTreeOccupant*>::iterator it = m_outsideRoot.begin(); it != m_outsideRoot.end(); it++)
+		for(std::unordered_set<QuadTreeOccupant*>::iterator it = m_outsideRoot.begin(); it != m_outsideRoot.end(); it++){
 			(*it)->m_aabb.DebugRender();
+		}
 
 		// Now draw the tree
 		std::list<QuadTreeNode*> open;

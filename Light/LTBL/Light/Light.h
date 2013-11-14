@@ -39,7 +39,7 @@ namespace ltbl
 
 		bool m_alwaysUpdate;
 
-		sf::RenderWindow* m_pWin;
+		sf::RenderTexture* m_pWin;
 
 		// Set up viewport information for the render texture
 		void SwitchStaticTexture();

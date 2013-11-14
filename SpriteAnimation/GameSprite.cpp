@@ -5,7 +5,7 @@
 #include "User.h"
 
 int GameSprite::tagCount = 0;
-bool GameSprite::displayDebug = false;
+bool GameSprite::displayDebug = true;
 
 GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textureName){
 	graphPositionA = sf::Vector2i(x,y);
@@ -16,15 +16,16 @@ GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textur
 	tagCount++;
 };
 void GameSprite::Update(sf::RenderTexture& panel){
-	if(displayDebug){
-		panel.draw(GetRoomTile()->getVisual());
-	}
-	DrawBoundries(panel);
+	//if(displayDebug){
+	//	panel.draw(GetRoomTile()->getVisual());
+	//}
+	//DrawBoundries(panel);
 };
 void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	if(displayDebug){
 		for(int x = 0; x < boundries.size(); x++){
-			panel.draw(boundries[x]);
+			//panel.draw(boundries[x]);
+			
 		}
 	}
 };
@@ -33,13 +34,13 @@ void GameSprite::AddBoundryPolygon(sf::ConvexShape poly){
 	hulls[hulls.size() - 1]->LoadShape(&poly);
 	hulls[hulls.size() -1]->CalculateNormals();
 	hulls[hulls.size()-1]->CalculateAABB();
-	hulls[hulls.size()-1]->SetWorldCenter(Vec2f(300.0f,300.0f));
-	SpritePanel::instance->lightSystem->AddConvexHull(hulls[hulls.size()-1]);
+	hulls[hulls.size()-1]->SetWorldCenter(Vec2f(sprite.getPosition().x,sprite.getPosition().y));
+	SpritePanel::instance->AddLightHull(hulls[hulls.size()-1]);
 	boundries.push_back(poly);
 };
 void GameSprite::ClearBoundries(){
 	for(int x = 0; x < hulls.size(); x++){
-		SpritePanel::instance->lightSystem->RemoveConvexHull(hulls[x]);
+		SpritePanel::instance->RemoveLightHull(hulls[x]);
 	}
 	hulls.clear();
 	boundries.clear();

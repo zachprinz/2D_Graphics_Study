@@ -8,6 +8,8 @@
 #include "GroundItem.h"
 #include <MapLoader.h>
 #include "Room.h"
+#include "LightObject.h"
+#include "AmbienceObject.h"
 #include "LTBL/Light/LightSystem.h"
 
 class SpritePanel : public GamePanel
@@ -37,8 +39,15 @@ public:
 	void LoadMapAmbience();
 	ltbl::LightSystem* lightSystem;
 	static sf::RenderWindow* mainWindow;
+	void AddLightSource(LightObject*);
+	void AddLightHull(ltbl::ConvexHull*);
+	void RemoveLightHull(ltbl::ConvexHull*);
+	int panelHeight;
+	sf::View lightView;
 private:
 	void SetUp();
+	sf::Texture backgroundImage;
+	sf::Sprite backgroundSprite2;
 	std::vector<GroundItem*> spawnedItems;
 };
 

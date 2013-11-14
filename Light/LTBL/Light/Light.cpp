@@ -59,7 +59,7 @@ namespace ltbl
 		// Must add to the light system before calling this
 		assert(m_pWin != NULL);
 
-		if(!always && m_alwaysUpdate) // If previously set to false, create a render Texture for the static texture
+		if(!always && m_alwaysUpdate) // If previously set to false, create a Texture for the static texture
 		{
 			Vec2f dims(m_aabb.GetDims());
 

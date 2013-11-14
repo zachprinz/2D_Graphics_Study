@@ -6,7 +6,7 @@
 			<Requirement type="talk" targetName="Dr.Smith" requiredValue="1"/>
 		</Objective>
 		
-		<Objective name="kill the angels" description="Slay 2 of the angels on the west island." status="incomplete">
+		<Objective name="The angels" description="Slay 2 of the angels on the west island. asdf" status="incomplete">
 			<Requirement type="kill"  targetName="Cherub" requiredValue="2"/>
 		</Objective>
 		

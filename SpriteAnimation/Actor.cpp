@@ -148,9 +148,9 @@ void Actor::Update(sf::RenderTexture& panel){
 		UpdateRoomTile();
 		UpdateAnimation();
 		Draw(&panel);
-		for(int x = 0; x < boundries.size(); x++){
-			boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
-			boundries[x].setScale(0.85f,0.65f);
+		for(int x = 0; x < hulls.size(); x++){
+			hulls[x]->SetWorldCenter(Vec2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,SpritePanel::instance->panelHeight - (GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4)));
+			//boundries[x].setScale(0.85f,0.65f);
 			//boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition()));
 		}
 		GameSprite::Update(panel);
@@ -210,7 +210,7 @@ bool Actor::UpdateAnimation(){
 		animationClock.restart();
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
 		ClearBoundries();
-		UpdateBoundries();
+		//UpdateBoundries();
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));
 			showHit = false;

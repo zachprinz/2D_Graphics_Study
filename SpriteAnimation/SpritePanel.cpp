@@ -12,6 +12,7 @@
 #include "LTBL/Constructs/AABB.h"
 #include "LTBL/Constructs/Vec2f.h"
 #include "LightObject.h"
+#include <assert.h>
 
 sf::Texture* SpritePanel::spritePanelBackground = new sf::Texture();
 SpritePanel* SpritePanel::instance = new SpritePanel();
@@ -31,15 +32,23 @@ SpritePanel::SpritePanel(int x, int y,sf::RenderWindow* mWindow) : GamePanel(x,y
 	}
 	view.reset(sf::FloatRect(0,0,1024,800));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
+	lightView.reset(sf::FloatRect(0,0,4096,4096));
+	lightView.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
 	drawCollision = false; //true;
 	instance = this;
 	createPanelLabel = false;
 	SetUp();
-	lightSystem = new ltbl::LightSystem(AABB(Vec2f(0.0f,0.0f),Vec2f(static_cast<float>(panel.getSize().x),static_cast<float>(panel.getSize().y))), mainWindow,"images/lightData/lightFin.png","images/lightData/lightAttenuationShader.frag");
+	lightSystem = new ltbl::LightSystem(AABB(Vec2f(0.0f,0.0f),Vec2f(static_cast<float>(4096.0f),static_cast<float>(4096.0f))), &panel,"Images/lightData/lightFin.png","Images/lightData/lightAttenuationShader.frag");
+	panelHeight = panel.getSize().y;
+	lightSystem->SetView(lightView);
 	LoadMapCollisions();
 	LoadMapAmbience();
 	LoadMapSprites();
+	//backgroundImage.loadFromFile("image/lightbackground.png");  
+	//backgroundImage.setRepeated(true);  
+	//backgroundSprite2 = sf::Sprite(backgroundImage);
+	//backgroundSprite2.setTextureRect(sf::IntRect(0, 0, panel.getSize().x, panel.getSize().y));
 };
 SpritePanel::SpritePanel(){
 
@@ -63,7 +72,7 @@ void SpritePanel::LoadMapCollisions(){
 		//std::cout << std::to_string(xCor) << "," << std::to_string(yCor) << " " << std::to_string(xCor2) << "," << std::to_string(yCor2) << std::endl;
 		for(int y = xCor; y <= xCor2; y++){
 			for(int z = yCor; z <= yCor2; z++){
-				room->roomTiles[z][y].SetBlocked();
+				//room->roomTiles[z][y].SetBlocked();
 			}
 		}
 	}
@@ -120,11 +129,10 @@ void SpritePanel::LoadMapSprites(){
 			room->AddOcupant(user);
 		}
 		if(name == "Light"){
-			yCor = (((int)sprites->objects[x].GetPosition().y - (int)sprites->objects[x].GetSize().y) / 32);
+			yCor = (((int)sprites->objects[x].GetPosition().y - (int)std::stoi(sprites->objects[x].GetPropertyString("height"))) / 32);
 			LightObject* lightObj = new LightObject(xCor,yCor,&sprites->objects[x]);
-			AddElement("LightObject" + std::to_string(lightObj->GetTag()), lightObj);
+			AddElement("AmbienceObject" + std::to_string(lightObj->GetTag()), lightObj);
 			room->AddOcupant(lightObj);
-			lightSystem->AddLight(lightObj->getLight());
 		}
 	}
 }
@@ -142,7 +150,7 @@ void SpritePanel::LoadMapAmbience(){
 	for(int x = 0; x < ambienceObjects->objects.size(); x++){
 		std::string name = ambienceObjects->objects[x].GetType();
 		int xCor = (((int)ambienceObjects->objects[x].GetPosition().x) / 32);
-		int yCor = (((int)ambienceObjects->objects[x].GetPosition().y - (int)ambienceObjects->objects[x].GetSize().y) / 32);
+		int yCor = (((int)ambienceObjects->objects[x].GetPosition().y - (int)std::stoi(ambienceObjects->objects[x].GetPropertyString("height"))) / 32);
 		sf::Texture tempText;
 		if(name == "Ambience"){
 			AmbienceObject* ambObj = new AmbienceObject(xCor,yCor,&ambienceObjects->objects[x]);
@@ -152,6 +160,7 @@ void SpritePanel::LoadMapAmbience(){
 	}
 };
 void SpritePanel::UpdateElements(){
+	//panel.draw(backgroundSprite2);
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	SetHighObjectsInvisible();
@@ -168,10 +177,15 @@ void SpritePanel::UpdateElements(){
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(panel);
 	}
+	for(int x = 0; x < LightObject::tags.size(); x++){
+		((LightObject*)dynamicElements["AmbienceObject" + LightObject::tags[x]])->getLight()->TreeUpdate();
+	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
-	//lightSystem->RenderLights();
-	//lightSystem->RenderLightTexture();
+	lightSystem->SetView(lightView);
+	lightSystem->RenderLights();
+	lightSystem->RenderLightTexture();
+	lightSystem->DebugRender();
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
 	dynamicElements.insert(MyPair(name, element));
@@ -222,4 +236,13 @@ void SpritePanel::RemoveDynamicElement(std::string tag){
 };
 bool SpritePanel::CheckUpdate(){
 	return true;
+};
+void SpritePanel::AddLightSource(LightObject* thisLight){
+	lightSystem->AddLight(thisLight->getLight());
+};
+void SpritePanel::AddLightHull(ltbl::ConvexHull* thisHull){
+	lightSystem->AddConvexHull(thisHull);
+};
+void SpritePanel::RemoveLightHull(ltbl::ConvexHull* thisHull){
+	lightSystem->RemoveConvexHull(thisHull);
 };
