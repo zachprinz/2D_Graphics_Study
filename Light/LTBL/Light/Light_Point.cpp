@@ -41,7 +41,6 @@ namespace ltbl
 	void Light_Point::RenderLightSolidPortion()
 	{
 		float renderIntensity = m_intensity;
-
 		// Clamp the render intensity
 		if(renderIntensity > 1.0f)
 			renderIntensity = 1.0f;
@@ -54,7 +53,7 @@ namespace ltbl
 
 		glBegin(GL_TRIANGLE_FAN);
 
-		glVertex2f(m_center.x, m_center.y);
+		glVertex2f(m_center.x + 100, m_center.y);
       
 		// Set the edge color for rest of shape
 		int numSubdivisions = static_cast<int>(m_spreadAngle / m_lightSubdivisionSize);
@@ -71,9 +70,12 @@ namespace ltbl
 
 	void Light_Point::RenderLightSoftPortion()
 	{
+
+
 		// If light goes all the way around do not render fins
-		if(m_spreadAngle == pifTimes2 || m_softSpreadAngle == 0.0f)
+		if(m_spreadAngle == pifTimes2 || m_softSpreadAngle == 0.0f){
 			return;
+		}
 
 		// Create to shadow fins to mask off a portion of the light
 		ShadowFin fin1;

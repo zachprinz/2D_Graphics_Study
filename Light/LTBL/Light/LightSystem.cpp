@@ -18,7 +18,6 @@
 		misrepresented as being the original software.
 	3. This notice may not be removed or altered from any source distribution.
 */
-
 #include <LTBL/QuadTree/QuadTreeOccupant.h>
 #include <LTBL/Light/LightSystem.h>
 #include <LTBL/Light/ShadowFin.h>
@@ -75,15 +74,14 @@ namespace ltbl
 		sf::Vector2f viewSize(view.getSize());
 		m_viewAABB.SetDims(Vec2f(viewSize.x, viewSize.y));
 		sf::Vector2f viewCenter(view.getCenter());
-
-		// Flipped
-		m_viewAABB.SetCenter(Vec2f(viewCenter.x, viewSize.y - viewCenter.y));
+		//flipped
+		m_viewAABB.SetCenter(Vec2f(view.getCenter().x,  viewCenter.y));//view.getSize().y - view.getCenter().y));//view.getCenter().x,
 	}
 
 	void LightSystem::CameraSetup()
 	{
 		glLoadIdentity();
-		glTranslatef(-m_viewAABB.m_lowerBound.x, -m_viewAABB.m_lowerBound.y, 0.0f);
+		glTranslatef(0,0,0);//m_viewAABB.m_lowerBound.x, m_viewAABB.m_lowerBound.y, 0.0f);
 	}
 
 	void LightSystem::MaskShadow(Light* light, ConvexHull* convexHull, bool minPoly, float depth)
@@ -707,7 +705,7 @@ namespace ltbl
 
 					staticTextureOffset = pLight->m_aabb.GetDims() / 2.0f;
 
-					glTranslatef(-pLight->m_aabb.m_lowerBound.x, -pLight->m_aabb.m_lowerBound.y, 0.0f);
+					glTranslatef(-pLight->m_aabb.m_lowerBound.x, -pLight->m_aabb.m_lowerBound.y, 0.0f);//changes the negative one on the y 
 				}
 
 				if(pLight->m_shaderAttenuation)
@@ -775,13 +773,13 @@ namespace ltbl
 					sf::Texture::bind(&m_lightTempTexture.getTexture());
 
 					glBlendFunc(GL_ONE, GL_ONE);
-
-					// Texture is upside-down for some reason, so draw flipped
+					sf::Vector2u viewSize2(viewSize.x,viewSize.y);
+						// Texture is upside-down for some reason, so draw flipped
 					glBegin(GL_QUADS);
-						glTexCoord2i(0, 1); glVertex2f(0.0f, 0.0f);
-						glTexCoord2i(1, 1); glVertex2f(viewSize.x, 0.0f);
-						glTexCoord2i(1, 0); glVertex2f(viewSize.x, viewSize.y);
-						glTexCoord2i(0, 0); glVertex2f(0.0f, viewSize.y);
+						glTexCoord2i(0,1); glVertex2f(0.0f, 0.0f);//01 JumpTo1
+						glTexCoord2i(1,1); glVertex2f(viewSize2.x, 0.0f);//11
+						glTexCoord2i(1,0); glVertex2f(viewSize2.x, viewSize2.y);//10
+						glTexCoord2i(0,0); glVertex2f(0.0f, viewSize2.y);//00
 					glEnd();
 
 					// Bloom render
@@ -799,10 +797,10 @@ namespace ltbl
 
 						// Texture is upside-down for some reason, so draw flipped
 						glBegin(GL_QUADS);
-							glTexCoord2i(0, 1); glVertex2f(0.0f, 0.0f);
-							glTexCoord2i(1, 1); glVertex2f(viewSize.x, 0.0f);
-							glTexCoord2i(1, 0); glVertex2f(viewSize.x, viewSize.y);
-							glTexCoord2i(0, 0); glVertex2f(0.0f, viewSize.y);
+							glTexCoord2i(0,1); glVertex2f(0.0f, 0.0f);//01
+							glTexCoord2i(1,1); glVertex2f(viewSize2.x, 0.0f);//11
+							glTexCoord2i(1,0); glVertex2f(viewSize2.x, viewSize2.y);//10
+							glTexCoord2i(0,0); glVertex2f(0.0f, viewSize2.y);//00
 						glEnd();
 
 						glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -958,33 +956,35 @@ namespace ltbl
 
 		// Translate by negative camera coordinates. glLoadIdentity will not work, probably
 		// because SFML stores view transformations in the projection matrix
-		glTranslatef(m_viewAABB.GetLowerBound().x, -m_viewAABB.GetLowerBound().y, 0.0f);
+		glTranslatef(m_viewAABB.GetLowerBound().x, m_viewAABB.GetLowerBound().y, 0.0f);
 
 		sf::Texture::bind(&m_compositionTexture.getTexture());
 
 		// Set up color function to multiply the existing color with the render texture color
 		glBlendFunc(GL_DST_COLOR, GL_ZERO); // Seperate allows you to set color and alpha functions seperately
 
-		glBegin(GL_QUADS);
-			glTexCoord2i(0, 0); glVertex2f(0.0f, 0.0f);
-			glTexCoord2i(1, 0); glVertex2f(viewSize.x, 0.0f);
-			glTexCoord2i(1, 1); glVertex2f(viewSize.x, viewSize.y);
-			glTexCoord2i(0, 1); glVertex2f(0.0f, viewSize.y);
-		glEnd();
+		sf::Vector2u viewSizeui(viewSize.x,viewSize.y);
 
-		if(m_useBloom)
-		{
-			sf::Texture::bind(&m_bloomTexture.getTexture());
+		glBegin(GL_QUADS);//jump2
+					glTexCoord2i(0, 0); glVertex2f(0.0f, 0.0f);
+					glTexCoord2i(1, 0); glVertex2f(viewSizeui.x, 0.0f);
+					glTexCoord2i(1, 1); glVertex2f(viewSizeui.x, viewSizeui.y);
+					glTexCoord2i(0, 1); glVertex2f(0.0f, viewSizeui.y);
+				glEnd();
 
-			glBlendFunc(GL_ONE, GL_ONE);
+				if(m_useBloom)
+				{
+					m_bloomTexture.getTexture().bind(&m_bloomTexture.getTexture());
 
-			glBegin(GL_QUADS);
-				glTexCoord2i(0, 0); glVertex2f(0.0f, 0.0f);
-				glTexCoord2i(1, 0); glVertex2f(viewSize.x, 0.0f);
-				glTexCoord2i(1, 1); glVertex2f(viewSize.x, viewSize.y);
-				glTexCoord2i(0, 1); glVertex2f(0.0f, viewSize.y);
-			glEnd();
-		}
+					glBlendFunc(GL_ONE, GL_ONE);
+
+					glBegin(GL_QUADS);
+						glTexCoord2i(0, 0); glVertex2f(0.0f, 0.0f);
+						glTexCoord2i(1, 0); glVertex2f(viewSizeui.x, 0.0f);
+						glTexCoord2i(1, 1); glVertex2f(viewSizeui.x, viewSizeui.y);
+						glTexCoord2i(0, 1); glVertex2f(0.0f, viewSizeui.y);
+					glEnd();
+				}
 
 		// Reset blend function
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

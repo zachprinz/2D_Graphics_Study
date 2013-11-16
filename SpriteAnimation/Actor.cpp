@@ -109,7 +109,7 @@ bool Actor::SetDown(){
 	}
 };
 void Actor::Update(sf::RenderTexture& panel){
-	for(int b = 0; b < 2; b++){
+	for(int b = 0; b < 5; b++){
 		if(currentDirection == Finishing){
 			int dir = 0;
 			if(movement.x == -1 || movement.y == -1)

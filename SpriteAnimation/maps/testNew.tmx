@@ -611,7 +611,62 @@
     <property name="physical" value="lamp_base"/>
    </properties>
   </object>
-  <object name="amb" type="Light" agid="1289" x="1280" y="2400">
+   <object name="amb" type="Light" agid="1289" x="500" y="500">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+  <object name="amb" type="Light" agid="1289" x="600" y="600">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+     <object name="amb" type="Light" agid="1289" x="700" y="700">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+  <object name="amb" type="Light" agid="1289" x="800" y="800">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+     <object name="amb" type="Light" agid="1289" x="900" y="900">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+     <object name="amb" type="Light" agid="1289" x="1000" y="1000">
+   <properties>
+    <property name="height" value="64"/>
+    <property name="nonphysical" value="lamp_top"/>
+    <property name="offsetX" value="0"/>
+    <property name="offsetY" value="1"/>
+    <property name="physical" value="lamp_base"/>
+   </properties>
+  </object>
+
+  <object name="amb" type="Light" agid="1289" x="2000" y="2000">
    <properties>
     <property name="height" value="64"/>
     <property name="nonphysical" value="lamp_top"/>

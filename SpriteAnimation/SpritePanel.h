@@ -37,7 +37,7 @@ public:
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();
 	void LoadMapAmbience();
-	ltbl::LightSystem* lightSystem;
+	ltbl::LightSystem lightSystem;
 	static sf::RenderWindow* mainWindow;
 	void AddLightSource(LightObject*);
 	void AddLightHull(ltbl::ConvexHull*);
@@ -47,7 +47,7 @@ public:
 private:
 	void SetUp();
 	sf::Texture backgroundImage;
-	sf::Sprite backgroundSprite2;
+	sf::Sprite* backgroundSprite2;
 	std::vector<GroundItem*> spawnedItems;
 };
 

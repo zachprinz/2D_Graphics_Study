@@ -46,7 +46,12 @@ int main()
 
 	settings.antialiasingLevel = 8;
 	window.setKeyRepeatEnabled(false);
-	window.create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
+	    sf::VideoMode vidMode;
+        vidMode.width = 1920;
+        vidMode.height = 1080;
+        vidMode.bitsPerPixel = 32;
+        assert(vidMode.isValid());
+	window.create(vidMode, "Exploration II",sf::Style::Fullscreen,settings);
 	window.setPosition(sf::Vector2i(0,0));
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
@@ -202,12 +207,12 @@ int main()
 		hudPanel2.Update(window);
 		User::player->GetLayered()->Update(window);
 		User::player->GetBank()->Update(window);
-        window.display();
+		window.display();
     }
     return 0;
 }
-
 /*
+
 #define _USE_MATH_DEFINES
 
 #include "LTBL/Light/LightSystem.h"
@@ -300,14 +305,14 @@ int main(int argc, char* args[])
 
 				//win.draw(backgroundSprite);
 				//win.draw(testSpt);
-				win2.draw(testSpt);
-				win2.draw(backgroundSprite);
+
 
 				ls.SetView(win.getView());
                 ls.RenderLights();
-
-                ls.RenderLightTexture();
+				win2.draw(testSpt);
+				win2.draw(backgroundSprite);
 				//ls.DebugRender();
+				ls.RenderLightTexture();
 
                 //win.display();
 				win2.display();
