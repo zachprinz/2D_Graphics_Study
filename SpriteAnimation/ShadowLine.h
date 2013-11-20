@@ -8,7 +8,9 @@
 
 class ShadowLine{
 public:
-
+	ShadowLine(sf::Vector2f,sf::Vector2f);
+	sf::Vector2f firstPoint;
+	sf::Vector2f secondPoint;
 private:
 
 }

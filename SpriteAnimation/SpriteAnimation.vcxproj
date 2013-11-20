@@ -112,6 +112,7 @@
     <ClCompile Include="GroundItem.cpp" />
     <ClCompile Include="GuiElement.cpp" />
     <ClCompile Include="HUDPanel.cpp" />
+    <ClCompile Include="Hull.cpp" />
     <ClCompile Include="InventoryContainer.cpp" />
     <ClCompile Include="InventoryPanel.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -119,12 +120,17 @@
     <ClCompile Include="LayeredPanel.cpp" />
     <ClCompile Include="LevelPanel.cpp" />
     <ClCompile Include="LevelSet.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightEngine.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapPanel.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Point2i.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="QuadTreeNode.cpp" />
+    <ClCompile Include="QuadTreeObject.cpp" />
     <ClCompile Include="RClickable.cpp" />
     <ClCompile Include="RClickMenu.cpp" />
     <ClCompile Include="Rectangle.cpp" />
@@ -132,6 +138,7 @@
     <ClCompile Include="RoomTile.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="ScrollingPanel.cpp" />
+    <ClCompile Include="ShadowLine.cpp" />
     <ClCompile Include="SlicedSpriteCreator.cpp" />
     <ClCompile Include="SpritePanel.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
