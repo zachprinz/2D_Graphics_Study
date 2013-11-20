@@ -1,4 +1,4 @@
-#include <LTBL/Constructs/AABB.h>
+#include "AABB.h"
 
 #include <SFML/OpenGL.hpp>
 

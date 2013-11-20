@@ -46,12 +46,7 @@ int main()
 
 	settings.antialiasingLevel = 8;
 	window.setKeyRepeatEnabled(false);
-	    sf::VideoMode vidMode;
-        vidMode.width = 1920;
-        vidMode.height = 1080;
-        vidMode.bitsPerPixel = 32;
-        assert(vidMode.isValid());
-	window.create(vidMode, "Exploration II",sf::Style::Fullscreen,settings);
+	window.create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
 	window.setPosition(sf::Vector2i(0,0));
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
@@ -72,7 +67,7 @@ int main()
 	TextPanel textPanel(1004,175);
 	textPanel.SetPosition(62,740);
 
-	SpritePanel spritePanel(1024,800,&window);
+	SpritePanel spritePanel(1024,800);
 	spritePanel.SetPosition(52,125);
 	User::player->GetBank()->SetPosition(SpritePanel::instance->GetPosition().x + ((SpritePanel::instance->GetSize().x - 480) / 2),SpritePanel::instance->GetPosition().y + ((SpritePanel::instance->GetSize().y - 480) / 2));
 
@@ -211,114 +206,3 @@ int main()
     }
     return 0;
 }
-/*
-
-#define _USE_MATH_DEFINES
-
-#include "LTBL/Light/LightSystem.h"
-#include "LTBL/Light/ConvexHull.h"
-#include "LTBL\Constructs\AABB.h"
-#include "LTBL/Light/Light_Point.h"
-#include <cmath>
-#include <math.h>
-
-#include <assert.h>
-
-#include <SFML/Graphics.hpp>
-
-int main(int argc, char* args[])
-{
-        sf::VideoMode vidMode;
-        vidMode.width = 800;
-        vidMode.height = 600;
-        vidMode.bitsPerPixel = 32;
-        assert(vidMode.isValid());
-
-        sf::RenderWindow win;
-        win.create(vidMode, "Let there be Light - Demo");
-
-		sf::RenderTexture win2;
-		win2.create(800,600);
-
-        // ---------------------- Background Image ---------------------
-
-        sf::Texture backgroundImage;
-
-        backgroundImage.loadFromFile("Images/lightbackground.png");
-
-        // Tiling background
-        backgroundImage.setRepeated(true);
-
-        sf::Sprite backgroundSprite(backgroundImage);
-        backgroundSprite.setTextureRect(sf::IntRect(0, 0, vidMode.width, vidMode.height));
-
-		sf::RectangleShape testShape(sf::Vector2f(10, 10));
-		testShape.setPosition(30, 30);
-
-        // --------------------- Light System Setup ---------------------
-
-        ltbl::LightSystem ls(AABB(Vec2f(0.0f,0.0f),Vec2f(static_cast<float>(vidMode.width),static_cast<float>(vidMode.height))), &win2,"Images/lightData/lightFin.png","Images/lightData/lightAttenuationShader.frag");
-
-        // Create a light
-		ltbl::Light_Point* myLight = new ltbl::Light_Point();
-		myLight->m_radius = 400.0f;
-		myLight->m_center = Vec2f(100.0f,100.0f);
-		myLight->m_size = 30.0f;
-		myLight->m_spreadAngle = 2.0f * static_cast<float>(M_PI);
-		myLight->m_softSpreadAngle = 0.0f;
-		myLight->m_intensity = 8.0f;
-		myLight->m_bleed = 0;
-		//myLight->m_color =  Color3f(1, 0.95, 0.40);
-		myLight->CalculateAABB();
-
-        ls.AddLight(myLight);
-
-        // Create a hull by loading it from a file
-        ltbl::ConvexHull* testHull2 = new ltbl::ConvexHull();
-
-		sf::ConvexShape tt;
-		tt.setPointCount(3);
-		tt.setPoint(0,sf::Vector2f(0,0));
-		tt.setPoint(1,sf::Vector2f(100,0));
-		tt.setPoint(2,sf::Vector2f(100,100));
-        testHull2->LoadShape(&tt);
-
-        testHull2->CalculateNormals();
-        testHull2->CalculateAABB();
-        testHull2->SetWorldCenter(Vec2f(300.0f, 300.0f));
-        ls.AddConvexHull(testHull2);
-
-		sf::Texture testTxt;
-		testTxt.loadFromFile("data/test.png");
-		sf::Sprite testSpt(testTxt);
-		testSpt.setPosition(250,250);
-
-		sf::Sprite win2Sprite;
-
-        // ------------------------- Game Loop --------------------------
-        bool quit = false;
-        while(!quit)
-        {
-				myLight->TreeUpdate();
-                win.clear();
-				win2.clear();
-
-				//win.draw(backgroundSprite);
-				//win.draw(testSpt);
-
-
-				ls.SetView(win.getView());
-                ls.RenderLights();
-				win2.draw(testSpt);
-				win2.draw(backgroundSprite);
-				//ls.DebugRender();
-				ls.RenderLightTexture();
-
-                //win.display();
-				win2.display();
-				win2Sprite.setTexture(win2.getTexture());
-				win.draw(win2Sprite);
-				win.display();
-        }
-}
-*/

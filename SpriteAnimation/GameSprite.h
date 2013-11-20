@@ -6,7 +6,6 @@
 #include "RClickable.h"
 #include "ARectangle.h"
 #include "Room.h"
-#include "LTBL\Light\ConvexHull.h"
 
 class Room;
 class GameSprite : public RClickable
@@ -32,7 +31,6 @@ public:
 	void DrawBoundries(sf::RenderTexture&);
 protected:
 	std::vector<sf::ConvexShape> boundries;
-	std::vector<ltbl::ConvexHull*> hulls;
 	RoomTile* GetRoomTile();
 	RoomTile* GetRoomTile(int,int);
 	void UpdateRoomTile();

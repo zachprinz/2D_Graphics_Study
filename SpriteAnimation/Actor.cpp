@@ -109,7 +109,7 @@ bool Actor::SetDown(){
 	}
 };
 void Actor::Update(sf::RenderTexture& panel){
-	for(int b = 0; b < 5; b++){
+	for(int b = 0; b < 2; b++){
 		if(currentDirection == Finishing){
 			int dir = 0;
 			if(movement.x == -1 || movement.y == -1)
@@ -148,11 +148,10 @@ void Actor::Update(sf::RenderTexture& panel){
 		UpdateRoomTile();
 		UpdateAnimation();
 		Draw(&panel);
-		for(int x = 0; x < hulls.size(); x++){
-			hulls[x]->SetWorldCenter(Vec2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,SpritePanel::instance->panelHeight - (GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4)));
-			//boundries[x].setScale(0.85f,0.65f);
-			//boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition()));
-		}
+		//for(int x = 0; x < boundries.size(); x++){
+		//	boundries[x].setScale(0.85f,0.65f);
+		//	boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition()));
+		//}
 		GameSprite::Update(panel);
 	}
 }
@@ -209,7 +208,7 @@ bool Actor::UpdateAnimation(){
 		sprite.setColor(sf::Color(255,255,255,255));
 		animationClock.restart();
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
-		ClearBoundries();
+		//ClearBoundries();
 		//UpdateBoundries();
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));

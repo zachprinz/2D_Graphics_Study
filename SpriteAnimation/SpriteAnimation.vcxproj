@@ -55,13 +55,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Light;C:\Misc\glew-1.6.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\luabind\include;C:\Misc\boost\include;C:\Misc\lua\include</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib;C:\Misc\lua\msvc-11.0-x86;C:\Misc\luabind\msvc-11.0-x86;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Light;C:\Misc\glew-1.6.0\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib;C:\Misc\lua\msvc-11.0-x86;C:\Misc\luabind\msvc-11.0-x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-window-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -86,16 +86,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\pugixml\pugixml.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\ConvexHull.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\EmissiveLight.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\Light.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\LightSystem.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\Light_Point.cpp" />
-    <ClCompile Include="..\Light\LTBL\Light\ShadowFin.cpp" />
-    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTree.cpp" />
-    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTreeNode.cpp" />
-    <ClCompile Include="..\Light\LTBL\QuadTree\QuadTreeOccupant.cpp" />
-    <ClCompile Include="..\Light\LTBL\QuadTree\StaticQuadTree.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapLoaderPrivate.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapLoaderPublic.cpp" />
     <ClCompile Include="..\TmxMapLoader\src\MapObject.cpp" />
@@ -150,6 +140,7 @@
     <ClCompile Include="Vec2f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="ActionBar.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AmbienceObject.h" />
@@ -159,6 +150,7 @@
     <ClInclude Include="BankContainer.h" />
     <ClInclude Include="BankPanel.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Color3f.h" />
     <ClInclude Include="Combatant.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="Drawn.h" />
@@ -180,6 +172,7 @@
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="MapPanel.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="Point2i.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RClickable.h" />
     <ClInclude Include="RClickMenu.h" />
@@ -194,6 +187,7 @@
     <ClInclude Include="StatsPanel.h" />
     <ClInclude Include="TextPanel.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="Vec2f.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />

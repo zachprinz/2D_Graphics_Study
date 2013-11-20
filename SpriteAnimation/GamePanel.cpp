@@ -24,7 +24,7 @@ GamePanel::GamePanel(int x, int y, std::string name){
 	panel.create(x,y);
 	panelBounds = ARectangle(0,0,x,y);
 	panelName = name;
-	//panel.setSmooth(true);
+	panel.setSmooth(true);
 	panelSprite.setTexture(panel.getTexture());
 	backgroundPanelSprite.setTexture(backgroundPanel.getTexture());
 };

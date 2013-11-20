@@ -18,12 +18,12 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	UpdateRoomTile();
 	UpdateAnimation();
-	UpdateBoundries();
+	//UpdateBoundries();
 };
 void NPC::Update(sf::RenderTexture& window){
 	Actor::Update(window);
 	Draw(&window);
-	DrawBoundries(window);
+	//DrawBoundries(window);
 };
 void NPC::Interact(){
 	MoveTowardPoint(User::player->GetGraphPositionA());

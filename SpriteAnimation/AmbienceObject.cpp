@@ -8,8 +8,8 @@ AmbienceObject::AmbienceObject(int x,int y,std::string physical,std::string nonp
 AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj) : GameSprite(GetPhysicalPosition(x,y,obj).x,GetPhysicalPosition(x,y,obj).y,"ambienceObjects/" +obj->GetPropertyString("physical") + ".png"){
 	std::cout << "Creating new Ambience Object| Physical: " << obj->GetPropertyString("physical") << " | Nonphysical: " << obj->GetPropertyString("nonphysical") << std::endl;
 	nonphysical = new GameSprite(x,y,"ambienceObjects/" + obj->GetPropertyString("nonphysical") + ".png");
-	SetUpBoundries(obj->GetPropertyString("nonphysical"),nonphysical);
-	SetUpBoundries(obj->GetPropertyString("physical"),this);
+	//SetUpBoundries(obj->GetPropertyString("nonphysical"),nonphysical);
+	//SetUpBoundries(obj->GetPropertyString("physical"),this);
 	tags.push_back(std::to_string(GetTag()));
 	UpdateRoomTile();
 };
@@ -28,8 +28,6 @@ void AmbienceObject::Update(sf::RenderTexture& window){
 void AmbienceObject::Update2(sf::RenderTexture& window){
 	window.draw(*(nonphysical->GetSprite()));
 	((GameSprite*)nonphysical)->Update(window);
-	//if(hulls.size() > 0)
-	//	hulls[0]->DebugDraw();
 	//nonphysical->DrawBoundries(window);
 	//DrawBoundries(window);
 };

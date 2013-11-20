@@ -10,12 +10,11 @@
 #include "Room.h"
 #include "LightObject.h"
 #include "AmbienceObject.h"
-#include "LTBL/Light/LightSystem.h"
 
 class SpritePanel : public GamePanel
 {
 public:
-	SpritePanel(int,int,sf::RenderWindow*);
+	SpritePanel(int,int);
 	SpritePanel();
 	static SpritePanel* instance;
 	void AddElement(std::string,Drawn*);
@@ -37,17 +36,11 @@ public:
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();
 	void LoadMapAmbience();
-	ltbl::LightSystem lightSystem;
-	static sf::RenderWindow* mainWindow;
-	void AddLightSource(LightObject*);
-	void AddLightHull(ltbl::ConvexHull*);
-	void RemoveLightHull(ltbl::ConvexHull*);
-	int panelHeight;
-	sf::View lightView;
+	//void AddLightSource(LightObject*);
+	//void AddLightHull(Light*);
+	//void RemoveLightHull(Hull*);
 private:
 	void SetUp();
-	sf::Texture backgroundImage;
-	sf::Sprite* backgroundSprite2;
 	std::vector<GroundItem*> spawnedItems;
 };
 

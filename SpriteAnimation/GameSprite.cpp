@@ -5,7 +5,7 @@
 #include "User.h"
 
 int GameSprite::tagCount = 0;
-bool GameSprite::displayDebug = true;
+bool GameSprite::displayDebug = false;
 
 GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textureName){
 	graphPositionA = sf::Vector2i(x,y);
@@ -30,19 +30,9 @@ void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	}
 };
 void GameSprite::AddBoundryPolygon(sf::ConvexShape poly){
-	hulls.push_back(new ltbl::ConvexHull());
-	hulls[hulls.size() - 1]->LoadShape(&poly);
-	hulls[hulls.size() -1]->CalculateNormals();
-	hulls[hulls.size()-1]->CalculateAABB();
-	hulls[hulls.size()-1]->SetWorldCenter(Vec2f(sprite.getPosition().x,sprite.getPosition().y));
-	SpritePanel::instance->AddLightHull(hulls[hulls.size()-1]);
 	boundries.push_back(poly);
 };
 void GameSprite::ClearBoundries(){
-	for(int x = 0; x < hulls.size(); x++){
-		SpritePanel::instance->RemoveLightHull(hulls[x]);
-	}
-	hulls.clear();
 	boundries.clear();
 };
 GameSprite::GameSprite(){
