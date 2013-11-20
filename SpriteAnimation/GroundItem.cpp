@@ -7,7 +7,7 @@ GroundItem::GroundItem(int x, int y, Item myItem) : GameSprite(x,y,"itemsprites/
 	item = myItem;
 	SetZ(1);
 	isVisible = true;
-	//SetUpBoundries();
+	SetUpBoundries();
 };
 Item GroundItem::GetItem(){
 	return item;
@@ -17,7 +17,6 @@ void GroundItem::Update(sf::RenderTexture& window){
 			UpdateRoomTile();
 			window.draw(sprite);
 			GameSprite::Update(window);
-			//DrawBoundries(window);
 		}
 };
 void GroundItem::PickUp(){

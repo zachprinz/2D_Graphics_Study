@@ -26,7 +26,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	layered = new LayeredPanel(temp);
 	layered->SetPosition(1125,445);
 	SetUpImages();
-	SetUpAttacks("default");
+	//SetUpAttacks("default");
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
@@ -41,7 +41,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	Drawn::gameTexture.setRepeated(false);
 	SetUpLevels();
 	UpdateAnimation();
-	//UpdateBoundries();
+	UpdateBoundries();
 };
 void User::Update(sf::RenderTexture& window){
 	CheckUserInput();
@@ -73,7 +73,6 @@ void User::Update(sf::RenderTexture& window){
 		}
 	}
 	Combatant::Update(window);
-	//DrawBoundries(window);
 };
 void User::GetUserWeaponImage(sf::RenderTexture* window){
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
@@ -191,13 +190,13 @@ void User::CheckUserInput(){
 			if(cKeyPressed){
 				cKeyPressed = false;
 			}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 0){
 			TryLaunchAttack(currentAttacks[0]);
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 1){
 			TryLaunchAttack(currentAttacks[1]);
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 2){
 			TryLaunchAttack(currentAttacks[2]);
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){

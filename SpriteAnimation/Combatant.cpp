@@ -131,7 +131,7 @@ void Combatant::UpdateEffectedTiles(){
 	}
 };
 void Combatant::TryLaunchAttack(std::string tempAtkName){
-	if(attacks[tempAtkName]->GetIsCooledDown()){
+	if(tempAtkName != "" && attacks[tempAtkName] != NULL && attacks[tempAtkName]->GetIsCooledDown()){
 		nextAttack = tempAtkName;
 		currentAction = Attacking;
 	}

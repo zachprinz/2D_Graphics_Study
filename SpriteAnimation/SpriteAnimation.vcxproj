@@ -162,6 +162,7 @@
     <ClInclude Include="GroundItem.h" />
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="HUDPanel.h" />
+    <ClInclude Include="Hull.h" />
     <ClInclude Include="InventoryContainer.h" />
     <ClInclude Include="InventoryPanel.h" />
     <ClInclude Include="Item.h" />
@@ -169,11 +170,16 @@
     <ClInclude Include="LayeredPanel.h" />
     <ClInclude Include="LevelPanel.h" />
     <ClInclude Include="LevelSet.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightEngine.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="MapPanel.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Point2i.h" />
     <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="QuadTreeNode.h" />
+    <ClInclude Include="QuadTreeObject.h" />
     <ClInclude Include="RClickable.h" />
     <ClInclude Include="RClickMenu.h" />
     <ClInclude Include="ARectangle.h" />
@@ -182,6 +188,7 @@
     <ClInclude Include="RoomTile.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="ScrollingPanel.h" />
+    <ClInclude Include="ShadowLine.h" />
     <ClInclude Include="SlicedSpriteCreator.h" />
     <ClInclude Include="SpritePanel.h" />
     <ClInclude Include="StatsPanel.h" />

@@ -16,16 +16,15 @@ GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textur
 	tagCount++;
 };
 void GameSprite::Update(sf::RenderTexture& panel){
-	//if(displayDebug){
-	//	panel.draw(GetRoomTile()->getVisual());
-	//}
-	//DrawBoundries(panel);
+	if(displayDebug){
+		panel.draw(GetRoomTile()->getVisual());
+		DrawBoundries(panel);
+	}
 };
 void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	if(displayDebug){
 		for(int x = 0; x < boundries.size(); x++){
-			//panel.draw(boundries[x]);
-			
+			panel.draw(boundries[x]);
 		}
 	}
 };
