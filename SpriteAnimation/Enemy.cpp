@@ -19,6 +19,8 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	currentPatrolTargetPoint = 0;
 	currentMode = Patrol;
 	UpdateBoundries();
+	actorHull->SetPosition(sprite.getPosition());
+	SpritePanel::instance->AddHull(actorHull);
 };
 void Enemy::Update(sf::RenderTexture& window){
 	if(currentDirection == None){

@@ -32,6 +32,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	instance = this;
 	createPanelLabel = false;
 	SetUp();
+	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
 	LoadMapCollisions();
 	LoadMapAmbience();
 	LoadMapSprites();
@@ -164,6 +165,7 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
+	lightEngine->DebugRender(&panel);
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
 	dynamicElements.insert(MyPair(name, element));
@@ -214,4 +216,10 @@ void SpritePanel::RemoveDynamicElement(std::string tag){
 };
 bool SpritePanel::CheckUpdate(){
 	return true;
+};
+void SpritePanel::AddHull(Hull* hull){
+	lightEngine->AddHull(hull);
+};
+void SpritePanel::AddLight(LightObject* light){
+	lightEngine->AddLight(light->getLight());
 };

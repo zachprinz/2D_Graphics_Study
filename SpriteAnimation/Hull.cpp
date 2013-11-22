@@ -1,14 +1,39 @@
 #include "Hull.h"
 
-Hull::Hull(sf::ConvexShape poly){
+Hull::Hull(sf::ConvexShape poly,sf::Vector2f pos){
+	poly.setPosition(pos);
 	this->polygon = poly;
 	Calculate();
 };
+Hull::Hull(ShadowLine sl,sf::Vector2f pos){
+	sl.firstPoint = sf::Vector2f(sl.firstPoint.x + pos.x,sl.firstPoint.y + pos.y);
+	sl.secondPoint = sf::Vector2f(sl.secondPoint.x + pos.x, sl.secondPoint.y + pos.y);
+	shadowLines.push_back(sl);
+	polygon.setPointCount(4);
+	polygon.setPoint(0,(sf::Vector2f(sl.firstPoint.x,sl.firstPoint.y)));
+	polygon.setPoint(0,(sf::Vector2f(sl.secondPoint.x,sl.firstPoint.y)));
+	polygon.setPoint(0,(sf::Vector2f(sl.firstPoint.x,sl.secondPoint.y)));
+	polygon.setPoint(0,(sf::Vector2f(sl.secondPoint.x,sl.secondPoint.y)));
+	Calculate();
+};
+Hull::Hull(){
+
+};
+void Hull::SetLines(std::vector<ShadowLine> sls){
+	shadowLines.clear();
+	for(int x = 0; x < sls.size(); x++){
+		shadowLines.push_back(sls[x]);
+	};
+};
+void Hull::SetLines(ShadowLine sl){
+	shadowLines.clear();
+	shadowLines.push_back(sl);
+};
 void Hull::Calculate(){
-	int minX = 0;
-	int maxX = 0;
-	int minY = 0;
-	int maxY = 0;
+	int minX = polygon.getPoint(0).x;
+	int maxX = polygon.getPoint(0).x;
+	int minY = polygon.getPoint(0).y;
+	int maxY = polygon.getPoint(0).y;
 	for(int z = 0; z < polygon.getPointCount(); z++){
 		int x = polygon.getPoint(z).x;
 		int y = polygon.getPoint(z).y;
@@ -30,4 +55,7 @@ void Hull::DrawDebug(sf::RenderTexture* panel){
 };
 AABB Hull::GetBounds(){
 	return bounds;
+};
+void Hull::SetPosition(sf::Vector2f newpos){
+	position = newpos;
 };

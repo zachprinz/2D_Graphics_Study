@@ -6,6 +6,8 @@
 #include "Animation.h"
 #include "GameSprite.h"
 #include "pugixml\pugixml.hpp"
+#include "ShadowLine.h"
+#include "Hull.h"
 
 class Actor : public GameSprite
 {
@@ -16,6 +18,7 @@ public:
 	void Move(float,float);
 	enum Direction {None, D, L, R, U, Finishing, Action};
 	enum Actions {Attacking,Choping,Mining,NoAction};
+	static std::string anims[6];
 	void SetCurrentDirection(Direction);
 	Direction GetCurrentDirection();
 	sf::Vector2i GetMovement();
@@ -31,7 +34,9 @@ public:
 	sf::Texture GetTexture();
 	bool showHit;
 	std::string GetName();
-
+	ShadowLine GetUpdatedFootLine();
+	static std::vector<std::vector<std::vector<ShadowLine>>> footLines;
+	void SetUpFootLines();
 	//Animation
 	typedef std::map<std::string, Animation*> AnimationMap;
 	typedef std::pair<std::string, Animation*> AnimationPair;
@@ -62,6 +67,8 @@ protected:
 	pugi::xml_node boundriesNode;
 	pugi::xml_document boundriesDoc;
 	pugi::xml_parse_result boundriesResult;
+	Hull* actorHull;
+	ShadowLine actorShadowLine;
 	std::string name;
 	bool CheckTile(int x,int y);
 	virtual void Update(sf::RenderTexture&);

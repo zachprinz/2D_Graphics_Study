@@ -19,6 +19,8 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	UpdateRoomTile();
 	UpdateAnimation();
 	UpdateBoundries();
+	actorHull->SetPosition(sprite.getPosition());
+	SpritePanel::instance->AddHull(actorHull);
 };
 void NPC::Update(sf::RenderTexture& window){
 	Actor::Update(window);
@@ -33,7 +35,7 @@ void NPC::OnClick(){
 
 };
 void NPC::SetUpAnimations(){
-	AddAnimation(new Animation("Walk",0.075,3,32,3,0,1,2));
+	AddAnimation(new Animation("Walk",0.075,3,32,3,0,1,2,0));
 };
 void NPC::MoveTowardPoint(sf::Vector2i target){
 	int targetAddress = SpritePanel::room->GetGridAddress(target);

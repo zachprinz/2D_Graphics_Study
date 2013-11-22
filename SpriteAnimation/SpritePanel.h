@@ -10,6 +10,7 @@
 #include "Room.h"
 #include "LightObject.h"
 #include "AmbienceObject.h"
+#include "LightEngine.h"
 
 class SpritePanel : public GamePanel
 {
@@ -36,9 +37,9 @@ public:
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();
 	void LoadMapAmbience();
-	//void AddLightSource(LightObject*);
-	//void AddLightHull(Light*);
-	//void RemoveLightHull(Hull*);
+	LightEngine* lightEngine;
+	void AddLight(LightObject*);
+	void AddHull(Hull*);
 private:
 	void SetUp();
 	std::vector<GroundItem*> spawnedItems;

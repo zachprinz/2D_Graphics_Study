@@ -1,5 +1,7 @@
 #include "Light.h"
 
+sf::Shader Light::lightShader;
+
 Light::Light(int x,int y,sf::Color color,float radius,float intensity){
 	position = sf::Vector2f(x,y);
 	this->color = color;
@@ -26,7 +28,8 @@ void Light::Calculate(){
 	bounds.CalculateHalfDims();
 };
 sf::ConvexShape Light::GetShadowPolygon(ShadowLine*){
-
+	sf::ConvexShape temp;
+	return temp;
 };
 bool Light::CheckForIntersection(AABB bounds2){
 	if(bounds.Intersects(bounds2))

@@ -42,6 +42,8 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	SetUpLevels();
 	UpdateAnimation();
 	UpdateBoundries();
+	actorHull->SetPosition(sprite.getPosition());
+	SpritePanel::instance->AddHull(actorHull);
 };
 void User::Update(sf::RenderTexture& window){
 	CheckUserInput();

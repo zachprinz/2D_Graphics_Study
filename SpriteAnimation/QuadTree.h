@@ -3,27 +3,23 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <map>
-#include "AABB.h"
-#include "ShadowLine.h"
 #include "QuadTreeNode.h"
-#include "QuadTreeObject.h"
-#include "Hull.h"
-#include "Light.h"
+
 
 class QuadTree{
 public:
 	QuadTree(AABB bounds);
+	QuadTree();
 	std::vector<QuadTreeObject*> SearchRegion(AABB);
+	std::vector<QuadTreeObject*> ocupants;
 	void Update();
 	void AddObject(Light*);
 	void AddObject(Hull*);
 	void RemoveObject(Hull*);
-	void RemoveObject(Hull*);
-	QuadTreeObject* GetObjectFromTag(int tag);
+	void RemoveObject(Light*);
 	void DrawDebug(sf::RenderTexture* panel);
 private:
-	QuadTreeNode parentNode;
+	QuadTreeNode* parentNode;
 	int depth;
 	AABB bounds;
 };

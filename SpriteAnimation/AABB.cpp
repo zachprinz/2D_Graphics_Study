@@ -121,12 +121,12 @@ bool AABB::Intersects(const AABB &other) const
 
 bool AABB::Contains(const AABB &other) const
 {
-	if(other.m_lowerBound.x >= m_lowerBound.x &&
-		other.m_upperBound.x <= m_upperBound.x &&
-		other.m_lowerBound.y >= m_lowerBound.y &&
-		other.m_upperBound.y <= m_upperBound.y)
+	if(other.m_lowerBound.x >= m_lowerBound.x && other.m_upperBound.x <= m_upperBound.x && other.m_lowerBound.y >= m_lowerBound.y && other.m_upperBound.y <= m_upperBound.y){
 		return true;
-
+	}
+	if(Intersects(other)){
+		return true;
+	}
 	return false;
 }
 

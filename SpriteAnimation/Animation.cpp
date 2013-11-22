@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(std::string name, float perFrame,int numFramesA,int width,int up,int down,int left,int right){
+Animation::Animation(std::string name, float perFrame,int numFramesA,int width,int up,int down,int left,int right,int id){
 	this->name = name;
 	timePerFrame = sf::seconds(perFrame);
 	numFrames = numFramesA;
@@ -9,6 +9,7 @@ Animation::Animation(std::string name, float perFrame,int numFramesA,int width,i
 	yValues.push_back(left);
 	yValues.push_back(right);
 	this->width = width;
+	this->id = id;
 };
 int Animation::GetY(AnimDir dir){
 	return yValues[dir];

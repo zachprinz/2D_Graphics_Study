@@ -3,11 +3,10 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <map>
-#include "AABB.h"
 #include "ShadowLine.h"
 
-class Light{ //Implements AABBREGION or QuadTree-able or something...
+class Light
+{
 public:
 	Light(int x,int y,sf::Color color,float radius,float intensity);
 	Light(int x,int y,sf::Color color,float radius,float intensity,float spreadAngle,float spreadBeginAngle);
@@ -28,6 +27,5 @@ private:
 	AABB bounds;
 	float spreadAngle;
 	float spreadBeginAngle;
-}
-
+};
 #endif

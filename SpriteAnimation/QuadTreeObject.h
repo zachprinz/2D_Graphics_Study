@@ -4,9 +4,10 @@
 #include "Light.h"
 #include "Hull.h"
 #include "AABB.h"
-#include "QuadTreeNode.h"
 
-class QuadTreeObject{
+class QuadTreeNode;
+class QuadTreeObject
+{
 public:
 	QuadTreeObject(Light*);
 	QuadTreeObject(Hull*);
@@ -16,5 +17,4 @@ public:
 	AABB GetBounds();
 	QuadTreeNode* housing;
 };
-
 #endif

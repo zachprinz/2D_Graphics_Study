@@ -5,9 +5,12 @@
 
 sf::Clock Actor::elapsedTimeClock;
 sf::Time Actor::elapsedTime;
+std::vector<std::vector<std::vector<ShadowLine>>> Actor::footLines;
+std::string Actor::anims[] = {"Slash","Stab","Cast","Shoot","Walk","Die"};
 
 
 Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprite(x,y,textureName){
+
 	currentDirection = None;
 	currentAnimationPos.x = 0;
 	animationSprite.setTexture(Drawn::gameTexture);
@@ -23,6 +26,10 @@ Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprit
 	SetZ(2);
 	SetUpAnimation();
 	sprite.setScale(0.85f,0.65f);
+	if(footLines.size() < 1){
+		SetUpFootLines();
+	}
+	actorHull = new Hull(footLines[0][0][0],sprite.getPosition());
 };
 Actor::Actor(){
 
@@ -151,10 +158,10 @@ void Actor::Update(sf::RenderTexture& panel){
 		for(int x = 0; x < boundries.size(); x++){
 				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
 				boundries[x].setScale(0.85f,0.65f);
-				//boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition()));
 		}
 	}
 	GameSprite::Update(panel);
+	actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
 }
 void Actor::Draw(sf::RenderTexture* window){
 	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
@@ -174,6 +181,27 @@ void Actor::Draw(sf::RenderTexture* window){
 };
 void Actor::OnClick(){
 
+};
+void Actor::SetUpFootLines(){
+	sprite.setColor(sf::Color(255,255,255,255));
+	for(int x = 0; x < animations.size(); x++){
+		currentAnimation = animations[anims[x]];
+		std::vector<std::vector<ShadowLine>> tempSLineVec;
+		std::cout << "Entering (true) loops... pray..." << std::endl;
+		for(int y = 0; y < currentAnimation->yValues.size(); y++){
+			std::vector<ShadowLine> tempSLineVec2;
+			currentAnimationDir = Animation::AnimDir(y);
+			currentAnimationPos.y = currentAnimation->yValues[y];
+			currentAnimationPos.x = 0;
+			for(int z = 0; z < currentAnimation->numFrames; z++){
+				sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
+				tempSLineVec2.push_back(GetUpdatedFootLine());
+				currentAnimationPos.x++;
+			}
+			tempSLineVec.push_back(tempSLineVec2);
+		}
+		footLines.push_back(tempSLineVec);
+	}
 };
 void Actor::OnActionComplete(Actions){
 
@@ -197,12 +225,12 @@ sf::Vector2i Actor::GetRight(){
 	return sf::Vector2i(-1 * (abs(abs(movement.x) - 1) * (movement.x - movement.y)),-1 * (abs(abs(movement.y) - 1) * (movement.x - movement.y)));
 };
 void Actor::SetUpAnimation(){
-	AddAnimation(new Animation("Cast",0.05,7,64,0,2,1,3));
-	AddAnimation(new Animation("Stab",0.05,8,64,4,6,5,7));
-	AddAnimation(new Animation("Walk",0.04,9,64,8,10,9,11));
-	AddAnimation(new Animation("Slash",0.05,6,64,12,14,13,15));
-	AddAnimation(new Animation("Shoot",0.05,13,64,16,18,17,19));
-	AddAnimation(new Animation("Die",0.075,6,64,20,20,20,20));
+	AddAnimation(new Animation("Slash",0.05,6,64,12,14,13,15,0));
+	AddAnimation(new Animation("Stab",0.05,8,64,4,6,5,7,1));
+	AddAnimation(new Animation("Cast",0.05,7,64,0,2,1,3,2));
+	AddAnimation(new Animation("Shoot",0.05,13,64,16,18,17,19,3));
+	AddAnimation(new Animation("Walk",0.04,9,64,8,10,9,11,4));
+	AddAnimation(new Animation("Die",0.075,6,64,20,20,20,20,5));
 };
 bool Actor::UpdateAnimation(){
 	if(animationClock.getElapsedTime() > currentAnimation->timePerFrame){
@@ -211,6 +239,7 @@ bool Actor::UpdateAnimation(){
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
 		ClearBoundries();
 		UpdateBoundries();
+		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x]);
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));
 			showHit = false;
@@ -229,6 +258,41 @@ bool Actor::UpdateAnimation(){
 	}
 	else
 		return false;
+};
+ShadowLine Actor::GetUpdatedFootLine(){
+	std::cout << "Getting foot line..." << std::endl;
+	sf::RenderTexture tempText;
+	tempText.create(sprite.getGlobalBounds().width,sprite.getGlobalBounds().height);
+	tempText.clear(sf::Color(0,0,0,0));
+	sf::Vector2f backupPosition = sprite.getPosition();
+	sprite.setPosition(0,0);
+	tempText.draw(sprite);
+	sprite.setPosition(backupPosition);
+	sf::Texture unsplitTexture = tempText.getTexture();
+	sf::Image unsplitImage = unsplitTexture.copyToImage();
+	int width = unsplitImage.getSize().x;
+	int height = unsplitImage.getSize().y;
+	sf::Vector2f firstPixel;
+	sf::Vector2f secondPixel;
+	for(int y = (height-1); y > 0; y--){
+		for(int x = 0; x < (width/2); x++){
+			if(unsplitImage.getPixel(x,y).a > 0){
+				firstPixel.x = x;
+				firstPixel.y = y;
+				break;
+			}
+		}
+	}
+	for(int y = (height-1); y > 0; y--){
+		for(int x = (width/2); x < width; x++){
+			if(unsplitImage.getPixel(x,y).a > 0){
+				secondPixel.x = x;
+				secondPixel.y = y;
+				break;
+			}
+		}
+	}
+	return ShadowLine(firstPixel,secondPixel);
 };
 void Actor::UpdateBoundries(){
 	pugi::xml_node animationBoundsNode;

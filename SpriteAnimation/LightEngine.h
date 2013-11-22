@@ -2,10 +2,6 @@
 #define LIGHTENGINE_H
 
 #include <vector>
-#include <SFML/Graphics.hpp>
-#include <map>
-#include "AABB.h"
-#include "ShadowLine.h"
 #include "QuadTree.h"
 
 class LightEngine{
@@ -20,17 +16,17 @@ public:
 private:
 	sf::View panelView;
 	AABB viewBounds;
-	sf::Vector<Hull*> hulls;
-	sf::Vector<Hull*> hullsOnScreen;
-	sf::Vector<Light*> lights;
-	sf::Vector<Light*> lightsOnScreen;
+	std::vector<Hull*> hulls;
+	std::vector<Hull*> hullsOnScreen;
+	std::vector<Light*> lights;
+	std::vector<Light*> lightsOnScreen;
 	sf::RenderTexture lightTexture;
 	sf::RenderTexture* spritePanelTexture;
-	QuadTree lightTree;
-	QuadTree hullTree;
+	QuadTree* lightTree;
+	QuadTree* hullTree;
 	//Camera lightCamera;
 	sf::RenderTexture finalTexture;
 	sf::Color ambienceColor;
-}
+};
 
 #endif
