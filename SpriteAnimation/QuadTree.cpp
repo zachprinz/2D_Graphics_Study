@@ -9,6 +9,7 @@ QuadTree::QuadTree(AABB bounds){
 	bounds.CalculateCenter();
 	bounds.CalculateHalfDims();
 	parentNode = new QuadTreeNode(bounds);
+	parentNode->tree = this;
 };
 QuadTree::QuadTree(){
 

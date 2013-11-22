@@ -10,7 +10,6 @@ std::string Actor::anims[] = {"Slash","Stab","Cast","Shoot","Walk","Die"};
 
 
 Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprite(x,y,textureName){
-
 	currentDirection = None;
 	currentAnimationPos.x = 0;
 	animationSprite.setTexture(Drawn::gameTexture);
@@ -239,7 +238,7 @@ bool Actor::UpdateAnimation(){
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
 		ClearBoundries();
 		UpdateBoundries();
-		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x]);
+		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],sprite.getPosition());
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));
 			showHit = false;

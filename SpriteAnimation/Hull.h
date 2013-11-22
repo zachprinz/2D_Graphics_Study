@@ -11,7 +11,7 @@ public:
 	Hull(ShadowLine sl,sf::Vector2f);
 	Hull();
 	void SetLines(std::vector<ShadowLine>);
-	void SetLines(ShadowLine);
+	void SetLines(ShadowLine,sf::Vector2f);
 	void Calculate();
 	static std::vector<int> hullTagList;
 	int tag;

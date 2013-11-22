@@ -23,7 +23,8 @@ void Light::SetRadius(float newRadius){
 	Calculate();
 };
 void Light::Calculate(){
-	bounds = AABB(Vec2f(position.x,position.y),Vec2f(position.x + (2*radius),position.y + (2*radius)));
+	bounds = AABB(Vec2f(position.x - radius,position.y - radius),Vec2f(position.x + radius,position.y + radius));
+	bounds.CalculateBounds();
 	bounds.CalculateCenter();
 	bounds.CalculateHalfDims();
 };

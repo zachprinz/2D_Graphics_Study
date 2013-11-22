@@ -1,4 +1,5 @@
 #include "QuadTreeNode.h"
+#include "QuadTree.h"
 
 std::vector<QuadTreeObject*> QuadTreeNode::searchingObjList;
 std::vector<QuadTreeObject*> QuadTreeNode::returningObjList;
@@ -25,6 +26,7 @@ QuadTreeNode::QuadTreeNode(AABB bounds, int depthLevel, QuadTreeNode* parent){
 	hasOcupant = false;
 	this->parent = parent;
 	isRoot = false;
+	tree = parent->tree;
 };
 std::vector<QuadTreeObject*> QuadTreeNode::SearchRegion(AABB reg){
 	FindObjects(reg);
@@ -77,8 +79,10 @@ bool QuadTreeNode::CheckMerge(){
 		return false;
 	if(searchingObjList.size() == 1)
 		Merge(searchingObjList[0]);
-	if(searchingObjList.size() == 0)
+	if(searchingObjList.size() == 0){
+		Merge();
 		parent->CheckMerge();
+	}
 	searchingObjList.clear();
 };
 bool QuadTreeNode::CheckEmpty(){
@@ -87,14 +91,15 @@ bool QuadTreeNode::CheckEmpty(){
 		if(searchingObjList.size() > 1){
 			return false;
 		}
+		return true;
 	}
 	if(hasChildren){
 		for(int x = 0; x < children.size(); x++){
 			if(!children[x]->CheckEmpty())
-				break;
+				return false;
 		}
 	}
-	return false;
+	return true;
 };
 void QuadTreeNode::Merge(){
 	if(hasChildren){
@@ -123,13 +128,25 @@ bool QuadTreeNode::Partition(QuadTreeObject* obj){
 	for(int x = 0; x < children.size(); x++){
 			if(children[x]->Sort(ocupant)){
 				for(int y = 0; y < children.size(); y++){
-					if(children[x]->Sort(obj))
+					if(children[y]->Sort(obj))
 						ocupant = NULL;
 						return true;
 				}
+				if(tree->parentNode->Sort(obj))
+					return true;
 				ocupant = NULL;
 				return false;
 			}
+	}
+	for(int y = 0; y < children.size(); y++){
+		if(children[y]->Sort(obj)){
+			if(tree->parentNode->Sort(ocupant))
+				return true;
+			else{
+				ocupant == NULL;
+				return false;
+			}
+		}
 	}
 	ocupant = NULL;
 	return false;
@@ -142,10 +159,14 @@ AABB QuadTreeNode::GetBounds(){
 void QuadTreeNode::CheckStillContainsOcupants(){
 	if(hasOcupant){
 		if(!bounds.Contains(ocupant->GetBounds())){
-			ocupant = NULL;
+			std::cout << "Re-Evaluating" << std::endl;
 			hasOcupant = false;
-			if(!isRoot)
-				parent->Sort(ocupant);
+			if(!isRoot){
+				if(!parent->Sort(ocupant))
+					tree->parentNode->Sort(ocupant);
+					ocupant = NULL;
+					parent->CheckMerge();
+			}
 		}
 	}
 	if(hasChildren){
@@ -158,8 +179,11 @@ void QuadTreeNode::DrawBounds(sf::RenderTexture* panel){
 	sf::RectangleShape rect(sf::Vector2f(bounds.GetDims().x,bounds.GetDims().y));
 	rect.setOutlineColor(sf::Color(0 + (2*depthLevel),250 - (2*depthLevel),0,255));
 	rect.setOutlineThickness(3.0f);
-	rect.setFillColor(sf::Color(255,0 + (2*depthLevel),0,70));
-	rect.setPosition(bounds.GetUpperBound().x,bounds.GetUpperBound().y);
+	if(hasOcupant)
+		rect.setFillColor(sf::Color(255,0,0,70));
+	else
+		rect.setFillColor(sf::Color(255,0,0,0));
+	rect.setPosition(bounds.GetLowerBound().x,bounds.GetLowerBound().y);
 	panel->draw(rect);
 	if(hasChildren){
 		for(int x = 0; x < children.size(); x++){

@@ -18,8 +18,8 @@ public:
 	void RemoveObject(Hull*);
 	void RemoveObject(Light*);
 	void DrawDebug(sf::RenderTexture* panel);
-private:
 	QuadTreeNode* parentNode;
+private:
 	int depth;
 	AABB bounds;
 };

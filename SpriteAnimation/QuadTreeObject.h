@@ -15,6 +15,7 @@ public:
 	Light* myLight;
 	AABB bounds;
 	AABB GetBounds();
+	bool isHull;
 	QuadTreeNode* housing;
 };
 #endif

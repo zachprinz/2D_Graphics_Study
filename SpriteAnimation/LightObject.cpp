@@ -7,7 +7,7 @@
 std::vector<int> LightObject::tags;
 
 LightObject::LightObject(int x,int y,tmx::MapObject* obj) : AmbienceObject(x,y,obj,true){
-	myLight = new Light(x,y,sf::Color(248,255,127),50,1.0f);
+	myLight = new Light((x*32) + 16,(y*32) + 16,sf::Color(248,255,127),50,1.0f);
 	SpritePanel::instance->AddLight(this);
 };
 void LightObject::Update(sf::RenderTexture& panel){

@@ -11,9 +11,9 @@ Hull::Hull(ShadowLine sl,sf::Vector2f pos){
 	shadowLines.push_back(sl);
 	polygon.setPointCount(4);
 	polygon.setPoint(0,(sf::Vector2f(sl.firstPoint.x,sl.firstPoint.y)));
-	polygon.setPoint(0,(sf::Vector2f(sl.secondPoint.x,sl.firstPoint.y)));
-	polygon.setPoint(0,(sf::Vector2f(sl.firstPoint.x,sl.secondPoint.y)));
-	polygon.setPoint(0,(sf::Vector2f(sl.secondPoint.x,sl.secondPoint.y)));
+	polygon.setPoint(1,(sf::Vector2f(sl.secondPoint.x,sl.firstPoint.y)));
+	polygon.setPoint(2,(sf::Vector2f(sl.firstPoint.x,sl.secondPoint.y)));
+	polygon.setPoint(3,(sf::Vector2f(sl.secondPoint.x,sl.secondPoint.y)));
 	Calculate();
 };
 Hull::Hull(){
@@ -25,9 +25,19 @@ void Hull::SetLines(std::vector<ShadowLine> sls){
 		shadowLines.push_back(sls[x]);
 	};
 };
-void Hull::SetLines(ShadowLine sl){
+void Hull::SetLines(ShadowLine sl,sf::Vector2f pos){
 	shadowLines.clear();
+	sl.firstPoint = sf::Vector2f(sl.firstPoint.x + pos.x,sl.firstPoint.y + pos.y);
+	sl.secondPoint = sf::Vector2f(sl.secondPoint.x + pos.x, sl.secondPoint.y + pos.y);
 	shadowLines.push_back(sl);
+	sf::ConvexShape temp;
+	polygon = temp;
+	polygon.setPointCount(4);
+	polygon.setPoint(0,(sf::Vector2f(sl.firstPoint.x,sl.firstPoint.y)));
+	polygon.setPoint(1,(sf::Vector2f(sl.secondPoint.x,sl.firstPoint.y)));
+	polygon.setPoint(2,(sf::Vector2f(sl.firstPoint.x,sl.secondPoint.y)));
+	polygon.setPoint(3,(sf::Vector2f(sl.secondPoint.x,sl.secondPoint.y)));
+	Calculate();
 };
 void Hull::Calculate(){
 	int minX = polygon.getPoint(0).x;
@@ -47,6 +57,7 @@ void Hull::Calculate(){
 				minY = y;
 	}
 	bounds = AABB(Vec2f(minX,minY),Vec2f(maxX,maxY));
+	bounds.CalculateBounds();
 	bounds.CalculateCenter();
 	bounds.CalculateHalfDims();
 };

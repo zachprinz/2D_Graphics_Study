@@ -6,6 +6,7 @@
 #include "ShadowLine.h"
 #include "QuadTreeObject.h"
 
+class QuadTree;
 class QuadTreeNode{
 public:
 	QuadTreeNode(AABB bounds);
@@ -23,6 +24,7 @@ public:
 	void DrawBounds(sf::RenderTexture* panel);
 	void RemoveOcupant();
 	std::vector<QuadTreeObject*> SearchRegion(AABB);
+	QuadTree* tree;
 private:
 	bool FindObjects(AABB);
 	std::vector<QuadTreeObject*> childOccupants;

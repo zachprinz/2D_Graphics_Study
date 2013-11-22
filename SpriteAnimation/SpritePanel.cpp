@@ -165,6 +165,7 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
+	lightEngine->DrawLights();
 	lightEngine->DebugRender(&panel);
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
