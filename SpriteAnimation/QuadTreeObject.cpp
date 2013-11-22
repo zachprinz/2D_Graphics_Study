@@ -17,3 +17,9 @@ AABB QuadTreeObject::GetBounds(){
 	else
 		return myLight->GetBounds();
 };
+Vec2f QuadTreeObject::GetPoint(){
+	if(isHull)
+		return myHull->GetPoint();
+	else
+		return myLight->GetPoint();
+};

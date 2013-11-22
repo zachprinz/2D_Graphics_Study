@@ -12,6 +12,7 @@ public:
 	Light(int x,int y,sf::Color color,float radius,float intensity,float spreadAngle,float spreadBeginAngle);
 	static std::vector<int> lightTagList;
 	void Calculate();
+	Vec2f GetPoint();
 	sf::ConvexShape GetShadowPolygon(ShadowLine*);
 	bool CheckForIntersection(AABB);
 	void DrawDebug(sf::RenderTexture* panel);

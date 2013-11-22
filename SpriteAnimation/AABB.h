@@ -47,6 +47,7 @@ public:
 	// Utility
 	bool Intersects(const AABB &other) const;
 	bool Contains(const AABB &other) const;
+	bool Contains(Vec2f);
 
 	// Render the AABB for debugging purposes
 	void DebugRender();

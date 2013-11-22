@@ -36,8 +36,8 @@ std::vector<QuadTreeObject*> QuadTreeNode::SearchRegion(AABB reg){
 bool QuadTreeNode::FindObjects(AABB reg){
 	if(reg.Contains(bounds)){
 		if(hasOcupant){
-			if(reg.Contains(ocupant->GetBounds())){
-				returningObjList.push_back(ocupant);
+			if(reg.Contains(ocupants[0]->GetBounds())){
+				returningObjList.push_back(ocupants[0]);
 				return true;
 			}
 		}
@@ -51,11 +51,14 @@ bool QuadTreeNode::FindObjects(AABB reg){
 };
 bool QuadTreeNode::Sort(QuadTreeObject* obj){
 	std::cout << "Sorting..." << std::endl;
-	if(bounds.Contains(obj->GetBounds())){
+	if(bounds.Contains(obj->GetPoint())){
 		if(!hasChildren){
 			if(!hasOcupant){
 				std::cout << "Found Home" << std::endl;
-				ocupant = obj;
+				if(ocupants.size() >= 1)
+					ocupants[0] = obj;
+				else
+					ocupants.push_back(obj);
 				obj->housing = this;
 				hasOcupant = true;
 				return true;
@@ -74,34 +77,34 @@ bool QuadTreeNode::Sort(QuadTreeObject* obj){
 	return false;
 };
 bool QuadTreeNode::CheckMerge(){
+	searchingObjList.clear();
+	std::cout << "Checking Merge" << std::endl;
 	CheckEmpty();
-	if(searchingObjList.size() > 1)
+	int numOcupants = searchingObjList.size();
+	std::cout << "Size: " << std::to_string(numOcupants) << std::endl;
+	if(numOcupants > 1)
 		return false;
-	if(searchingObjList.size() == 1)
+	if(numOcupants == 1)
 		Merge(searchingObjList[0]);
-	if(searchingObjList.size() == 0){
+	if(numOcupants < 1){
 		Merge();
-		parent->CheckMerge();
 	}
 	searchingObjList.clear();
 };
 bool QuadTreeNode::CheckEmpty(){
 	if(hasOcupant){
-		QuadTreeNode::searchingObjList.push_back(ocupant);
-		if(searchingObjList.size() > 1){
-			return false;
-		}
-		return true;
+		searchingObjList.push_back(ocupants[0]);
 	}
-	if(hasChildren){
-		for(int x = 0; x < children.size(); x++){
-			if(!children[x]->CheckEmpty())
-				return false;
+	else
+		if(hasChildren){
+			for(int x = 0; x < children.size(); x++){
+				children[x]->CheckEmpty();
+			}
 		}
-	}
 	return true;
 };
 void QuadTreeNode::Merge(){
+	std::cout << "Merging" << std::endl;
 	if(hasChildren){
 		children.clear();
 		hasChildren = false;
@@ -125,31 +128,38 @@ bool QuadTreeNode::Partition(QuadTreeObject* obj){
 	}
 	hasOcupant = false;
 	hasChildren = true;
+	if(tree->parentNode->Sort(obj) && tree->parentNode->Sort(ocupants[0])){
+		ocupants[0] == NULL;
+		return true;
+	}
+	/*
 	for(int x = 0; x < children.size(); x++){
-			if(children[x]->Sort(ocupant)){
+			if(children[x]->Sort(ocupants[0])){
 				for(int y = 0; y < children.size(); y++){
 					if(children[y]->Sort(obj))
-						ocupant = NULL;
+						ocupants[0] = NULL;
 						return true;
 				}
 				if(tree->parentNode->Sort(obj))
 					return true;
-				ocupant = NULL;
+				ocupants[0] = NULL;
 				return false;
 			}
 	}
 	for(int y = 0; y < children.size(); y++){
 		if(children[y]->Sort(obj)){
-			if(tree->parentNode->Sort(ocupant))
+			if(tree->parentNode->Sort(ocupants[0]))
 				return true;
 			else{
-				ocupant == NULL;
+				ocupants[0] == NULL;
 				return false;
 			}
 		}
 	}
-	ocupant = NULL;
+	ocupants[0] = NULL;
 	return false;
+	}
+	*/
 	}
 	return false;
 };
@@ -158,14 +168,15 @@ AABB QuadTreeNode::GetBounds(){
 };
 void QuadTreeNode::CheckStillContainsOcupants(){
 	if(hasOcupant){
-		if(!bounds.Contains(ocupant->GetBounds())){
+		if(!bounds.Contains(ocupants[0]->GetPoint())){
 			std::cout << "Re-Evaluating" << std::endl;
 			hasOcupant = false;
 			if(!isRoot){
-				if(!parent->Sort(ocupant))
-					tree->parentNode->Sort(ocupant);
-					ocupant = NULL;
-					parent->CheckMerge();
+				if(!parent->Sort(ocupants[0])){
+					tree->parentNode->Sort(ocupants[0]);
+				}
+				ocupants[0] = NULL;
+				parent->CheckMerge();
 			}
 		}
 	}
@@ -192,7 +203,7 @@ void QuadTreeNode::DrawBounds(sf::RenderTexture* panel){
 	}
 };
 void QuadTreeNode::RemoveOcupant(){
-	ocupant = NULL;
+	ocupants[0] = NULL;
 	hasOcupant = false;
 	parent->CheckMerge();
 };

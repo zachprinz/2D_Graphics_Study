@@ -10,6 +10,7 @@ public:
 	Hull(sf::ConvexShape poly,sf::Vector2f);
 	Hull(ShadowLine sl,sf::Vector2f);
 	Hull();
+	Vec2f GetPoint();
 	void SetLines(std::vector<ShadowLine>);
 	void SetLines(ShadowLine,sf::Vector2f);
 	void Calculate();

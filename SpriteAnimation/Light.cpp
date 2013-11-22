@@ -44,3 +44,6 @@ void Light::DrawDebug(sf::RenderTexture* panel){
 AABB Light::GetBounds(){
 	return bounds;
 };
+Vec2f Light::GetPoint(){
+	return bounds.GetLowerBound();
+};

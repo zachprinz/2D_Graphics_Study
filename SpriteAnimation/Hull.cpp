@@ -67,6 +67,9 @@ void Hull::DrawDebug(sf::RenderTexture* panel){
 AABB Hull::GetBounds(){
 	return bounds;
 };
+Vec2f Hull::GetPoint(){
+	return bounds.GetLowerBound();
+};
 void Hull::SetPosition(sf::Vector2f newpos){
 	position = newpos;
 };

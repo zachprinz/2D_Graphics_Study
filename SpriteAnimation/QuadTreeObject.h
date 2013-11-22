@@ -14,6 +14,7 @@ public:
 	Hull* myHull;
 	Light* myLight;
 	AABB bounds;
+	Vec2f GetPoint();
 	AABB GetBounds();
 	bool isHull;
 	QuadTreeNode* housing;

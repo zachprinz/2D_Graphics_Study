@@ -5,7 +5,7 @@
 #include "User.h"
 
 int GameSprite::tagCount = 0;
-bool GameSprite::displayDebug = false;
+bool GameSprite::displayDebug = true;
 
 GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textureName){
 	graphPositionA = sf::Vector2i(x,y);

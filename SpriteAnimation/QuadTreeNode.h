@@ -28,7 +28,7 @@ public:
 private:
 	bool FindObjects(AABB);
 	std::vector<QuadTreeObject*> childOccupants;
-	QuadTreeObject* ocupant;
+	std::vector<QuadTreeObject*> ocupants;
 	std::vector<int> occupantsTags;
 	int depthLevel;
 	AABB bounds;

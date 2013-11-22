@@ -18,8 +18,8 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	SetAnimation(animations["Walk"],Animation::Down);
 	currentPatrolTargetPoint = 0;
 	currentMode = Patrol;
+	UpdateAnimation();
 	UpdateBoundries();
-	actorHull->SetPosition(sprite.getPosition());
 	SpritePanel::instance->AddHull(actorHull);
 };
 void Enemy::Update(sf::RenderTexture& window){
@@ -56,7 +56,6 @@ void Enemy::Update(sf::RenderTexture& window){
 		}
 	}
 	Combatant::Update(window);
-	UpdateEffectedTiles();
 };
 void Enemy::AddPatrolPoint(sf::Vector2i a){
 	patrolPoints.push_back(a);
