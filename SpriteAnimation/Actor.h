@@ -63,11 +63,11 @@ public:
 	void UpdateBoundries();
 	void SetUpAnimation();
 	void Draw(sf::RenderTexture*);
+	Hull* actorHull;
 protected:
 	pugi::xml_node boundriesNode;
 	pugi::xml_document boundriesDoc;
 	pugi::xml_parse_result boundriesResult;
-	Hull* actorHull;
 	ShadowLine actorShadowLine;
 	std::string name;
 	bool CheckTile(int x,int y);

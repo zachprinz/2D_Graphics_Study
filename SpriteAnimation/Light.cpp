@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Hull.h"
+#include "User.h"
 
 sf::Shader Light::lightShader;
 
@@ -37,18 +38,35 @@ sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull){
 	temp.setPointCount(4);
 	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull);
 	ShadowLine secondLine = GetPointShadowLine(sl->secondPoint,hull);
-	if(sl->firstPoint.y > bounds.GetCenter().y && sl->secondPoint.y > bounds.GetCenter().y){
-		temp.setPoint(0,firstLine.firstPoint);
-		temp.setPoint(1,firstLine.secondPoint);
-		temp.setPoint(3,secondLine.firstPoint);
-		temp.setPoint(2,secondLine.secondPoint);
+	if(hull == User::player->actorHull){ ///TODO: I feel horrible for using this solution...
+		if(sl->firstPoint.y > bounds.GetCenter().y && sl->secondPoint.y > bounds.GetCenter().y){
+			temp.setPoint(0,firstLine.firstPoint);
+			temp.setPoint(1,firstLine.secondPoint);
+			temp.setPoint(3,secondLine.firstPoint);
+			temp.setPoint(2,secondLine.secondPoint);
+		}
+		else {
+			temp.setPoint(0,firstLine.secondPoint);
+			temp.setPoint(3,firstLine.firstPoint);
+			temp.setPoint(1,secondLine.secondPoint);
+			temp.setPoint(2,secondLine.firstPoint);
+			temp.setOrigin(temp.getPoint(1) - temp.getPoint(2));
+		}
 	}
-	else {
-		temp.setPoint(0,firstLine.secondPoint);
-		temp.setPoint(3,firstLine.firstPoint);
-		temp.setPoint(1,secondLine.secondPoint);
-		temp.setPoint(2,secondLine.firstPoint);
-		temp.setOrigin(temp.getPoint(1) - temp.getPoint(2));
+	else{
+		if(sl->firstPoint.y < bounds.GetCenter().y && sl->secondPoint.y < bounds.GetCenter().y){
+			temp.setPoint(0,firstLine.firstPoint);
+			temp.setPoint(1,firstLine.secondPoint);
+			temp.setPoint(3,secondLine.firstPoint);
+			temp.setPoint(2,secondLine.secondPoint);
+		}
+		else {
+			temp.setPoint(0,firstLine.secondPoint);
+			temp.setPoint(3,firstLine.firstPoint);
+			temp.setPoint(1,secondLine.secondPoint);
+			temp.setPoint(2,secondLine.firstPoint);
+			temp.setOrigin(temp.getPoint(1) - temp.getPoint(2));
+		}
 	}
 	return temp;
 };

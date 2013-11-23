@@ -19,7 +19,7 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	UpdateRoomTile();
 	UpdateAnimation();
 	UpdateBoundries();
-	actorHull->SetPosition(sprite.getPosition());
+	//actorHull->SetPosition(sprite.getPosition());
 	SpritePanel::instance->AddHull(actorHull);
 };
 void NPC::Update(sf::RenderTexture& window){

@@ -14,7 +14,13 @@ public:
 	void DebugRender(sf::RenderTexture* panel);
 	void SetAmbienceColor(sf::Color);
 	sf::Shader lightShader;
+	sf::Shader lightToTextureShader;
+	sf::Shader shadowShader;
 private:
+	sf::RenderTexture panelLightTempText;
+	sf::Sprite panelLightTempSprite;
+	sf::RenderTexture tempLightText;
+	sf::Sprite tempLightSprite;
 	void CalculatePanelBounds();
 	sf::Vector2f panelLowerPoint;
 	sf::Texture lightsTexture;

@@ -28,11 +28,11 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	view.reset(sf::FloatRect(0,0,1024,800));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
+	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
 	drawCollision = false;
 	instance = this;
 	createPanelLabel = false;
 	SetUp();
-	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
 	LoadMapCollisions();
 	LoadMapAmbience();
 	LoadMapSprites();
@@ -151,8 +151,6 @@ void SpritePanel::UpdateElements(){
 	panel.setView(view);
 	SetHighObjectsInvisible();
 	ml->Draw(panel);
-	lightEngine->SetView(view);
-	lightEngine->DrawLights(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
@@ -167,7 +165,8 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
-
+	lightEngine->SetView(view);
+	lightEngine->DrawLights(&panel);
 	//lightEngine->DebugRender(&panel);
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
