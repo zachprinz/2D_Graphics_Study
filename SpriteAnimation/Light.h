@@ -4,27 +4,30 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "ShadowLine.h"
+#include "Hull.h"
 
 class Light
 {
 public:
-	Light(int x,int y,sf::Color color,float radius,float intensity);
-	Light(int x,int y,sf::Color color,float radius,float intensity,float spreadAngle,float spreadBeginAngle);
+	Light(int x,int y,sf::Color color,float radius,float intensity,float height);
+	Light(int x,int y,sf::Color color,float radius,float intensity,float height,float spreadAngle,float spreadBeginAngle);
 	static std::vector<int> lightTagList;
 	void Calculate();
 	Vec2f GetPoint();
-	sf::ConvexShape GetShadowPolygon(ShadowLine*);
+	sf::ConvexShape GetShadowPolygon(ShadowLine*,Hull*);
 	bool CheckForIntersection(AABB);
 	void DrawDebug(sf::RenderTexture* panel);
 	int tag;
 	AABB GetBounds();
 	void SetRadius(float);
-private:
-	static sf::Shader lightShader;
-	float intensity;
+	float height;
+	sf::Vector2f position;
 	float radius;
 	sf::Color color;
-	sf::Vector2f position;
+private:
+	ShadowLine GetPointShadowLine(sf::Vector2f,Hull*);
+	static sf::Shader lightShader;
+	float intensity;
 	AABB bounds;
 	float spreadAngle;
 	float spreadBeginAngle;

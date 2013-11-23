@@ -28,7 +28,7 @@ Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprit
 	if(footLines.size() < 1){
 		SetUpFootLines();
 	}
-	actorHull = new Hull(footLines[0][0][0],sprite.getPosition());
+	actorHull = new Hull(footLines[0][0][0],sprite.getPosition(),sprite.getGlobalBounds().height);
 };
 Actor::Actor(){
 

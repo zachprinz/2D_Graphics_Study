@@ -151,6 +151,8 @@ void SpritePanel::UpdateElements(){
 	panel.setView(view);
 	SetHighObjectsInvisible();
 	ml->Draw(panel);
+	lightEngine->SetView(view);
+	lightEngine->DrawLights(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
@@ -165,8 +167,8 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
-	lightEngine->DrawLights();
-	lightEngine->DebugRender(&panel);
+
+	//lightEngine->DebugRender(&panel);
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){
 	dynamicElements.insert(MyPair(name, element));
@@ -180,9 +182,6 @@ void SpritePanel::SpawnItem(int id,int x,int y,Room* room){
 	GroundItem* tempPoints = new GroundItem(x,y,tempItem);
 	room->AddOcupant(tempPoints);
 	AddElement(std::to_string(tempPoints->GetTag()),tempPoints);
-	//for(MyPair x: dynamicElements){
-	//	std::cout << x.first << std::endl;
-	//}
 };
 void SpritePanel::MoveCamera(float x, float y){
 	view.reset(sf::FloatRect(view.getViewport().left + x,view.getViewport().top + y,512,512));

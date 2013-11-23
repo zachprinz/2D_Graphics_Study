@@ -29,13 +29,14 @@ QuadTreeNode::QuadTreeNode(AABB bounds, int depthLevel, QuadTreeNode* parent){
 	tree = parent->tree;
 };
 std::vector<QuadTreeObject*> QuadTreeNode::SearchRegion(AABB reg){
+	returningObjList.clear();
 	FindObjects(reg);
 	return returningObjList;
 	returningObjList.clear();
 };
 bool QuadTreeNode::FindObjects(AABB reg){
-	if(reg.Contains(bounds)){
-		if(hasOcupant){
+	if(reg.Contains(bounds) || bounds.Contains(reg)){
+		if(hasOcupant && ocupants[0] != NULL){
 			if(reg.Contains(ocupants[0]->GetBounds())){
 				returningObjList.push_back(ocupants[0]);
 				return true;
@@ -50,11 +51,9 @@ bool QuadTreeNode::FindObjects(AABB reg){
 	return true;
 };
 bool QuadTreeNode::Sort(QuadTreeObject* obj){
-	std::cout << "Sorting..." << std::endl;
 	if(bounds.Contains(obj->GetPoint())){
 		if(!hasChildren){
 			if(!hasOcupant){
-				std::cout << "Found Home" << std::endl;
 				if(ocupants.size() >= 1)
 					ocupants[0] = obj;
 				else
@@ -78,10 +77,8 @@ bool QuadTreeNode::Sort(QuadTreeObject* obj){
 };
 bool QuadTreeNode::CheckMerge(){
 	searchingObjList.clear();
-	std::cout << "Checking Merge" << std::endl;
 	CheckEmpty();
 	int numOcupants = searchingObjList.size();
-	std::cout << "Size: " << std::to_string(numOcupants) << std::endl;
 	if(numOcupants > 1)
 		return false;
 	if(numOcupants == 1)
@@ -104,7 +101,6 @@ bool QuadTreeNode::CheckEmpty(){
 	return true;
 };
 void QuadTreeNode::Merge(){
-	std::cout << "Merging" << std::endl;
 	if(hasChildren){
 		children.clear();
 		hasChildren = false;
@@ -116,7 +112,6 @@ void QuadTreeNode::Merge(QuadTreeObject* obj){
 };
 bool QuadTreeNode::Partition(QuadTreeObject* obj){
 	if(bounds.GetDims().x > 1 && bounds.GetDims().y > 1){
-	std::cout << "Partitioning" << std::endl;
 	for(int y = 0; y < 2; y++){
 		for(int x = 0; x < 2; x++){
 			children.push_back(new QuadTreeNode(AABB(Vec2f(bounds.GetLowerBound().x + (y*(bounds.GetDims().x/2.0f)),
@@ -169,7 +164,6 @@ AABB QuadTreeNode::GetBounds(){
 void QuadTreeNode::CheckStillContainsOcupants(){
 	if(hasOcupant){
 		if(!bounds.Contains(ocupants[0]->GetPoint())){
-			std::cout << "Re-Evaluating" << std::endl;
 			hasOcupant = false;
 			if(!isRoot){
 				if(!parent->Sort(ocupants[0])){

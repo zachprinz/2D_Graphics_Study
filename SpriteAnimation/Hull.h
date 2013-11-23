@@ -7,8 +7,8 @@
 
 class Hull{
 public:
-	Hull(sf::ConvexShape poly,sf::Vector2f);
-	Hull(ShadowLine sl,sf::Vector2f);
+	Hull(sf::ConvexShape poly,sf::Vector2f,float height);
+	Hull(ShadowLine sl,sf::Vector2f,float height);
 	Hull();
 	Vec2f GetPoint();
 	void SetLines(std::vector<ShadowLine>);
@@ -16,6 +16,7 @@ public:
 	void Calculate();
 	static std::vector<int> hullTagList;
 	int tag;
+	float height;
 	void DrawDebug(sf::RenderTexture* panel);
 	AABB GetBounds();
 	std::vector<ShadowLine> shadowLines;

@@ -7,13 +7,19 @@
 class LightEngine{
 public:
 	LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor);
-	void DrawLights();
+	void DrawLights(sf::RenderTexture*);
 	void AddLight(Light*);
 	void AddHull(Hull*);
 	void SetView(sf::View);
 	void DebugRender(sf::RenderTexture* panel);
 	void SetAmbienceColor(sf::Color);
+	sf::Shader lightShader;
 private:
+	void CalculatePanelBounds();
+	sf::Vector2f panelLowerPoint;
+	sf::Texture lightsTexture;
+	sf::Sprite lightsSprite;
+	void DrawLight(Light*);
 	sf::View panelView;
 	AABB viewBounds;
 	std::vector<Hull*> hulls;

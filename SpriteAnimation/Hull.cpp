@@ -1,11 +1,13 @@
 #include "Hull.h"
 
-Hull::Hull(sf::ConvexShape poly,sf::Vector2f pos){
+Hull::Hull(sf::ConvexShape poly,sf::Vector2f pos,float height){
+	this->height = height;
 	poly.setPosition(pos);
 	this->polygon = poly;
 	Calculate();
 };
-Hull::Hull(ShadowLine sl,sf::Vector2f pos){
+Hull::Hull(ShadowLine sl,sf::Vector2f pos,float height){
+	this->height = height;
 	sl.firstPoint = sf::Vector2f(sl.firstPoint.x + pos.x,sl.firstPoint.y + pos.y);
 	sl.secondPoint = sf::Vector2f(sl.secondPoint.x + pos.x, sl.secondPoint.y + pos.y);
 	shadowLines.push_back(sl);
