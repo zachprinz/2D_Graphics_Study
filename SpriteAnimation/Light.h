@@ -14,7 +14,7 @@ public:
 	static std::vector<int> lightTagList;
 	void Calculate();
 	Vec2f GetPoint();
-	sf::ConvexShape GetShadowPolygon(ShadowLine*,Hull*);
+	sf::ConvexShape GetShadowPolygon(ShadowLine*,Hull*,sf::Vector2f);
 	bool CheckForIntersection(AABB);
 	void DrawDebug(sf::RenderTexture* panel);
 	int tag;
@@ -25,7 +25,7 @@ public:
 	float radius;
 	sf::Color color;
 private:
-	ShadowLine GetPointShadowLine(sf::Vector2f,Hull*);
+	ShadowLine GetPointShadowLine(sf::Vector2f,Hull*,sf::Vector2f);
 	static sf::Shader lightShader;
 	float intensity;
 	AABB bounds;

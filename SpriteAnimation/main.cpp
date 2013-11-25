@@ -16,7 +16,6 @@
 #include "SlicedSpriteCreator.h"
 #include "MapPanel.h"
 #include "ActionBar.h"
-#include "ScriptManager.h"
 #include "StatsPanel.h"
 #include "ProgressBar.h"
 #include "HUDPanel.h"
@@ -27,13 +26,12 @@ int main()
 	Drawn::gameTexture.loadFromFile("Atlas/GameAtlas.png");
 	Drawn::gameTexture.setSmooth(true);
 	Drawn::gameTexture.setRepeated(false);
-	ScriptManager::InitiateLuabind();
-	ScriptManager::CreateBinds();
     sf::Clock clock;
     float lastTime = 0;
 	sf::Text fps;
 	fps.setCharacterSize(22);
 	fps.setPosition(5,1);
+	std::cout << "Test" << std::endl;
 	sf::Font font;
 	font.loadFromFile("arial.ttf");
 	fps.setColor(sf::Color::Red);
@@ -49,7 +47,7 @@ int main()
 	window.create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
 	window.setPosition(sf::Vector2i(0,0));
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(100);
 	sf::Sprite loadingSprite;
 	loadingSprite.setTexture(Drawn::gameTexture);
 	loadingSprite.setTextureRect(Drawn::GetTextureFromAtlas("loading.png"));
@@ -195,7 +193,7 @@ int main()
         window.clear();
 		spritePanel.Update(window);
 		actionBar.Update(window);
-		mapPanel.Update(window);
+		//mapPanel.Update(window);
 		statsPanel.Update(window);
 		hudPanel.Update(window);
 		textPanel.Update(window);

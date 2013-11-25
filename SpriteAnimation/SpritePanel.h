@@ -38,7 +38,7 @@ public:
 	bool CheckUpdate();
 	void LoadMapAmbience();
 	LightEngine* lightEngine;
-	void AddLight(LightObject*);
+	void AddLight(Light*);
 	void AddHull(Hull*);
 private:
 	void SetUp();

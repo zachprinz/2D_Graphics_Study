@@ -17,6 +17,8 @@ public:
 	sf::Shader lightToTextureShader;
 	sf::Shader shadowShader;
 private:
+	sf::Sprite predoneLight;
+	sf::Texture predoneLightTexture;
 	sf::RenderTexture panelLightTempText;
 	sf::Sprite panelLightTempSprite;
 	sf::RenderTexture tempLightText;

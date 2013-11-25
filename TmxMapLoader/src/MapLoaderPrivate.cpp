@@ -29,7 +29,7 @@ it freely, subject to the following restrictions:
 
 #include <MapLoader.h>
 #include <sstream>
-//#include <zlib.h>
+#include <zlib.h>
 #include <cstring>
 
 using namespace tmx;
@@ -276,8 +276,7 @@ bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
 			std::vector<unsigned char>byteArray; //to hold decompressed data as bytes
 			byteArray.reserve(expectedSize);
 
-			//check for compression (only used with base64 encoded data)
-			/*
+			//check for compression (only used with base64 encoded data
 			if(dataNode.attribute("compression"))
 			{
 				std::string compression	= dataNode.attribute("compression").as_string();
@@ -293,10 +292,9 @@ bool MapLoader::m_ParseLayer(const pugi::xml_node& layerNode)
 			}
 			else //uncompressed
 			{
-			*/
 			for(auto i = data.cbegin(); i != data.cend(); ++i)
 				byteArray.push_back(*i);
-
+			}
 			//extract tile GIDs using bitshift (See https://github.com/bjorn/tiled/wiki/TMX-Map-Format#data) and add the tiles to layer
 			sf::Uint16 x, y;
 			x = y = 0;
@@ -547,13 +545,13 @@ bool MapLoader::m_ParseObjectgroup(const pugi::xml_node& groupNode)
 				std::cout << "Points for polygon or polyline object are missing" << std::endl;
 			}
 		}
-		/*else if(!objectNode.attribute("gid")) //invalid  attributes
-		{
-			std::cout << "\ parameters found, skipping.." << std::endl;
-			objectNode = objectNode.next_sibling("object");
-			continue;
-		}
-		*/
+		//else if(!objectNode.attribute("gid")) //invalid  attributes
+		//{
+		//	std::cout << "\ parameters found, skipping.." << std::endl;
+		//	objectNode = objectNode.next_sibling("object");
+		//	continue;
+		//}
+		
 		//parse object node property values
 		if(pugi::xml_node propertiesNode = objectNode.child("properties"))
 		{
@@ -826,7 +824,7 @@ sf::Color MapLoader::m_ColourFromHex(const char* hexStr) const
 
 	return sf::Color(r, g, b);
 }
-/*
+
 bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& dest, int inSize, int expectedSize)
 {
 	if(!source)
@@ -907,7 +905,7 @@ bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& des
 	delete[] byteArray;
 	return true;
 }
-*/
+
 sf::Image& MapLoader::m_LoadImage(std::string path)
 {
 	auto i = m_cachedImages.find(path);

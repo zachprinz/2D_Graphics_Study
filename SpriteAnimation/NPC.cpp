@@ -6,7 +6,6 @@
 #include <iterator>
 #include <vector>
 #include "TextPanel.h"
-#include "ScriptManager.h"
 
 NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NPC",textureName){
 	SetUpAnimations();

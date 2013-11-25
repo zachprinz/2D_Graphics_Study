@@ -6,10 +6,9 @@
 #include <iterator>
 #include <vector>
 #include "Attack.h"
-#include "ScriptManager.h"
 
 Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,name,textureName){
-	ScriptManager::CreateEnemy(name,this);
+	LoadFromXML();
 	animationSheets.push_back(GetTextureFromAtlas(textureName));
 	SetUpAttacks();
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
@@ -130,4 +129,20 @@ void Enemy::Drop(){
 			SpritePanel::instance->SpawnItem(drops[x],GetGraphPositionA().x,GetGraphPositionA().y,SpritePanel::instance->room);
 		}
 	}
+};
+void Enemy::LoadFromXML(){
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/enemyInfo.xml");
+	pugi::xml_node atlas = doc.child("enemyList");
+	pugi::xml_node enemyInfo;
+	for(pugi::xml_node enemy = atlas.first_child(); enemy; enemy = enemy.next_sibling()){
+		if(enemy.attribute("name").as_string() == name){
+			enemyInfo = enemy;
+			break;
+		}
+	}
+	for(pugi::xml_node drop = atlas.first_child(); drop; drop = drop.next_sibling()){
+		AddDrop(drop.attribute("id").as_int(),drop.attribute("chance").as_float());
+	}
+	//item->itemLevels = LevelSet(itemInfo.attribute("str").as_int(),itemInfo.attribute("end").as_int(),itemInfo.attribute("speed").as_int(),itemInfo.attribute("tech").as_int(),0,0,0,0);
 };

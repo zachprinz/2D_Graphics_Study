@@ -12,6 +12,8 @@ public:
 	static std::vector<int> tags;
 	Light* getLight();
 	Light* myLight;
+	Light* myLight2;
+	Light* myLight3;
 private:
 };
 

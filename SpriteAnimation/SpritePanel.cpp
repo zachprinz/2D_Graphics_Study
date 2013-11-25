@@ -219,6 +219,6 @@ bool SpritePanel::CheckUpdate(){
 void SpritePanel::AddHull(Hull* hull){
 	lightEngine->AddHull(hull);
 };
-void SpritePanel::AddLight(LightObject* light){
-	lightEngine->AddLight(light->getLight());
+void SpritePanel::AddLight(Light* light){
+	lightEngine->AddLight(light);
 };

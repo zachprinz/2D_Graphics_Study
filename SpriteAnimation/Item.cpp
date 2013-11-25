@@ -1,15 +1,11 @@
 #include "Item.h"
 #include "SFML/Graphics.hpp"
-#include "ScriptManager.h"
 #include "Drawn.h"
 #include "pugixml\pugixml.hpp"
 
 Item::Item(int id){
 	this->id = id;
 	SetUpItem(id,this);
-	//itemLevels = LevelSet();
-	//ScriptManager::CreateItem(id,this);
-	//materialLevel = std::stoi(id.substr(2,id.length()));
 };
 void Item::SetUpItem(int id,Item* item){ //Weapon very definetely needs to be a childclass of Item. But I'll do that later...
 	pugi::xml_document doc;

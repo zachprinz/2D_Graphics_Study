@@ -33,11 +33,13 @@ void Light::Calculate(){
 	bounds.CalculateBounds();
 
 };
-sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull){
+sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull,sf::Vector2f offset){
+	//oscilate
+	//float lightSize = lightOscillate? (4.75f + 0.25f * (float)Math.sin(zAngle) + .2f*MathUtils.random()):5.0f;a
 	sf::ConvexShape temp;
 	temp.setPointCount(4);
-	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull);
-	ShadowLine secondLine = GetPointShadowLine(sl->secondPoint,hull);
+	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull,offset);
+	ShadowLine secondLine = GetPointShadowLine(sl->secondPoint,hull,offset);
 	if(hull == User::player->actorHull){ ///TODO: I feel horrible for using this solution...
 		if(sl->firstPoint.y > bounds.GetCenter().y && sl->secondPoint.y > bounds.GetCenter().y){
 			temp.setPoint(0,firstLine.firstPoint);
@@ -70,8 +72,10 @@ sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull){
 	}
 	return temp;
 };
-ShadowLine Light::GetPointShadowLine(sf::Vector2f point,Hull* hull){
+ShadowLine Light::GetPointShadowLine(sf::Vector2f point,Hull* hull,sf::Vector2f offset){
 	Vec2f centerPoint = bounds.GetCenter();
+	centerPoint.x += offset.x;
+	centerPoint.y += offset.y;
 	float distance = std::sqrt(std::pow((centerPoint.x - point.x),2) + std::pow((centerPoint.y - point.y),2));
 	float slope;
 	if(point.x != centerPoint.x)

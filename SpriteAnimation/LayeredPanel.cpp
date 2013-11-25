@@ -36,9 +36,10 @@ void LayeredPanel::Update(sf::RenderWindow& window){
 };
 void LayeredPanel::UpdateElements(){
 	GamePanel::UpdateElements();
-	for(int x = 0; x < panels.size(); x++){
-		panels[x]->UpdateElements();
-	}
+	panels[currentPanel]->UpdateElements();
+	//for(int x = 0; x < panels.size(); x++){
+	//	panels[x]->UpdateElements();
+	//}
 };
 void LayeredPanel::SetUp(){
 	largestSubpanelSize = GetLayeredPanelSize(panels);

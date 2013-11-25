@@ -28,6 +28,7 @@ private:
 	//Equiped equiped;
 	//Inventory inventory;
 	//UserLevels levels;
+	void LoadFromXML();
 	void MoveTowardPoint(sf::Vector2i);
 	void SetUpAttacks();
 	bool aggressive;
