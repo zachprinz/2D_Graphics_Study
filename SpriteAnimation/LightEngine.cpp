@@ -34,16 +34,17 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 void LightEngine::DrawLights(sf::RenderTexture* panel){
 	hullTree->Update();
 	lightTree->Update();
-	lightTexture.clear(sf::Color(0,0,0,60));
+	lightTexture.clear(sf::Color(0,0,0,120));
 	std::vector<QuadTreeObject*> lightsToDraw = lightTree->SearchRegion(viewBounds);
 	for(int x = 0; x < lightsToDraw.size(); x++){
 		DrawLight(lightsToDraw[x]->myLight);
 	}
 	lightTexture.display();
 	lightsSprite.setPosition(panelView.getCenter().x ,panelView.getCenter().y);
-	panel->draw(lightsSprite,&lightToTextureShader);
+	panel->draw(lightsSprite,&shadowShader);
 };
 void LightEngine::DrawLight(Light* light){
+	light->Update();
 	std::vector<QuadTreeObject*> intersectingHulls = hullTree->SearchRegion(light->GetBounds());
 	std::vector<sf::ConvexShape> shadows;
 	for(int x = 0; x < intersectingHulls.size(); x++){
@@ -55,12 +56,17 @@ void LightEngine::DrawLight(Light* light){
 	tempLightText.draw(predoneLight);
 	for(int x = 0; x < shadows.size(); x++){
 		shadows[x].setFillColor(sf::Color(0,0,0,255));
-		shadows[x].setPosition((0 - shadows[x].getLocalBounds().left) + (shadows[x].getLocalBounds().left - light->GetBounds().GetUpperBound().x) + 300 - 11.6,(0 - shadows[x].getLocalBounds().top) + (shadows[x].getLocalBounds().top - light->GetBounds().GetUpperBound().y) + 309.2);//-11.6 - light->GetBounds().GetLowerBound().x,0-shadows[x].getPosition().y - panelLowerPoint.y + 9.2 - light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
+		shadows[x].setPosition((0 - shadows[x].getLocalBounds().left) + (shadows[x].getLocalBounds().left - light->GetBounds().GetUpperBound().x) + (light->radius * 2) - 11.6,(0 - shadows[x].getLocalBounds().top) + (shadows[x].getLocalBounds().top - light->GetBounds().GetUpperBound().y) + (light->radius * 2) + 9.2);
 		tempLightText.draw(shadows[x]);
 	};
 	tempLightText.display();
 	lightTexture.draw(tempLightSprite,&lightShader);
 	predoneLight.setScale(1.0,1.0);
+};
+void LightEngine::DrawHigh(sf::RenderTexture* panel){
+	lightTexture.clear(sf::Color(0,0,0,80));
+	lightTexture.display();
+	panel->draw(lightsSprite);
 };
 void LightEngine::AddLight(Light* light){
 	lightTree->AddObject(light);

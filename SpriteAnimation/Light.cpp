@@ -3,8 +3,18 @@
 #include "User.h"
 
 sf::Shader Light::lightShader;
+float Light::zSpeed = 1.0f;
+double Light::PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
 Light::Light(int x,int y,sf::Color color,float radius,float intensity,float height){
+	oscillate = true;
+	if(oscillate){
+		int v1 = rand() % 100;
+		if(v1 > 50)
+			oscillateFrame = true;
+		else
+			oscillateFrame = false;
+	}
 	this->height = height;
 	position = sf::Vector2f(x,y);
 	this->color = color;
@@ -13,6 +23,14 @@ Light::Light(int x,int y,sf::Color color,float radius,float intensity,float heig
 	Calculate();
 };
 Light::Light(int x,int y,sf::Color color,float radius,float intensity,float height,float spreadAngle,float spreadBeginAngle){
+	oscillate = true;
+	if(oscillate){
+		int v1 = rand() % 100;
+		if(v1 > 50)
+			oscillateFrame = true;
+		else
+			oscillateFrame = false;
+	}
 	this->height = height;
 	position = sf::Vector2f(x,y);
 	this->color = color;
@@ -21,6 +39,18 @@ Light::Light(int x,int y,sf::Color color,float radius,float intensity,float heig
 	this->spreadAngle = spreadAngle;
 	this->spreadBeginAngle = spreadBeginAngle;
 	Calculate();
+};
+void Light::Update(){
+	if(oscillateFrame){
+	zAngle += (oscillateClock.restart().asMilliseconds()) * zSpeed;
+	while(zAngle > PI2)
+		zAngle -= PI2;
+	if(oscillate)
+		SetRadius(130 + 4*((float)std::sin(zAngle)) + 0.5f* (static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0f)))-5.0f);
+	oscillateFrame = false;
+	}
+	else
+		oscillateFrame = true;
 };
 void Light::SetRadius(float newRadius){
 	radius = newRadius;
@@ -35,7 +65,6 @@ void Light::Calculate(){
 };
 sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull,sf::Vector2f offset){
 	//oscilate
-	//float lightSize = lightOscillate? (4.75f + 0.25f * (float)Math.sin(zAngle) + .2f*MathUtils.random()):5.0f;a
 	sf::ConvexShape temp;
 	temp.setPointCount(4);
 	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull,offset);

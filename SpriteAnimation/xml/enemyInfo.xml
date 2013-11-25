@@ -1,0 +1,6 @@
+<enemyList>
+	<enemy name="cherub">
+		<drop id="1" chance="0.5"/>
+		<drop id="2" chance="0.25"/>
+	</enemy>
+</enemyList>

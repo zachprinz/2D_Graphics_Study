@@ -151,6 +151,8 @@ void SpritePanel::UpdateElements(){
 	panel.setView(view);
 	SetHighObjectsInvisible();
 	ml->Draw(panel);
+	lightEngine->SetView(view);
+	lightEngine->DrawLights(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
@@ -165,8 +167,7 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
-	lightEngine->SetView(view);
-	lightEngine->DrawLights(&panel);
+	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
 }
 void SpritePanel::AddElement(std::string name, Drawn* element){

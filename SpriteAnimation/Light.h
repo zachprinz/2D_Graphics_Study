@@ -24,7 +24,14 @@ public:
 	sf::Vector2f position;
 	float radius;
 	sf::Color color;
+	void Update();
+	float zAngle;
+	bool oscillate;
+	sf::Clock oscillateClock;
+	static double PI2;
+	static float zSpeed;
 private:
+	bool oscillateFrame;
 	ShadowLine GetPointShadowLine(sf::Vector2f,Hull*,sf::Vector2f);
 	static sf::Shader lightShader;
 	float intensity;
