@@ -1,50 +1,44 @@
 #include "ProgressBar.h"
 #include <iostream>
 
-sf::Texture ProgressBar::blankText;
-sf::Texture ProgressBar::backgroundLeft;
-sf::Texture ProgressBar::backgroundRight;
-sf::Texture ProgressBar::backgroundCenter;
-sf::Texture ProgressBar::foregroundCenter;
+Drawn* ProgressBar::blankText;
+Drawn* ProgressBar::backgroundLeft;
+Drawn* ProgressBar::backgroundRight;
+Drawn* ProgressBar::backgroundCenter;
+Drawn* ProgressBar::foregroundCenter;
 
 sf::Texture ProgressBar::CreateBackground(int length){
 	sf::RenderTexture background;
 	background.create(length,25);
 	sf::Sprite backgroundSprite;
-	sf::Sprite tempSprite;
-	sf::Texture tempText = CreateTiledTexture(length - 50,backgroundCenter);
+	sf::Texture tempText = CreateTiledTexture(length - 50,backgroundCenter->GetSprite());
 	backgroundSprite.setTexture(tempText);
 	backgroundSprite.setPosition(25,0);
 	background.draw(backgroundSprite);
-
-	tempSprite.setTexture(backgroundLeft);
-	tempSprite.setPosition(0,0);
-	background.draw(tempSprite);
-	tempSprite.setTexture(backgroundRight);
-	tempSprite.setPosition(length - 25,0);
-	background.draw(tempSprite);
+	backgroundLeft->GetSprite()->setPosition(0,0);
+	background.draw(*(backgroundLeft->GetSprite()));
+	backgroundRight->GetSprite()->setPosition(length - 25,0);
+	background.draw(*backgroundRight->GetSprite());
 	background.display();
 	return background.getTexture();
 };
 
-sf::Texture ProgressBar::CreateTiledTexture(int length, sf::Texture text){
-	int leftover = length % text.getSize().x;
-	int fit = length / text.getSize().x;
+sf::Texture ProgressBar::CreateTiledTexture(int length, sf::Sprite* text){
+	int leftover = length % text->getTextureRect().width;
+	int fit = length / text->getTextureRect().width;
 	float each = ((float)leftover) / ((float) fit);
-	sf::Sprite tempSprite;
-	tempSprite.setTexture(text);
-	tempSprite.setScale((each + tempSprite.getLocalBounds().width) / tempSprite.getLocalBounds().width,1);
+	text->setScale((each + text->getTextureRect().width) / text->getTextureRect().width,1);
 	sf::RenderTexture tiled;
 	tiled.create(length,25);
 	for(int x = 0; x < fit + 1; x++){
-		tempSprite.setPosition(x * tempSprite.getLocalBounds().width,0);
-		tiled.draw(tempSprite);
+		text->setPosition(x * text->getLocalBounds().width,0);
+		tiled.draw(*text);
 	}
 	tiled.display();
 	return tiled.getTexture();
 };
 
-ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,blankText){
+ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,"blank.png"){
 	this->percent = percent;
 	this->relative = relative;
 	background = sf::RectangleShape(sf::Vector2f(26,2));
@@ -59,13 +53,13 @@ ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,b
 	fg = &foregroundRect;
 	stationary = false;
 };
-ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,CreateBackground(length),CreateTiledTexture(length - 50,foregroundCenter)){
+ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,CreateBackground(length),CreateTiledTexture(length - 50,foregroundCenter->GetSprite())){
 	foreground->GetSprite()->setPosition(x + 25,y);
 	fg = &(foregroundRect);
 	this->percent = percent;
 	stationary = true;
 };
-ProgressBar::ProgressBar() : GuiElement(0,0,blankText) {
+ProgressBar::ProgressBar() : GuiElement(0,0,"blank.png") {
 
 };
 void ProgressBar::Update(sf::RenderTexture& panel){
@@ -88,11 +82,11 @@ float ProgressBar::GetPercent(){
 	return *percent;
 };
 void ProgressBar::SetUp(){
-	blankText.loadFromFile("blank.png");
-	backgroundLeft.loadFromFile("progressbar/background/0.png");
-	backgroundCenter.loadFromFile("progressbar/background/1.png");
-	backgroundRight.loadFromFile("progressbar/background/2.png");
-	foregroundCenter.loadFromFile("progressbar/foreground/0.png");
+	blankText = new Drawn("blank.png");
+	backgroundLeft = new Drawn("progressbar/background/0.png");
+	backgroundCenter = new Drawn("progressbar/background/1.png");
+	backgroundRight = new Drawn("progressbar/background/2.png");
+	foregroundCenter = new Drawn("progressbar/foreground/0.png");
 };
 void ProgressBar::SetBarPosition(sf::Vector2f pos){
 	if(!stationary){

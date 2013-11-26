@@ -16,6 +16,7 @@ public:
 	GuiElement(int,int,std::string,sf::Texture);
 	GuiElement(int,int,sf::Texture,std::string);
 	void SetForegroundSprite(sf::Texture);
+	void SetForegroundSprite(std::string);
 	void SetForegroundSprite(sf::Texture,sf::IntRect);
 	void SetBackgroundSprite(sf::Texture);
 	virtual void Update(sf::RenderTexture&);

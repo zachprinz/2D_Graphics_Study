@@ -14,7 +14,7 @@ public:
 	static std::vector<int> lightTagList;
 	void Calculate();
 	Vec2f GetPoint();
-	sf::ConvexShape GetShadowPolygon(ShadowLine*,Hull*,sf::Vector2f);
+	void GetShadowQuad(ShadowLine*,Hull*,sf::Vector2f,sf::Vertex*);
 	bool CheckForIntersection(AABB);
 	void DrawDebug(sf::RenderTexture* panel);
 	int tag;

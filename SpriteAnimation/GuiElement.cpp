@@ -46,6 +46,9 @@ void GuiElement::SetForegroundSprite(sf::Texture fgText,sf::IntRect spriteRect){
 	foreground->GetSprite()->setTextureRect(spriteRect);
 	foreground->GetSprite()->setScale((sprite.getLocalBounds().width - 16) / spriteRect.width,(sprite.getLocalBounds().height - 16) / spriteRect.height);
 };
+void GuiElement::SetForegroundSprite(std::string spriteRect){
+	foreground = new Drawn(spriteRect);
+};
 void GuiElement::SetBackgroundSprite(sf::Texture bgSprite){
 	texture = bgSprite;
 	sprite.setTexture(texture);

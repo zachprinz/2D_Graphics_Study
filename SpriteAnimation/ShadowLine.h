@@ -13,6 +13,7 @@ public:
 	sf::Vector2f firstPoint;
 	sf::Vector2f secondPoint;
 	void Draw(sf::RenderTexture*,sf::Vector2f);
+	sf::Vector2f size;
 private:
 
 };

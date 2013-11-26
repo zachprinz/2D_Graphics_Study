@@ -46,19 +46,16 @@ void LightEngine::DrawLights(sf::RenderTexture* panel){
 void LightEngine::DrawLight(Light* light){
 	light->Update();
 	std::vector<QuadTreeObject*> intersectingHulls = hullTree->SearchRegion(light->GetBounds());
-	std::vector<sf::ConvexShape> shadows;
+	sf::VertexArray shadows(sf::Quads,intersectingHulls.size() * 4);
+	sf::Transform shadowsTransform;
 	for(int x = 0; x < intersectingHulls.size(); x++){
-		shadows.push_back(light->GetShadowPolygon(&intersectingHulls[x]->myHull->shadowLines[0],intersectingHulls[x]->myHull,sf::Vector2f(0,0)));
+		light->GetShadowQuad(&intersectingHulls[x]->myHull->shadowLines[0],intersectingHulls[x]->myHull,sf::Vector2f(0,0),&shadows[x*4]);
 	}
 	tempLightSprite.setPosition(light->GetBounds().GetLowerBound().x - panelLowerPoint.x,light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
 	predoneLight.setScale((light->radius * 2) / predoneLight.getGlobalBounds().width,(2*light->radius) / predoneLight.getGlobalBounds().height);
 	tempLightText.clear(sf::Color(0,0,0,0));
 	tempLightText.draw(predoneLight);
-	for(int x = 0; x < shadows.size(); x++){
-		shadows[x].setFillColor(sf::Color(0,0,0,255));
-		shadows[x].setPosition((0 - shadows[x].getLocalBounds().left) + (shadows[x].getLocalBounds().left - light->GetBounds().GetUpperBound().x) + (light->radius * 2) - 11.6,(0 - shadows[x].getLocalBounds().top) + (shadows[x].getLocalBounds().top - light->GetBounds().GetUpperBound().y) + (light->radius * 2) + 9.2);
-		tempLightText.draw(shadows[x]);
-	};
+	tempLightText.draw(shadows);
 	tempLightText.display();
 	lightTexture.draw(tempLightSprite,&lightShader);
 	predoneLight.setScale(1.0,1.0);

@@ -13,7 +13,7 @@ public:
 	Attack();
 	std::vector<sf::Vector2i> Use(sf::Vector2i,sf::Vector2i);
 	sf::Sprite hudSprite;
-	sf::Texture hudTexture;
+	sf::IntRect hudTexture;
 	enum RelativeDirection {Forward,Backward,Left,Right};
 	int animationY;
 	int numOfFrames;

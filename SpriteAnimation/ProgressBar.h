@@ -17,15 +17,15 @@ public:
 	void SetPercent(float*);
 	static void SetUp();
 	static sf::Texture CreateBackground(int length);
-	static sf::Texture CreateTiledTexture(int length, sf::Texture);
+	static sf::Texture CreateTiledTexture(int length, sf::Sprite*);
 	bool stationary;
 	float GetPercent();
 protected:
-	static sf::Texture blankText;
-	static sf::Texture backgroundLeft;
-	static sf::Texture backgroundRight;
-	static sf::Texture backgroundCenter;
-	static sf::Texture foregroundCenter;
+	static Drawn* blankText;
+	static Drawn* backgroundLeft;
+	static Drawn* backgroundRight;
+	static Drawn* backgroundCenter;
+	static Drawn* foregroundCenter;
 	sf::Sprite* relative;
 	float* percent;
 	sf::Transformable* fg;

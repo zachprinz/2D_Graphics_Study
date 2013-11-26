@@ -63,48 +63,50 @@ void Light::Calculate(){
 	bounds.CalculateBounds();
 
 };
-sf::ConvexShape Light::GetShadowPolygon(ShadowLine* sl,Hull* hull,sf::Vector2f offset){
-	//oscilate
-	sf::ConvexShape temp;
-	temp.setPointCount(4);
+void Light::GetShadowQuad(ShadowLine* sl,Hull* hull,sf::Vector2f offset,sf::Vertex* temp){
+	sf::Vector2f off(-11.2,9.6);
+	sf::Vector2f off2(-11.2,0.0);
 	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull,offset);
 	ShadowLine secondLine = GetPointShadowLine(sl->secondPoint,hull,offset);
-	if(hull == User::player->actorHull){ ///TODO: I feel horrible for using this solution...
+	if(hull == User::player->actorHull){
 		if(sl->firstPoint.y > bounds.GetCenter().y && sl->secondPoint.y > bounds.GetCenter().y){
-			temp.setPoint(0,firstLine.firstPoint);
-			temp.setPoint(1,firstLine.secondPoint);
-			temp.setPoint(3,secondLine.firstPoint);
-			temp.setPoint(2,secondLine.secondPoint);
+			temp[0].position= firstLine.firstPoint + off;
+			temp[3].position= firstLine.secondPoint + off;
+			temp[1].position= secondLine.firstPoint + off;
+			temp[2].position= secondLine.secondPoint + off;
 		}
 		else {
-			temp.setPoint(0,firstLine.secondPoint);
-			temp.setPoint(3,firstLine.firstPoint);
-			temp.setPoint(1,secondLine.secondPoint);
-			temp.setPoint(2,secondLine.firstPoint);
-			temp.setOrigin(temp.getPoint(1) - temp.getPoint(2));
+			temp[0].position= firstLine.secondPoint - firstLine.size + off2;
+			temp[2].position= secondLine.firstPoint - secondLine.size + off2;
+			temp[1].position= secondLine.secondPoint - secondLine.size + off2;
+			temp[3].position= firstLine.firstPoint - firstLine.size + off2;
 		}
 	}
 	else{
 		if(sl->firstPoint.y < bounds.GetCenter().y && sl->secondPoint.y < bounds.GetCenter().y){
-			temp.setPoint(0,firstLine.firstPoint);
-			temp.setPoint(1,firstLine.secondPoint);
-			temp.setPoint(3,secondLine.firstPoint);
-			temp.setPoint(2,secondLine.secondPoint);
+			temp[0].position= firstLine.firstPoint + off;
+			temp[3].position= firstLine.secondPoint + off;
+			temp[1].position= secondLine.firstPoint + off;
+			temp[2].position= secondLine.secondPoint + off;
 		}
 		else {
-			temp.setPoint(0,firstLine.secondPoint);
-			temp.setPoint(3,firstLine.firstPoint);
-			temp.setPoint(1,secondLine.secondPoint);
-			temp.setPoint(2,secondLine.firstPoint);
-			temp.setOrigin(temp.getPoint(1) - temp.getPoint(2));
+			temp[0].position= firstLine.secondPoint - firstLine.size + off2;
+			temp[2].position= secondLine.firstPoint - secondLine.size + off2;
+			temp[1].position= secondLine.secondPoint - secondLine.size + off2;
+			temp[3].position= firstLine.firstPoint - firstLine.size + off2;
 		}
 	}
-	return temp;
+	temp[0].color = sf::Color(0,0,0,255);
+	temp[1].color = sf::Color(0,0,0,255);
+	temp[2].color = sf::Color(0,0,0,255);
+	temp[3].color = sf::Color(0,0,0,255);
 };
 ShadowLine Light::GetPointShadowLine(sf::Vector2f point,Hull* hull,sf::Vector2f offset){
 	Vec2f centerPoint = bounds.GetCenter();
-	centerPoint.x += offset.x;
-	centerPoint.y += offset.y;
+	centerPoint.x += offset.x - position.x + radius;
+	centerPoint.y += offset.y - position.y + radius;
+	point.x -= position.x - radius;
+	point.y -= position.y - radius;
 	float distance = std::sqrt(std::pow((centerPoint.x - point.x),2) + std::pow((centerPoint.y - point.y),2));
 	float slope;
 	if(point.x != centerPoint.x)
@@ -122,8 +124,12 @@ ShadowLine Light::GetPointShadowLine(sf::Vector2f point,Hull* hull,sf::Vector2f 
 	sf::Vector2f point2;
 	point2.x += point.x + shadowXDistance;
 	point2.y += point.y + shadowYDistance;
-	ShadowLine returnShadowLine(point,point2);
-	return returnShadowLine;
+	ShadowLine ret;
+	ret.firstPoint = point;
+	ret.secondPoint = point2;
+	ret.size.x = shadowXDistance;
+	ret.size.y = shadowYDistance;
+	return ret;
 };
 bool Light::CheckForIntersection(AABB bounds2){
 	if(bounds.Intersects(bounds2))

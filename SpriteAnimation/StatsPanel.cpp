@@ -176,11 +176,7 @@ void StatsPanel::SetUpLevelMap(){
 		subLevelPlusButton->SetTarget(this);
 		subLevelPlusButton->SetFunction("plusButton" + std::to_string(x));
 		tempText2.loadFromFile("buttonImages/minusButton.png");
-		//Button* subLevelMinusButton = new Button(3,(x*displacement2) + displacement + 44,tempText2,"blank.png");
-		//subLevelMinusButton->SetTarget(this);
-		//subLevelMinusButton->SetFunction("minusButton" + std::to_string(x));
 		levelMap.insert(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));
-		//levelMap.insert(MyPair("subLevelMinusButton" + std::to_string(x),subLevelMinusButton));
 		levelMap.insert(MyPair("subLevelPlusButton" + std::to_string(x),subLevelPlusButton));
 		levelMap.insert(MyPair("subLevelTitle" + std::to_string(x),subLevelTitle));
 		levelMap.insert(MyPair("subLevelDescription" + std::to_string(x),subLevelDescription));
@@ -205,15 +201,7 @@ void StatsPanel::OnButtonEvent(std::string func){
 	if(func == "plusButton1"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),1);
 		subLevelPercents[1] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent")))/100.0;
-	}/*
-	if(func == "minusButton0"){
-		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),-1);
-		subLevelPercents[0] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"percent")))/100.0;
 	}
-	if(func == "minusButton1"){
-		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),-1);
-		subLevelPercents[1] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent")))/100.0;
-	}*/
 	mainLevelPercent = ((float)(User::player->GetUserData(currentName,"percent")))/100.0;
 	doUpdate = true;
 	std::cout << "Percent" + std::to_string(mainLevelPercent) << std::endl;

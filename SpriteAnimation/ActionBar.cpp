@@ -26,18 +26,14 @@ void ActionBar::UpdateActionImages(){
 	Combatant::AttackMap::iterator it = User::player->attacks.begin();
 	for(int x = 0; x < User::player->attacks.size(); x++){//Combatant::AttackPair x: User::player->attacks){
 		Button* tempButton = ((Button*)dynamicElements["Button" + std::to_string(x)]);
-		tempButton->SetForegroundSprite(it->second->hudTexture);
+		tempButton->SetForegroundSprite("attacktextures/" + it->second->name + ".png");
 		((Button*)dynamicElements["Button" + std::to_string(x)])->CenterForeground();
 		it++;
 	}
 };
 void ActionBar::SetUp(){
-	sf::Texture attackBackgroundTexture;
-	sf::Texture defaultHudTexture;
-	defaultHudTexture.loadFromFile("attacktextures/default.png");
-	attackBackgroundTexture.loadFromFile("attacktextures/background.png");
 	for(Combatant::AttackPair x: User::player->attacks){
-		Button* tempButton = new Button((dynamicElements.size() * 110) + 30,4,attackBackgroundTexture,x.second->hudTexture);
+		Button* tempButton = new Button((dynamicElements.size() * 110) + 30,4,"attacktextures/background.png","attacktextures/" + x.second->name + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(std::to_string(dynamicElements.size()));
 		tempButton->CenterForeground();
@@ -45,7 +41,7 @@ void ActionBar::SetUp(){
 		dynamicElements.insert(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
 	}
 	for(int x = dynamicElements.size(); x < 9; x++){
-		Button* tempButton = new Button((x * 110) + 30,4,attackBackgroundTexture,defaultHudTexture);
+		Button* tempButton = new Button((x * 110) + 30,4,"attacktextures/background.png","attacktextures/default.png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(std::to_string(x));
 		tempButton->CenterForeground();
