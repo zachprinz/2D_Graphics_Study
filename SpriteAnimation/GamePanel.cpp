@@ -10,6 +10,10 @@ GamePanel* GamePanel::currentMousePanel;
 Drawn* GamePanel::currentMouseElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
+	vertexState.texture = &Drawn::gameTexture;
+	quadCount = -1;
+	vertexArray.setPrimitiveType(sf::Quads);
+	vertexArray.resize(200);
 	currentMouseElement = new Drawn();
 	doUpdate = true;
 	createPanelLabel = true;
@@ -32,6 +36,10 @@ GamePanel::GamePanel(){
 
 }
 void GamePanel::Update(sf::RenderWindow& window){
+	vertexArray.clear();
+	vertexArray.setPrimitiveType(sf::Quads);
+	vertexArray.resize(200);
+	quadCount = -1;
 	if(isPanelOpen){
 		if(this->CheckUpdate() || doUpdate == true){
 			panel.clear(sf::Color(0,0,0,0));
@@ -39,9 +47,11 @@ void GamePanel::Update(sf::RenderWindow& window){
 			UpdateElements();
 			panel.display();
 			backgroundPanel.display();
+			DrawVertexArray();
 			DrawToWindow(window);
 		}
 		else{
+			DrawVertexArray();
 			DrawToWindow(window);
 		}
 	}
@@ -63,7 +73,7 @@ void GamePanel::UpdateElements(){
 	if(drawCollision)
 		SpritePanel::room->DrawTiles(panel);
 	for(MyPair x: dynamicElements){
-		x.second->Update(panel);
+		x.second->Update(this);
 	}
 	if(RClickMenu::currentPanel == this){
 		RClickMenu::Update(panel);
@@ -157,4 +167,16 @@ std::string GamePanel::GetName(){
 };
 sf::Vector2i GamePanel::GetSize(){
 	return sf::Vector2i(panelBounds.GetSize());
+};
+sf::Vertex* GamePanel::GetVertexSlot(){
+	quadCount++;
+	if(quadCount >= (vertexArray.getVertexCount() / 4.0f)){
+		std::cout << "make it larger..." << std::endl;
+		vertexArray.resize(vertexArray.getVertexCount() + 40);
+	}
+	sf::Vertex* quad = &vertexArray[quadCount * 4];
+	return quad;
+};
+void GamePanel::DrawVertexArray(){
+	panel.draw(vertexArray,vertexState);
 };

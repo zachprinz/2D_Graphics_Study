@@ -16,6 +16,7 @@ public:
 	User(int,int);
 	User();
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void Interact();
 	static User* player;
 	std::vector<std::vector<sf::IntRect>> itemSpriteSheets;
@@ -46,8 +47,6 @@ public:
 	void ChangeEquiped(Item*);
 	void RemoveEquipment(int);
 	void DrawUser(sf::RenderTexture*);
-	//enum Levels {Strength,Technique,Endurance,Speed,Woodcutting,Crafting,Mining,Smithing};
-	//enum SubLevels {
 	void AddExperience(std::string,std::string,int);
 	void AddSpendExperience(std::string,int);
 	void UpdateUnlockables(std::string,std::string);
@@ -58,7 +57,9 @@ public:
 	void ResetXMLDocs();
 	void SetUpAttacks(std::string);
 	void GetUserWeaponImage(sf::RenderTexture*);
+	void GetUserWeaponImage(GamePanel*);
 private:
+	void UpdateEntity();
 	void CalculateLevelData(std::string);
 	void CalculateLevelData(std::string,std::string);
 	bool oversize;

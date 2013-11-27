@@ -1,4 +1,5 @@
 #include "GuiElement.h"
+#include "GamePanel.h"
 
 GuiElement::GuiElement(int x,int y,sf::Texture text) : RClickable(text){
 	elementBounds.SetRectangle(x,y,text.getSize().x,text.getSize().y);
@@ -54,6 +55,9 @@ void GuiElement::SetBackgroundSprite(sf::Texture bgSprite){
 	sprite.setTexture(texture);
 };
 void GuiElement::Update(sf::RenderTexture&){
+
+};
+void GuiElement::Update(GamePanel* panel){
 
 };
 void GuiElement::OnClick(){

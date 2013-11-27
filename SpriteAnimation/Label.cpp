@@ -1,5 +1,6 @@
 #include "Label.h"
 #include <iostream>
+#include "GamePanel.h"
 
 std::vector<sf::Font> Label::fonts;
 
@@ -44,6 +45,10 @@ sf::Text* Label::GetText(){
 void Label::Update(sf::RenderTexture& panel){
 	panel.draw(sprite);
 	panel.draw(text);
+};
+void Label::Update(GamePanel* panel){
+	Draw(panel);
+	//panel->GetRenderPanel().draw(text);
 };
 void Label::OnStart(){
 	sf::Font fontA;

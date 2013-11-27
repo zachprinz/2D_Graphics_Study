@@ -37,24 +37,20 @@ public:
 	ShadowLine GetUpdatedFootLine();
 	static std::vector<std::vector<std::vector<ShadowLine>>> footLines;
 	void SetUpFootLines();
-	//Animation
+
+	//Animation//
 	typedef std::map<std::string, Animation*> AnimationMap;
 	typedef std::pair<std::string, Animation*> AnimationPair;
 	AnimationMap animations;
 	void AddAnimation(Animation*);
 	sf::Sprite animationSprite;
 	sf::RenderTexture animationPallate;
-	//void Play(Animation*, Animation::AnimDir);
-	//void Loop(Animation*, Animation::AnimDir);
 	void SetAnimation(Animation*, Animation::AnimDir);
-	//void StopAnimation();
 	Animation* currentAnimation;
 	sf::Vector2i currentAnimationPos;
 	std::vector<sf::IntRect> animationSheets;
-	//void UpdateCurrentActorTexture();
 	sf::Clock animationClock;
 	bool UpdateAnimation();
-	//sf::Texture GetSpriteTexture();
 	Animation::AnimDir currentAnimationDir;
 	bool playAnimation;
 	static sf::Clock elapsedTimeClock;
@@ -62,9 +58,11 @@ public:
 	sf::Texture GetActorTexture();
 	void UpdateBoundries();
 	void SetUpAnimation();
-	void Draw(sf::RenderTexture*);
+	void DrawActor(sf::RenderTexture*);
+	void DrawActor(GamePanel*);
 	Hull* actorHull;
 protected:
+	void UpdateEntity();
 	pugi::xml_node boundriesNode;
 	pugi::xml_document boundriesDoc;
 	pugi::xml_parse_result boundriesResult;
@@ -72,6 +70,7 @@ protected:
 	std::string name;
 	bool CheckTile(int x,int y);
 	virtual void Update(sf::RenderTexture&);
+	virtual void Update(GamePanel*);
 	Direction currentDirection;
 	Actions currentAction;
 	sf::Vector2i movement;

@@ -19,6 +19,10 @@ void LayeredPanel::AddElement(std::string,Drawn*){
 
 };
 void LayeredPanel::Update(sf::RenderWindow& window){
+	vertexArray.clear();
+	vertexArray.setPrimitiveType(sf::Quads);
+	vertexArray.resize(400);
+	quadCount = -1;
 	if(isPanelOpen){
 		if(this->CheckUpdate() == true || doUpdate){
 			panel.clear(sf::Color(0,0,0,0));
@@ -26,10 +30,12 @@ void LayeredPanel::Update(sf::RenderWindow& window){
 			UpdateElements();
 			panel.display();
 			backgroundPanel.display();
+			DrawVertexArray();
 			DrawToWindow(window);
 			panels[currentPanel]->Update(window);
 		}
 		else{
+			DrawVertexArray();
 			DrawToWindow(window);
 		}
 	}
@@ -37,18 +43,14 @@ void LayeredPanel::Update(sf::RenderWindow& window){
 void LayeredPanel::UpdateElements(){
 	GamePanel::UpdateElements();
 	panels[currentPanel]->UpdateElements();
-	//for(int x = 0; x < panels.size(); x++){
-	//	panels[x]->UpdateElements();
-	//}
 };
 void LayeredPanel::SetUp(){
 	largestSubpanelSize = GetLayeredPanelSize(panels);
-	sf::Texture buttonTexture;
+	Drawn panelButton;
 	sf::Texture backgroundTexture = SlicedSpriteCreator::GetSlicedTexture(80,80,SlicedSpriteCreator::SpriteStyle::WoodPanel);
 	int spaceBetweenButtons = ((largestSubpanelSize.x) - (80*panels.size()))/(panels.size() + 1);
 	for(int x = 0; x < panels.size(); x++){
-		buttonTexture.loadFromFile("buttonImages/" + panels[x]->GetName() + ".png");
-		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20, backgroundTexture, buttonTexture);
+		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20, backgroundTexture, "buttonImages/" + panels[x]->GetName() + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(panels[x]->GetName());
 		tempButton->CenterForeground();

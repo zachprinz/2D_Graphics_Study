@@ -18,6 +18,7 @@ public:
 	virtual void OnHover(bool);
 	void AddRClickOption(int);
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void EnableRClick(std::string);
 	void DisableRClick();
 	bool GetRClickEnabled();

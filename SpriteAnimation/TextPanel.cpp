@@ -33,14 +33,11 @@ void TextPanel::SetUp(){
 	Label* textDisplay = new Label(8,0,"blank.png",Label::Fonts::Game,"Where all the text will be displayed. ");
 	dynamicElements.insert(MyPair("text",textDisplay));
 	((Label*)dynamicElements["text"])->GetText()->setCharacterSize(30);
-	sf::Texture tempText2;
-	tempText2.loadFromFile("buttonImages/minusButton.png");
-	Button* previousButton = new Button(8,panel.getSize().y - 40,tempText2,"blank.png");
+	Button* previousButton = new Button(8,panel.getSize().y - 40,"buttonImages/minusButton.png","blank.png");
 	previousButton->SetTarget(this);
 	previousButton->SetFunction("previousButton");
 	dynamicElements.insert(MyPair("previousButton",previousButton));
-	tempText2.loadFromFile("buttonImages/plusButton.png");
-	Button* nextButton = new Button(panel.getSize().x - 40,panel.getSize().y - 40,tempText2,"blank.png");
+	Button* nextButton = new Button(panel.getSize().x - 40,panel.getSize().y - 40,"buttonImages/plusButton.png","blank.png");
 	nextButton->SetTarget(this);
 	nextButton->SetFunction("nextButton");
 	dynamicElements.insert(MyPair("nextButton",nextButton));

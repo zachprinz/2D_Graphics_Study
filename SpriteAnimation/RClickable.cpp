@@ -55,7 +55,10 @@ void RClickable::AddRClickOption(int x){
 };
 void RClickable::Update(sf::RenderTexture& panel){
 
-}
+};
+void RClickable::Update(GamePanel* panel){
+
+};
 void RClickable::EnableRClick(std::string myName){
 	rClickEnabled = true;
 	name = myName;

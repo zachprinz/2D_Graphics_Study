@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SpritePanel.h"
 #include "User.h"
+#include "GamePanel.h"
 
 sf::Clock Actor::elapsedTimeClock;
 sf::Time Actor::elapsedTime;
@@ -115,6 +116,34 @@ bool Actor::SetDown(){
 	}
 };
 void Actor::Update(sf::RenderTexture& panel){
+	UpdateEntity();
+	if(isVisible){
+		UpdateRoomTile();
+		UpdateAnimation();
+		DrawActor(&panel);
+		for(int x = 0; x < boundries.size(); x++){
+				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
+				boundries[x].setScale(0.85f,0.65f);
+		}
+	}
+	GameSprite::Update(panel);
+	actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
+}
+void Actor::Update(GamePanel* panel){
+	UpdateEntity();
+		if(isVisible){
+		UpdateRoomTile();
+		UpdateAnimation();
+		//Draw(&panel);
+		for(int x = 0; x < boundries.size(); x++){
+				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
+				boundries[x].setScale(0.85f,0.65f);
+		}
+	}
+	GameSprite::Update(panel);
+	//actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
+};
+void Actor::UpdateEntity(){
 	for(int b = 0; b < 2; b++){
 		if(currentDirection == Finishing){
 			int dir = 0;
@@ -150,19 +179,8 @@ void Actor::Update(sf::RenderTexture& panel){
 					currentDirection = Finishing;
 			}
 	}
-	if(isVisible){
-		UpdateRoomTile();
-		UpdateAnimation();
-		Draw(&panel);
-		for(int x = 0; x < boundries.size(); x++){
-				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
-				boundries[x].setScale(0.85f,0.65f);
-		}
-	}
-	GameSprite::Update(panel);
-	actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
-}
-void Actor::Draw(sf::RenderTexture* window){
+};
+void Actor::DrawActor(sf::RenderTexture* window){
 	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
 	for(int x = 0; x < animationSheets.size(); x++){
 		if(x != 2){
@@ -174,6 +192,23 @@ void Actor::Draw(sf::RenderTexture* window){
 		if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
 			std::cout << "Getting Sword Animation" << std::endl;
 			User::player->GetUserWeaponImage(window);
+		}
+	}
+	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
+};
+void Actor::DrawActor(GamePanel* panel){
+	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
+	for(int x = 0; x < animationSheets.size(); x++){
+		if(x != 2){
+			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
+			Draw(panel);
+		}
+	}
+	if(this == User::player){
+		if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
+			std::cout << "Getting Sword Animation" << std::endl;
+
+			User::player->GetUserWeaponImage(panel);
 		}
 	}
 	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);

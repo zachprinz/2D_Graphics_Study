@@ -1,4 +1,5 @@
 #include "LightEngine.h"
+#include "Drawn.h"
 
 LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor){
 	hullTree = new QuadTree(bounds);
@@ -27,9 +28,9 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	panelLightTempText.clear(sf::Color(0,0,0,0));
 	panelLightTempText.display();
 	panelLightTempSprite.setTexture(panelLightTempText.getTexture());
-	predoneLightTexture.loadFromFile("Images/lightData/light.png");
+	Drawn preDoneLightDraw("lightData/light.png");
+	predoneLightTexture = preDoneLightDraw.GetSingleTexture();
 	predoneLight.setTexture(predoneLightTexture);
-
 };
 void LightEngine::DrawLights(sf::RenderTexture* panel){
 	hullTree->Update();

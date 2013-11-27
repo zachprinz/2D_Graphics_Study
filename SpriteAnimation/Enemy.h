@@ -13,6 +13,7 @@ public:
 	Enemy(int,int,std::string,std::string);
 	enum Mode {AttackMode,Patrol,Pursue};
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void AddPatrolPoint(sf::Vector2i);
 	void Interact();
 	void OnClick();
@@ -21,13 +22,8 @@ public:
 	void AddDrop(int,float);
 	void SetName(std::string);
 	void Drop();
-	//void OnRoomChange();
-	//Start();
 private:
-	//Bank bank;
-	//Equiped equiped;
-	//Inventory inventory;
-	//UserLevels levels;
+	void UpdateEntity();
 	void LoadFromXML();
 	void MoveTowardPoint(sf::Vector2i);
 	void SetUpAttacks();

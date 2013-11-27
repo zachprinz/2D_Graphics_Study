@@ -69,16 +69,19 @@ int main()
 	spritePanel.SetPosition(52,125);
 	User::player->GetBank()->SetPosition(SpritePanel::instance->GetPosition().x + ((SpritePanel::instance->GetSize().x - 480) / 2),SpritePanel::instance->GetPosition().y + ((SpritePanel::instance->GetSize().y - 480) / 2));
 
-
+	std::cout << "Loading Action Bar." << std::endl;
 	ActionBar actionBar(1024,88);
 	actionBar.SetPosition(52,941);
 
+	std::cout << "Loading Map Panel." << std::endl;
 	MapPanel mapPanel(375,300);
 	mapPanel.SetPosition(1493,19);
 
+	std::cout << "Loading Stats Panel." << std::endl;
 	StatsPanel statsPanel(375,480);
 	statsPanel.SetPosition(1493,445);
 
+	std::cout << "Loading HUD Panels." << std::endl;
 	HUDPanel hudPanel(User::player, 485,90);
 	hudPanel.SetPosition(52,19);
 	HUDPanel::instance = &hudPanel;

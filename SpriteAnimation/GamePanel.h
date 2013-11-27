@@ -4,9 +4,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <map>
-#include "Drawn.h"
 #include "ARectangle.h"
 
+class Drawn;
 class GamePanel
 {
 public:
@@ -42,6 +42,12 @@ public:
 	void SetUp();
 	std::string GetName();
 	sf::Vector2i GetSize();
+	sf::VertexArray vertexArray;
+	sf::RenderStates vertexState;
+	sf::Vector2<Drawn*> nonVertexElements;
+	sf::Vertex* GetVertexSlot();
+	void DrawVertexArray();
+	int quadCount;
 protected:
 	bool updateElements;
 	bool createPanelLabel;

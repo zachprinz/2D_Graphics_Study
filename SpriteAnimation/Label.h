@@ -16,6 +16,7 @@ public:
 	void SetText(sf::Text);
 	sf::Text* GetText();
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	static void OnStart();
 	void SetLocation(float,float);
 	static std::vector<sf::Font> fonts;

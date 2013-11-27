@@ -7,6 +7,7 @@
 #include "Attack.h"
 #include "StatsPanel.h"
 #include "ActionBar.h"
+#include "GamePanel.h"
 
 User* User::player;
 
@@ -26,7 +27,6 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	layered = new LayeredPanel(temp);
 	layered->SetPosition(1125,445);
 	SetUpImages();
-	//SetUpAttacks("default");
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
@@ -45,6 +45,14 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	SpritePanel::instance->AddHull(actorHull);
 };
 void User::Update(sf::RenderTexture& window){
+	UpdateEntity();
+	Combatant::Update(window);
+};
+void User::Update(GamePanel* panel){
+	UpdateEntity();
+	Combatant::Update(panel);
+};
+void User::UpdateEntity(){
 	CheckUserInput();
 	if(currentDirection == None){
 		if(currentAction != NoAction){
@@ -73,7 +81,6 @@ void User::Update(sf::RenderTexture& window){
 			}
 		}
 	}
-	Combatant::Update(window);
 };
 void User::GetUserWeaponImage(sf::RenderTexture* window){
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
@@ -86,6 +93,19 @@ void User::GetUserWeaponImage(sf::RenderTexture* window){
 	else{
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 		window->draw(sprite);
+	}
+};
+void User::GetUserWeaponImage(GamePanel* panel){
+	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
+		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
+		Draw(panel);
+		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
+	}
+	else{
+		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
+		Draw(panel);
 	}
 };
 

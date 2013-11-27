@@ -3,6 +3,7 @@
 #include "SpritePanel.h"
 #include "StatsPanel.h"
 #include "User.h"
+#include "GamePanel.h"
 
 Combatant::Combatant(int x, int y,std::string name,std::string textureName) : Actor(x,y,name,textureName){
 	health = 100;
@@ -55,6 +56,14 @@ int Combatant::GetEndurance(){
 	return endurance;
 };
 void Combatant::Update(sf::RenderTexture& panel){
+	UpdateEntity();
+	Actor::Update(panel);
+}
+void Combatant::Update(GamePanel* panel){
+	UpdateEntity();
+	Actor::Update(panel);
+};
+void Combatant::UpdateEntity(){
 	if(inCombat && inCombatClock.getElapsedTime().asSeconds() > 5.0){
 		std::cout << "Out of Combat, healing." << std::endl;
 		inCombat = false;
@@ -66,8 +75,7 @@ void Combatant::Update(sf::RenderTexture& panel){
 	for(AttackPair x: attacks){
 		x.second->Update();
 	}
-	Actor::Update(panel);
-}
+};
 void Combatant::UpdateBar(sf::RenderTexture& panel){
 	if(inCombat || health < 100){
 		healthPercent = ((float)health) / 100.f;

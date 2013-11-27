@@ -47,6 +47,14 @@ void Container::Update(sf::RenderTexture& panel){
 	if(isFull)
 		panel.draw(*foreground->GetSprite());
 }
+void Container::Update(GamePanel* panel){
+	if(foreground->GetIsExpanding()){
+		foreground->UpdateExpand();
+	}
+	Draw(panel);
+	if(isFull)
+		foreground->Draw(panel);
+}
 bool Container::GetIsFull(){
 	return isFull;
 }

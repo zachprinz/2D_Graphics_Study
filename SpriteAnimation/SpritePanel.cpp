@@ -28,7 +28,9 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	view.reset(sf::FloatRect(0,0,1024,800));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
+	std::cout << "Creating Light Engine." << std::endl;
 	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
+	std::cout << "Finished Creating Lighting Engine." << std::endl;
 	drawCollision = false;
 	instance = this;
 	createPanelLabel = false;

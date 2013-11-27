@@ -15,10 +15,11 @@ public:
 	Button(int,int,std::string,std::string);
 	Button(int,int,sf::Texture,std::string);
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void OnClick();
 	void SetScale(float,float);
-	static sf::Texture* circleButtonBackground;
-	static sf::Texture* x;
+	static std::string circleButtonBackground;
+	static std::string x;
 	static void OnStart();
 	void SetFunction(std::string);
 	void SetTarget(GamePanel*);

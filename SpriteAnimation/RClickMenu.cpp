@@ -22,7 +22,7 @@ void RClickMenu::Reset(int x,int y,std::string name,RClickable* target, GamePane
 	currentPanel = panel;
 	currentTarget = target;
 	GetTextWidth(name);
-	labels.push_back(new Label(x,y,width,menuTexture,Label::Fonts::Game, name));
+	labels.push_back(new Label(x,y,width,"menubackground.png",Label::Fonts::Game, name));
 	labels[0]->SetTextOffset((width - GetTextWidth(name)) / 2,2);
 	labels[0]->SetTextColor(sf::Color(255,0,0,255));
 };
@@ -30,11 +30,10 @@ std::vector<Label*> RClickMenu::GetMenu(){
 	return labels;
 };
 void RClickMenu::OnStart(){
-	menuTexture.loadFromFile("menubackground.png");
 	std::string optionNames[] = {"Drop","Equip","Unequip","Deposit","Withdraw","Barter","Craft"};
 	GetTextWidth("Withdraw ");
 	for(int x = 0; x < 7; x++){
-		OptionButtons.push_back(new Label(0,0,width,menuTexture,Label::Fonts::Game,optionNames[x]));
+		OptionButtons.push_back(new Label(0,0,width,"menubackground.png",Label::Fonts::Game,optionNames[x]));
 	}
 };
 void RClickMenu::Clear(){
@@ -86,22 +85,18 @@ void RClickMenu::SetOrgin(Orgins orgin){
 		sf::Text* tempText = tempLabel->GetText();
 		switch(orgin){
 			case(TopLeft):
-				//tempText->setOrigin(0,0);
 				tempSprite->setOrigin(0,0);
 				tempLabel->CenterText();
 				break;
 			case(TopRight):
-				//tempText->setOrigin(tempSprite->getLocalBounds().width,0);
 				tempSprite->setOrigin(tempSprite->getLocalBounds().width,0);
 				tempLabel->CenterText();
 				break;
 			case(BottomLeft):
-				//tempText->setOrigin(0,tempSprite->getLocalBounds().height);
 				tempSprite->setOrigin(0,tempSprite->getLocalBounds().height);
 				tempLabel->CenterText();
 				break;
 			case(BottomRight):
-				//tempText->setOrigin(tempSprite->getLocalBounds().width,tempText->getLocalBounds().height);
 				tempSprite->setOrigin(tempSprite->getLocalBounds().width,tempSprite->getLocalBounds().height);
 				tempLabel->CenterText();
 				break;

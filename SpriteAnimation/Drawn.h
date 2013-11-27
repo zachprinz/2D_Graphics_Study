@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+class GamePanel;
 class Drawn
 {
 public:
@@ -14,10 +15,12 @@ public:
 	sf::Sprite* GetSprite();
 	sf::Vector2f GetPositionOnPanel();
 	virtual void Update(sf::RenderTexture&);
+	virtual void Update(GamePanel*);
 	virtual void OnClick();
 	virtual void OnRClick(sf::Vector2i);
 	virtual void OnHover(bool);
 	void Move(float,float);
+	sf::Texture GetSingleTexture();
 	void SetLocation(float,float);
 	static sf::IntRect GetTextureFromAtlas(std::string);
 	sf::IntRect texturePart;
@@ -32,6 +35,7 @@ public:
 	void ReturnExpand();
 	void UpdateExpand();
 	bool GetIsExpanding();
+	void Draw(GamePanel*);
 protected:
 	sf::Clock movementClock;
 	sf::Vector2i targetPosition;

@@ -20,6 +20,7 @@ public:
 	void SetForegroundSprite(sf::Texture,sf::IntRect);
 	void SetBackgroundSprite(sf::Texture);
 	virtual void Update(sf::RenderTexture&);
+	virtual void Update(GamePanel*);
 	virtual void OnClick();
 	virtual void OnHover(bool);
 	ARectangle* GetBounds();

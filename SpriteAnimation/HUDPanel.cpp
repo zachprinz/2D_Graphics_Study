@@ -28,10 +28,7 @@ void HUDPanel::SetUp(){
 		ProgressBar* progBar2 = new ProgressBar(100 + valueElement->GetText()->getLocalBounds().width + 15,50, 240, &target->healthPercent);
 		dynamicElements.insert(MyPair("healthBar",progBar2));
 
-		tempText.loadFromFile("attacktextures/background.png");
-		sf::Texture tempText2;
-		tempText2.loadFromFile("attacktextures/default.png");
-		Button* tempButton = new Button(8,5,tempText,User::player->GetActorTexture());
+		Button* tempButton = new Button(8,5,"attacktextures/background.png",User::player->GetActorTexture());
 		tempButton->SetTarget(this);
 		tempButton->SetFunction("none");
 		tempButton->CenterForeground();

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SpritePanel.h"
 #include "User.h"
+#include "GamePanel.h"
 
 int GameSprite::tagCount = 0;
 bool GameSprite::displayDebug = false;
@@ -20,6 +21,9 @@ void GameSprite::Update(sf::RenderTexture& panel){
 		panel.draw(GetRoomTile()->getVisual());
 		DrawBoundries(panel);
 	}
+};
+void GameSprite::Update(GamePanel* panel){
+
 };
 void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	if(displayDebug){

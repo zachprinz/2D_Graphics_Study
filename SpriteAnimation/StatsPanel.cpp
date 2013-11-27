@@ -170,12 +170,9 @@ void StatsPanel::SetUpLevelMap(){
 		Label* subLevelBottomXP = new Label(8,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"0");
 		Label* subLevelCurrentXP = new Label(140,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"50");
 		Label* subLevelTopXP = new Label(345,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"100");
-		sf::Texture tempText2;
-		tempText2.loadFromFile("buttonImages/plusButton.png");
-		Button* subLevelPlusButton = new Button(330,(x*displacement2) + displacement + 45,tempText2,"blank.png");
+		Button* subLevelPlusButton = new Button(330,(x*displacement2) + displacement + 45,"buttonImages/plusButton.png","blank.png");
 		subLevelPlusButton->SetTarget(this);
 		subLevelPlusButton->SetFunction("plusButton" + std::to_string(x));
-		tempText2.loadFromFile("buttonImages/minusButton.png");
 		levelMap.insert(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));
 		levelMap.insert(MyPair("subLevelPlusButton" + std::to_string(x),subLevelPlusButton));
 		levelMap.insert(MyPair("subLevelTitle" + std::to_string(x),subLevelTitle));

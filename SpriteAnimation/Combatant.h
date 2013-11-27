@@ -42,6 +42,8 @@ public:
 	void AddHealth(int);
 protected:
 	virtual void Update(sf::RenderTexture&);
+	virtual void Update(GamePanel*);
+	void UpdateEntity();
 	ProgressBar healthBar;
 	int health;
 	int endurance;

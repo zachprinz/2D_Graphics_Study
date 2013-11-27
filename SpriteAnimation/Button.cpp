@@ -1,9 +1,11 @@
 #include "Button.h"
 #include "GamePanel.h"
 #include <iostream>
+#include "GamePanel.h"
 
-sf::Texture* Button::circleButtonBackground = new sf::Texture();
-sf::Texture* Button::x = new sf::Texture();
+
+std::string Button::circleButtonBackground = "circlebuttonbackground.png";
+std::string Button::x = "x.png";
 
 Button::Button(int x,int y,sf::Texture texture,sf::Texture fgTexture) : GuiElement(x,y,texture,fgTexture){
 	target = new GamePanel();
@@ -32,12 +34,22 @@ void Button::Update(sf::RenderTexture& panel){
 	panel.draw(sprite);
 	panel.draw(*foreground->GetSprite());
 };
+void Button::Update(GamePanel* panel){
+	if(foreground->GetIsMoving())
+		foreground->UpdateMove();
+	if(foreground->GetIsExpanding()){
+		foreground->UpdateExpand();
+		CenterForeground();
+	}
+	Draw(panel);
+	foreground->Draw(panel);
+};
 void Button::OnClick(){
 	target->OnButtonEvent(function);
 };
 void Button::OnStart(){
-	circleButtonBackground->loadFromFile("circlebuttonbackground.png");
-	x->loadFromFile("x.png");
+	circleButtonBackground = "circlebuttonbackground.png";
+	x = "x.png";
 };
 void Button::SetScale(float x,float y){
 	foreground->GetSprite()->setScale(x,y);

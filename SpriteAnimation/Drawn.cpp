@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Drawn.h"
+#include "GamePanel.h"
 #include <MapLoader.h>
 
 sf::Texture Drawn::gameTexture;
@@ -22,12 +23,38 @@ Drawn::Drawn(std::string textureExtension){
 Drawn::Drawn(){
 
 };
+void Drawn::Draw(GamePanel* panel){
+	sf::Vertex* quad = panel->GetVertexSlot();
+	quad[0].position = sprite.getPosition();
+	quad[3].position = sprite.getPosition() + sf::Vector2f(0,sprite.getGlobalBounds().height);
+	quad[1].position = sprite.getPosition() + sf::Vector2f(sprite.getGlobalBounds().width,0);
+	quad[2].position = sf::Vector2f(sprite.getPosition().x + sprite.getGlobalBounds().width,sprite.getPosition().y + sprite.getGlobalBounds().height);
+	sf::IntRect texRec = sprite.getTextureRect();
+	quad[0].texCoords = sf::Vector2f(texRec.left,texRec.top);
+	quad[1].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
+	quad[3].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
+	quad[2].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
+};
 bool Drawn::GetVisible(){
 	return isVisible;
 };
 
 sf::Sprite* Drawn::GetSprite(){
 	return &sprite;
+};
+sf::Texture Drawn::GetSingleTexture(){
+	sf::RenderTexture tempRendText;
+	std::cout << "Creating a texture to return" << std::endl;
+	tempRendText.create(sprite.getTextureRect().width,sprite.getTextureRect().height);
+	std::cout << "Creating a texture to return2" << std::endl;
+	tempRendText.clear(sf::Color(0,0,0,0));
+	sf::Vector2f tempPos = sprite.getPosition();
+	sprite.setPosition(0,0);
+	tempRendText.draw(sprite);
+	sprite.setPosition(tempPos);
+	tempRendText.display();
+	sf::Texture tempText = tempRendText.getTexture();
+	return tempText;
 };
 void Drawn::OnHover(bool hovered){
 
@@ -38,6 +65,9 @@ sf::Vector2f Drawn::GetPositionOnPanel(){
 
 void Drawn::Update(sf::RenderTexture& window){
 		window.draw(sprite);
+};
+void Drawn::Update(GamePanel* panel){
+	Draw(panel);
 };
 
 void Drawn::MoveOnGrid(int x,int y){

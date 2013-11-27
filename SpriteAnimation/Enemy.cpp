@@ -6,6 +6,7 @@
 #include <iterator>
 #include <vector>
 #include "Attack.h"
+#include "GamePanel.h"
 
 Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,name,textureName){
 	LoadFromXML();
@@ -22,6 +23,14 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	SpritePanel::instance->AddHull(actorHull);
 };
 void Enemy::Update(sf::RenderTexture& window){
+	UpdateEntity();
+	Combatant::Update(window);
+};
+void Enemy::Update(GamePanel* panel){
+	UpdateEntity();
+	Combatant::Update(panel);
+};
+void Enemy::UpdateEntity(){
 	if(currentDirection == None){
 		if(currentAction != NoAction)
 				LaunchAction(currentAction);
@@ -54,7 +63,6 @@ void Enemy::Update(sf::RenderTexture& window){
 			}
 		}
 	}
-	Combatant::Update(window);
 };
 void Enemy::AddPatrolPoint(sf::Vector2i a){
 	patrolPoints.push_back(a);

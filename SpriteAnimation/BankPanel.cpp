@@ -63,11 +63,10 @@ void BankPanel::SetUp(){
 		{
 			BankContainer* element = new BankContainer((y*80) + 8,x*80,"containerbackground.png");
 			dynamicElements.insert(MyPair(std::to_string((x*6) + y), element));
-			//std::cout << std::to_string((x*6) + y) << std::endl;
 		}
 	}
 	std::cout << " Done" << std::endl;
-	Button* exitButton = new Button(467,15,*Button::circleButtonBackground,*Button::x);
+	Button* exitButton = new Button(467,15,Button::circleButtonBackground,Button::x);
 	Label* bankLabel = new Label(164,33,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"Bank");
 	bankLabel->CenterText();
 	exitButton->SetScale(0.5,0.5);
