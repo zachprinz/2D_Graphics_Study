@@ -23,7 +23,14 @@ void GameSprite::Update(sf::RenderTexture& panel){
 	}
 };
 void GameSprite::Update(GamePanel* panel){
+	//if(displayDebug){
 
+		//panel->panel.draw(GetRoomTile()->getVisual());
+		//DrawBoundries(panel);
+	//}
+};
+sf::Vector2f GameSprite::GetPositionOnPanel(){
+	return sprite.getPosition() - SpritePanel::instance->GetRenderPanel().getView().getCenter() + sf::Vector2f(SpritePanel::instance->GetRenderPanel().getView().getSize().x / 2, SpritePanel::instance->GetRenderPanel().getView().getSize().y / 2.0);
 };
 void GameSprite::DrawBoundries(sf::RenderTexture& panel){
 	if(displayDebug){

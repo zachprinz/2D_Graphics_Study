@@ -11,6 +11,7 @@ public:
 	Drawn(std::string);
 	Drawn(sf::Texture);
 	Drawn();
+	Drawn(bool);
 	bool GetVisible();
 	sf::Sprite* GetSprite();
 	sf::Vector2f GetPositionOnPanel();
@@ -36,7 +37,19 @@ public:
 	void UpdateExpand();
 	bool GetIsExpanding();
 	void Draw(GamePanel*);
+	void DrawAdditional(GamePanel*);
+	static sf::Vertex* GetVertexPointer();
+	static void DrawGame(sf::RenderWindow&);
+	static void SetUp();
+	static int quadCount;
+	void ClearAdditionalQuads();
+	void Destroy();
 protected:
+	static sf::VertexArray gameArray;
+	static sf::RenderStates gameRenderStates;
+	sf::Vertex* quad;
+	int additionalQuadCount;
+	std::vector<sf::Vertex*> additionalQuads;
 	sf::Clock movementClock;
 	sf::Vector2i targetPosition;
 	sf::Vector2i homePosition;

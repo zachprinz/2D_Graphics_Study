@@ -12,11 +12,6 @@ StatsPanel::StatsPanel(int x,int y) : GamePanel(x,y,"Stats") {
 	SetCombatant(User::player);
 	instance = this;
 };
-void StatsPanel::UpdateElements(){
-	GamePanel::UpdateElements();
-	//mainLevelPercent = std::stof(User::player->GetUserData(currentName,
-};
-
 void StatsPanel::SetItem(Item* item){
 	doUpdate = true;
 	((Label*)(itemMap["StrengthValue"]))->SetText(std::to_string(item->itemLevels.strength));

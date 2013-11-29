@@ -2,9 +2,6 @@
 
 std::vector<std::string> AmbienceObject::tags;
 
-AmbienceObject::AmbienceObject(int x,int y,std::string physical,std::string nonphysical){
-
-};
 AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj) : GameSprite(GetPhysicalPosition(x,y,obj).x,GetPhysicalPosition(x,y,obj).y,"ambienceObjects/" +obj->GetPropertyString("physical") + ".png"){
 	std::cout << "Creating new Ambience Object| Physical: " << obj->GetPropertyString("physical") << " | Nonphysical: " << obj->GetPropertyString("nonphysical") << std::endl;
 	nonphysical = new GameSprite(x,y,"ambienceObjects/" + obj->GetPropertyString("nonphysical") + ".png");
@@ -28,6 +25,16 @@ void AmbienceObject::Update(sf::RenderTexture& window){
 void AmbienceObject::Update2(sf::RenderTexture& window){
 	window.draw(*(nonphysical->GetSprite()));
 	((GameSprite*)nonphysical)->Update(window);
+};
+void AmbienceObject::Update(GamePanel* panel){
+	ClearAdditionalQuads();
+	DrawAdditional(panel);
+	GameSprite::Update(panel);
+};
+void AmbienceObject::Update2(GamePanel* panel){
+	nonphysical->ClearAdditionalQuads();
+	nonphysical->DrawAdditional(panel);
+	((GameSprite*)nonphysical)->Update(panel);
 };
 void AmbienceObject::Interact(){
 

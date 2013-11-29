@@ -9,6 +9,12 @@ void Bank::Update(sf::RenderTexture& window){
 	window.draw(sprite);
 	GameSprite::Update(window);
 };
+void Bank::Update(GamePanel* panel){
+	ClearAdditionalQuads();
+	UpdateRoomTile();
+	DrawAdditional(panel);
+	GameSprite::Update(panel);
+};
 void Bank::Interact(){
 	Open();
 };

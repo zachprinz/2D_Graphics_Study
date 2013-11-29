@@ -10,7 +10,7 @@ GuiElement::GuiElement(int x,int y,sf::Texture text) : RClickable(text){
 GuiElement::GuiElement(int x,int y,std::string textureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
 	SetLocation(x,y);
-	foreground = new Drawn();
+	foreground = new Drawn(true);
 	foreground->SetLocation(x,y);
 };
 GuiElement::GuiElement(int x,int y,sf::Texture text,sf::Texture fgText) : RClickable(text){

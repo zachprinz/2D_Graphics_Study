@@ -12,11 +12,12 @@ class AmbienceObject :  public GameSprite
 {
 
 public:
-	AmbienceObject(int,int,std::string,std::string);
 	AmbienceObject(int,int,tmx::MapObject*);
 	AmbienceObject(int,int,tmx::MapObject*,bool);
 	void Update(sf::RenderTexture&);
 	void Update2(sf::RenderTexture&);
+	void Update(GamePanel*);
+	void Update2(GamePanel*);
 	void Interact();
 	void OnClick();
 	void SetNonphysical(std::string);

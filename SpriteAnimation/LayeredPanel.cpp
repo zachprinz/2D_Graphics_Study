@@ -18,32 +18,6 @@ LayeredPanel::LayeredPanel(){
 void LayeredPanel::AddElement(std::string,Drawn*){
 
 };
-void LayeredPanel::Update(sf::RenderWindow& window){
-	vertexArray.clear();
-	vertexArray.setPrimitiveType(sf::Quads);
-	vertexArray.resize(400);
-	quadCount = -1;
-	if(isPanelOpen){
-		if(this->CheckUpdate() == true || doUpdate){
-			panel.clear(sf::Color(0,0,0,0));
-			backgroundPanel.clear(sf::Color(0,0,0,0));
-			UpdateElements();
-			panel.display();
-			backgroundPanel.display();
-			DrawVertexArray();
-			DrawToWindow(window);
-			panels[currentPanel]->Update(window);
-		}
-		else{
-			DrawVertexArray();
-			DrawToWindow(window);
-		}
-	}
-};
-void LayeredPanel::UpdateElements(){
-	GamePanel::UpdateElements();
-	panels[currentPanel]->UpdateElements();
-};
 void LayeredPanel::SetUp(){
 	largestSubpanelSize = GetLayeredPanelSize(panels);
 	Drawn panelButton;
@@ -102,5 +76,8 @@ void LayeredPanel::SetPosition(int x, int y){
 	for(int z = 0; z < panels.size(); z++){
 		panels[z]->SetPosition(x,y);
 	};
+};
+void LayeredPanel::UpdateCurrentPanel(sf::RenderWindow& panel){
+	panels[currentPanel]->Update(panel);
 };
 

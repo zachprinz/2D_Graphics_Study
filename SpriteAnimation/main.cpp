@@ -23,9 +23,7 @@
 
 int main()
 {
-	Drawn::gameTexture.loadFromFile("Atlas/GameAtlas.png");
-	Drawn::gameTexture.setSmooth(true);
-	Drawn::gameTexture.setRepeated(false);
+	Drawn::SetUp();
     sf::Clock clock;
     float lastTime = 0;
 	sf::Text fps;
@@ -202,7 +200,9 @@ int main()
 		textPanel.Update(window);
 		hudPanel2.Update(window);
 		User::player->GetLayered()->Update(window);
+		User::player->GetLayered()->UpdateCurrentPanel(window);
 		User::player->GetBank()->Update(window);
+		Drawn::DrawGame(window);
 		window.display();
     }
     return 0;

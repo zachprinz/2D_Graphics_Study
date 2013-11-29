@@ -158,14 +158,14 @@ void SpritePanel::UpdateElements(){
 	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
-	User::player->Update(panel);
+	User::player->Update((GamePanel*)this);
 	SetHighObjectsVisible();
 	ml->Draw(panel);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
 	}
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
-		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(panel);
+		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this);
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();

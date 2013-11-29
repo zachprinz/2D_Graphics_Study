@@ -30,6 +30,7 @@ public:
 	void AddBoundryPolygon(sf::ConvexShape);
 	void ClearBoundries();
 	void DrawBoundries(sf::RenderTexture&);
+	sf::Vector2f GetPositionOnPanel();
 protected:
 	std::vector<sf::ConvexShape> boundries;
 	RoomTile* GetRoomTile();

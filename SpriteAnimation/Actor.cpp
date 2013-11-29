@@ -131,10 +131,10 @@ void Actor::Update(sf::RenderTexture& panel){
 }
 void Actor::Update(GamePanel* panel){
 	UpdateEntity();
-		if(isVisible){
+	if(isVisible){
 		UpdateRoomTile();
 		UpdateAnimation();
-		//Draw(&panel);
+		DrawActor(panel);
 		for(int x = 0; x < boundries.size(); x++){
 				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
 				boundries[x].setScale(0.85f,0.65f);
@@ -198,16 +198,16 @@ void Actor::DrawActor(sf::RenderTexture* window){
 };
 void Actor::DrawActor(GamePanel* panel){
 	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
+	ClearAdditionalQuads();
 	for(int x = 0; x < animationSheets.size(); x++){
 		if(x != 2){
 			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
-			Draw(panel);
+			DrawAdditional(panel);
 		}
 	}
 	if(this == User::player){
 		if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
 			std::cout << "Getting Sword Animation" << std::endl;
-
 			User::player->GetUserWeaponImage(panel);
 		}
 	}
@@ -371,17 +371,6 @@ void Actor::UpdateBoundries(){
 		GameSprite::AddBoundryPolygon(poly);
 	}
 }
-/*void Actor::UpdateCurrentActorTexture(){ // Try just moving around 6 sprites, might be more adventagious than this.
-	animationPallate.clear(sf::Color(0,0,0,0));
-	for(int x = 0; x < animationSheets.size(); x++){
-		animationSprite.setTextureRect(animationSheets[x]);
-		animationPallate.draw(animationSprite);
-	}
-	animationPallate.display();
-	texture = animationPallate.getTexture();
-	texture.setSmooth(true);
-	sprite.setTexture(texture);
-};*/
 void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
 	if(currentAnimation->name != anim->name || currentAnimationDir != dir){
 		currentAnimation = anim;
@@ -393,19 +382,6 @@ void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
 		currentAnimationPos.y = currentAnimation->GetY(dir);
 	}
 }
-/*
-void Actor::Play(Animation*, Animation::AnimDir dir){
-
-};
-void Actor::Loop(Animation* anim, Animation::AnimDir dir){
-	currentAnimation = anim;
-	currentAnimationPos.x = 0;
-	currentAnimationPos.y = currentAnimation->GetY(dir);
-};
-void Actor::StopAnimation(){
-	playAnimation = false;
-};
-*/
 sf::Texture Actor::GetActorTexture(){
 	sf::RenderTexture tempRendText;
 	tempRendText.create(64,64);

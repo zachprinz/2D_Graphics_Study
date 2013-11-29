@@ -100,6 +100,7 @@ void User::GetUserWeaponImage(GamePanel* panel){
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
 		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
 		Draw(panel);
+		std::cout << "Drawing User Image to the Vertex Array." << std::endl;
 		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 	}

@@ -19,6 +19,14 @@ void GroundItem::Update(sf::RenderTexture& window){
 			GameSprite::Update(window);
 		}
 };
+void GroundItem::Update(GamePanel* panel){
+	ClearAdditionalQuads();
+	if(isVisible){
+		UpdateRoomTile();
+		DrawAdditional(panel);
+		GameSprite::Update(panel);
+	}
+};
 void GroundItem::PickUp(){
 	User::player->GetInventory()->Add(item);
 	GetRoomTile()->TryRemoveOcupant(GetTag());

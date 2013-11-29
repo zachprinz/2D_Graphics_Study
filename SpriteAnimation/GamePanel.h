@@ -42,12 +42,7 @@ public:
 	void SetUp();
 	std::string GetName();
 	sf::Vector2i GetSize();
-	sf::VertexArray vertexArray;
-	sf::RenderStates vertexState;
 	sf::Vector2<Drawn*> nonVertexElements;
-	sf::Vertex* GetVertexSlot();
-	void DrawVertexArray();
-	int quadCount;
 protected:
 	bool updateElements;
 	bool createPanelLabel;

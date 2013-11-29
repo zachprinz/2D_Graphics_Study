@@ -18,6 +18,9 @@ LightObject::LightObject(int x,int y,tmx::MapObject* obj) : AmbienceObject(x,y,o
 void LightObject::Update(sf::RenderTexture& panel){
 	AmbienceObject::Update(panel);
 };
+void LightObject::Update(GamePanel* panel){
+	AmbienceObject::Update(panel);
+};
 Light* LightObject::getLight(){
 	return myLight;
 }

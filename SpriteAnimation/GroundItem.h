@@ -12,6 +12,7 @@ public:
 	GroundItem(int,int,Item myItem);
 	Item GetItem();
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void PickUp();
 	void Interact();
 	void SetUpBoundries();

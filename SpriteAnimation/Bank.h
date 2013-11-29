@@ -11,6 +11,7 @@ class Bank : public GameSprite
 public:
 	Bank(int x, int y, std::string);
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void Interact();
 	void Start();
 	void Open();
