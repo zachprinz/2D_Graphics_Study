@@ -1,11 +1,12 @@
 #include <SFML/Graphics.hpp>
-#include "Drawn.h"
-#include "GamePanel.h"
+#include "Drawn.h">
+#include "GamePanel.h">
 #include <MapLoader.h>
 
 sf::Texture Drawn::gameTexture;
 sf::VertexArray Drawn::gameArray;
 sf::RenderStates Drawn::gameRenderStates;
+boost::container::flat_set<Drawn*> Drawn::vertexPointers;
 int Drawn::quadCount = -1;
 
 Drawn::Drawn(sf::Texture text){
@@ -20,6 +21,8 @@ Drawn::Drawn(sf::Texture text){
 		quad[x].position = sf::Vector2f(0,0);
 		quad[x].texCoords = sf::Vector2f(0,0);
 	}
+	z = 0;
+	vertexPointers.insert(this);
 };
 Drawn::Drawn(std::string textureExtension){
 	additionalQuadCount = 0;
@@ -35,6 +38,8 @@ Drawn::Drawn(std::string textureExtension){
 		quad[x].position = sf::Vector2f(0,0);
 		quad[x].texCoords = sf::Vector2f(0,0);
 	}
+	z = 0;
+	vertexPointers.insert(this);
 };
 Drawn::Drawn(){
 
@@ -53,6 +58,8 @@ Drawn::Drawn(bool test){
 		quad[x].position = sf::Vector2f(0,0);
 		quad[x].texCoords = sf::Vector2f(0,0);
 	}
+	z = 0;
+	vertexPointers.insert(this);
 };
 void Drawn::Draw(GamePanel* panel){
 	if(sprite.getPosition() != quad[0].position){
@@ -120,6 +127,11 @@ bool Drawn::GetVisible(){
 
 sf::Sprite* Drawn::GetSprite(){
 	return &sprite;
+};
+void Drawn::SetZ(int z){
+	vertexPointers.erase(this);
+	this->z = z;
+	vertexPointers.insert(this);
 };
 sf::Texture Drawn::GetSingleTexture(){
 	sf::RenderTexture tempRendText;

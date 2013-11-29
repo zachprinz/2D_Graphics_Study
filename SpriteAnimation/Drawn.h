@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <boost\container\flat_set.hpp>
 
 class GamePanel;
 class Drawn
@@ -42,8 +43,12 @@ public:
 	static void DrawGame(sf::RenderWindow&);
 	static void SetUp();
 	static int quadCount;
+	int z;
+	bool operator<(Drawn const& drawn) const{return(z<drawn.z);};
+	static boost::container::flat_set<Drawn*> vertexPointers;
 	void ClearAdditionalQuads();
 	void Destroy();
+	void SetZ(int);
 protected:
 	static sf::VertexArray gameArray;
 	static sf::RenderStates gameRenderStates;
@@ -69,7 +74,6 @@ protected:
 	sf::Vector2f expandVelocity;
 	sf::Vector2f expandDirection;
 	bool isExpanding;
-	
 	bool isMoving;
 	void MoveOnGrid(int,int);
 	bool isVisible;
