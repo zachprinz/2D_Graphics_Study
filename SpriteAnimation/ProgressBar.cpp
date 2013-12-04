@@ -78,6 +78,22 @@ void ProgressBar::Update(sf::RenderTexture& panel){
 		panel.draw(*foreground->GetSprite());
 	}
 };
+void ProgressBar::Update(GamePanel* panel){
+	if(!stationary){
+		if(percent > 0)
+			foregroundRect.setScale(*percent,1.f);
+		SetBarPosition(sf::Vector2f(relative->getPosition().x + 4,relative->getPosition().y - foregroundRect.getSize().y));
+		Drawn::DrawOther(&background,panel);
+		Drawn::DrawOther(&foregroundRect,panel);
+	}
+	else{
+		if(percent > 0){
+			foreground->GetSprite()->setTextureRect(sf::IntRect(0,0,foreground->GetSprite()->getTexture()->getSize().x * (*percent),25));
+		}
+		Drawn::DrawOther(&sprite,panel);
+		Drawn::DrawOther(foreground->GetSprite(),panel);
+	}
+};
 float ProgressBar::GetPercent(){
 	return *percent;
 };

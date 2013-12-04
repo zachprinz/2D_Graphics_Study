@@ -2,12 +2,15 @@
 #include "Drawn.h">
 #include "GamePanel.h">
 #include <MapLoader.h>
+#include "ProgressBar.h"
 
 sf::Texture Drawn::gameTexture;
 sf::VertexArray Drawn::gameArray;
 sf::RenderStates Drawn::gameRenderStates;
 boost::container::flat_set<Drawn*> Drawn::vertexPointers;
 int Drawn::quadCount = -1;
+sf::RenderTexture Drawn::otherGraphicsPanel;
+sf::Sprite Drawn::otherGraphicsSprite;
 
 Drawn::Drawn(sf::Texture text){
 	additionalQuadCount = 0;
@@ -112,6 +115,9 @@ sf::Vertex* Drawn::GetVertexPointer(){
 };
 void Drawn::DrawGame(sf::RenderWindow& window){
 	window.draw(gameArray,gameRenderStates);
+	otherGraphicsPanel.display();
+	window.draw(otherGraphicsSprite);
+	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 };
 void Drawn::SetUp(){
 	gameArray.setPrimitiveType(sf::Quads);
@@ -120,6 +126,10 @@ void Drawn::SetUp(){
 	gameTexture.setSmooth(true);
 	gameTexture.setRepeated(false);
 	gameRenderStates.texture = &gameTexture;
+	otherGraphicsPanel.create(1920,1080);
+	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
+	otherGraphicsPanel.display();
+	otherGraphicsSprite.setTexture(otherGraphicsPanel.getTexture());
 };
 bool Drawn::GetVisible(){
 	return isVisible;
@@ -156,6 +166,24 @@ sf::Vector2f Drawn::GetPositionOnPanel(){
 
 void Drawn::Update(sf::RenderTexture& window){
 		window.draw(sprite);
+};
+void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
+	sf::Vector2f tempPos = label->getPosition();
+	label->setPosition(tempPos + panel->GetPosition());
+	otherGraphicsPanel.draw(*label);
+	label->setPosition(tempPos);
+};
+void Drawn::DrawOther(sf::Sprite* sprite,GamePanel* panel){
+	sf::Vector2f tempPos = sprite->getPosition();
+	sprite->setPosition(tempPos + panel->GetPosition());
+	otherGraphicsPanel.draw(*sprite);
+	sprite->setPosition(tempPos);
+};
+void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
+	sf::Vector2f tempPos = sprite->getPosition();
+	sprite->setPosition(tempPos + panel->GetPosition());
+	otherGraphicsPanel.draw(*sprite);
+	sprite->setPosition(tempPos);
 };
 void Drawn::Update(GamePanel* panel){
 	Draw(panel);
@@ -295,7 +323,6 @@ void Drawn::ExpandBy(float expandRatio,sf::Time sec){
 	}
 };
 void Drawn::ReturnExpand(){
-	//amountExpanded = 0;
 	homeScale = sf::Vector2f(sprite.getScale().x,sprite.getScale().y);
 	targetScale = resetScale;
 	expandAmount.x = targetScale.x - homeScale.x;

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <boost\container\flat_set.hpp>
 
+class ProgressBar;
 class GamePanel;
 class Drawn
 {
@@ -43,6 +44,11 @@ public:
 	static void DrawGame(sf::RenderWindow&);
 	static void SetUp();
 	static int quadCount;
+	static sf::RenderTexture otherGraphicsPanel;
+	static sf::Sprite otherGraphicsSprite;
+	static void DrawOther(sf::Text*,GamePanel*);
+	static void DrawOther(sf::Sprite*,GamePanel*);
+	static void DrawOther(sf::RectangleShape*,GamePanel*);
 	int z;
 	bool operator<(Drawn const& drawn) const{return(z<drawn.z);};
 	static boost::container::flat_set<Drawn*> vertexPointers;

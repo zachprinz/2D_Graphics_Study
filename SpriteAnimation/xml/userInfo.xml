@@ -20,8 +20,8 @@
 				<Unlock name="Yew" unlock="useYewWeapons" value="1" level="15" />
 			</SubLevel>
 		</Level>
-		<Level name="endurance" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
-			<SubLevel name="run" description="Sprint for Longer" nextUnlock="run3" level="3" totalXP="100" xpToNextLevel="28" xpPastCurrentLevel="38" percent="78" tempXP="0" spendXP="100">
+		<Level name="endurance" level="3" totalXP="111" xpToNextLevel="17" xpPastCurrentLevel="49" percent="86" tempXP="0" spendXP="89">
+			<SubLevel name="run" description="Sprint for Longer" nextUnlock="run3" level="3" totalXP="111" xpToNextLevel="17" xpPastCurrentLevel="49" percent="86" tempXP="0" spendXP="100">
 				<Unlock name="run1" unlock="runEndurance" value="5" level="0" />
 				<Unlock name="run2" unlock="runEndurance" value="5" level="3" />
 				<Unlock name="run3" unlock="runEndurance" value="5" level="6" />

@@ -14,6 +14,7 @@ public:
 	ProgressBar(int x, int y, int length, float* percent);
 	ProgressBar();
 	void Update(sf::RenderTexture&);
+	void Update(GamePanel*);
 	void SetPercent(float*);
 	static void SetUp();
 	static sf::Texture CreateBackground(int length);

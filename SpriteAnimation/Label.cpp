@@ -48,7 +48,7 @@ void Label::Update(sf::RenderTexture& panel){
 };
 void Label::Update(GamePanel* panel){
 	Draw(panel);
-	//panel->GetRenderPanel().draw(text);
+	Drawn::DrawOther(&text,panel);
 };
 void Label::OnStart(){
 	sf::Font fontA;
