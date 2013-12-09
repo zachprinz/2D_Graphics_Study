@@ -24,6 +24,7 @@ public:
 	void SetLocation(float,float);
 	virtual void OnClick();
 	virtual void OnHover();
+	virtual void DrawSprite(GamePanel*);
 	static bool displayDebug;
 	virtual void Update(sf::RenderTexture&);
 	virtual void Update(GamePanel*);

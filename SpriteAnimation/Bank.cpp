@@ -6,13 +6,10 @@ Bank::Bank(int x, int y, std::string textureName) : GameSprite(x,y,textureName){
 };
 void Bank::Update(sf::RenderTexture& window){
 	UpdateRoomTile();
-	window.draw(sprite);
 	GameSprite::Update(window);
 };
 void Bank::Update(GamePanel* panel){
-	ClearAdditionalQuads();
 	UpdateRoomTile();
-	DrawAdditional(panel);
 	GameSprite::Update(panel);
 };
 void Bank::Interact(){

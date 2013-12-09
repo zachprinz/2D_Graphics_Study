@@ -19,7 +19,6 @@ AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj,bool isLightObjec
 	UpdateRoomTile();	
 };
 void AmbienceObject::Update(sf::RenderTexture& window){
-	window.draw(sprite);
 	GameSprite::Update(window);
 };
 void AmbienceObject::Update2(sf::RenderTexture& window){
@@ -27,13 +26,9 @@ void AmbienceObject::Update2(sf::RenderTexture& window){
 	((GameSprite*)nonphysical)->Update(window);
 };
 void AmbienceObject::Update(GamePanel* panel){
-	ClearAdditionalQuads();
-	DrawAdditional(panel);
 	GameSprite::Update(panel);
 };
 void AmbienceObject::Update2(GamePanel* panel){
-	nonphysical->ClearAdditionalQuads();
-	nonphysical->DrawAdditional(panel);
 	((GameSprite*)nonphysical)->Update(panel);
 };
 void AmbienceObject::Interact(){

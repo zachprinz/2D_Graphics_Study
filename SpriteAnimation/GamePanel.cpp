@@ -136,7 +136,7 @@ sf::Vector2f GamePanel::GetPosition(){
 	return panelSprite.getPosition();
 }
 void GamePanel::SetUp(){
-	SlicedSprite* background = new SlicedSprite(0,0,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
+	SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
 	if(createPanelLabel)
 		background->SetPosition(sf::Vector2f(0,30));
 	backgroundElements.insert(MyPair("Background", background));

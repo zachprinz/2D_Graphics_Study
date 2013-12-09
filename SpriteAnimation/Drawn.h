@@ -41,15 +41,14 @@ public:
 	bool GetIsExpanding();
 	void Draw(GamePanel*);
 	void DrawAdditional(GamePanel*);
-	static sf::Vertex* GetVertexPointer();
 	static void DrawGame(sf::RenderWindow&);
 	static void SetUp();
-	static int quadCount;
 	static sf::RenderTexture otherGraphicsPanel;
 	static sf::Sprite otherGraphicsSprite;
 	static void DrawOther(sf::Text*,GamePanel*);
 	static void DrawOther(sf::Sprite*,GamePanel*);
 	static void DrawOther(sf::RectangleShape*,GamePanel*);
+	static int quadCount;
 	int z;
 	bool operator<(Drawn const& drawn) const{return(z<drawn.z);};
 	static boost::container::flat_set<Drawn*> vertexPointers;
@@ -62,14 +61,13 @@ public:
 	virtual void SetPosition(sf::Vector2f);
 	sf::Vector2f GetPosition();
 protected:
+	sf::Vector2f testPosition;
+	sf::VertexArray heldVerteces;
 	sf::Vector2f myScale;
 	bool ViewContains(sf::View, sf::IntRect);
 	AABB screenBounds;
 	static sf::VertexArray gameArray;
 	static sf::RenderStates gameRenderStates;
-	sf::Vertex* quad;
-	int additionalQuadCount;
-	std::vector<sf::Vertex*> additionalQuads;
 	sf::Clock movementClock;
 	sf::Vector2i targetPosition;
 	sf::Vector2i homePosition;

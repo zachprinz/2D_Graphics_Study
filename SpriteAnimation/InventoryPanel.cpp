@@ -66,10 +66,10 @@ void InventoryPanel::SetUp(){
 	std::cout << " Done" << std::endl;
 };
 bool InventoryPanel::CheckUpdate(){
-	if(doUpdate || GamePanel::currentMousePanel == this){
-		doUpdate = false;
+	//if(doUpdate || GamePanel::currentMousePanel == this){
+	//	doUpdate = false;
 		return true;
-	}
-	else
-		return false;
+	//}
+	//else
+	//	return false;
 };

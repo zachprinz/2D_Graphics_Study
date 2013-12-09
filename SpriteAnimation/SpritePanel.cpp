@@ -165,7 +165,7 @@ void SpritePanel::UpdateElements(){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
 	}
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
-		//((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); TODO Very Laggy
+		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();

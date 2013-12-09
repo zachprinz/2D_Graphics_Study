@@ -75,9 +75,9 @@ void EquipedPanel::UpdateStats(){
 
 };
 bool EquipedPanel::CheckUpdate(){
-	if(doUpdate == true || GamePanel::currentMousePanel == this){
-		doUpdate = false;
+	//if(doUpdate == true || GamePanel::currentMousePanel == this){
+	//	doUpdate = false;
 		return true;
-	}
-		return false;
+	//}
+	//	return false;
 };

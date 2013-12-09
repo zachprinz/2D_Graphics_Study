@@ -58,8 +58,8 @@ public:
 	sf::Texture GetActorTexture();
 	void UpdateBoundries();
 	void SetUpAnimation();
-	void DrawActor(sf::RenderTexture*);
-	void DrawActor(GamePanel*);
+	void DrawSprite(sf::RenderTexture*);
+	void DrawSprite(GamePanel*);
 	Hull* actorHull;
 protected:
 	void UpdateEntity();

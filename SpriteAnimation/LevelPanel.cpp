@@ -32,11 +32,11 @@ void LevelPanel::SetUp(){
 	GamePanel::SetUp();
 };
 bool LevelPanel::CheckUpdate(){
-	if(doUpdate == true || GamePanel::currentMousePanel == this){
-		doUpdate = false;
+	//if(doUpdate == true || GamePanel::currentMousePanel == this){
+	//	doUpdate = false;
 		return true;
-	}
-		return false;
+	//}
+	//	return false;
 };
 void LevelPanel::OnButtonEvent(std::string message){
 	std::cout << "Level Button Clicked, about to switch StatsPanel." << std::endl;

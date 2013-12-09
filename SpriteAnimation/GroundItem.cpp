@@ -20,10 +20,8 @@ void GroundItem::Update(sf::RenderTexture& window){
 		}
 };
 void GroundItem::Update(GamePanel* panel){
-	ClearAdditionalQuads();
 	if(isVisible){
 		UpdateRoomTile();
-		DrawAdditional(panel);
 		GameSprite::Update(panel);
 	}
 };

@@ -172,12 +172,12 @@ void StatsPanel::SetUpLevelMap(){
 	}
 };
 bool StatsPanel::CheckUpdate(){
-	if(doUpdate || GamePanel::currentMousePanel == this || dynamicElements == levelMap){
-		doUpdate = false;
+	//if(doUpdate || GamePanel::currentMousePanel == this || dynamicElements == levelMap){
+	//	doUpdate = false;
 		return true;
-	}
-	else
-		return false;
+	//}
+	//else
+	//	return false;
 };
 void StatsPanel::OnButtonEvent(std::string func){
 	if(func == "plusButton0"){
