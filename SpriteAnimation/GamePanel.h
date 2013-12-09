@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <map>
-#include "ARectangle.h"
+#include "AABB.h"
 
 class Drawn;
 class GamePanel
@@ -34,7 +34,7 @@ public:
 	void OnHover(sf::Vector2i);
 	virtual void SetPosition(int,int);
 	bool drawCollision;
-	virtual ARectangle* GetBounds();
+	virtual AABB GetBounds();
 	virtual void RemoveDynamicElement(std::string);
 	ElementList* GetDynamicElements();
 	sf::RenderTexture& GetRenderPanel();
@@ -47,7 +47,7 @@ protected:
 	bool updateElements;
 	bool createPanelLabel;
 	std::string panelName;
-	ARectangle panelBounds;
+	AABB panelBounds;
 	sf::RenderTexture panel;
 	sf::RenderTexture backgroundPanel;
 	sf::Sprite backgroundPanelSprite;

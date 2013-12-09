@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include "Drawn.h">
-#include "GamePanel.h">
+#include "Drawn.h"
+#include "GamePanel.h"
 #include <MapLoader.h>
 #include "ProgressBar.h"
+#include "AABB.h"
+#include "SlicedSprite.h"
 
 sf::Texture Drawn::gameTexture;
 sf::VertexArray Drawn::gameArray;
@@ -12,22 +14,8 @@ int Drawn::quadCount = -1;
 sf::RenderTexture Drawn::otherGraphicsPanel;
 sf::Sprite Drawn::otherGraphicsSprite;
 
-Drawn::Drawn(sf::Texture text){
-	additionalQuadCount = 0;
-	texture = text;
-	sprite.setTexture(texture);
-	isMoving = false;
-	isExpanding = false;
-	resetScale = sf::Vector2f(1,1);
-	quad = GetVertexPointer();
-	for(int x = 0; x < 4; x++){
-		quad[x].position = sf::Vector2f(0,0);
-		quad[x].texCoords = sf::Vector2f(0,0);
-	}
-	z = 0;
-	vertexPointers.insert(this);
-};
 Drawn::Drawn(std::string textureExtension){
+	myScale = sf::Vector2f(1,1);
 	additionalQuadCount = 0;
 	sprite.setTexture(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas(textureExtension));
@@ -44,10 +32,9 @@ Drawn::Drawn(std::string textureExtension){
 	z = 0;
 	vertexPointers.insert(this);
 };
-Drawn::Drawn(){
 
-};
-Drawn::Drawn(bool test){
+Drawn::Drawn(SlicedSprite* sliced){
+	myScale = sf::Vector2f(1,1);
 	additionalQuadCount = 0;
 	sprite.setTexture(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas("blank.png"));
@@ -64,13 +51,19 @@ Drawn::Drawn(bool test){
 	z = 0;
 	vertexPointers.insert(this);
 };
+
+Drawn::Drawn(){
+
+};
+
 void Drawn::Draw(GamePanel* panel){
 	if(sprite.getPosition() != quad[0].position){
 		sf::Vector2f pos = sprite.getPosition();
+		sf::Vector2f spriteScale = sprite.getScale();
 		quad[0].position = pos + panel->GetPosition();
-		quad[3].position = pos + sf::Vector2f(0,sprite.getGlobalBounds().height) + panel->GetPosition();
-		quad[1].position = pos + sf::Vector2f(sprite.getGlobalBounds().width,0) + panel->GetPosition();
-		quad[2].position = sf::Vector2f(pos.x + sprite.getGlobalBounds().width,pos.y + sprite.getGlobalBounds().height) + panel->GetPosition();
+		quad[3].position = pos + sf::Vector2f(0,myScale.y * texturePart.height * spriteScale.y) + panel->GetPosition();
+		quad[1].position = pos + sf::Vector2f(myScale.x * texturePart.width * spriteScale.x,0) + panel->GetPosition();
+		quad[2].position = sf::Vector2f(pos.x + (myScale.x * texturePart.width * spriteScale.x),pos.y + (myScale.y * texturePart.height * spriteScale.y)) + panel->GetPosition();
 	}
 	sf::IntRect texRec = sprite.getTextureRect();
 	if(sf::Vector2f(texRec.left,texRec.top) != quad[0].texCoords){
@@ -81,19 +74,30 @@ void Drawn::Draw(GamePanel* panel){
 	}
 };
 void Drawn::DrawAdditional(GamePanel* panel){
-	sf::Vector2f pos = sprite.getPosition() - (panel->GetRenderPanel().getView().getCenter() - sf::Vector2f(panel->GetRenderPanel().getView().getSize().x / 2, panel->GetRenderPanel().getView().getSize().y / 2.0));
-	if(additionalQuads.size() < (additionalQuadCount + 1))
-		additionalQuads.push_back(GetVertexPointer());
-	additionalQuads[additionalQuadCount][0].position = pos + panel->GetPosition();
-	additionalQuads[additionalQuadCount][3].position = pos + sf::Vector2f(0,sprite.getGlobalBounds().height) + panel->GetPosition();
-	additionalQuads[additionalQuadCount][1].position = pos + sf::Vector2f(sprite.getGlobalBounds().width,0) + panel->GetPosition();
-	additionalQuads[additionalQuadCount][2].position = sf::Vector2f(pos.x + sprite.getGlobalBounds().width,pos.y + sprite.getGlobalBounds().height) + panel->GetPosition();
-	sf::IntRect texRec = sprite.getTextureRect();
-	additionalQuads[additionalQuadCount][0].texCoords = sf::Vector2f(texRec.left,texRec.top);
-	additionalQuads[additionalQuadCount][1].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
-	additionalQuads[additionalQuadCount][3].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
-	additionalQuads[additionalQuadCount][2].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
-	additionalQuadCount++;
+	if(ViewContains(panel->GetRenderPanel().getView(),sf::IntRect(sprite.getPosition().x,sprite.getPosition().y,sprite.getTextureRect().width,sprite.getTextureRect().height))){
+		sf::Vector2f pos = sprite.getPosition() - (panel->GetRenderPanel().getView().getCenter() - sf::Vector2f(panel->GetRenderPanel().getView().getSize().x / 2, panel->GetRenderPanel().getView().getSize().y / 2.0));
+		if(additionalQuads.size() < (additionalQuadCount + 1))
+			additionalQuads.push_back(GetVertexPointer());
+		additionalQuads[additionalQuadCount][0].position = pos + panel->GetPosition();
+		additionalQuads[additionalQuadCount][3].position = pos + sf::Vector2f(0,myScale.y * sprite.getGlobalBounds().height) + panel->GetPosition();
+		additionalQuads[additionalQuadCount][1].position = pos + sf::Vector2f(myScale.x * sprite.getGlobalBounds().width,0) + panel->GetPosition();
+		additionalQuads[additionalQuadCount][2].position = sf::Vector2f(pos.x + (myScale.x * sprite.getGlobalBounds().width),pos.y + (myScale.y * sprite.getGlobalBounds().height)) + panel->GetPosition();
+		sf::IntRect texRec = sprite.getTextureRect();
+		additionalQuads[additionalQuadCount][0].texCoords = sf::Vector2f(texRec.left,texRec.top);
+		additionalQuads[additionalQuadCount][1].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
+		additionalQuads[additionalQuadCount][3].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
+		additionalQuads[additionalQuadCount][2].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
+		additionalQuadCount++;
+	}
+	else{
+		if(additionalQuads.size() < (additionalQuadCount + 1))
+			additionalQuads.push_back(GetVertexPointer());
+		additionalQuads[additionalQuadCount][0].texCoords = sf::Vector2f(0,0);
+		additionalQuads[additionalQuadCount][1].texCoords = sf::Vector2f(0,0);
+		additionalQuads[additionalQuadCount][3].texCoords = sf::Vector2f(0,0);
+		additionalQuads[additionalQuadCount][2].texCoords = sf::Vector2f(0,0);
+		additionalQuadCount++;
+	}
 };
 void Drawn::ClearAdditionalQuads(){
 	for(int x = 0; x < additionalQuads.size(); x++){
@@ -108,9 +112,9 @@ void Drawn::Destroy(){
 };
 sf::Vertex* Drawn::GetVertexPointer(){
 	quadCount++;
-	if(quadCount >= (gameArray.getVertexCount() / 4)){
-		gameArray.resize(gameArray.getVertexCount() + 40);
-	}
+	//if(quadCount >= (gameArray.getVertexCount() / 4)){
+	//	gameArray.resize(gameArray.getVertexCount() + 40);
+	//}
 	return &gameArray[quadCount * 4];
 };
 void Drawn::DrawGame(sf::RenderWindow& window){
@@ -121,7 +125,7 @@ void Drawn::DrawGame(sf::RenderWindow& window){
 };
 void Drawn::SetUp(){
 	gameArray.setPrimitiveType(sf::Quads);
-	gameArray.resize(3000);
+	gameArray.resize(3500);
 	gameTexture.loadFromFile("Atlas/GameAtlas.png");
 	gameTexture.setSmooth(true);
 	gameTexture.setRepeated(false);
@@ -153,6 +157,19 @@ sf::Texture Drawn::GetSingleTexture(){
 	sprite.setPosition(0,0);
 	tempRendText.draw(sprite);
 	sprite.setPosition(tempPos);
+	tempRendText.display();
+	sf::Texture tempText = tempRendText.getTexture();
+	return tempText;
+};
+sf::Texture Drawn::GetSingleTexture(std::string name){
+	sf::RenderTexture tempRendText;
+	sf::IntRect tempTextRect = GetTextureFromAtlas(name);
+	tempRendText.create(tempTextRect.width,tempTextRect.height);
+	tempRendText.clear(sf::Color(0,0,0,0));
+	sf::Sprite tempSprite;
+	tempSprite.setTexture(gameTexture);
+	tempSprite.setTextureRect(tempTextRect);
+	tempRendText.draw(tempSprite);
 	tempRendText.display();
 	sf::Texture tempText = tempRendText.getTexture();
 	return tempText;
@@ -192,17 +209,27 @@ void Drawn::Update(GamePanel* panel){
 void Drawn::MoveOnGrid(int x,int y){
 
 };
+void Drawn::SetScale(sf::Vector2f newScale){
+	myScale = newScale;
+}
+sf::Vector2f Drawn::GetScale(){
+	return myScale;
+};
+sf::IntRect Drawn::GetTexturePart(){
+	return sf::IntRect(texturePart.left,texturePart.top,texturePart.width * myScale.x, texturePart.height * myScale.y);
+};
+void Drawn::SetPosition(sf::Vector2f newPos){
+	positionOnPanel = newPos;
+	resetPosition = sf::Vector2i(newPos.x,newPos.y);
+	sprite.setPosition(newPos.x,newPos.y);
+};
+sf::Vector2f Drawn::GetPosition(){
+	return sprite.getPosition();
+};
 void Drawn::Move(float x,float y){
 	positionOnPanel.x += x;
 	positionOnPanel.y += y;
 	sprite.move(x,y);
-};
-void Drawn::SetLocation(float x,float y){
-	positionOnPanel.x = x;
-	positionOnPanel.y = y;
-	resetPosition.x = x;
-	resetPosition.y = y;
-	sprite.setPosition(x,y);
 };
 void Drawn::OnClick(){
 
@@ -354,4 +381,14 @@ void Drawn::UpdateExpand(){
 };
 bool Drawn::GetIsExpanding(){
 	return isExpanding;
+};
+bool Drawn::ViewContains(sf::View view,sf::IntRect rect){
+	sf::Vector2f viewUpper(view.getCenter() - sf::Vector2f(view.getSize().x / 2, view.getSize().y/2));
+	sf::IntRect viewRect(viewUpper.x,viewUpper.y,view.getSize().x,view.getSize().y);
+	if(viewRect.contains(rect.left,rect.top)
+		&& viewRect.contains(rect.left + rect.width, rect.top)
+		&& viewRect.contains(rect.left, rect.top + rect.height)
+		&& viewRect.contains(rect.left + rect.width, rect.top + rect.height))
+		return true;
+	return false;
 };

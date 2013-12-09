@@ -9,28 +9,21 @@
 class GuiElement : public RClickable
 {
 public:
-	GuiElement(int,int,sf::Texture);
-	GuiElement(int,int,std::string textureName);
-	GuiElement(int,int,sf::Texture,sf::Texture);
 	GuiElement(int,int,std::string textureName,std::string fgTextureName);
-	GuiElement(int,int,std::string,sf::Texture);
-	GuiElement(int,int,sf::Texture,std::string);
-	void SetForegroundSprite(sf::Texture);
+	GuiElement(int,int,SlicedSprite* textureName,std::string fgTextureName);
 	void SetForegroundSprite(std::string);
-	void SetForegroundSprite(sf::Texture,sf::IntRect);
-	void SetBackgroundSprite(sf::Texture);
 	virtual void Update(sf::RenderTexture&);
 	virtual void Update(GamePanel*);
 	virtual void OnClick();
 	virtual void OnHover(bool);
 	ARectangle* GetBounds();
-	virtual void SetLocation(float,float);
-	//sf::Sprite foregroundSprite;
+	virtual void SetPosition(sf::Vector2f);
 	Drawn* foreground;
 	void SetOrgin(int,int);
 protected:
+	bool isSliced;
+	SlicedSprite* base;
 	ARectangle elementBounds;
-	//sf::Texture foregroundSpriteTexture;
 };
 
 #endif

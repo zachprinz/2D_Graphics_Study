@@ -39,7 +39,6 @@ sf::Texture SlicedSpriteCreator::GetSlicedTexture(float x,float y,SlicedSpriteCr
 			slicedSprite.draw(parts[x]);
 	}
 	slicedSprite.display();
-	//std::cout << "New Sliced Sprite " << std::to_string(slicedSprite.getSize().x) << "," << std::to_string(slicedSprite.getSize().y) << std::endl;
 	return slicedSprite.getTexture();
 };
 

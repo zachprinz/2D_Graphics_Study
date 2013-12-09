@@ -1,58 +1,23 @@
 #include "GuiElement.h"
 #include "GamePanel.h"
 
-GuiElement::GuiElement(int x,int y,sf::Texture text) : RClickable(text){
-	elementBounds.SetRectangle(x,y,text.getSize().x,text.getSize().y);
-	foreground = new Drawn();
-	foreground->SetLocation(x,y);
-	SetLocation(x,y);
-};
-GuiElement::GuiElement(int x,int y,std::string textureName) : RClickable(textureName){
-	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
-	SetLocation(x,y);
-	foreground = new Drawn(true);
-	foreground->SetLocation(x,y);
-};
-GuiElement::GuiElement(int x,int y,sf::Texture text,sf::Texture fgText) : RClickable(text){
-	elementBounds.SetRectangle(x,y,text.getSize().x,text.getSize().y);
-	foreground = new Drawn(fgText);
-	foreground->SetLocation(x,y);
-	SetLocation(x,y);
-};
-GuiElement::GuiElement(int x,int y,std::string text,sf::Texture fgText) : RClickable(text){
-	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
-	foreground = new Drawn(fgText);
-	foreground->SetLocation(x,y);
-	SetLocation(x,y);
-};
-GuiElement::GuiElement(int x,int y,sf::Texture text,std::string fgText) : RClickable(text){
-	elementBounds.SetRectangle(x,y,text.getSize().x,text.getSize().y);
-	foreground = new Drawn(fgText);
-	foreground->SetLocation(x,y);
-	SetLocation(x,y);
-};
 GuiElement::GuiElement(int x,int y,std::string textureName,std::string fgTextureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
-	SetLocation(x,y);
+	isSliced = false;
+	SetPosition(sf::Vector2f(x,y));
 	foreground = new Drawn(fgTextureName);
-	foreground->SetLocation(x,y);
+	foreground->SetPosition(sf::Vector2f(x,y));
 };
-void GuiElement::SetForegroundSprite(sf::Texture fgText){
-	foreground = new Drawn(fgText);
-	foreground->GetSprite()->setTextureRect(sf::IntRect(0,0,fgText.getSize().x,fgText.getSize().y));
-	foreground->GetSprite()->setScale((sprite.getLocalBounds().width - 16) / fgText.getSize().x,(sprite.getLocalBounds().height - 16) / fgText.getSize().y);
-};
-void GuiElement::SetForegroundSprite(sf::Texture fgText,sf::IntRect spriteRect){
-	foreground = new Drawn(fgText);
-	foreground->GetSprite()->setTextureRect(spriteRect);
-	foreground->GetSprite()->setScale((sprite.getLocalBounds().width - 16) / spriteRect.width,(sprite.getLocalBounds().height - 16) / spriteRect.height);
+GuiElement::GuiElement(int x,int y,SlicedSprite* textureName,std::string fgTextureName) : RClickable(textureName){
+	elementBounds.SetRectangle(x,y,textureName->GetSize().x,textureName->GetSize().y);
+	isSliced = true;
+	base = textureName;
+	SetPosition(sf::Vector2f(x,y));
+	foreground = new Drawn(fgTextureName);
+	foreground->SetPosition(sf::Vector2f(x,y));
 };
 void GuiElement::SetForegroundSprite(std::string spriteRect){
 	foreground = new Drawn(spriteRect);
-};
-void GuiElement::SetBackgroundSprite(sf::Texture bgSprite){
-	texture = bgSprite;
-	sprite.setTexture(texture);
 };
 void GuiElement::Update(sf::RenderTexture&){
 
@@ -69,6 +34,9 @@ void GuiElement::OnHover(bool hovered){
 ARectangle* GuiElement::GetBounds(){
 	return &elementBounds;
 }
-void GuiElement::SetLocation(float x,float y){
-	Drawn::SetLocation(x,y);
+void GuiElement::SetPosition(sf::Vector2f pos){
+	if(!isSliced)
+		//base->SetPosition(pos);
+	//else
+		Drawn::SetPosition(pos);
 };

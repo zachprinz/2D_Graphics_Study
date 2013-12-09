@@ -138,6 +138,7 @@
     <ClCompile Include="RoomTile.cpp" />
     <ClCompile Include="ScrollingPanel.cpp" />
     <ClCompile Include="ShadowLine.cpp" />
+    <ClCompile Include="SlicedSprite.cpp" />
     <ClCompile Include="SlicedSpriteCreator.cpp" />
     <ClCompile Include="SpritePanel.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="RoomTile.h" />
     <ClInclude Include="ScrollingPanel.h" />
     <ClInclude Include="ShadowLine.h" />
+    <ClInclude Include="SlicedSprite.h" />
     <ClInclude Include="SlicedSpriteCreator.h" />
     <ClInclude Include="SpritePanel.h" />
     <ClInclude Include="StatsPanel.h" />

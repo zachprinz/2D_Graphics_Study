@@ -2,6 +2,7 @@
 #define LTBL_AABB_H
 
 #include "Vec2f.h"
+#include <SFML\Graphics.hpp>
 
 class AABB
 {
@@ -25,6 +26,7 @@ public:
 	const Vec2f &GetCenter() const;
 
 	Vec2f GetDims() const;
+	sf::Vector2i GetSize();
 
 	const Vec2f &GetHalfDims() const;
 	const Vec2f &GetLowerBound() const;
@@ -47,6 +49,8 @@ public:
 	// Utility
 	bool Intersects(const AABB &other) const;
 	bool Contains(const AABB &other) const;
+	bool JustContains(const AABB &other) const;
+	bool Contains(int,int);
 	bool Contains(Vec2f);
 
 	// Render the AABB for debugging purposes

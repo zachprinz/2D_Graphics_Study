@@ -67,7 +67,7 @@ void BankPanel::SetUp(){
 	}
 	std::cout << " Done" << std::endl;
 	Button* exitButton = new Button(467,15,Button::circleButtonBackground,Button::x);
-	Label* bankLabel = new Label(164,33,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"Bank");
+	Label* bankLabel = new Label(164,33,200,new SlicedSprite(164,33,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,"Bank");
 	bankLabel->CenterText();
 	exitButton->SetScale(0.5,0.5);
 	exitButton->SetTarget(this);

@@ -22,7 +22,6 @@ TextPanel::TextPanel(int x,int y) : GamePanel(x,y,"Text"){
 			height = Label::fonts[0].getGlyph(x,30,false).bounds.height;
 	}
 	averageWidth = averageWidth / 26.0;
-	//sf::Text tempText  = sf::Text(text,Label::fonts[0],30);
 	linesPerPage = (panel.getSize().y) / height;
 	linesPerPage--;
 	charsPerLine = (panel.getSize().x + 360) / averageWidth;

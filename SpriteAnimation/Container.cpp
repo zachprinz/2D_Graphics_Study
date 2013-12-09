@@ -2,7 +2,7 @@
 #include "StatsPanel.h"
 #include <iostream>
 
-Container::Container(int x,int y,std::string textureName) : GuiElement(x,y,textureName){
+Container::Container(int x,int y,std::string textureName) : GuiElement(x,y,textureName,"blank.png"){
 	isFull = false;
 	foreground->GetSprite()->setOrigin(foreground->GetSprite()->getLocalBounds().width / 2, foreground->GetSprite()->getLocalBounds().height);
 	

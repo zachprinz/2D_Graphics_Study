@@ -7,23 +7,14 @@
 std::string Button::circleButtonBackground = "circlebuttonbackground.png";
 std::string Button::x = "x.png";
 
-Button::Button(int x,int y,sf::Texture texture,sf::Texture fgTexture) : GuiElement(x,y,texture,fgTexture){
-	target = new GamePanel();
-	moveOnHover = false;
-};
-Button::Button(int x,int y,std::string texture,sf::Texture fgTexture) : GuiElement(x,y,texture,fgTexture){
-	target = new GamePanel();// Should Really Remove this line... TODO
-	moveOnHover = false;
-};
 Button::Button(int x,int y,std::string texture,std::string fgTexture) : GuiElement(x,y,texture,fgTexture){
 	target = new GamePanel();
 	moveOnHover = false;
 };
-Button::Button(int x,int y,sf::Texture texture,std::string fgTexture) : GuiElement(x,y,texture,fgTexture){
+Button::Button(int x,int y,SlicedSprite* texture,std::string fgTexture) : GuiElement(x,y,texture,fgTexture){
 	target = new GamePanel();
 	moveOnHover = false;
 };
-
 void Button::Update(sf::RenderTexture& panel){
 	if(foreground->GetIsMoving())
 		foreground->UpdateMove();
@@ -41,7 +32,10 @@ void Button::Update(GamePanel* panel){
 		foreground->UpdateExpand();
 		CenterForeground();
 	}
-	Draw(panel);
+	if(isSliced)
+		base->Update(panel);
+	else
+		Draw(panel);
 	foreground->Draw(panel);
 };
 void Button::OnClick(){
@@ -62,7 +56,10 @@ void Button::SetTarget(GamePanel* myTarget){
 	target = myTarget;
 };
 void Button::CenterForeground(){
-	foreground->GetSprite()->setPosition(sprite.getPosition().x + ((sprite.getGlobalBounds().width - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((sprite.getGlobalBounds().height - foreground->GetSprite()->getGlobalBounds().height) / 2));
+	if(isSliced)
+		foreground->GetSprite()->setPosition(sprite.getPosition().x + ((elementBounds.GetSize().x - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((elementBounds.GetSize().y - foreground->GetSprite()->getGlobalBounds().height) / 2));
+	else
+		foreground->GetSprite()->setPosition(sprite.getPosition().x + ((sprite.getGlobalBounds().width - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((sprite.getGlobalBounds().height - foreground->GetSprite()->getGlobalBounds().height) / 2));
 };
 void Button::SetMoveOnHover(bool yn){
 	moveOnHover = yn;

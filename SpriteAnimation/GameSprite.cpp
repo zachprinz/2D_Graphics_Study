@@ -83,7 +83,7 @@ void GameSprite::SetGraphPositionA(sf::Vector2i a){
 	graphPositionA = a;
 };
 void GameSprite::SetLocation(float x,float y){
-	Drawn::SetLocation(x,y);
+	Drawn::SetPosition(sf::Vector2f(x,y));
 };
 void GameSprite::RecieveAttack(int x){
 

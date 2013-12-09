@@ -4,11 +4,8 @@
 #include "User.h"
 #include "RClickMenu.h"
 #include "BankPanel.h"
+#include "InventoryPanel.h"
 
-//InventoryContainer::InventoryContainer(int x,int y,std::string text,sf::Sprite* fgSprite) : Container(x,y,text,fgSprite){
-//	AddRClickOption(RClickMenu::Options::Drop);
-//	AddRClickOption(RClickMenu::Options::Equip);
-//};
 InventoryContainer::InventoryContainer(int x,int y,std::string text) : Container(x,y,text){
 	AddRClickOption(RClickMenu::Options::Drop);
 	AddRClickOption(RClickMenu::Options::Equip);
@@ -16,7 +13,6 @@ InventoryContainer::InventoryContainer(int x,int y,std::string text) : Container
 void InventoryContainer::OnClick(){
 	if(isFull)
 		Equip();
-		//Drop();
 };
 void InventoryContainer::Drop(){
 	SpritePanel::instance->SpawnItem(contents.GetId(),User::player->GetGraphPositionA().x,User::player->GetGraphPositionA().y,SpritePanel::room);

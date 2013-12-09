@@ -21,17 +21,16 @@ void LayeredPanel::AddElement(std::string,Drawn*){
 void LayeredPanel::SetUp(){
 	largestSubpanelSize = GetLayeredPanelSize(panels);
 	Drawn panelButton;
-	sf::Texture backgroundTexture = SlicedSpriteCreator::GetSlicedTexture(80,80,SlicedSpriteCreator::SpriteStyle::WoodPanel);
 	int spaceBetweenButtons = ((largestSubpanelSize.x) - (80*panels.size()))/(panels.size() + 1);
 	for(int x = 0; x < panels.size(); x++){
-		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20, backgroundTexture, "buttonImages/" + panels[x]->GetName() + ".png");
+		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20, new SlicedSprite((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20,80.0,80.0,SlicedSprite::SpriteStyle::WoodPanel), "buttonImages/" + panels[x]->GetName() + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(panels[x]->GetName());
-		tempButton->CenterForeground();
+		//tempButton->CenterForeground();
 		dynamicElements.insert(MyPair("Button" + panels[x]->GetName(),tempButton));
 	}
-	Drawn* background = new Drawn(SlicedSpriteCreator::GetSlicedTexture((panel.getSize().x) + 16,(panel.getSize().y - largestSubpanelSize.y),SlicedSpriteCreator::Pixel));
-	background->SetLocation(0,largestSubpanelSize.y + 16);
+	Drawn* background = new Drawn(new SlicedSprite(0,largestSubpanelSize.y + 16,(float)((panel.getSize().x) + 16),(float)(panel.getSize().y - largestSubpanelSize.y),SlicedSprite::SpriteStyle::Pixel));
+	background->SetPosition(sf::Vector2f(0,largestSubpanelSize.y + 16));
 	backgroundElements.insert(MyPair("Background", background));
 };
 void LayeredPanel::OnButtonEvent(std::string btnFunction){
@@ -57,7 +56,7 @@ sf::Vector2i LayeredPanel::GetLayeredPanelSize(std::vector<GamePanel*> panels){
 	int largestY = 0;
 	sf::Vector2i panelSize;
 	for(int x = 0; x < panels.size(); x++){
-		panelSize = panels[x]->GetBounds()->GetSize(); 
+		panelSize = panels[x]->GetBounds().GetSize(); 
 		if(panelSize.x > largestX)
 			largestX = panelSize.x;
 		if(panelSize.y > largestY)

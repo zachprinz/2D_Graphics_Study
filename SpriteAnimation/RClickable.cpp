@@ -10,7 +10,7 @@ RClickable::RClickable(std::string textureName) : Drawn(textureName){
 	isMenuOpen = false;
 	rClickEnabled = false;
 };
-RClickable::RClickable(sf::Texture text) : Drawn(text){
+RClickable::RClickable(SlicedSprite* text) : Drawn(text){
 	isMenuOpen = false;
 	rClickEnabled = false;
 };
@@ -36,14 +36,14 @@ void RClickable::OnRClick(sf::Vector2i mousePos,GamePanel* panel){ //TODO: Delet
 				RClickMenu::AddOption(mousePos.x,mousePos.y,3);
 		}
 		mousePos = sf::Vector2i(mousePos.x + panel->GetPosition().x, mousePos.y + panel->GetPosition().y);
-		if(!panel->GetBounds()->Contains(mousePos.x,(RClickMenu::labels.size() * RClickMenu::labels[0]->GetSprite()->getLocalBounds().height) + mousePos.y + 10)){
-				if(!panel->GetBounds()->Contains(RClickMenu::labels[0]->GetSprite()->getLocalBounds().width + mousePos.x + 10,mousePos.y))
+		if(!panel->GetBounds().Contains(mousePos.x,(RClickMenu::labels.size() * RClickMenu::labels[0]->GetSprite()->getLocalBounds().height) + mousePos.y + 10)){
+				if(!panel->GetBounds().Contains(RClickMenu::labels[0]->GetSprite()->getLocalBounds().width + mousePos.x + 10,mousePos.y))
 					RClickMenu::SetOrgin(RClickMenu::BottomRight);
 				else
 					RClickMenu::SetOrgin(RClickMenu::TopLeft);
 		}
 		else{
-			if(!panel->GetBounds()->Contains(RClickMenu::labels[0]->GetSprite()->getLocalBounds().width + mousePos.x + 10,mousePos.y))
+			if(!panel->GetBounds().Contains(RClickMenu::labels[0]->GetSprite()->getLocalBounds().width + mousePos.x + 10,mousePos.y))
 					RClickMenu::SetOrgin(RClickMenu::TopRight);
 				else
 					RClickMenu::SetOrgin(RClickMenu::TopLeft);

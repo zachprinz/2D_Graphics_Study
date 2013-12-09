@@ -21,7 +21,7 @@ public:
 	virtual bool CheckUpdate();
 	void SetPosition(int, int);
 	void Update(sf::RenderWindow&);
-	ARectangle* GetBounds();
+	AABB GetBounds();
 	void OnButtonEvent(std::string);
 private:
 	void SetUpScrollBar();

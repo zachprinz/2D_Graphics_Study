@@ -9,10 +9,9 @@ class Label : public GuiElement
 {
 public:
 	enum Fonts{Game};
-	Label(int,int,sf::Texture, Fonts, std::string);
 	Label(int,int,std::string, Fonts, std::string);
-	Label(int,int,int,sf::Texture, Fonts, std::string);
 	Label(int,int,int,std::string, Fonts, std::string);
+	Label(int,int,int,SlicedSprite*,Fonts,std::string);
 	void SetText(sf::Text);
 	sf::Text* GetText();
 	void Update(sf::RenderTexture&);

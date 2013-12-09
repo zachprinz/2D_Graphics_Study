@@ -14,6 +14,7 @@
 #include "Button.h"
 #include <MapLoader.h>
 #include "SlicedSpriteCreator.h"
+#include "SlicedSprite.h"
 #include "MapPanel.h"
 #include "ActionBar.h"
 #include "StatsPanel.h"
@@ -57,8 +58,8 @@ int main()
 	Label::OnStart();
 	Button::OnStart();
 	RClickMenu::OnStart();
+	SlicedSprite::OnStart();
 	SlicedSpriteCreator::OnStart();
-	ProgressBar::SetUp();
 
 	TextPanel textPanel(1004,175);
 	textPanel.SetPosition(62,740);
@@ -98,31 +99,31 @@ int main()
 			switch(event.type){
 				case(sf::Event::MouseMoved): {
 					sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
-					if(spritePanel.GetBounds()->Contains(temp.x,temp.y)){
+					if(spritePanel.GetBounds().Contains(temp.x,temp.y)){
 						spritePanel.OnHover(sf::Vector2i(temp.x + spritePanel.view.getCenter().x - 512, temp.y + (float)spritePanel.view.getCenter().y - 400));
 						GamePanel::currentMousePanel = &spritePanel;
 					}
-					if(User::player->GetLayered()->GetBounds()->Contains(temp.x,temp.y)){
+					if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y)){
 						User::player->GetLayered()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetLayered();
 					}
-					if(User::player->GetInventory()->GetBounds()->Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory()){
+					if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory()){
 						User::player->GetInventory()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetInventory();
 					}
-					else if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped()){
+					else if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped()){
 						User::player->GetEquiped()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetEquiped();
 					}
-					else if(User::player->GetLevelPanel()->GetBounds()->Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetLevelPanel()){
+					else if(User::player->GetLevelPanel()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetLevelPanel()){
 						User::player->GetLevelPanel()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetLevelPanel();
 					}
-					else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds()->Contains(temp.x,temp.y)){
+					else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y)){
 						User::player->GetBank()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetBank();
 					}
-					else if(actionBar.GetBounds()->Contains(temp.x,temp.y)){
+					else if(actionBar.GetBounds().Contains(temp.x,temp.y)){
 						actionBar.OnHover(temp);
 						GamePanel::currentMousePanel = &actionBar;
 					}
@@ -139,39 +140,39 @@ int main()
 							RClickMenu::Close();
 					}
 					else{
-					if(textPanel.GetBounds()->Contains(temp.x,temp.y) && textPanel.GetIsPanelOpen())
+					if(textPanel.GetBounds().Contains(temp.x,temp.y) && textPanel.GetIsPanelOpen())
 						textPanel.OnClick(temp);
-					else if(spritePanel.GetBounds()->Contains(temp.x,temp.y))
+					else if(spritePanel.GetBounds().Contains(temp.x,temp.y))
 						spritePanel.OnClick(temp);
-					if(User::player->GetInventory()->GetBounds()->Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
+					if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
 						User::player->GetInventory()->OnClick(temp);
 					else{
-						if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y))
+						if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y))
 							User::player->GetEquiped()->OnClick(temp);
-						else if(User::player->GetLevelPanel()->GetBounds()->Contains(temp.x,temp.y))
+						else if(User::player->GetLevelPanel()->GetBounds().Contains(temp.x,temp.y))
 							User::player->GetLevelPanel()->OnClick(temp);
 					}
-					if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds()->Contains(temp.x,temp.y))
+					if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y))
 						User::player->GetBank()->OnClick(temp);
-					if(actionBar.GetBounds()->Contains(temp.x,temp.y))
+					if(actionBar.GetBounds().Contains(temp.x,temp.y))
 						actionBar.OnClick(temp);
-					if(statsPanel.GetBounds()->Contains(temp.x,temp.y))
+					if(statsPanel.GetBounds().Contains(temp.x,temp.y))
 						statsPanel.OnClick(temp);
-					if(User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->GetBounds()->Contains(temp.x,temp.y)){
+					if(User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->GetBounds().Contains(temp.x,temp.y)){
 						User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->OnClick(temp);
 					}
-					else if(User::player->GetLayered()->GetBounds()->Contains(temp.x,temp.y))
+					else if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y))
 						User::player->GetLayered()->OnClick(temp);
 					}
 				}
 				if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right){ //Eventually will iterate through these
 					if(!RClickMenu::GetIsOpen()){
 						sf::Vector2i temp(event.mouseButton.x,event.mouseButton.y);
-						if(User::player->GetInventory()->GetBounds()->Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
+						if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
 							User::player->GetInventory()->OnRClick(temp);
-						else if(User::player->GetEquiped()->GetBounds()->Contains(temp.x,temp.y))
+						else if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y))
 							User::player->GetEquiped()->OnRClick(temp);
-						if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds()->Contains(temp.x,temp.y))
+						if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y))
 							User::player->GetBank()->OnRClick(temp);
 					}
 				}

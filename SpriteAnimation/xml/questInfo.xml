@@ -17,14 +17,4 @@
 			<Reward goldAmount="" xpLevel="speed" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item="" />
 		</Rewards>
 	</Quest>
-	<Quest name="" currentObjective="" status="" description="">
-		<Objectives>
-			<Objective name="" description="" status="">
-				<Requirement type="" targetName="" requiredValue="" />
-			</Objective>
-		</Objectives>
-		<Rewards>
-			<Reward goldAmount="" xpLevel="" xpSubLevel="" xpLevelAmount="" xpSubLevelAmount="" item="" />
-		</Rewards>
-	</Quest>
 </QuestLog>

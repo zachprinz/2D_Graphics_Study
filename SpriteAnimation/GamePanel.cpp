@@ -4,6 +4,7 @@
 #include "RClickMenu.h"
 #include "Label.h"
 #include "SlicedSpriteCreator.h"
+#include "SlicedSprite.h"
 #include "SpritePanel.h"
 
 GamePanel* GamePanel::currentMousePanel;
@@ -22,7 +23,6 @@ GamePanel::GamePanel(int x, int y, std::string name){
 	else
 		backgroundPanel.create(x + 16, y + 16);
 	panel.create(x,y);
-	panelBounds = ARectangle(0,0,x,y);
 	panelName = name;
 	panel.setSmooth(true);
 	panelSprite.setTexture(panel.getTexture());
@@ -47,15 +47,15 @@ void GamePanel::Update(sf::RenderWindow& window){
 	}
 };
 void GamePanel::DrawToWindow(sf::RenderWindow& window){
-	window.draw(backgroundPanelSprite);
-	window.draw(panelSprite);
+	//window.draw(backgroundPanelSprite);
+	//window.draw(panelSprite);
 };
 void GamePanel::InitiateElements(){
 
 };
 void GamePanel::UpdateElements(){
 	for(MyPair x: backgroundElements){
-		x.second->Update(backgroundPanel);
+		x.second->Update(this);
 	}
 	for(MyPair x: staticElements){
 		x.second->Update(this);
@@ -81,7 +81,10 @@ void GamePanel::SetPosition(int x, int y){
 		backgroundPanelSprite.setPosition(x,y - 30);
 	else
 		backgroundPanelSprite.setPosition(x,y);
-	panelBounds.SetPosition(x + 8,y + 8);
+	panelBounds = AABB(Vec2f(x,y),Vec2f(panel.getSize().x,panel.getSize().y));
+	panelBounds.CalculateBounds();
+	panelBounds.CalculateHalfDims();
+	panelBounds.CalculateCenter();
 }
 void GamePanel::OnClick(sf::Vector2i point){
 	std::cout << "Target Point: " << point.x << "," << point.y << std::endl;
@@ -117,8 +120,8 @@ void GamePanel::OnHover(sf::Vector2i point){
 		}
 	}
 };
-ARectangle* GamePanel::GetBounds(){
-	return &panelBounds;
+AABB GamePanel::GetBounds(){
+	return panelBounds;
 }
 void GamePanel::RemoveDynamicElement(std::string key){
 		dynamicElements.erase(key);
@@ -133,12 +136,12 @@ sf::Vector2f GamePanel::GetPosition(){
 	return panelSprite.getPosition();
 }
 void GamePanel::SetUp(){
-	Drawn* background = new Drawn(SlicedSpriteCreator::GetSlicedTexture(panel.getSize().x + 16,panel.getSize().y + 16,SlicedSpriteCreator::Pixel));
+	SlicedSprite* background = new SlicedSprite(0,0,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
 	if(createPanelLabel)
-		background->SetLocation(0,30);
+		background->SetPosition(sf::Vector2f(0,30));
 	backgroundElements.insert(MyPair("Background", background));
 	if(createPanelLabel){
-		Label* label = new Label((panel.getSize().x - 200) / 2,0,200,SlicedSpriteCreator::GetSlicedTexture(200,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,panelName);
+		Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
 		label->CenterText();
 		backgroundElements.insert(MyPair("Label", label));
 	}
@@ -156,5 +159,5 @@ std::string GamePanel::GetName(){
 	return panelName;
 };
 sf::Vector2i GamePanel::GetSize(){
-	return sf::Vector2i(panelBounds.GetSize());
+	return sf::Vector2i(panelBounds.GetHalfDims().x * 2,panelBounds.GetHalfDims().y * 2);
 };

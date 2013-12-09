@@ -76,7 +76,7 @@ void StatsPanel::SetCombatant(Combatant* combatant){
 	((ProgressBar*)(combatantMap["EnduranceBar"]))->SetPercent(&combatant->endurancePercent);
 	((Label*)(combatantMap["Name"]))->SetText(combatant->GetName());
 	((Label*)(combatantMap["Name"]))->CenterText();
-	((Button*)(combatantMap["Image"]))->SetForegroundSprite(combatant->GetActorTexture());
+	//((Button*)(combatantMap["Image"]))->SetForegroundSprite(combatant->GetActorTexture()); TODO
 	((Button*)(combatantMap["Image"]))->CenterForeground();
 	currentName = combatant->GetName();
 	dynamicElements = combatantMap;
@@ -88,14 +88,12 @@ void StatsPanel::SetUp(){
 	GamePanel::SetUp();
 };
 void StatsPanel::SetUpItemMap(){
-	sf::Texture tempText;
-	tempText.loadFromFile("blank.png");
 	int labelsPosX[] = {20,185,20,185,20,185};
 	int labelsPosY[] = {160,160,230,230,300,300};
 	std::string labelsString[] = {"Strength","Endure","Technique","Speed","Mining","Woodcutting"};
 	for (int x = 0; x < 6; x++){
-		Label* element = new Label(labelsPosX[x],labelsPosY[x],tempText,Label::Fonts::Game,labelsString[x] + ":");
-		Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],tempText,Label::Fonts::Game,"null");
+		Label* element = new Label(labelsPosX[x],labelsPosY[x],"blank.png",Label::Fonts::Game,labelsString[x] + ":");
+		Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],"blank.png",Label::Fonts::Game,"null");
 		itemMap.insert(MyPair(std::to_string(x), element));
 		itemMap.insert(MyPair(labelsString[x] + "Value",valueElement));
 	}
@@ -104,21 +102,19 @@ void StatsPanel::SetUpItemMap(){
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
 	itemMap.insert(MyPair("Image",tempButton));
-	Label* label = new Label(127.5,110,120,SlicedSpriteCreator::GetSlicedTexture(120,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"null");
+	Label* label = new Label(128,110,120,new SlicedSprite(128,110,120,30,SlicedSprite::WoodPanel),Label::Fonts::Game,"null");
 	label->CenterText();
 	itemMap.insert(MyPair("Name",label));
 };
 void StatsPanel::SetUpCombatantMap(){
-	sf::Texture tempText;
-	tempText.loadFromFile("blank.png");
 	int labelsPosX[] = {20,185,20,185,20,20};
 	int labelsPosY[] = {160,160,230,230,300,370};
 	std::string labelsString[] = {"Strength","Endure","Technique","Speed","Health","Endurance"};
 	for (int x = 0; x < 6; x++){
-		Label* element = new Label(labelsPosX[x],labelsPosY[x],tempText,Label::Fonts::Game,labelsString[x] + ":");
+		Label* element = new Label(labelsPosX[x],labelsPosY[x],"blank.png",Label::Fonts::Game,labelsString[x] + ":");
 		combatantMap.insert(MyPair(std::to_string(x), element));
 		if(x < 4){
-			Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],tempText,Label::Fonts::Game,"null");
+			Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],"blank.png",Label::Fonts::Game,"null");
 			combatantMap.insert(MyPair(labelsString[x] + "Value",valueElement));
 		}
 		else{
@@ -132,13 +128,11 @@ void StatsPanel::SetUpCombatantMap(){
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
 	combatantMap.insert(MyPair("Image",tempButton));
-	Label* label = new Label(127.5,110,120,SlicedSpriteCreator::GetSlicedTexture(120,30,SlicedSpriteCreator::WoodPanel),Label::Fonts::Game,"null");
+	Label* label = new Label(128,110,120,new SlicedSprite(128,110,120,30,SlicedSprite::WoodPanel),Label::Fonts::Game,"null");
 	label->CenterText();
 	combatantMap.insert(MyPair("Name",label));
 };
 void StatsPanel::SetUpLevelMap(){
-	sf::Texture tempText;
-	tempText.loadFromFile("blank.png");
 	mainLevelPercent = 0.5;
 	subLevelPercents.push_back(0.5);
 	subLevelPercents.push_back(0.5);
@@ -159,7 +153,7 @@ void StatsPanel::SetUpLevelMap(){
 	for(int x = 0; x < 2; x++){
 		int displacement = 135;
 		int displacement2 = 125;
-		Label* subLevelTitle = new Label(8,(x*displacement2)+displacement,tempText,Label::Fonts::Game,"SubLevel:" + x);
+		Label* subLevelTitle = new Label(8,(x*displacement2)+displacement,"blank.png",Label::Fonts::Game,"SubLevel:" + x);
 		Label* subLevelDescription = new Label(8,(x*displacement2)+displacement + 20,"blank.png",Label::Fonts::Game,"SubLevel Description Text.");
 		ProgressBar* subLevelProgBar = new ProgressBar(8,(x*displacement2) + displacement + 50,350,&subLevelPercents[x]);
 		Label* subLevelBottomXP = new Label(8,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"0");

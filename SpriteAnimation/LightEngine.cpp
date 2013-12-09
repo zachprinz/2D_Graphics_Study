@@ -28,8 +28,7 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	panelLightTempText.clear(sf::Color(0,0,0,0));
 	panelLightTempText.display();
 	panelLightTempSprite.setTexture(panelLightTempText.getTexture());
-	Drawn preDoneLightDraw("lightData/light.png");
-	predoneLightTexture = preDoneLightDraw.GetSingleTexture();
+	predoneLightTexture = Drawn::GetSingleTexture("lightData/light.png");
 	predoneLight.setTexture(predoneLightTexture);
 };
 void LightEngine::DrawLights(sf::RenderTexture* panel){
@@ -54,7 +53,7 @@ void LightEngine::DrawLight(Light* light){
 	}
 	tempLightSprite.setPosition(light->GetBounds().GetLowerBound().x - panelLowerPoint.x,light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
 	predoneLight.setScale((light->radius * 2) / predoneLight.getGlobalBounds().width,(2*light->radius) / predoneLight.getGlobalBounds().height);
-	tempLightText.clear(sf::Color(0,0,0,0));
+	tempLightText.clear(sf::Color(0,0,0,0)); //TODO lags
 	tempLightText.draw(predoneLight);
 	tempLightText.draw(shadows);
 	tempLightText.display();

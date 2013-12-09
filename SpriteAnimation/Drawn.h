@@ -4,16 +4,17 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <boost\container\flat_set.hpp>
+#include "AABB.h"
 
+class SlicedSprite;
 class ProgressBar;
 class GamePanel;
 class Drawn
 {
 public:
 	Drawn(std::string);
-	Drawn(sf::Texture);
+	Drawn(SlicedSprite*);
 	Drawn();
-	Drawn(bool);
 	bool GetVisible();
 	sf::Sprite* GetSprite();
 	sf::Vector2f GetPositionOnPanel();
@@ -24,7 +25,7 @@ public:
 	virtual void OnHover(bool);
 	void Move(float,float);
 	sf::Texture GetSingleTexture();
-	void SetLocation(float,float);
+	static sf::Texture GetSingleTexture(std::string);
 	static sf::IntRect GetTextureFromAtlas(std::string);
 	sf::IntRect texturePart;
 	static sf::Texture gameTexture;
@@ -55,7 +56,15 @@ public:
 	void ClearAdditionalQuads();
 	void Destroy();
 	void SetZ(int);
+	void SetScale(sf::Vector2f);
+	sf::Vector2f GetScale();
+	sf::IntRect GetTexturePart();
+	virtual void SetPosition(sf::Vector2f);
+	sf::Vector2f GetPosition();
 protected:
+	sf::Vector2f myScale;
+	bool ViewContains(sf::View, sf::IntRect);
+	AABB screenBounds;
 	static sf::VertexArray gameArray;
 	static sf::RenderStates gameRenderStates;
 	sf::Vertex* quad;

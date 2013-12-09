@@ -4,10 +4,6 @@
 #include "User.h"
 #include "RClickMenu.h"
 
-//BankContainer::BankContainer(int x,int y,std::string tn,sf::Sprite* fgSprite) : Container(x,y,tn,fgSprite){
-//	AddRClickOption(RClickMenu::Options::Withdraw);
-//	AddRClickOption(RClickMenu::Options::Equip);
-//};
 BankContainer::BankContainer(int x,int y,std::string text) : Container(x,y,text){
 	AddRClickOption(RClickMenu::Options::Withdraw);
 	AddRClickOption(RClickMenu::Options::Equip);

@@ -20,10 +20,9 @@ void LevelPanel::AddElement(std::string,Drawn*){
 
 };
 void LevelPanel::SetUp(){
-	sf::Texture buttonTexture = SlicedSpriteCreator::GetSlicedTexture(320,60,SlicedSpriteCreator::SpriteStyle::WoodPanel);
 	std::string levelNames[] = {"strength","endurance","technique","speed","mining","woodcutting","smithing","crafting"};
 	for (int x = 0; x < 8; x++){
-		Button* tempButton = new Button(0,x*60,buttonTexture,"levelButtons/" + levelNames[x] + ".png");
+		Button* tempButton = new Button(0,x*60,new SlicedSprite(0,x*60,320,60,SlicedSprite::SpriteStyle::WoodPanel),"levelButtons/" + levelNames[x] + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(levelNames[x]);
 		tempButton->SetMoveOnHover(true);

@@ -1,6 +1,7 @@
 #include "RClickMenu.h"
 #include <iostream>
 #include "GamePanel.h"
+#include "SpritePanel.h"
 
 std::vector<Label*> RClickMenu::OptionButtons;
 sf::Texture RClickMenu::menuTexture;

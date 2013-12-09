@@ -4,6 +4,7 @@
 #include <vector>
 #include "Drawn.h"
 #include <SFML/Graphics.hpp>
+#include "SlicedSprite.h"
 
 class RClickMenu;
 class GamePanel;
@@ -11,7 +12,7 @@ class RClickable : public Drawn
 {
 public:
 	RClickable(std::string);
-	RClickable(sf::Texture);
+	RClickable(SlicedSprite*);
 	RClickable();
 	virtual void OnClick();
 	virtual void OnRClick(sf::Vector2i,GamePanel*);
