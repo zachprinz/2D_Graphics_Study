@@ -1,0 +1,37 @@
+
+<QuestLog> 
+  <Quest name="Eyes Peeled II" currentObjective="start" status="incomplete" description="There's a man who needs your help!kjhkjh"> 
+    <Objective name="start" description="Talk to the man watching the angels." status="incomplete"> 
+      <Requirement type="talk" targetName="Dr.Smith" requiredValue="1"/> 
+    </Objective>  
+    <Objective name="The angels" description="Slay 2 of the angels on the west island. asdf" status="incomplete"> 
+      <Requirement type="Kill" targetName="Cherub" requiredValue="4"/> 
+    </Objective>  
+    <Objective name="report back" description="Report back to Dr.Smith to claim your reward." status="incomplete"> 
+      <Requirement type="talk" targetName="Dr.Smith" requiredValue="1"/> 
+    </Objective>  
+    <Rewards> 
+      <Reward goldAmount="" xpLevel="strength" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item="106"/>  
+      <Reward goldAmount="" xpLevel="endurance" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/>  
+      <Reward goldAmount="" xpLevel="technique" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/>  
+      <Reward goldAmount="" xpLevel="speed" xpSubLevel="" xpLevelAmount="75" xpSubLevelAmount="" item=""/> 
+    </Rewards> 
+  </Quest>  
+  <Quest name="Test" currentObjective="start" status="incomplete" description="New Quests Description">
+    <Rewards>
+      <Reward goldAmount="0" xpLevel="" xpLevelAmount="0" xpSubLevel="" xpSubLevelAmount="0" item=""/>
+    </Rewards>
+    <Objective name="1" description="New Objective Description" status="incomplete">
+      <Requirement type="" targetName="" requiredValue="0"/>
+    </Objective>
+    <Objective name="New Objective Name" description="New Objective Description" status="incomplete">
+      <Requirement type="" targetName="" requiredValue="0"/>
+    </Objective>
+    <Objective name="New Objective Name" description="New Objective Description" status="incomplete">
+      <Requirement type="" targetName="" requiredValue="0"/>
+    </Objective>
+    <Objective name="New Objective Name" description="New Objective Description" status="incomplete">
+      <Requirement type="" targetName="" requiredValue="0"/>
+    </Objective>
+  </Quest>
+</QuestLog>
