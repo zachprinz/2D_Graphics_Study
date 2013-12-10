@@ -23,6 +23,7 @@ InventoryContainer* InventoryPanel::GetOpenContainer(){
 };
 void InventoryPanel::Add(Item item){
 	doUpdate = true;
+	std::cout << "Inventory adding a found item to a container." << std::endl;
 	GetOpenContainer()->AddItem(item);
 };
 void InventoryPanel::Remove(Item item){

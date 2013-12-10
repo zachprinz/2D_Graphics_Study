@@ -18,6 +18,7 @@ public:
 	bool stationary;
 	float GetPercent();
 protected:
+	int fullScale;
 	sf::Sprite* relative;
 	float* percent;
 	sf::Transformable* fg;

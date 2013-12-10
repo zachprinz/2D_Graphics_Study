@@ -40,10 +40,11 @@ public:
 	sf::Vector2f GetPosition();
 	void SetUp();
 	std::string GetName();
-	sf::Vector2i GetSize();
+	sf::Vector2f GetSize();
 	sf::Vector2<Drawn*> nonVertexElements;
 	sf::Sprite panelSprite;
 protected:
+	sf::Vector2f mySize;
 	bool updateElements;
 	bool createPanelLabel;
 	std::string panelName;

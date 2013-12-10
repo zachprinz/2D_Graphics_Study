@@ -55,12 +55,6 @@ void Button::SetFunction(std::string str){
 void Button::SetTarget(GamePanel* myTarget){
 	target = myTarget;
 };
-void Button::CenterForeground(){
-	if(isSliced)
-		foreground->GetSprite()->setPosition(sprite.getPosition().x + ((elementBounds.GetSize().x - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((elementBounds.GetSize().y - foreground->GetSprite()->getGlobalBounds().height) / 2));
-	else
-		foreground->GetSprite()->setPosition(sprite.getPosition().x + ((sprite.getGlobalBounds().width - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((sprite.getGlobalBounds().height - foreground->GetSprite()->getGlobalBounds().height) / 2));
-};
 void Button::SetMoveOnHover(bool yn){
 	moveOnHover = yn;
 };

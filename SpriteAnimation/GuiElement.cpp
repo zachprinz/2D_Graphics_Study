@@ -40,3 +40,11 @@ void GuiElement::SetPosition(sf::Vector2f pos){
 	//else
 		Drawn::SetPosition(pos);
 };
+void GuiElement::CenterForeground(){
+	//if(isSliced)
+	//	foreground->GetSprite()->setPosition(sprite.getPosition().x + ((elementBounds.GetSize().x - foreground->GetSprite()->getGlobalBounds().width) / 2),sprite.getPosition().y + ((elementBounds.GetSize().y - foreground->GetSprite()->getGlobalBounds().height) / 2));
+	//else{
+		foreground->GetSprite()->setOrigin(sf::Vector2f(-1*(foreground->GetSize().x / 2.0f),-1*(foreground->GetSize().y / 2.0f)));
+		foreground->SetPosition(GetPosition() + sf::Vector2f(GetSize().x / 2.0f, GetSize().y / 2.0f));
+	//}
+};

@@ -13,24 +13,23 @@ LayeredPanel::LayeredPanel(std::vector<GamePanel*> panels) : GamePanel(GetLayere
 	SetUp();
 };
 LayeredPanel::LayeredPanel(){
-
 };
 void LayeredPanel::AddElement(std::string,Drawn*){
 
 };
 void LayeredPanel::SetUp(){
 	largestSubpanelSize = GetLayeredPanelSize(panels);
+	std::cout << "Largest Panel Size X: " << largestSubpanelSize.x << " Y: " << largestSubpanelSize.y << std::endl;
 	Drawn panelButton;
 	int spaceBetweenButtons = ((largestSubpanelSize.x) - (80*panels.size()))/(panels.size() + 1);
 	for(int x = 0; x < panels.size(); x++){
-		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20, new SlicedSprite((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 20,80.0,80.0,SlicedSprite::SpriteStyle::WoodPanel), "buttonImages/" + panels[x]->GetName() + ".png");
+		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 28, "attacktextures/background.png", "buttonImages/" + panels[x]->GetName() + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(panels[x]->GetName());
-		//tempButton->CenterForeground();
+		tempButton->CenterForeground();
 		dynamicElements.insert(MyPair("Button" + panels[x]->GetName(),tempButton));
 	}
-	SlicedSprite* background = new SlicedSprite(0,largestSubpanelSize.y + 16,(float)((panel.getSize().x) + 16),(float)(panel.getSize().y - largestSubpanelSize.y),SlicedSprite::SpriteStyle::Pixel);
-	background->SetPosition(sf::Vector2f(0,largestSubpanelSize.y + 16));
+	SlicedSprite* background = new SlicedSprite(-8,largestSubpanelSize.y + 14,(float)((panel.getSize().x) + 16),(float)(88 + 16),SlicedSprite::SpriteStyle::Pixel);
 	backgroundElements.insert(MyPair("Background", background));
 };
 void LayeredPanel::OnButtonEvent(std::string btnFunction){
@@ -54,9 +53,9 @@ bool LayeredPanel::CheckUpdate(){
 sf::Vector2i LayeredPanel::GetLayeredPanelSize(std::vector<GamePanel*> panels){
 	int largestX = 0;
 	int largestY = 0;
-	sf::Vector2i panelSize;
+	sf::Vector2f panelSize;
 	for(int x = 0; x < panels.size(); x++){
-		panelSize = panels[x]->GetBounds().GetSize(); 
+		panelSize = panels[x]->GetSize(); 
 		if(panelSize.x > largestX)
 			largestX = panelSize.x;
 		if(panelSize.y > largestY)

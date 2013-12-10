@@ -11,6 +11,7 @@ GamePanel* GamePanel::currentMousePanel;
 Drawn* GamePanel::currentMouseElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
+	mySize = sf::Vector2f(x,y);
 	currentMouseElement = new Drawn();
 	doUpdate = true;
 	createPanelLabel = true;
@@ -46,7 +47,7 @@ void GamePanel::InitiateElements(){
 };
 void GamePanel::UpdateElements(){
 	for(MyPair x: backgroundElements){
-		((SlicedSprite*)x.second)->Update(this);
+		//((SlicedSprite*)x.second)->Update(this);
 	}
 	for(MyPair x: staticElements){
 		x.second->Update(this);
@@ -68,14 +69,11 @@ void GamePanel::Close(){
 };
 void GamePanel::SetPosition(int x, int y){
 	panelSprite.setPosition(x + 8,y + 8);
-	if(createPanelLabel)
-		backgroundPanelSprite.setPosition(x,y - 30);
-	else
+	//if(createPanelLabel)
+	//	backgroundPanelSprite.setPosition(x,y - 30);
+	//else
 		backgroundPanelSprite.setPosition(x,y);
-	panelBounds = AABB(Vec2f(x,y),Vec2f(panel.getSize().x,panel.getSize().y));
-	panelBounds.CalculateBounds();
-	panelBounds.CalculateHalfDims();
-	panelBounds.CalculateCenter();
+	panelBounds = AABB(Vec2f(x,y),Vec2f(x + GetSize().x,y + GetSize().y));
 }
 void GamePanel::OnClick(sf::Vector2i point){
 	std::cout << "Target Point: " << point.x << "," << point.y << std::endl;
@@ -127,15 +125,15 @@ sf::Vector2f GamePanel::GetPosition(){
 	return panelSprite.getPosition();
 }
 void GamePanel::SetUp(){
-	SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
-	if(createPanelLabel)
-		background->SetPosition(sf::Vector2f(0,30));
-	backgroundElements.insert(MyPair("Background", background));
-	if(createPanelLabel){
-		Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
-		label->CenterText();
-		backgroundElements.insert(MyPair("Label", label));
-	}
+	//SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
+	//if(createPanelLabel)
+	//	background->SetPosition(sf::Vector2f(0,30));
+	//backgroundElements.insert(MyPair("Background", background));
+	//if(createPanelLabel){
+	//	Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
+	//	label->CenterText();
+	//	backgroundElements.insert(MyPair("Label", label));
+	//}
 }
 bool GamePanel::GetIsPanelOpen(){
 	return isPanelOpen;
@@ -149,6 +147,7 @@ bool GamePanel::CheckUpdate(){
 std::string GamePanel::GetName(){
 	return panelName;
 };
-sf::Vector2i GamePanel::GetSize(){
-	return sf::Vector2i(panelBounds.GetHalfDims().x * 2,panelBounds.GetHalfDims().y * 2);
+sf::Vector2f GamePanel::GetSize(){
+	return mySize;
+	//return sf::Vector2i(panelBounds.GetHalfDims().x * 2,panelBounds.GetHalfDims().y * 2);
 };

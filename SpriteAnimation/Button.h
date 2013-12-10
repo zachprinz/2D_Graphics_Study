@@ -21,7 +21,6 @@ public:
 	static void OnStart();
 	void SetFunction(std::string);
 	void SetTarget(GamePanel*);
-	void CenterForeground();
 	void OnHover(bool);
 	void SetMoveOnHover(bool);
 	void SetHoverMovePosition(sf::Vector2i);

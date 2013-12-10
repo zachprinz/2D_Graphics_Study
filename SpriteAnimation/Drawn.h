@@ -61,6 +61,7 @@ public:
 	sf::IntRect GetTexturePart();
 	virtual void SetPosition(sf::Vector2f);
 	sf::Vector2f GetPosition();
+	sf::Vector2f GetSize();
 protected:
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;

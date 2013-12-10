@@ -3,19 +3,18 @@
 #include <iostream>
 
 Container::Container(int x,int y,std::string textureName) : GuiElement(x,y,textureName,"blank.png"){
-	isFull = false;
-	foreground->GetSprite()->setOrigin(foreground->GetSprite()->getLocalBounds().width / 2, foreground->GetSprite()->getLocalBounds().height);
-	
+	isFull = false;	
 };
 void Container::SetUp(){
 
 };
 void Container::AddItem(Item item){
+	std::cout << "Container adding a found item." << std::endl;
 	ClearContents();
 	contents = item;
-	foreground->GetSprite()->setTexture(Drawn::gameTexture);
-	foreground->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("itemsprites/" + item.imageName));
-	foreground->GetSprite()->setScale(2,2);
+	SetForegroundSprite("itemsprites/" + item.imageName);
+	CenterForeground();
+	foreground->SetScale(sf::Vector2f(2,2));
 	EnableRClick(item.name);
 	isFull = true;
 };

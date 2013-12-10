@@ -66,20 +66,21 @@ void Drawn::Draw(GamePanel* panel){
 		sf::Vector2f spriteScale = sprite.getScale();
 		sf::IntRect texRec = sprite.getTextureRect();
 		sf::Vector2f panelPos = panel->GetPosition();
+		sf::Vector2f orgin = sprite.getOrigin();
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + panelPos;
+		gameArray[quadCount].position = pos + panelPos + orgin;
 		heldVerteces[0].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(myScale.x * texturePart.width * spriteScale.x,0) + panelPos;
+		gameArray[quadCount].position = pos + sf::Vector2f(myScale.x * texturePart.width * spriteScale.x,0) + panelPos + orgin;
 		heldVerteces[1].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = sf::Vector2f(pos.x + (myScale.x * texturePart.width * spriteScale.x),pos.y + (myScale.y * texturePart.height * spriteScale.y)) + panelPos;
+		gameArray[quadCount].position = sf::Vector2f(pos.x + (myScale.x * texturePart.width * spriteScale.x),pos.y + (myScale.y * texturePart.height * spriteScale.y)) + panelPos + orgin;
 		heldVerteces[2].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(0,myScale.y * texturePart.height * spriteScale.y) + panelPos;
+		gameArray[quadCount].position = pos + sf::Vector2f(0,myScale.y * texturePart.height * spriteScale.y) + panelPos + orgin;
 		heldVerteces[3].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 		testPosition = pos;
@@ -111,8 +112,7 @@ void Drawn::DrawGame(sf::RenderWindow& window){
 	//otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 	gameArray.clear();
 	quadCount = 0;
-	/*
-	sf::IntRect texRec = sf::IntRect(3603,1862,2,2);
+	sf::IntRect texRec = GetTextureFromAtlas("gamebackground.png");
 	gameArray.append(sf::Vertex());
 	gameArray[quadCount].position = sf::Vector2f(0,0);
 	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
@@ -125,7 +125,6 @@ void Drawn::DrawGame(sf::RenderWindow& window){
 	gameArray.append(sf::Vertex());
 	gameArray[quadCount].position = sf::Vector2f(0,1080);
 	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
-	*/
 };
 void Drawn::SetUp(sf::RenderWindow* window){
 	gameWindow = window;
@@ -400,4 +399,7 @@ bool Drawn::ViewContains(sf::View view,sf::IntRect rect){
 		&& viewRect.contains(rect.left + rect.width, rect.top + rect.height))
 		return true;
 	return false;
+};
+sf::Vector2f Drawn::GetSize(){
+	return sf::Vector2f(texturePart.width * myScale.x, texturePart.height * myScale.y);
 };

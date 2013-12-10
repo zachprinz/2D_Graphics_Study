@@ -17,8 +17,9 @@ ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,"
 	stationary = false;
 };
 ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,new SlicedSprite(x,y,length),"green.png"){
-	foreground->SetScale(sf::Vector2f(((float)(length-50))/4.0f,6));
-	foreground->GetSprite()->setPosition(x + 25,y);
+	foreground->SetScale(sf::Vector2f(((float)(length-50))/4.0f,9));
+	fullScale = (length-50)/4.0f;
+	foreground->SetPosition(sf::Vector2f(x + 25,y + 1));
 	fg = &(foregroundRect);
 	this->percent = percent;
 	stationary = true;
@@ -36,7 +37,7 @@ void ProgressBar::Update(sf::RenderTexture& panel){
 	}
 	else{
 		if(percent > 0){
-			foreground->GetSprite()->setTextureRect(sf::IntRect(0,0,foreground->GetSprite()->getTexture()->getSize().x * (*percent),25));
+			//foreground->SetScale(sf::Vector2f(,8));
 		}
 		panel.draw(sprite);
 		panel.draw(*foreground->GetSprite());
@@ -52,7 +53,7 @@ void ProgressBar::Update(GamePanel* panel){
 	}
 	else{
 		if(percent > 0){
-			foreground->SetScale(sf::Vector2f((*percent) * foreground->GetScale().x,foreground->GetScale().y));
+			foreground->SetScale(sf::Vector2f((*percent) * fullScale,foreground->GetScale().y));
 		}
 		base->Update(panel);
 		foreground->Draw(panel);

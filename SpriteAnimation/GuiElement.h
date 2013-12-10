@@ -20,6 +20,7 @@ public:
 	virtual void SetPosition(sf::Vector2f);
 	Drawn* foreground;
 	void SetOrgin(int,int);
+	void CenterForeground();
 protected:
 	bool isSliced;
 	SlicedSprite* base;

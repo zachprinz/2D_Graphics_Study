@@ -25,7 +25,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	temp.push_back(levelPanel);
 	std::cout << "About to create Layered Panel" << std::endl;
 	layered = new LayeredPanel(temp);
-	layered->SetPosition(1125,445);
+	layered->SetPosition(1566,459);
 	SetUpImages();
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];

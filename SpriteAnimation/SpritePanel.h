@@ -40,6 +40,8 @@ public:
 	LightEngine* lightEngine;
 	void AddLight(Light*);
 	void AddHull(Hull*);
+	sf::Texture mapTexture;
+	sf::Sprite mapSprite;
 private:
 	void SetUp();
 	std::vector<GroundItem*> spawnedItems;

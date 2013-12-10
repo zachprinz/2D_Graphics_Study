@@ -62,32 +62,28 @@ int main()
 	SlicedSpriteCreator::OnStart();
 
 	TextPanel textPanel(1004,175);
-	textPanel.SetPosition(62,740);
+	textPanel.SetPosition(292,748);
 
-	SpritePanel spritePanel(1024,800);
-	spritePanel.SetPosition(52,125);
+	SpritePanel spritePanel(1526,922);
+	spritePanel.SetPosition(-8,-8);
 	User::player->GetBank()->SetPosition(SpritePanel::instance->GetPosition().x + ((SpritePanel::instance->GetSize().x - 480) / 2),SpritePanel::instance->GetPosition().y + ((SpritePanel::instance->GetSize().y - 480) / 2));
 
 	std::cout << "Loading Action Bar." << std::endl;
-	ActionBar actionBar(1024,88);
-	actionBar.SetPosition(52,941);
+	ActionBar actionBar(1020,88);
+	actionBar.SetPosition(523,961);
 
 	std::cout << "Loading Map Panel." << std::endl;
 	MapPanel mapPanel(375,300);
 	mapPanel.SetPosition(1493,19);
 
 	std::cout << "Loading Stats Panel." << std::endl;
-	StatsPanel statsPanel(375,480);
-	statsPanel.SetPosition(1493,445);
+	StatsPanel statsPanel(320,420);
+	statsPanel.SetPosition(1566,16);
 
 	std::cout << "Loading HUD Panels." << std::endl;
 	HUDPanel hudPanel(User::player, 485,90);
-	hudPanel.SetPosition(52,19);
+	hudPanel.SetPosition(16,961);
 	HUDPanel::instance = &hudPanel;
-
-	HUDPanel hudPanel2(User::player, 485, 90);
-	hudPanel2.SetPosition(590,19);
-	HUDPanel::instanceEnemy = &hudPanel2;
 
 	Actor::elapsedTimeClock.restart();
 
@@ -100,14 +96,6 @@ int main()
 			
 				case(sf::Event::MouseMoved): {
 					sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
-					if(spritePanel.GetBounds().Contains(temp.x,temp.y)){
-						spritePanel.OnHover(sf::Vector2i(temp.x + spritePanel.view.getCenter().x - 512, temp.y + (float)spritePanel.view.getCenter().y - 400));
-						GamePanel::currentMousePanel = &spritePanel;
-					}
-					if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y)){
-						User::player->GetLayered()->OnHover(temp);
-						GamePanel::currentMousePanel = User::player->GetLayered();
-					}
 					if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory()){
 						User::player->GetInventory()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetInventory();
@@ -120,6 +108,10 @@ int main()
 						User::player->GetLevelPanel()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetLevelPanel();
 					}
+					else if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y)){
+						User::player->GetLayered()->OnHover(temp);
+						GamePanel::currentMousePanel = User::player->GetLayered();
+					}
 					else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y)){
 						User::player->GetBank()->OnHover(temp);
 						GamePanel::currentMousePanel = User::player->GetBank();
@@ -127,6 +119,10 @@ int main()
 					else if(actionBar.GetBounds().Contains(temp.x,temp.y)){
 						actionBar.OnHover(temp);
 						GamePanel::currentMousePanel = &actionBar;
+					}
+					else if(spritePanel.GetBounds().Contains(temp.x,temp.y)){
+						spritePanel.OnHover(sf::Vector2i(temp.x + spritePanel.view.getCenter().x - 512, temp.y + (float)spritePanel.view.getCenter().y - 400));
+						GamePanel::currentMousePanel = &spritePanel;
 					}
 				}
 				break;
@@ -197,13 +193,14 @@ int main()
 				*/
 			}
         }
+		//window.clear();
 		spritePanel.Update();
 		actionBar.Update();
 		//mapPanel.Update();
 		statsPanel.Update();
 		hudPanel.Update();
 		textPanel.Update();
-		hudPanel2.Update();
+		//hudPanel2.Update();
 		User::player->GetLayered()->Update();
 		User::player->GetLayered()->UpdateCurrentPanel();
 		User::player->GetBank()->Update();

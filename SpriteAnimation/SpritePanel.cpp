@@ -25,7 +25,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 		else
 			otherLayers.push_back(&ml->GetLayers()[x]);
 	}
-	view.reset(sf::FloatRect(0,0,1024,800));
+	view.reset(sf::FloatRect(0,0,1526,922));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
 	std::cout << "Creating Light Engine." << std::endl;
@@ -38,6 +38,8 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	LoadMapCollisions();
 	LoadMapAmbience();
 	LoadMapSprites();
+	mapTexture.loadFromFile("maps/testMap1.png");
+	mapSprite.setTexture(mapTexture);
 };
 SpritePanel::SpritePanel(){
 
@@ -150,12 +152,13 @@ void SpritePanel::LoadMapAmbience(){
 };
 void SpritePanel::UpdateElements(){
 	for(MyPair x: backgroundElements){
-		((SlicedSprite*)x.second)->Update(this);
+		//((SlicedSprite*)x.second)->Update(this);
 	}
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	SetHighObjectsInvisible();
-	ml->Draw(panel);
+	//ml->Draw(panel);
+	panel.draw(mapSprite);
 	lightEngine->SetView(view);
 	lightEngine->DrawLights(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
