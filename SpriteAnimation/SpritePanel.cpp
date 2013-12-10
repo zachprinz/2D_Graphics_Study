@@ -149,6 +149,9 @@ void SpritePanel::LoadMapAmbience(){
 	}
 };
 void SpritePanel::UpdateElements(){
+	for(MyPair x: backgroundElements){
+		((SlicedSprite*)x.second)->Update(this);
+	}
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	SetHighObjectsInvisible();
@@ -169,6 +172,7 @@ void SpritePanel::UpdateElements(){
 	}
 	User::player->UpdateBar(panel);
 	SetLowObjectsVisible();
+	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
 }

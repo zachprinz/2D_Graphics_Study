@@ -18,8 +18,7 @@ public:
 	ElementList staticElements;
 	ElementList backgroundElements;
 	bool GetIsPanelOpen();
-	virtual void Update(sf::RenderWindow&);
-	void DrawToWindow(sf::RenderWindow&);
+	virtual void Update();
 	void InitiateElements();
 	virtual void UpdateElements();
 	void Open();
@@ -43,6 +42,7 @@ public:
 	std::string GetName();
 	sf::Vector2i GetSize();
 	sf::Vector2<Drawn*> nonVertexElements;
+	sf::Sprite panelSprite;
 protected:
 	bool updateElements;
 	bool createPanelLabel;
@@ -51,7 +51,6 @@ protected:
 	sf::RenderTexture panel;
 	sf::RenderTexture backgroundPanel;
 	sf::Sprite backgroundPanelSprite;
-	sf::Sprite panelSprite;
 	bool isPanelOpen;
 };
 

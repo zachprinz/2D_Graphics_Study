@@ -33,7 +33,7 @@ void MapPanel::UpdateElements(){
 		mapRect = GetMapViewRect();
 	}
 	box.setPosition(newBoxPosition);
-	SpritePanel::instance->ml->Draw(panel);
+	//SpritePanel::instance->ml->Draw(panel);
 	panel.draw(box);
 	GamePanel::UpdateElements();
 };

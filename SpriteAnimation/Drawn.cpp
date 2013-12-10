@@ -14,9 +14,10 @@ boost::container::flat_set<Drawn*> Drawn::vertexPointers;
 sf::RenderTexture Drawn::otherGraphicsPanel;
 sf::Sprite Drawn::otherGraphicsSprite;
 int Drawn::quadCount;
+sf::RenderWindow* Drawn::gameWindow;
 
 Drawn::Drawn(std::string textureExtension){
-	testPosition = sf::Vector2f(0,0);
+	testPosition = sf::Vector2f(-.00000121234353223456,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
 	heldVerteces.resize(4);
 	for(int x = 0; x < 4; x++){
@@ -56,7 +57,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 };
 
 Drawn::Drawn(){
-
+		myScale = sf::Vector2f(1,1);
 };
 
 void Drawn::Draw(GamePanel* panel){
@@ -103,14 +104,31 @@ void Drawn::Destroy(){
 
 };
 void Drawn::DrawGame(sf::RenderWindow& window){
+	window.draw(SpritePanel::instance->panelSprite);
 	window.draw(gameArray,gameRenderStates);
-	otherGraphicsPanel.display();
-	window.draw(otherGraphicsSprite);
-	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
+	//otherGraphicsPanel.display();
+	//window.draw(otherGraphicsSprite);
+	//otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 	gameArray.clear();
 	quadCount = 0;
+	/*
+	sf::IntRect texRec = sf::IntRect(3603,1862,2,2);
+	gameArray.append(sf::Vertex());
+	gameArray[quadCount].position = sf::Vector2f(0,0);
+	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
+	gameArray.append(sf::Vertex());
+	gameArray[quadCount].position = sf::Vector2f(1920,0);
+	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
+	gameArray.append(sf::Vertex());
+	gameArray[quadCount].position = sf::Vector2f(1920,1080);
+	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
+	gameArray.append(sf::Vertex());
+	gameArray[quadCount].position = sf::Vector2f(0,1080);
+	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
+	*/
 };
-void Drawn::SetUp(){
+void Drawn::SetUp(sf::RenderWindow* window){
+	gameWindow = window;
 	quadCount = 0;
 	gameArray.setPrimitiveType(sf::Quads);
 	gameTexture.loadFromFile("Atlas/GameAtlas.png");
@@ -174,30 +192,34 @@ void Drawn::Update(sf::RenderTexture& window){
 void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	sf::Vector2f tempPos = label->getPosition();
 	label->setPosition(tempPos + panel->GetPosition());
-	otherGraphicsPanel.draw(*label);
+	//otherGraphicsPanel.draw(*label);
+	gameWindow->draw(*label);
 	label->setPosition(tempPos);
 };
 void Drawn::DrawOther(sf::Sprite* sprite,GamePanel* panel){
 	sf::Vector2f tempPos = sprite->getPosition();
 	sprite->setPosition(tempPos + panel->GetPosition());
-	otherGraphicsPanel.draw(*sprite);
+	//otherGraphicsPanel.draw(*sprite);
+	gameWindow->draw(*sprite);
 	sprite->setPosition(tempPos);
 };
 void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
 	sf::Vector2f tempPos = sprite->getPosition();
 	sprite->setPosition(tempPos + panel->GetPosition());
-	otherGraphicsPanel.draw(*sprite);
+	//otherGraphicsPanel.draw(*sprite);
+	gameWindow->draw(*sprite);
 	sprite->setPosition(tempPos);
 };
 void Drawn::Update(GamePanel* panel){
-	Draw(panel);
+	//Draw(panel);
 };
 
 void Drawn::MoveOnGrid(int x,int y){
 
 };
 void Drawn::SetScale(sf::Vector2f newScale){
-	myScale = newScale;
+	if(newScale.x != 0 && newScale.y != 0)
+		myScale = newScale;
 }
 sf::Vector2f Drawn::GetScale(){
 	return myScale;

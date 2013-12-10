@@ -29,7 +29,7 @@ void LayeredPanel::SetUp(){
 		//tempButton->CenterForeground();
 		dynamicElements.insert(MyPair("Button" + panels[x]->GetName(),tempButton));
 	}
-	Drawn* background = new Drawn(new SlicedSprite(0,largestSubpanelSize.y + 16,(float)((panel.getSize().x) + 16),(float)(panel.getSize().y - largestSubpanelSize.y),SlicedSprite::SpriteStyle::Pixel));
+	SlicedSprite* background = new SlicedSprite(0,largestSubpanelSize.y + 16,(float)((panel.getSize().x) + 16),(float)(panel.getSize().y - largestSubpanelSize.y),SlicedSprite::SpriteStyle::Pixel);
 	background->SetPosition(sf::Vector2f(0,largestSubpanelSize.y + 16));
 	backgroundElements.insert(MyPair("Background", background));
 };
@@ -76,7 +76,7 @@ void LayeredPanel::SetPosition(int x, int y){
 		panels[z]->SetPosition(x,y);
 	};
 };
-void LayeredPanel::UpdateCurrentPanel(sf::RenderWindow& panel){
-	panels[currentPanel]->Update(panel);
+void LayeredPanel::UpdateCurrentPanel(){
+	panels[currentPanel]->Update();
 };
 

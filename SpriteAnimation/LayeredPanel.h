@@ -21,7 +21,7 @@ public:
 	static sf::Vector2i GetLayeredPanelSize(std::vector<GamePanel*>);
 	void UpdatePanelsPosition();
 	void SetPosition(int x, int y);
-	void UpdateCurrentPanel(sf::RenderWindow&);
+	void UpdateCurrentPanel();
 private:
 	std::vector<sf::RectangleShape*> sheets;
 	sf::Vector2i largestSubpanelSize;

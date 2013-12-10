@@ -24,7 +24,6 @@
 
 int main()
 {
-	Drawn::SetUp();
     sf::Clock clock;
     float lastTime = 0;
 	sf::Text fps;
@@ -40,6 +39,7 @@ int main()
 	sf::Clock elapsedTime;
 	sf::ContextSettings settings;
 	bool debug = true;
+	Drawn::SetUp(&window);
 
 	settings.antialiasingLevel = 8;
 	window.setKeyRepeatEnabled(false);
@@ -97,6 +97,7 @@ int main()
         while (window.pollEvent(event))
         {
 			switch(event.type){
+			
 				case(sf::Event::MouseMoved): {
 					sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
 					if(spritePanel.GetBounds().Contains(temp.x,temp.y)){
@@ -127,8 +128,9 @@ int main()
 						actionBar.OnHover(temp);
 						GamePanel::currentMousePanel = &actionBar;
 					}
-											 }
-					break;
+				}
+				break;
+				
 				case(sf::Event::MouseButtonPressed): {
 				if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left){ //Eventually will iterate through these
 					sf::Vector2i temp(event.mouseButton.x,event.mouseButton.y);
@@ -176,33 +178,35 @@ int main()
 							User::player->GetBank()->OnRClick(temp);
 					}
 				}
-													 }
+				}
 				break;
+
 				case(sf::Event::Closed):
 					window.close();
 				break;
+				/*
 				case(sf::Event::MouseWheelMoved):{
-					if(User::player->GetBank()->GetIsPanelOpen()){//GamePanel::currentMousePanel == User::player->GetBank() && 
+					if(User::player->GetBank()->GetIsPanelOpen()){ 
 						if(event.mouseWheel.delta > 0)
 							User::player->GetBank()->ScrollUp();
 						else
 							User::player->GetBank()->ScrollDown();
-					}							 
-					}
+					}						 
+				}
 				break;
+				*/
 			}
         }
-        window.clear();
-		spritePanel.Update(window);
-		actionBar.Update(window);
-		//mapPanel.Update(window);
-		statsPanel.Update(window);
-		hudPanel.Update(window);
-		textPanel.Update(window);
-		hudPanel2.Update(window);
-		User::player->GetLayered()->Update(window);
-		User::player->GetLayered()->UpdateCurrentPanel(window);
-		User::player->GetBank()->Update(window);
+		spritePanel.Update();
+		actionBar.Update();
+		//mapPanel.Update();
+		statsPanel.Update();
+		hudPanel.Update();
+		textPanel.Update();
+		hudPanel2.Update();
+		User::player->GetLayered()->Update();
+		User::player->GetLayered()->UpdateCurrentPanel();
+		User::player->GetBank()->Update();
 		Drawn::DrawGame(window);
 		window.display();
     }

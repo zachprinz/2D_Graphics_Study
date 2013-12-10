@@ -147,7 +147,7 @@ void MapLoader::Draw(sf::RenderTarget& rt)
 	m_SetDrawingBounds(rt.getView());
 
 	for(auto&& layer : m_layers)
-		m_DrawLayer(rt, layer);
+		m_DrawLayer(rt,layer);
 }
 
 void MapLoader::Draw(sf::RenderTarget& rt, MapLayer::DrawType type)

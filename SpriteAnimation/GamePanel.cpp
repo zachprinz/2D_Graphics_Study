@@ -31,31 +31,22 @@ GamePanel::GamePanel(int x, int y, std::string name){
 GamePanel::GamePanel(){
 
 }
-void GamePanel::Update(sf::RenderWindow& window){
+void GamePanel::Update(){
 	if(isPanelOpen){
-		if(this->CheckUpdate() || doUpdate == true){
-			panel.clear(sf::Color(0,0,0,0));
-			backgroundPanel.clear(sf::Color(0,0,0,0));
+	//	if(this->CheckUpdate() || doUpdate == true){
 			UpdateElements();
-			panel.display();
-			backgroundPanel.display();
-			DrawToWindow(window);
-		}
-		else{
-			DrawToWindow(window);
-		}
+	//	}
+	//	else{
+
+	//	}
 	}
-};
-void GamePanel::DrawToWindow(sf::RenderWindow& window){
-	//window.draw(backgroundPanelSprite);
-	//window.draw(panelSprite);
 };
 void GamePanel::InitiateElements(){
 
 };
 void GamePanel::UpdateElements(){
 	for(MyPair x: backgroundElements){
-		x.second->Update(this);
+		((SlicedSprite*)x.second)->Update(this);
 	}
 	for(MyPair x: staticElements){
 		x.second->Update(this);

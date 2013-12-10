@@ -20,7 +20,7 @@ public:
 	void ScrollUp();
 	virtual bool CheckUpdate();
 	void SetPosition(int, int);
-	void Update(sf::RenderWindow&);
+	void Update();
 	AABB GetBounds();
 	void OnButtonEvent(std::string);
 private:

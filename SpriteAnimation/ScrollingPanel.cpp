@@ -31,9 +31,9 @@ ScrollingPanel::ScrollingPanel(int x,int y,int visibleX,int visibleY) : GamePane
 ScrollingPanel::ScrollingPanel(){
 
 };
-void ScrollingPanel::Update(sf::RenderWindow& window){
+void ScrollingPanel::Update(){
 	if(isPanelOpen){
-		GamePanel::Update(window);
+		GamePanel::Update();
 	}
 };
 void ScrollingPanel::OnClick(sf::Vector2i temp){

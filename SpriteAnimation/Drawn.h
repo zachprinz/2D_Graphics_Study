@@ -42,13 +42,14 @@ public:
 	void Draw(GamePanel*);
 	void DrawAdditional(GamePanel*);
 	static void DrawGame(sf::RenderWindow&);
-	static void SetUp();
+	static void SetUp(sf::RenderWindow*);
 	static sf::RenderTexture otherGraphicsPanel;
 	static sf::Sprite otherGraphicsSprite;
 	static void DrawOther(sf::Text*,GamePanel*);
 	static void DrawOther(sf::Sprite*,GamePanel*);
 	static void DrawOther(sf::RectangleShape*,GamePanel*);
 	static int quadCount;
+	static sf::RenderWindow* gameWindow;
 	int z;
 	bool operator<(Drawn const& drawn) const{return(z<drawn.z);};
 	static boost::container::flat_set<Drawn*> vertexPointers;

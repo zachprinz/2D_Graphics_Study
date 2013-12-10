@@ -15,13 +15,13 @@ SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::S
 		parts.push_back(new Drawn("slicedsprites/" + std::to_string(style) + "/" + std::to_string(x) + ".png"));
 	}
 	float topLength = x - (textParts[0].width + textParts[2].width);
-	parts[1]->SetScale(sf::Vector2f(topLength / textParts[1].width,1));
-	parts[4]->SetScale(sf::Vector2f(topLength / textParts[1].width,1));
-	parts[7]->SetScale(sf::Vector2f(topLength / textParts[1].width,1));
+	parts[1]->SetScale(sf::Vector2f(topLength / (float)textParts[1].width,1));
+	parts[4]->SetScale(sf::Vector2f(topLength / (float)textParts[1].width,1));
+	parts[7]->SetScale(sf::Vector2f(topLength / (float)textParts[1].width,1));
 	float sideHeight = y - (textParts[0].height + textParts[6].height);
-	parts[3]->SetScale(sf::Vector2f(parts[3]->GetScale().x,sideHeight / textParts[3].height));
-	parts[4]->SetScale(sf::Vector2f(parts[4]->GetScale().x,sideHeight / textParts[3].height));
-	parts[5]->SetScale(sf::Vector2f(parts[5]->GetScale().x,sideHeight / textParts[3].height));
+	parts[3]->SetScale(sf::Vector2f(parts[3]->GetScale().x,sideHeight / (float)textParts[3].height));
+	parts[4]->SetScale(sf::Vector2f(parts[4]->GetScale().x,sideHeight / (float)textParts[3].height));
+	parts[5]->SetScale(sf::Vector2f(parts[5]->GetScale().x,sideHeight / (float)textParts[3].height));
 	parts[0]->SetPosition(sf::Vector2f(0,0));
 	parts[1]->SetPosition(sf::Vector2f(parts[0]->GetTexturePart().width,0));
 	parts[2]->SetPosition(sf::Vector2f(parts[1]->GetTexturePart().width + parts[2]->GetTexturePart().width,0));
