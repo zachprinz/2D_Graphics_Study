@@ -13,8 +13,8 @@ void Container::AddItem(Item item){
 	ClearContents();
 	contents = item;
 	SetForegroundSprite("itemsprites/" + item.imageName);
-	CenterForeground();
 	foreground->SetScale(sf::Vector2f(2,2));
+	CenterForeground();
 	EnableRClick(item.name);
 	isFull = true;
 };
@@ -33,10 +33,10 @@ void Container::OnHover(bool hovered){
 	if(isFull && StatsPanel::instance->currentName != contents.name)
 		StatsPanel::instance->SetItem(&contents);
 	if(hovered){
-		foreground->ExpandBy(1.1,sf::seconds(0.1));
+		//foreground->ExpandBy(1.1,sf::seconds(0.1));
 	}
 	else{
-		foreground->ReturnExpand();
+		//foreground->ReturnExpand();
 	}
 };
 void Container::Update(sf::RenderTexture& panel){

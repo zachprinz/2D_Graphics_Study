@@ -24,7 +24,7 @@ TextPanel::TextPanel(int x,int y) : GamePanel(x,y,"Text"){
 	averageWidth = averageWidth / 26.0;
 	linesPerPage = (panel.getSize().y) / height;
 	linesPerPage--;
-	charsPerLine = (panel.getSize().x + 360) / averageWidth;
+	charsPerLine = (panel.getSize().x + 300) / averageWidth;
 	DisplayText("Welcome to my world. I made it. It's not quite finished but you should be able to find some stuff to do. Check out you're inventory and levels to the right. Try mousing over some items or enemies to take advantage of the stats panel. After you're aquainted with everything go talk to that mysterious man hanging out up there, see what he wants.");
 };
 void TextPanel::SetUp(){
@@ -32,11 +32,11 @@ void TextPanel::SetUp(){
 	Label* textDisplay = new Label(8,0,"blank.png",Label::Fonts::Game,"Where all the text will be displayed. ");
 	dynamicElements.insert(MyPair("text",textDisplay));
 	((Label*)dynamicElements["text"])->GetText()->setCharacterSize(30);
-	Button* previousButton = new Button(8,panel.getSize().y - 40,"buttonImages/minusButton.png","blank.png");
+	Button* previousButton = new Button(-60,panel.getSize().y - 120,"buttonImages/minusButton.png","blank.png");
 	previousButton->SetTarget(this);
 	previousButton->SetFunction("previousButton");
 	dynamicElements.insert(MyPair("previousButton",previousButton));
-	Button* nextButton = new Button(panel.getSize().x - 40,panel.getSize().y - 40,"buttonImages/plusButton.png","blank.png");
+	Button* nextButton = new Button(panel.getSize().x - 40,panel.getSize().y - 120,"buttonImages/plusButton.png","blank.png");
 	nextButton->SetTarget(this);
 	nextButton->SetFunction("nextButton");
 	dynamicElements.insert(MyPair("nextButton",nextButton));

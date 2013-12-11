@@ -16,6 +16,7 @@ public:
 	void PickUp();
 	void Interact();
 	void SetUpBoundries();
+	void OnClick();
 private:
 	Item item;
 };

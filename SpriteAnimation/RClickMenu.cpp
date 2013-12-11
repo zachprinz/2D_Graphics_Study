@@ -2,6 +2,8 @@
 #include <iostream>
 #include "GamePanel.h"
 #include "SpritePanel.h"
+#include "User.h"
+#include "LayeredPanel.h"
 
 std::vector<Label*> RClickMenu::OptionButtons;
 sf::Texture RClickMenu::menuTexture;
@@ -51,6 +53,14 @@ void RClickMenu::Update(sf::RenderTexture& panel){
 		}
 	}
 }
+void RClickMenu::Update(GamePanel* panel){
+	if(isOpen){
+		std::vector<Label*> temp = RClickMenu::GetMenu();
+		for(int x = 0; x < temp.size(); x++){
+			temp[x]->Update(panel);
+		}
+	}
+}
 float RClickMenu::GetTextWidth(std::string string){
 	sf::Text text;
 	text.setFont(Label::fonts[Label::Fonts::Game]);
@@ -87,19 +97,19 @@ void RClickMenu::SetOrgin(Orgins orgin){
 		switch(orgin){
 			case(TopLeft):
 				tempSprite->setOrigin(0,0);
-				tempLabel->CenterText();
+				//tempLabel->CenterText();
 				break;
 			case(TopRight):
 				tempSprite->setOrigin(tempSprite->getLocalBounds().width,0);
-				tempLabel->CenterText();
+				//tempLabel->CenterText();
 				break;
 			case(BottomLeft):
 				tempSprite->setOrigin(0,tempSprite->getLocalBounds().height);
-				tempLabel->CenterText();
+				//tempLabel->CenterText();
 				break;
 			case(BottomRight):
 				tempSprite->setOrigin(tempSprite->getLocalBounds().width,tempSprite->getLocalBounds().height);
-				tempLabel->CenterText();
+				//tempLabel->CenterText();
 				break;
 		}
 	}

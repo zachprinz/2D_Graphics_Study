@@ -7,6 +7,7 @@
 #include <vector>
 #include "Attack.h"
 #include "GamePanel.h"
+#include "StatsPanel.h"
 
 Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant(x,y,name,textureName){
 	LoadFromXML();
@@ -90,7 +91,8 @@ void Enemy::Interact(){
 		User::player->inCombat = true;
 };
 void Enemy::OnClick(){
-	Interact();
+	StatsPanel::instance->SetCombatant(this);
+	//Interact();
 }
 void Enemy::SetUpAttacks(){
 	std::vector<sf::Vector2i> atkOffset;

@@ -88,7 +88,7 @@ void StatsPanel::SetUp(){
 	GamePanel::SetUp();
 };
 void StatsPanel::SetUpItemMap(){
-	int labelsPosX[] = {20,185,20,185,20,185};
+	int labelsPosX[] = {5,155,5,165,5,135};
 	int labelsPosY[] = {160,160,230,230,300,300};
 	std::string labelsString[] = {"Strength","Endure","Technique","Speed","Mining","Woodcutting"};
 	for (int x = 0; x < 6; x++){
@@ -97,17 +97,17 @@ void StatsPanel::SetUpItemMap(){
 		itemMap.insert(MyPair(std::to_string(x), element));
 		itemMap.insert(MyPair(labelsString[x] + "Value",valueElement));
 	}
-	Button* tempButton = new Button(147.5,15,"attacktextures/background.png","attacktextures/default.png");
+	Button* tempButton = new Button(127.5,15,"attacktextures/background.png","attacktextures/default.png");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
 	itemMap.insert(MyPair("Image",tempButton));
-	Label* label = new Label(128,110,120,new SlicedSprite(128,110,120,30,SlicedSprite::WoodPanel),Label::Fonts::Game,"null");
+	Label* label = new Label(103,110,120,"menubackground.png",Label::Fonts::Game,"null");
 	label->CenterText();
 	itemMap.insert(MyPair("Name",label));
 };
 void StatsPanel::SetUpCombatantMap(){
-	int labelsPosX[] = {20,185,20,185,20,20};
+	int labelsPosX[] = {5,170,5,170,5,5};
 	int labelsPosY[] = {160,160,230,230,300,370};
 	std::string labelsString[] = {"Strength","Endure","Technique","Speed","Health","Endurance"};
 	for (int x = 0; x < 6; x++){
@@ -119,16 +119,16 @@ void StatsPanel::SetUpCombatantMap(){
 		}
 		else{
 			float tempFloat = 1;
-			ProgressBar* progBar = new ProgressBar(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x], 200, &tempFloat);
+			ProgressBar* progBar = new ProgressBar(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x], 180, &tempFloat);
 			combatantMap.insert(MyPair(labelsString[x] + "Bar",progBar));
 		}
 	}
-	Button* tempButton = new Button(147.5,15,"attacktextures/background.png","attacktextures/default.png");
+	Button* tempButton = new Button(127.5,15,"attacktextures/background.png","attacktextures/default.png");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
 	combatantMap.insert(MyPair("Image",tempButton));
-	Label* label = new Label(128,110,120,new SlicedSprite(128,110,120,30,SlicedSprite::WoodPanel),Label::Fonts::Game,"null");
+	Label* label = new Label(103,110,120,"menubackground.png",Label::Fonts::Game,"null");
 	label->CenterText();
 	combatantMap.insert(MyPair("Name",label));
 };
@@ -137,12 +137,12 @@ void StatsPanel::SetUpLevelMap(){
 	subLevelPercents.push_back(0.5);
 	subLevelPercents.push_back(0.5);
 	Drawn* levelHeadline = new Drawn("blank.png");
-	ProgressBar* mainLevelProgBar = new ProgressBar(8,70,350,&mainLevelPercent);
-	Label* mainLevelBottomXP = new Label(8,45,"blank.png",Label::Fonts::Game,"0");
-	Label* mainLevelCurrentXP = new Label(140,45,"blank.png",Label::Fonts::Game,"50");
-	Label* mainLevelTopXP = new Label(345,45,"blank.png",Label::Fonts::Game,"100");
-	Label* spendXPLabel = new Label(8,440,"blank.png",Label::Fonts::Game,"Spend XP:");
-	Label* spendXPValue = new Label(100,440,"blank.png",Label::Fonts::Game,"100");
+	ProgressBar* mainLevelProgBar = new ProgressBar(8,100,310,&mainLevelPercent);
+	Label* mainLevelBottomXP = new Label(8,75,"blank.png",Label::Fonts::Game,"0");
+	Label* mainLevelCurrentXP = new Label(140,75,"blank.png",Label::Fonts::Game,"50");
+	Label* mainLevelTopXP = new Label(245,75,"blank.png",Label::Fonts::Game,"100");
+	Label* spendXPLabel = new Label(8,390,"blank.png",Label::Fonts::Game,"Spend XP:");
+	Label* spendXPValue = new Label(100,390,"blank.png",Label::Fonts::Game,"100");
 	levelMap.insert(MyPair("spendXPLabel",spendXPLabel));
 	levelMap.insert(MyPair("spendXPValue",spendXPValue));
 	levelMap.insert(MyPair("levelHeadline",levelHeadline));
@@ -151,15 +151,15 @@ void StatsPanel::SetUpLevelMap(){
 	levelMap.insert(MyPair("mainLevelTopXP",mainLevelTopXP));
 	levelMap.insert(MyPair("mainLevelCurrentXP",mainLevelCurrentXP));
 	for(int x = 0; x < 2; x++){
-		int displacement = 135;
-		int displacement2 = 125;
+		int displacement = 140;
+		int displacement2 = 115;
 		Label* subLevelTitle = new Label(8,(x*displacement2)+displacement,"blank.png",Label::Fonts::Game,"SubLevel:" + x);
 		Label* subLevelDescription = new Label(8,(x*displacement2)+displacement + 20,"blank.png",Label::Fonts::Game,"SubLevel Description Text.");
-		ProgressBar* subLevelProgBar = new ProgressBar(8,(x*displacement2) + displacement + 50,350,&subLevelPercents[x]);
+		ProgressBar* subLevelProgBar = new ProgressBar(8,(x*displacement2) + displacement + 50,310,&subLevelPercents[x]);
 		Label* subLevelBottomXP = new Label(8,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"0");
 		Label* subLevelCurrentXP = new Label(140,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"50");
-		Label* subLevelTopXP = new Label(345,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"100");
-		Button* subLevelPlusButton = new Button(330,(x*displacement2) + displacement + 45,"buttonImages/plusButton.png","blank.png");
+		Label* subLevelTopXP = new Label(245,(x*displacement2)+displacement + 75,"blank.png",Label::Fonts::Game,"100");
+		Button* subLevelPlusButton = new Button(290,(x*displacement2) + displacement + 45,"buttonImages/plusButton.png","blank.png");
 		subLevelPlusButton->SetTarget(this);
 		subLevelPlusButton->SetFunction("plusButton" + std::to_string(x));
 		levelMap.insert(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));

@@ -24,6 +24,7 @@ public:
 	static GamePanel* currentPanel;
 	static RClickable* currentTarget;
 	static void Update(sf::RenderTexture&);
+	static void Update(GamePanel*);
 	static float width;
 	static bool Contains(sf::Vector2f);
 	static void Close();

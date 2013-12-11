@@ -58,7 +58,7 @@ void GamePanel::UpdateElements(){
 		x.second->Update(this);
 	}
 	if(RClickMenu::currentPanel == this){
-		RClickMenu::Update(panel);
+		RClickMenu::Update(this);
 	}
 };
 void GamePanel::Open(){
@@ -69,28 +69,28 @@ void GamePanel::Close(){
 };
 void GamePanel::SetPosition(int x, int y){
 	panelSprite.setPosition(x + 8,y + 8);
-	//if(createPanelLabel)
-	//	backgroundPanelSprite.setPosition(x,y - 30);
-	//else
+	if(createPanelLabel)
+		backgroundPanelSprite.setPosition(x,y - 30);
+	else
 		backgroundPanelSprite.setPosition(x,y);
 	panelBounds = AABB(Vec2f(x,y),Vec2f(x + GetSize().x,y + GetSize().y));
 }
 void GamePanel::OnClick(sf::Vector2i point){
-	std::cout << "Target Point: " << point.x << "," << point.y << std::endl;
+	//std::cout << "Target Point: " << point.x << "," << point.y << std::endl;
 	for(MyPair x: dynamicElements){
-		if(x.second->GetSprite()->getGlobalBounds().contains(point.x - panelSprite.getPosition().x,point.y - panelSprite.getPosition().y)){
+		if(x.second->GetBounds(panel.getView()).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
 			x.second->OnClick();
 		}
 		else{
-			sf::FloatRect rect = x.second->GetSprite()->getGlobalBounds();
+			AABB rect = x.second->GetBounds();
 		}
 	}
 }
 void GamePanel::OnRClick(sf::Vector2i point){
 	std::cout << "Right Click" << std::endl;
 	for(MyPair x: dynamicElements){
-		if(((RClickable*)(x.second))->GetRClickEnabled() && x.second->GetSprite()->getGlobalBounds().contains(point.x - panelSprite.getPosition().x,point.y - panelSprite.getPosition().y)){
-			((RClickable*)(x.second))->OnRClick(sf::Vector2i(point.x - panelSprite.getPosition().x , point.y - panelSprite.getPosition().y),this);
+		if(((RClickable*)(x.second))->GetRClickEnabled() && x.second->GetBounds().Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
+			((RClickable*)(x.second))->OnRClick(sf::Vector2i(point.x - GetPosition().x,point.y - GetPosition().y),this);
 		}
 		else if(((RClickable*)(x.second))->GetRClickEnabled()){
 			std::cout << "RClickEnabled on this one." << std::endl;
@@ -99,13 +99,14 @@ void GamePanel::OnRClick(sf::Vector2i point){
 }
 void GamePanel::OnHover(sf::Vector2i point){
 	for(MyPair x: dynamicElements){
-		if(x.second->GetSprite()->getGlobalBounds().contains(point.x - panelSprite.getPosition().x,point.y - panelSprite.getPosition().y)){
+		if(x.second->GetBounds(panel.getView()).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
 			if(GamePanel::currentMouseElement != x.second){
 				if(currentMouseElement != NULL)
 					currentMouseElement->OnHover(false);
 				currentMouseElement = x.second;
 				(x.second)->OnHover(true);
 			}
+			break;
 		}
 	}
 };
@@ -125,15 +126,15 @@ sf::Vector2f GamePanel::GetPosition(){
 	return panelSprite.getPosition();
 }
 void GamePanel::SetUp(){
-	//SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
-	//if(createPanelLabel)
-	//	background->SetPosition(sf::Vector2f(0,30));
-	//backgroundElements.insert(MyPair("Background", background));
-	//if(createPanelLabel){
-	//	Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
-	//	label->CenterText();
-	//	backgroundElements.insert(MyPair("Label", label));
-	//}
+	SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
+	if(createPanelLabel)
+		background->SetPosition(sf::Vector2f(0,30));
+	backgroundElements.insert(MyPair("Background", background));
+	if(createPanelLabel){
+		Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
+		label->CenterText();
+		backgroundElements.insert(MyPair("Label", label));
+	}
 }
 bool GamePanel::GetIsPanelOpen(){
 	return isPanelOpen;

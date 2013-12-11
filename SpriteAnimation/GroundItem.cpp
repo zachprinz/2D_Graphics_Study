@@ -2,6 +2,7 @@
 #include <iostream>
 #include "User.h"
 #include "SpritePanel.h"
+#include "StatsPanel.h"
 
 GroundItem::GroundItem(int x, int y, Item myItem) : GameSprite(x,y,"itemsprites/" + myItem.imageName){
 	item = myItem;
@@ -58,4 +59,7 @@ void GroundItem::SetUpBoundries(){
 		poly.setFillColor(sf::Color(43,119,173,170));
 		GameSprite::AddBoundryPolygon(poly);
 	}
+};
+void GroundItem::OnClick(){
+	StatsPanel::instance->SetItem(&item);
 };

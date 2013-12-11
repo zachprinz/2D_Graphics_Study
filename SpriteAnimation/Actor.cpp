@@ -270,8 +270,8 @@ bool Actor::UpdateAnimation(){
 		sprite.setColor(sf::Color(255,255,255,255));
 		animationClock.restart();
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
-		//ClearBoundries();
-		//UpdateBoundries(); TODO LAGS HARD
+		ClearBoundries();
+		UpdateBoundries();// TODO LAGS HARD
 		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],sprite.getPosition());
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));

@@ -158,6 +158,7 @@ void Combatant::RecieveAttack(int hit){
 	std::cout << std::to_string(health) << std::endl;
 };
 void Combatant::OnHover(){
+	std::cout << "Combatant On Hover" << std::endl;
 	if(StatsPanel::instance->currentName != name)
 		StatsPanel::instance->SetCombatant(this);
 };

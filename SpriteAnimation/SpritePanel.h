@@ -30,9 +30,6 @@ public:
 	static Room* room;
 	sf::View view;
 	void MoveCamera(float,float);
-	void SetHighObjectsVisible();
-	void SetHighObjectsInvisible();
-	void SetLowObjectsVisible();
 	std::vector<std::string> combatants;
 	void RemoveDynamicElement(std::string);
 	bool CheckUpdate();

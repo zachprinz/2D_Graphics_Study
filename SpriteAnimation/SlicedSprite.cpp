@@ -34,11 +34,11 @@ SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::S
 	SetPosition(sf::Vector2f(xPos,yPos));
 };
 SlicedSprite::SlicedSprite(int x, int y, int length) : Drawn("blank.png"){
-	CreateTiled(25 + x,y,length - 50,"progressbar/background/1.png");
+	CreateTiled(22 + x,y,length - 50,"progressbar/background/1.png");
 	parts.push_back(new Drawn("progressbar/background/0.png"));
 	parts[parts.size() - 1]->SetPosition(sf::Vector2f(x,y));
 	parts.push_back(new Drawn("progressbar/background/2.png"));
-	parts[parts.size() - 1]->SetPosition(sf::Vector2f(length-25 + x,y));
+	parts[parts.size() - 1]->SetPosition(sf::Vector2f(length-28 + x,y));
 };
 
 void SlicedSprite::CreateTiled(int xPos, int yPos, int length, std::string spritePath){

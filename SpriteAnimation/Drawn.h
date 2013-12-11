@@ -50,6 +50,9 @@ public:
 	static void DrawOther(sf::RectangleShape*,GamePanel*);
 	static int quadCount;
 	static sf::RenderWindow* gameWindow;
+	static std::vector<sf::Drawable*> adds;
+	static std::vector<sf::Transformable*> addsTransforms;
+	static std::vector<sf::Vector2f> addsPositions;
 	int z;
 	bool operator<(Drawn const& drawn) const{return(z<drawn.z);};
 	static boost::container::flat_set<Drawn*> vertexPointers;
@@ -62,7 +65,11 @@ public:
 	virtual void SetPosition(sf::Vector2f);
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetSize();
+	AABB GetBounds();
+	AABB GetBounds(sf::View);
 protected:
+	bool updateVertex;
+	static void DrawAdds();
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;
 	sf::Vector2f myScale;

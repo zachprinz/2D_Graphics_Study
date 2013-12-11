@@ -19,12 +19,6 @@ Room* SpritePanel::room = new Room();
 SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	ml = new tmx::MapLoader("maps/");
     ml->Load("testNew.tmx");
-	for(int x = 0; x < ml->GetLayers().size(); x++){
-		if(ml->GetLayers()[x].name == "objects2" || ml->GetLayers()[x].name == "objects3")
-			highLayers.push_back(&ml->GetLayers()[x]);
-		else
-			otherLayers.push_back(&ml->GetLayers()[x]);
-	}
 	view.reset(sf::FloatRect(0,0,1526,922));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
@@ -156,8 +150,6 @@ void SpritePanel::UpdateElements(){
 	}
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
-	SetHighObjectsInvisible();
-	//ml->Draw(panel);
 	panel.draw(mapSprite);
 	lightEngine->SetView(view);
 	lightEngine->DrawLights(&panel);
@@ -165,8 +157,6 @@ void SpritePanel::UpdateElements(){
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
 	User::player->Update((GamePanel*)this);
-	SetHighObjectsVisible();
-	ml->Draw(panel);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
 	}
@@ -174,7 +164,6 @@ void SpritePanel::UpdateElements(){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
 	User::player->UpdateBar(panel);
-	SetLowObjectsVisible();
 	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
@@ -194,24 +183,6 @@ void SpritePanel::SpawnItem(int id,int x,int y,Room* room){
 };
 void SpritePanel::MoveCamera(float x, float y){
 	view.reset(sf::FloatRect(view.getViewport().left + x,view.getViewport().top + y,512,512));
-};
-void SpritePanel::SetHighObjectsVisible(){
-	for(int x = 0; x < otherLayers.size(); x++){
-		otherLayers[x]->visible = false;
-	}
-	for(int x = 0; x < highLayers.size(); x++){
-		highLayers[x]->visible = true;
-	}
-};
-void SpritePanel::SetHighObjectsInvisible(){
-	for(int x = 0; x < highLayers.size(); x++){
-		highLayers[x]->visible = false;
-	}
-};
-void SpritePanel::SetLowObjectsVisible(){
-	for(int x = 0; x < otherLayers.size(); x++){
-		otherLayers[x]->visible = true;
-	}
 };
 void SpritePanel::RemoveDynamicElement(std::string tag){
 	room->RemoveOcupant(std::stoi(tag));

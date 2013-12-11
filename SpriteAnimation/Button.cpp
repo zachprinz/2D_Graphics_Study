@@ -61,7 +61,7 @@ void Button::SetMoveOnHover(bool yn){
 void Button::OnHover(bool hovered){
 	if(!moveOnHover){
 		if(hovered){
-			foreground->ExpandBy(1.1,sf::seconds(0.1));
+			foreground->ExpandBy(1.075,sf::seconds(0.1));
 		}
 		else{
 			foreground->ReturnExpand();

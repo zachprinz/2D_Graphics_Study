@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:d157a9246b553936a3f6c83d85fabc7a:1/1$ -->
+<!-- $TexturePacker:SmartUpdate:8f9b9d4e0f3c21ff07b7792184e23c84:1/1$ -->
 <!--Format:
 n  => name of the sprite
 x  => sprite x pos in texture
@@ -14,72 +14,72 @@ oH => sprite's original height (only available if trimmed)
 r => 'y' only set if sprite is rotated
 -->
 <TextureAtlas imagePath="GameAtlas.png" width="5006" height="7814">
-    <sprite n="Dr.Smith.png" x="4172" y="6347" w="832" h="1344"/>
-    <sprite n="ambienceObjects/lamp_base.png" x="4970" y="1170" w="32" h="32"/>
-    <sprite n="ambienceObjects/lamp_top.png" x="4166" y="921" w="32" h="40"/>
-    <sprite n="ambienceObjects/tree_base.png" x="4970" y="1136" w="32" h="32"/>
+    <sprite n="Dr.Smith.png" x="4172" y="6188" w="832" h="1344"/>
+    <sprite n="ambienceObjects/lamp_base.png" x="4511" y="984" w="32" h="32"/>
+    <sprite n="ambienceObjects/lamp_top.png" x="4966" y="708" w="32" h="40"/>
+    <sprite n="ambienceObjects/tree_base.png" x="4512" y="950" w="32" h="32"/>
     <sprite n="ambienceObjects/tree_top.png" x="4876" y="384" w="96" h="106"/>
     <sprite n="ambienceObjects/tree_top_tall.png" x="4876" y="244" w="96" h="138"/>
-    <sprite n="attacktextures/Devestating Slash.png" x="4687" y="1166" w="64" h="60"/>
-    <sprite n="attacktextures/Four.png" x="4772" y="1015" w="64" h="64"/>
-    <sprite n="attacktextures/Long Jab.png" x="4705" y="790" w="65" h="61"/>
-    <sprite n="attacktextures/Lunging Jab.png" x="4904" y="1258" w="64" h="60"/>
-    <sprite n="attacktextures/One.png" x="4426" y="1276" w="64" h="64"/>
-    <sprite n="attacktextures/Quick Round Slash.png" x="4838" y="1207" w="64" h="60"/>
-    <sprite n="attacktextures/Quick Slash.png" x="4838" y="1143" w="64" h="62"/>
-    <sprite n="attacktextures/Reaching Jab.png" x="4904" y="1196" w="64" h="60"/>
-    <sprite n="attacktextures/Reaching Slash.png" x="4904" y="1132" w="64" h="62"/>
-    <sprite n="attacktextures/Rough Slash.png" x="4772" y="1081" w="64" h="62"/>
-    <sprite n="attacktextures/Round Slash.png" x="4838" y="1079" w="64" h="62"/>
-    <sprite n="attacktextures/Short Stab.png" x="4772" y="1145" w="64" h="61"/>
-    <sprite n="attacktextures/Simple Jab.png" x="4904" y="1068" w="64" h="62"/>
-    <sprite n="attacktextures/Simple Slash.png" x="4838" y="1015" w="64" h="62"/>
-    <sprite n="attacktextures/Three.png" x="4426" y="1210" w="64" h="64"/>
-    <sprite n="attacktextures/Two.png" x="4426" y="1144" w="64" h="64"/>
-    <sprite n="attacktextures/background.png" x="3592" y="772" w="80" h="80"/>
-    <sprite n="attacktextures/default.png" x="4024" y="772" w="64" h="64"/>
-    <sprite n="bank.png" x="4970" y="1102" w="32" h="32"/>
+    <sprite n="attacktextures/Devestating Slash.png" x="4690" y="1521" w="64" h="60"/>
+    <sprite n="attacktextures/Four.png" x="4426" y="1467" w="64" h="64"/>
+    <sprite n="attacktextures/Long Jab.png" x="4743" y="880" w="65" h="61"/>
+    <sprite n="attacktextures/Lunging Jab.png" x="4426" y="1533" w="64" h="60"/>
+    <sprite n="attacktextures/One.png" x="4492" y="1462" w="64" h="64"/>
+    <sprite n="attacktextures/Quick Round Slash.png" x="4492" y="1528" w="64" h="60"/>
+    <sprite n="attacktextures/Quick Slash.png" x="4907" y="1473" w="64" h="62"/>
+    <sprite n="attacktextures/Reaching Jab.png" x="4558" y="1526" w="64" h="60"/>
+    <sprite n="attacktextures/Reaching Slash.png" x="4756" y="1475" w="64" h="62"/>
+    <sprite n="attacktextures/Rough Slash.png" x="4841" y="1473" w="64" h="62"/>
+    <sprite n="attacktextures/Round Slash.png" x="4907" y="1409" w="64" h="62"/>
+    <sprite n="attacktextures/Short Stab.png" x="4624" y="1521" w="64" h="61"/>
+    <sprite n="attacktextures/Simple Jab.png" x="4841" y="1409" w="64" h="62"/>
+    <sprite n="attacktextures/Simple Slash.png" x="4558" y="1462" w="64" h="62"/>
+    <sprite n="attacktextures/Three.png" x="4690" y="1455" w="64" h="64"/>
+    <sprite n="attacktextures/Two.png" x="4624" y="1455" w="64" h="64"/>
+    <sprite n="attacktextures/background.png" x="4727" y="1031" w="80" h="80"/>
+    <sprite n="attacktextures/default.png" x="4775" y="1409" w="64" h="64"/>
+    <sprite n="bank.png" x="4512" y="916" w="32" h="32"/>
     <sprite n="blank.png" x="5003" y="2" w="1" h="1"/>
-    <sprite n="buttonImages/Equipment.png" x="4810" y="498" w="64" h="86"/>
-    <sprite n="buttonImages/Inventory.png" x="3674" y="772" w="84" h="79"/>
-    <sprite n="buttonImages/Levels.png" x="4139" y="772" w="86" h="81"/>
+    <sprite n="buttonImages/Equipment.png" x="4743" y="943" w="64" h="86"/>
+    <sprite n="buttonImages/Inventory.png" x="4426" y="892" w="84" h="79"/>
+    <sprite n="buttonImages/Levels.png" x="4426" y="809" w="86" h="81"/>
     <sprite n="buttonImages/minusButton.png" x="4490" y="737" w="39" h="36"/>
-    <sprite n="buttonImages/plusButton.png" x="4970" y="1238" w="31" h="32"/>
-    <sprite n="cherub.png" x="3338" y="6347" w="832" h="1344"/>
-    <sprite n="circlebuttonbackground.png" x="3958" y="772" w="64" h="64"/>
-    <sprite n="containerbackground.png" x="3892" y="772" w="64" h="64"/>
+    <sprite n="buttonImages/plusButton.png" x="4958" y="955" w="31" h="32"/>
+    <sprite n="cherub.png" x="3338" y="6188" w="832" h="1344"/>
+    <sprite n="circlebuttonbackground.png" x="4558" y="1396" w="64" h="64"/>
+    <sprite n="containerbackground.png" x="4426" y="1401" w="64" h="64"/>
     <sprite n="equipedbackground.png" x="4232" y="2" w="320" h="480"/>
     <sprite n="gamebackground.png" x="2" y="2" w="1920" h="1080"/>
-    <sprite n="green.png" x="4968" y="559" w="4" h="4"/>
-    <sprite n="itemsprites/0/0.png" x="4288" y="930" w="27" h="22"/>
-    <sprite n="itemsprites/0/1.png" x="4753" y="1208" w="28" h="32"/>
-    <sprite n="itemsprites/0/2.png" x="4970" y="1306" w="28" h="32"/>
-    <sprite n="itemsprites/0/3.png" x="4970" y="1272" w="28" h="32"/>
-    <sprite n="itemsprites/0/slice242_@.png" x="4258" y="930" w="28" h="24"/>
-    <sprite n="itemsprites/1/0.png" x="4970" y="1068" w="32" h="32"/>
-    <sprite n="itemsprites/1/0/0.png" x="4531" y="747" w="19" h="19"/>
-    <sprite n="itemsprites/1/0/1.png" x="4531" y="726" w="19" h="19"/>
-    <sprite n="itemsprites/1/0/3.png" x="4531" y="705" w="19" h="19"/>
-    <sprite n="itemsprites/1/0/4.png" x="4530" y="952" w="18" h="18"/>
-    <sprite n="itemsprites/1/0/slice35_35.png" x="4531" y="656" w="19" h="26"/>
-    <sprite n="itemsprites/1/0/slice364_@.png" x="4531" y="684" w="19" h="19"/>
-    <sprite n="itemsprites/1/1.png" x="4492" y="1244" w="32" h="32"/>
-    <sprite n="itemsprites/1/1/0.png" x="4040" y="930" w="27" h="27"/>
-    <sprite n="itemsprites/1/1/1.png" x="4011" y="930" w="27" h="27"/>
-    <sprite n="itemsprites/1/1/2.png" x="3889" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/1/3.png" x="3856" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/1/slice359_@.png" x="3982" y="930" w="27" h="27"/>
-    <sprite n="itemsprites/1/1/slice395_@.png" x="3953" y="930" w="27" h="27"/>
-    <sprite n="itemsprites/1/1/slice406_@.png" x="3823" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/1/slice412_@.png" x="3790" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/2.png" x="4492" y="1210" w="32" h="32"/>
-    <sprite n="itemsprites/1/2/0.png" x="3757" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/2/1.png" x="3724" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/2/2.png" x="3691" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/2/3.png" x="3658" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/2/wood.png" x="3625" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/1/3.png" x="4509" y="1176" w="32" h="32"/>
-    <sprite n="itemsprites/1/3/0.png" x="4970" y="1204" w="31" h="32"/>
+    <sprite n="green.png" x="5001" y="654" w="3" h="3"/>
+    <sprite n="itemsprites/0/0.png" x="3913" y="772" w="27" h="22"/>
+    <sprite n="itemsprites/0/1.png" x="4768" y="1222" w="28" h="32"/>
+    <sprite n="itemsprites/0/2.png" x="4768" y="1188" w="28" h="32"/>
+    <sprite n="itemsprites/0/3.png" x="4768" y="1154" w="28" h="32"/>
+    <sprite n="itemsprites/0/slice242_@.png" x="3883" y="772" w="28" h="24"/>
+    <sprite n="itemsprites/1/0.png" x="4514" y="882" w="32" h="32"/>
+    <sprite n="itemsprites/1/0/0.png" x="3984" y="772" w="19" h="19"/>
+    <sprite n="itemsprites/1/0/1.png" x="3963" y="772" w="19" h="19"/>
+    <sprite n="itemsprites/1/0/3.png" x="3942" y="772" w="19" h="19"/>
+    <sprite n="itemsprites/1/0/4.png" x="4085" y="772" w="18" h="18"/>
+    <sprite n="itemsprites/1/0/slice35_35.png" x="4531" y="738" w="19" h="26"/>
+    <sprite n="itemsprites/1/0/slice364_@.png" x="4531" y="766" w="19" h="19"/>
+    <sprite n="itemsprites/1/1.png" x="4514" y="848" w="32" h="32"/>
+    <sprite n="itemsprites/1/1/0.png" x="3742" y="772" w="27" h="27"/>
+    <sprite n="itemsprites/1/1/1.png" x="3713" y="772" w="27" h="27"/>
+    <sprite n="itemsprites/1/1/2.png" x="4694" y="1039" w="31" h="31"/>
+    <sprite n="itemsprites/1/1/3.png" x="4694" y="1006" w="31" h="31"/>
+    <sprite n="itemsprites/1/1/slice359_@.png" x="3684" y="772" w="27" h="27"/>
+    <sprite n="itemsprites/1/1/slice395_@.png" x="3655" y="772" w="27" h="27"/>
+    <sprite n="itemsprites/1/1/slice406_@.png" x="4511" y="1183" w="31" h="31"/>
+    <sprite n="itemsprites/1/1/slice412_@.png" x="4511" y="1150" w="31" h="31"/>
+    <sprite n="itemsprites/1/2.png" x="4514" y="814" w="32" h="32"/>
+    <sprite n="itemsprites/1/2/0.png" x="4511" y="1117" w="31" h="31"/>
+    <sprite n="itemsprites/1/2/1.png" x="4511" y="1084" w="31" h="31"/>
+    <sprite n="itemsprites/1/2/2.png" x="4511" y="1051" w="31" h="31"/>
+    <sprite n="itemsprites/1/2/3.png" x="4511" y="1018" w="31" h="31"/>
+    <sprite n="itemsprites/1/2/wood.png" x="4958" y="1121" w="31" h="31"/>
+    <sprite n="itemsprites/1/3.png" x="4753" y="790" w="32" h="32"/>
+    <sprite n="itemsprites/1/3/0.png" x="4743" y="824" w="31" h="32"/>
     <sprite n="itemsprites/1/3/1.png" x="4974" y="278" w="30" h="32"/>
     <sprite n="itemsprites/1/3/2.png" x="4974" y="244" w="30" h="32"/>
     <sprite n="itemsprites/1/4/0.png" x="4974" y="444" w="30" h="31"/>
@@ -88,99 +88,100 @@ r => 'y' only set if sprite is rotated
     <sprite n="itemsprites/1/4/3.png" x="4974" y="345" w="30" h="31"/>
     <sprite n="itemsprites/1/4/slice415_@.png" x="4974" y="312" w="30" h="31"/>
     <sprite n="itemsprites/1/slice349_@.png" x="4876" y="492" w="96" h="65"/>
-    <sprite n="itemsprites/2/0.png" x="4778" y="756" w="30" h="29"/>
-    <sprite n="itemsprites/2/1.png" x="4511" y="1142" w="32" h="32"/>
-    <sprite n="itemsprites/2/2.png" x="4511" y="1108" w="32" h="32"/>
-    <sprite n="itemsprites/2/3.png" x="4511" y="1074" w="32" h="32"/>
-    <sprite n="itemsprites/2/slice100_100.png" x="4926" y="821" w="32" h="33"/>
+    <sprite n="itemsprites/2/0.png" x="3623" y="772" w="30" h="29"/>
+    <sprite n="itemsprites/2/1.png" x="4490" y="775" w="32" h="32"/>
+    <sprite n="itemsprites/2/2.png" x="4778" y="756" w="32" h="32"/>
+    <sprite n="itemsprites/2/3.png" x="4966" y="921" w="32" h="32"/>
+    <sprite n="itemsprites/2/slice100_100.png" x="4966" y="750" w="32" h="33"/>
     <sprite n="itemsprites/3/0.png" x="4974" y="541" w="30" h="30"/>
     <sprite n="itemsprites/3/1.png" x="4974" y="509" w="30" h="30"/>
     <sprite n="itemsprites/3/2.png" x="4974" y="477" w="30" h="30"/>
-    <sprite n="itemsprites/3/3.png" x="3922" y="930" w="29" h="30"/>
-    <sprite n="itemsprites/4/0.png" x="3592" y="930" w="31" h="31"/>
-    <sprite n="itemsprites/4/1.png" x="4447" y="742" w="31" h="31"/>
-    <sprite n="itemsprites/4/2.png" x="4414" y="742" w="31" h="31"/>
-    <sprite n="itemsprites/4/3.png" x="4381" y="742" w="31" h="31"/>
-    <sprite n="levelButtons/crafting.png" x="4554" y="436" w="320" h="60"/>
-    <sprite n="levelButtons/endurance.png" x="4554" y="374" w="320" h="60"/>
-    <sprite n="levelButtons/mining.png" x="4554" y="312" w="320" h="60"/>
-    <sprite n="levelButtons/smithing.png" x="4554" y="250" w="320" h="60"/>
-    <sprite n="levelButtons/speed.png" x="4554" y="188" w="320" h="60"/>
-    <sprite n="levelButtons/strength.png" x="4554" y="126" w="320" h="60"/>
-    <sprite n="levelButtons/technique.png" x="4554" y="64" w="320" h="60"/>
-    <sprite n="levelButtons/woodcutting.png" x="4554" y="2" w="320" h="60"/>
-    <sprite n="lightData/light.png" x="4552" y="498" w="256" h="256"/>
-    <sprite n="lightData/lightFin.png" x="4232" y="484" w="256" h="256"/>
-    <sprite n="lightbackground.png" x="4810" y="586" w="193" h="180"/>
-    <sprite n="menubackground.png" x="4778" y="787" w="200" h="32"/>
-    <sprite n="progressbar/background/0.png" x="4231" y="930" w="25" h="25"/>
-    <sprite n="progressbar/background/1.png" x="4104" y="930" w="33" h="25"/>
-    <sprite n="progressbar/background/2.png" x="4139" y="930" w="25" h="25"/>
-    <sprite n="progressbar/foreground/0.png" x="4069" y="930" w="33" h="25"/>
-    <sprite n="progressbar/progbar.psd" x="4876" y="559" w="83" h="25"/>
-    <sprite n="resourcesprites/Black Ore.png" x="3826" y="772" w="64" h="64"/>
-    <sprite n="resourcesprites/Black Rock.png" x="3716" y="855" w="72" h="68"/>
-    <sprite n="resourcesprites/Bronze Ore.png" x="3760" y="772" w="64" h="64"/>
-    <sprite n="resourcesprites/Bronze Rock.png" x="3642" y="855" w="72" h="68"/>
-    <sprite n="resourcesprites/Chopped.png" x="4810" y="768" w="20" h="12"/>
-    <sprite n="resourcesprites/Iron Ore.png" x="4054" y="855" w="64" h="64"/>
-    <sprite n="resourcesprites/Iron Rock.png" x="4926" y="998" w="72" h="68"/>
-    <sprite n="resourcesprites/Logs.png" x="3988" y="855" w="64" h="64"/>
-    <sprite n="resourcesprites/Maple Logs.png" x="3922" y="855" w="64" h="64"/>
+    <sprite n="itemsprites/3/3.png" x="3592" y="772" w="29" h="30"/>
+    <sprite n="itemsprites/4/0.png" x="4958" y="1088" w="31" h="31"/>
+    <sprite n="itemsprites/4/1.png" x="4958" y="1055" w="31" h="31"/>
+    <sprite n="itemsprites/4/2.png" x="4958" y="1022" w="31" h="31"/>
+    <sprite n="itemsprites/4/3.png" x="4958" y="989" w="31" h="31"/>
+    <sprite n="levelButtons/crafting.png" x="4232" y="484" w="320" h="60"/>
+    <sprite n="levelButtons/endurance.png" x="4554" y="436" w="320" h="60"/>
+    <sprite n="levelButtons/mining.png" x="4554" y="374" w="320" h="60"/>
+    <sprite n="levelButtons/smithing.png" x="4554" y="312" w="320" h="60"/>
+    <sprite n="levelButtons/speed.png" x="4554" y="250" w="320" h="60"/>
+    <sprite n="levelButtons/strength.png" x="4554" y="188" w="320" h="60"/>
+    <sprite n="levelButtons/technique.png" x="4554" y="126" w="320" h="60"/>
+    <sprite n="levelButtons/woodcutting.png" x="4554" y="64" w="320" h="60"/>
+    <sprite n="levelbackground.png" x="4554" y="2" w="320" h="60"/>
+    <sprite n="lightData/light.png" x="4232" y="546" w="256" h="256"/>
+    <sprite n="lightData/lightFin.png" x="4554" y="498" w="256" h="256"/>
+    <sprite n="lightbackground.png" x="4548" y="824" w="193" h="180"/>
+    <sprite n="menubackground.png" x="4551" y="790" w="200" h="32"/>
+    <sprite n="progressbar/background/0.png" x="3856" y="772" w="25" h="25"/>
+    <sprite n="progressbar/background/1.png" x="4966" y="681" w="33" h="25"/>
+    <sprite n="progressbar/background/2.png" x="4524" y="787" w="25" h="25"/>
+    <sprite n="progressbar/foreground/0.png" x="4966" y="654" w="33" h="25"/>
+    <sprite n="progressbar/progbar.psd" x="3771" y="772" w="83" h="25"/>
+    <sprite n="resourcesprites/Black Ore.png" x="4492" y="1396" w="64" h="64"/>
+    <sprite n="resourcesprites/Black Rock.png" x="4692" y="1253" w="72" h="68"/>
+    <sprite n="resourcesprites/Bronze Ore.png" x="4709" y="1389" w="64" h="64"/>
+    <sprite n="resourcesprites/Bronze Rock.png" x="4618" y="1194" w="72" h="68"/>
+    <sprite n="resourcesprites/Chopped.png" x="4531" y="724" w="20" h="12"/>
+    <sprite n="resourcesprites/Iron Ore.png" x="4643" y="1389" w="64" h="64"/>
+    <sprite n="resourcesprites/Iron Rock.png" x="4544" y="1194" w="72" h="68"/>
+    <sprite n="resourcesprites/Logs.png" x="4426" y="1335" w="64" h="64"/>
+    <sprite n="resourcesprites/Maple Logs.png" x="4577" y="1330" w="64" h="64"/>
     <sprite n="resourcesprites/Maple Tree.png" x="4876" y="123" w="125" h="119"/>
     <sprite n="resourcesprites/Maple TreeEmpty.png" x="4876" y="2" w="125" h="119"/>
-    <sprite n="resourcesprites/Oak Logs.png" x="3856" y="855" w="64" h="64"/>
-    <sprite n="resourcesprites/Oak TreEmpty.png" x="4381" y="775" w="147" h="186"/>
-    <sprite n="resourcesprites/Oak Tree.png" x="4232" y="742" w="147" h="186"/>
-    <sprite n="resourcesprites/RockEmpty.png" x="4926" y="928" w="72" h="68"/>
-    <sprite n="resourcesprites/Steel Ore.png" x="3790" y="855" w="64" h="64"/>
-    <sprite n="resourcesprites/Steel Rock.png" x="4926" y="858" w="72" h="68"/>
-    <sprite n="resourcesprites/Teak Logs.png" x="4166" y="855" w="64" h="64"/>
-    <sprite n="resourcesprites/Teak Tree.png" x="4687" y="985" w="83" h="179"/>
-    <sprite n="resourcesprites/Teak TreeEmpty.png" x="4426" y="963" w="83" h="179"/>
-    <sprite n="resourcesprites/Tree.png" x="4772" y="821" w="152" h="192"/>
-    <sprite n="resourcesprites/TreeEmpty.png" x="4551" y="790" w="152" h="192"/>
-    <sprite n="scrollbar/PgDown.png" x="4120" y="855" w="38" h="39"/>
-    <sprite n="scrollbar/PgUp.png" x="4090" y="772" w="38" h="38"/>
-    <sprite n="scrollbar/Scroll.png" x="4090" y="812" w="29" h="39"/>
+    <sprite n="resourcesprites/Oak Logs.png" x="4511" y="1330" w="64" h="64"/>
+    <sprite n="resourcesprites/Oak TreEmpty.png" x="4545" y="1006" w="147" h="186"/>
+    <sprite n="resourcesprites/Oak Tree.png" x="4809" y="948" w="147" h="186"/>
+    <sprite n="resourcesprites/RockEmpty.png" x="4694" y="1183" w="72" h="68"/>
+    <sprite n="resourcesprites/Steel Ore.png" x="4709" y="1323" w="64" h="64"/>
+    <sprite n="resourcesprites/Steel Rock.png" x="4694" y="1113" w="72" h="68"/>
+    <sprite n="resourcesprites/Teak Logs.png" x="4643" y="1323" w="64" h="64"/>
+    <sprite n="resourcesprites/Teak Tree.png" x="4426" y="1154" w="83" h="179"/>
+    <sprite n="resourcesprites/Teak TreeEmpty.png" x="4426" y="973" w="83" h="179"/>
+    <sprite n="resourcesprites/Tree.png" x="4812" y="754" w="152" h="192"/>
+    <sprite n="resourcesprites/TreeEmpty.png" x="4812" y="560" w="152" h="192"/>
+    <sprite n="scrollbar/PgDown.png" x="4966" y="573" w="38" h="39"/>
+    <sprite n="scrollbar/PgUp.png" x="4966" y="614" w="38" h="38"/>
+    <sprite n="scrollbar/Scroll.png" x="4768" y="1113" w="29" h="39"/>
     <sprite n="scrollbar/clickedPgDown.png" x="4490" y="656" w="39" h="39"/>
     <sprite n="scrollbar/clickedPgUp.png" x="4490" y="697" w="39" h="38"/>
-    <sprite n="scrollbar/clickedScroll.png" x="4200" y="921" w="29" h="39"/>
-    <sprite n="scrollbar/scrollbar.psd" x="4545" y="984" w="140" h="271"/>
-    <sprite n="slicedsprites/0/0.png" x="4530" y="932" w="18" h="18"/>
+    <sprite n="scrollbar/clickedScroll.png" x="4694" y="1072" w="29" h="39"/>
+    <sprite n="scrollbar/scrollbar.psd" x="4799" y="1136" w="140" h="271"/>
+    <sprite n="slicedsprites/0/0.png" x="4065" y="772" w="18" h="18"/>
     <sprite n="slicedsprites/0/1.png" x="4490" y="566" w="60" h="18"/>
-    <sprite n="slicedsprites/0/2.png" x="4530" y="912" w="18" h="18"/>
-    <sprite n="slicedsprites/0/3.png" x="4530" y="830" w="18" h="60"/>
-    <sprite n="slicedsprites/0/4.png" x="4490" y="484" w="60" h="60"/>
-    <sprite n="slicedsprites/0/5.png" x="4531" y="768" w="18" h="60"/>
-    <sprite n="slicedsprites/0/6.png" x="4530" y="892" w="18" h="18"/>
+    <sprite n="slicedsprites/0/2.png" x="4045" y="772" w="18" h="18"/>
+    <sprite n="slicedsprites/0/3.png" x="4986" y="1229" w="18" h="60"/>
+    <sprite n="slicedsprites/0/4.png" x="4812" y="498" w="60" h="60"/>
+    <sprite n="slicedsprites/0/5.png" x="4966" y="1229" w="18" h="60"/>
+    <sprite n="slicedsprites/0/6.png" x="4025" y="772" w="18" h="18"/>
     <sprite n="slicedsprites/0/7.png" x="4490" y="546" w="60" h="18"/>
-    <sprite n="slicedsprites/0/8.png" x="4960" y="821" w="18" h="18"/>
-    <sprite n="slicedsprites/1/0.png" x="4839" y="778" w="5" h="5"/>
+    <sprite n="slicedsprites/0/8.png" x="4005" y="772" w="18" h="18"/>
+    <sprite n="slicedsprites/1/0.png" x="4541" y="715" w="5" h="5"/>
     <sprite n="slicedsprites/1/1.png" x="4490" y="649" w="54" h="5"/>
-    <sprite n="slicedsprites/1/2.png" x="4832" y="778" w="5" h="5"/>
-    <sprite n="slicedsprites/1/3.png" x="4502" y="1144" w="5" h="54"/>
+    <sprite n="slicedsprites/1/2.png" x="4541" y="708" w="5" h="5"/>
+    <sprite n="slicedsprites/1/3.png" x="4546" y="642" w="5" h="54"/>
     <sprite n="slicedsprites/1/4.png" x="4490" y="586" w="54" h="54"/>
-    <sprite n="slicedsprites/1/5.png" x="4130" y="772" w="5" h="54"/>
-    <sprite n="slicedsprites/1/6.png" x="4961" y="566" w="5" h="5"/>
+    <sprite n="slicedsprites/1/5.png" x="4546" y="586" w="5" h="54"/>
+    <sprite n="slicedsprites/1/6.png" x="4966" y="566" w="5" h="5"/>
     <sprite n="slicedsprites/1/7.png" x="4490" y="642" w="54" h="5"/>
-    <sprite n="slicedsprites/1/8.png" x="4961" y="559" w="5" h="5"/>
-    <sprite n="slicedsprites/2/0.png" x="4511" y="1040" w="32" h="32"/>
-    <sprite n="slicedsprites/2/1.png" x="4492" y="1144" w="8" h="32"/>
-    <sprite n="slicedsprites/2/2.png" x="4511" y="1006" w="32" h="32"/>
-    <sprite n="slicedsprites/2/3.png" x="4832" y="768" w="32" h="8"/>
-    <sprite n="slicedsprites/2/4.png" x="4995" y="573" w="8" h="8"/>
-    <sprite n="slicedsprites/2/5.png" x="4961" y="573" w="32" h="8"/>
-    <sprite n="slicedsprites/2/6.png" x="4511" y="972" w="32" h="32"/>
-    <sprite n="slicedsprites/2/7.png" x="4154" y="896" w="8" h="32"/>
-    <sprite n="slicedsprites/2/8.png" x="4120" y="896" w="32" h="32"/>
-    <sprite n="slicedsprites/scrollBar/0/0.png" x="3617" y="854" w="23" h="74"/>
-    <sprite n="slicedsprites/scrollBar/0/1.png" x="3592" y="855" w="23" h="73"/>
-    <sprite n="slicedsprites/scrollBar/0/2.png" x="4980" y="768" w="23" h="88"/>
+    <sprite n="slicedsprites/1/8.png" x="4966" y="559" w="5" h="5"/>
+    <sprite n="slicedsprites/2/0.png" x="4966" y="887" w="32" h="32"/>
+    <sprite n="slicedsprites/2/1.png" x="4531" y="690" w="8" h="32"/>
+    <sprite n="slicedsprites/2/2.png" x="4966" y="853" w="32" h="32"/>
+    <sprite n="slicedsprites/2/3.png" x="3976" y="793" w="32" h="8"/>
+    <sprite n="slicedsprites/2/4.png" x="4541" y="698" w="8" h="8"/>
+    <sprite n="slicedsprites/2/5.png" x="3942" y="793" w="32" h="8"/>
+    <sprite n="slicedsprites/2/6.png" x="4966" y="819" w="32" h="32"/>
+    <sprite n="slicedsprites/2/7.png" x="4531" y="656" w="8" h="32"/>
+    <sprite n="slicedsprites/2/8.png" x="4966" y="785" w="32" h="32"/>
+    <sprite n="slicedsprites/scrollBar/0/0.png" x="4941" y="1154" w="23" h="74"/>
+    <sprite n="slicedsprites/scrollBar/0/1.png" x="4966" y="1154" w="23" h="73"/>
+    <sprite n="slicedsprites/scrollBar/0/2.png" x="4787" y="790" w="23" h="88"/>
     <sprite n="tileeffect.png" x="4552" y="756" w="224" h="32"/>
-    <sprite n="user.png" x="4705" y="919" w="64" h="64"/>
-    <sprite n="userspritesheets/0/0.png" x="4172" y="5001" w="832" h="1344"/>
-    <sprite n="userspritesheets/0/1.png" x="3338" y="5001" w="832" h="1344"/>
+    <sprite n="user.png" x="4577" y="1264" w="64" h="64"/>
+    <sprite n="userspritesheets/0/0.png" x="4172" y="4842" w="832" h="1344"/>
+    <sprite n="userspritesheets/0/1.png" x="3338" y="4842" w="832" h="1344"/>
     <sprite n="userspritesheets/0/2.png" x="2504" y="6156" w="832" h="1344"/>
     <sprite n="userspritesheets/0/21.png" x="1670" y="6156" w="832" h="1344"/>
     <sprite n="userspritesheets/0/3.png" x="836" y="6468" w="832" h="1344"/>
@@ -198,8 +199,8 @@ r => 'y' only set if sprite is rotated
     <sprite n="userspritesheets/1/2/2.png" x="2504" y="4810" w="832" h="1344"/>
     <sprite n="userspritesheets/1/2/3.png" x="2504" y="4810" w="832" h="1344"/>
     <sprite n="userspritesheets/1/3/0.png" x="1670" y="4810" w="832" h="1344"/>
-    <sprite n="userspritesheets/1/3/1.png" x="4172" y="3655" w="832" h="1344"/>
-    <sprite n="userspritesheets/1/3/3.png" x="3338" y="3655" w="832" h="1344"/>
+    <sprite n="userspritesheets/1/3/1.png" x="4172" y="3496" w="832" h="1344"/>
+    <sprite n="userspritesheets/1/3/3.png" x="3338" y="3496" w="832" h="1344"/>
     <sprite n="userspritesheets/1/4/0.png" x="1924" y="2" w="1152" h="768"/>
     <sprite n="userspritesheets/1/4/1.png" x="1924" y="2" w="1152" h="768"/>
     <sprite n="userspritesheets/1/4/2.png" x="1924" y="2" w="1152" h="768"/>
@@ -208,8 +209,8 @@ r => 'y' only set if sprite is rotated
     <sprite n="userspritesheets/2/1.png" x="2" y="3776" w="832" h="1344"/>
     <sprite n="userspritesheets/2/2.png" x="2504" y="3464" w="832" h="1344"/>
     <sprite n="userspritesheets/2/3.png" x="1670" y="3464" w="832" h="1344"/>
-    <sprite n="userspritesheets/2/chain.png" x="4172" y="2309" w="832" h="1344"/>
-    <sprite n="userspritesheets/2/default.png" x="3338" y="2309" w="832" h="1344"/>
+    <sprite n="userspritesheets/2/chain.png" x="4172" y="2150" w="832" h="1344"/>
+    <sprite n="userspritesheets/2/default.png" x="3338" y="2150" w="832" h="1344"/>
     <sprite n="userspritesheets/3/0.png" x="836" y="2430" w="832" h="1344"/>
     <sprite n="userspritesheets/3/1.png" x="836" y="2430" w="832" h="1344"/>
     <sprite n="userspritesheets/3/2.png" x="836" y="2430" w="832" h="1344"/>
@@ -218,12 +219,12 @@ r => 'y' only set if sprite is rotated
     <sprite n="userspritesheets/4/1.png" x="2504" y="2118" w="832" h="1344"/>
     <sprite n="userspritesheets/4/2.png" x="1670" y="2118" w="832" h="1344"/>
     <sprite n="userspritesheets/4/3.png" x="836" y="1084" w="832" h="1344"/>
-    <sprite n="userspritesheets/4/bronze.png" x="4447" y="742" w="31" h="31"/>
+    <sprite n="userspritesheets/4/bronze.png" x="4958" y="1055" w="31" h="31"/>
     <sprite n="userspritesheets/4/default.png" x="2" y="1084" w="832" h="1344"/>
-    <sprite n="userspritesheets/4/iron.png" x="4414" y="742" w="31" h="31"/>
-    <sprite n="userspritesheets/4/steel.png" x="4381" y="742" w="31" h="31"/>
-    <sprite n="userspritesheets/body/light.png" x="3592" y="963" w="832" h="1344"/>
+    <sprite n="userspritesheets/4/iron.png" x="4958" y="1022" w="31" h="31"/>
+    <sprite n="userspritesheets/4/steel.png" x="4958" y="989" w="31" h="31"/>
+    <sprite n="userspritesheets/body/light.png" x="3592" y="804" w="832" h="1344"/>
     <sprite n="userspritesheets/boots/black.png" x="2758" y="772" w="832" h="1344"/>
     <sprite n="userspritesheets/hair/blonde.png" x="1924" y="772" w="832" h="1344"/>
-    <sprite n="x.png" x="4705" y="853" w="64" h="64"/>
+    <sprite n="x.png" x="4511" y="1264" w="64" h="64"/>
 </TextureAtlas>

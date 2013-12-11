@@ -17,6 +17,7 @@ public:
 	void UpdateUserImage();
 	static HUDPanel* instance;
 	static HUDPanel* instanceEnemy;
+	void OnButtonEvent(std::string);
 private:
 	void SetUp();
 };

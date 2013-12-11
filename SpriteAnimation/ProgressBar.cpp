@@ -17,9 +17,9 @@ ProgressBar::ProgressBar(float* percent,sf::Sprite* relative) : GuiElement(0,0,"
 	stationary = false;
 };
 ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(x,y,new SlicedSprite(x,y,length),"green.png"){
-	foreground->SetScale(sf::Vector2f(((float)(length-50))/4.0f,9));
-	fullScale = (length-50)/4.0f;
-	foreground->SetPosition(sf::Vector2f(x + 25,y + 1));
+	foreground->SetScale(sf::Vector2f(((float)(length-50))/3.0f,16.75));
+	fullScale = 4 * (length-50)/4.0f;
+	foreground->SetPosition(sf::Vector2f(x + 22,y + 3));
 	fg = &(foregroundRect);
 	this->percent = percent;
 	stationary = true;

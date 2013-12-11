@@ -15,8 +15,12 @@ sf::RenderTexture Drawn::otherGraphicsPanel;
 sf::Sprite Drawn::otherGraphicsSprite;
 int Drawn::quadCount;
 sf::RenderWindow* Drawn::gameWindow;
+std::vector<sf::Drawable*> Drawn::adds;
+std::vector<sf::Transformable*> Drawn::addsTransforms;
+std::vector<sf::Vector2f> Drawn::addsPositions;
 
 Drawn::Drawn(std::string textureExtension){
+	updateVertex = true;
 	testPosition = sf::Vector2f(-.00000121234353223456,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
 	heldVerteces.resize(4);
@@ -37,6 +41,7 @@ Drawn::Drawn(std::string textureExtension){
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
+	updateVertex = true;
 	testPosition = sf::Vector2f(0,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
 	heldVerteces.resize(4);
@@ -62,7 +67,7 @@ Drawn::Drawn(){
 
 void Drawn::Draw(GamePanel* panel){
 	sf::Vector2f pos = sprite.getPosition() - (panel->GetRenderPanel().getView().getCenter() - sf::Vector2f(panel->GetRenderPanel().getView().getSize().x / 2, panel->GetRenderPanel().getView().getSize().y / 2.0));
-	if(testPosition != pos){
+	if(testPosition != pos || updateVertex){
 		sf::Vector2f spriteScale = sprite.getScale();
 		sf::IntRect texRec = sprite.getTextureRect();
 		sf::Vector2f panelPos = panel->GetPosition();
@@ -72,15 +77,15 @@ void Drawn::Draw(GamePanel* panel){
 		heldVerteces[0].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(myScale.x * texturePart.width * spriteScale.x,0) + panelPos + orgin;
+		gameArray[quadCount].position = pos + sf::Vector2f(myScale.x * (float)texturePart.width * spriteScale.x,0) + panelPos + orgin;
 		heldVerteces[1].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = sf::Vector2f(pos.x + (myScale.x * texturePart.width * spriteScale.x),pos.y + (myScale.y * texturePart.height * spriteScale.y)) + panelPos + orgin;
+		gameArray[quadCount].position = sf::Vector2f(pos.x + (myScale.x * (float)texturePart.width * spriteScale.x),pos.y + (myScale.y * (float)texturePart.height * spriteScale.y)) + panelPos + orgin;
 		heldVerteces[2].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(0,myScale.y * texturePart.height * spriteScale.y) + panelPos + orgin;
+		gameArray[quadCount].position = pos + sf::Vector2f(0,myScale.y * (float)texturePart.height * spriteScale.y) + panelPos + orgin;
 		heldVerteces[3].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 		testPosition = pos;
@@ -107,6 +112,7 @@ void Drawn::Destroy(){
 void Drawn::DrawGame(sf::RenderWindow& window){
 	window.draw(SpritePanel::instance->panelSprite);
 	window.draw(gameArray,gameRenderStates);
+	Drawn::DrawAdds();
 	//otherGraphicsPanel.display();
 	//window.draw(otherGraphicsSprite);
 	//otherGraphicsPanel.clear(sf::Color(0,0,0,0));
@@ -145,6 +151,15 @@ bool Drawn::GetVisible(){
 
 sf::Sprite* Drawn::GetSprite(){
 	return &sprite;
+};
+AABB Drawn::GetBounds(){
+	return AABB(Vec2f(GetPosition().x,GetPosition().y),Vec2f(GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x),GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y)));
+};
+AABB Drawn::GetBounds(sf::View view){
+	return AABB(Vec2f(GetPosition().x - (view.getCenter().x - (view.getSize().x / 2)),
+					  GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))),
+				Vec2f(GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2)),
+					  GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))));
 };
 void Drawn::SetZ(int z){
 	vertexPointers.erase(this);
@@ -190,24 +205,33 @@ void Drawn::Update(sf::RenderTexture& window){
 };
 void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	sf::Vector2f tempPos = label->getPosition();
+	addsPositions.push_back(tempPos);
 	label->setPosition(tempPos + panel->GetPosition());
-	//otherGraphicsPanel.draw(*label);
-	gameWindow->draw(*label);
-	label->setPosition(tempPos);
+	adds.push_back(label);
+	addsTransforms.push_back(label);
 };
 void Drawn::DrawOther(sf::Sprite* sprite,GamePanel* panel){
 	sf::Vector2f tempPos = sprite->getPosition();
+	addsPositions.push_back(tempPos);
 	sprite->setPosition(tempPos + panel->GetPosition());
-	//otherGraphicsPanel.draw(*sprite);
-	gameWindow->draw(*sprite);
-	sprite->setPosition(tempPos);
+	adds.push_back(sprite);
+	addsTransforms.push_back(sprite);
 };
 void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
 	sf::Vector2f tempPos = sprite->getPosition();
+	addsPositions.push_back(tempPos);
 	sprite->setPosition(tempPos + panel->GetPosition());
-	//otherGraphicsPanel.draw(*sprite);
-	gameWindow->draw(*sprite);
-	sprite->setPosition(tempPos);
+	adds.push_back(sprite);	
+	addsTransforms.push_back(sprite);
+};
+void Drawn::DrawAdds(){
+	for(int x = 0; x < adds.size(); x++){
+		gameWindow->draw(*adds[x]);
+		addsTransforms[x]->setPosition(addsPositions[x]);
+	}
+	addsTransforms.clear();
+	adds.clear();
+	addsPositions.clear();
 };
 void Drawn::Update(GamePanel* panel){
 	//Draw(panel);
@@ -217,6 +241,7 @@ void Drawn::MoveOnGrid(int x,int y){
 
 };
 void Drawn::SetScale(sf::Vector2f newScale){
+	updateVertex = true;
 	if(newScale.x != 0 && newScale.y != 0)
 		myScale = newScale;
 }
@@ -339,10 +364,9 @@ void Drawn::ResetPosition(){
 void Drawn::ExpandBy(float expandRatio,sf::Time sec){
 	if(isExpanding == false){
 		//amountExpanded = 0;
-		homeScale = sf::Vector2f(GetSprite()->getScale().x, GetSprite()->getScale().y);
-		targetScale = sf::Vector2f(expandRatio * GetSprite()->getScale().x,expandRatio * GetSprite()->getScale().y);
-		expandAmount.x = targetScale.x - homeScale.x;
-		expandAmount.y = targetScale.y - homeScale.y;
+		homeScale = sf::Vector2f(GetScale().x, GetScale().y);
+		targetScale = sf::Vector2f(expandRatio * GetScale().x,expandRatio * GetScale().y);
+		expandAmount = targetScale - homeScale;
 		expandVelocity.x = expandAmount.x / sec.asSeconds();
 		expandVelocity.y = expandAmount.y / sec.asSeconds();
 		if(expandAmount.x != 0)
@@ -358,10 +382,9 @@ void Drawn::ExpandBy(float expandRatio,sf::Time sec){
 	}
 };
 void Drawn::ReturnExpand(){
-	homeScale = sf::Vector2f(sprite.getScale().x,sprite.getScale().y);
+	homeScale = sf::Vector2f(GetScale().x,GetScale().y);
 	targetScale = resetScale;
-	expandAmount.x = targetScale.x - homeScale.x;
-	expandAmount.y = targetScale.y - homeScale.y;
+	expandAmount = targetScale - homeScale;
 	if(expandAmount.x != 0)
 		expandDirection.x = expandAmount.x / std::abs(expandAmount.x);
 	else
@@ -377,13 +400,13 @@ void Drawn::UpdateExpand(){
 	if(isExpanding){
 		float tempDeltaY = expandDirection.y * expandClock.restart().asSeconds() * expandVelocity.y;
 		float tempDeltaX = expandDirection.x * expandClock.restart().asSeconds() * expandVelocity.x;
-		if(std::abs(sprite.getScale().y - targetScale.y) < std::abs(tempDeltaY) || std::abs(sprite.getScale().x - targetScale.x) < std::abs(tempDeltaX)){
-			GetSprite()->setScale(targetScale.x,targetScale.y);
+		if(std::abs(GetScale().y - targetScale.y) < std::abs(tempDeltaY) || std::abs(GetScale().x - targetScale.x) < std::abs(tempDeltaX)){
+			SetScale(targetScale);
 			//expandAmount = 0;
 			isExpanding = false;
 		}
 		else{
-			GetSprite()->setScale(GetSprite()->getScale().x + tempDeltaX,GetSprite()->getScale().y + tempDeltaY);
+			SetScale(sf::Vector2f(GetScale().x + tempDeltaX,GetScale().y + tempDeltaY));
 		}
 	}
 };
