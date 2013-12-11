@@ -63,7 +63,8 @@ void Label::SetTextColor(sf::Color newColor){
 	text.setColor(newColor);
 };
 void Label::CenterText(){
-	//text.setPosition(sprite.getGlobalBounds().left + ((sprite.getGlobalBounds().width - text.getGlobalBounds().width) / 2),text.getPosition().y);
+	text.setOrigin(0,0);
+	text.setPosition(((Drawn*)this)->GetBounds().GetLowerBound().x + 3,text.getPosition().y);//((Drawn::GetSize().x - text.getGlobalBounds().width) / 2),text.getPosition().y);
 };
 void Label::SetText(std::string str){
 	std::cout << "setting Text" << text.getString().toAnsiString() << std::endl;

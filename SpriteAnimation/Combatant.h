@@ -27,8 +27,8 @@ public:
 	void LaunchAttack(std::string);
 
 	void RecieveAttack(int);
-	void UpdateEffectedTiles(sf::RenderTexture&);
-	void UpdateEffectedTiles();
+	void UpdateEffectedTiles(GamePanel*);
+	//void UpdateEffectedTiles();
 	typedef std::map<std::string, Attack*> AttackMap;
 	typedef std::pair<std::string, Attack*> AttackPair;
 	AttackMap attacks;
@@ -52,8 +52,7 @@ private:
 	virtual void Drop();
 	void CompleteAttack();
 	int nextAttackDamage;
-	sf::Sprite tileEffectSprite;
-	sf::Texture tileEffectTexture;
+	Drawn* tileEffect;
 	int tileEffectFrameCount;
 	std::vector<sf::Vector2i> effectedTiles;
 	sf::Clock effectedTilesAnimationClock;

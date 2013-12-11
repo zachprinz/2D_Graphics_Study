@@ -13,9 +13,10 @@ Combatant::Combatant(int x, int y,std::string name,std::string textureName) : Ac
 	levelSet = LevelSet();
 	inCombat = false;
 	healthBar = ProgressBar(&healthPercent,GetSprite());
-	tileEffectTexture.loadFromFile("tileeffect.png");
-	tileEffectSprite.setTexture(tileEffectTexture);
-	tileEffectSprite.setTextureRect(sf::IntRect(0,0,32,32));
+	tileEffect = new Drawn("tileeffect.png");
+	sf::IntRect tempIntRect = tileEffect->GetSprite()->getTextureRect();
+	tileEffect->GetSprite()->setTextureRect(sf::IntRect(0 + tempIntRect.left,0 + tempIntRect.top,32,32));
+	tileEffect->SetScale(sf::Vector2f(0.15,1));
 	inCombatClock.restart();
 };
 Combatant::Combatant(){
@@ -104,35 +105,23 @@ void Combatant::CompleteAttack(){
 		}
 	}
 };
-void Combatant::UpdateEffectedTiles(sf::RenderTexture& panel){
+void Combatant::UpdateEffectedTiles(GamePanel* panel){
 	if(effectedTiles.size() > 0){
 		if(effectedTilesAnimationClock.getElapsedTime() > sf::seconds(0.075)){
 			effectedTilesAnimationClock.restart();
-			tileEffectSprite.setTextureRect(sf::IntRect(tileEffectFrameCount * 32,0,32,32));
+			tileEffect->GetSprite()->setTextureRect(sf::IntRect(tileEffect->texturePart.left + tileEffectFrameCount * 32,tileEffect->GetSprite()->getTextureRect().top,32,32));
 			tileEffectFrameCount++;
 			if(tileEffectFrameCount == 3)
 				CompleteAttack();
 		}
 		for(int x = 0; x < effectedTiles.size(); x++){
-			tileEffectSprite.setPosition(effectedTiles[x].x * 32,effectedTiles[x].y * 32);
-			panel.draw(tileEffectSprite);
+			if(this == ((Combatant*)User::player)){
+				Drawn::updateVertex = true;
+				tileEffect->SetPosition(sf::Vector2f(effectedTiles[x].x * 32,effectedTiles[x].y * 32));
+				tileEffect->Draw(panel);
+			}
 		}
-		if(tileEffectFrameCount >= (tileEffectTexture.getSize().x / 32)){
-			tileEffectFrameCount = 0;
-			effectedTiles.clear();
-		}
-	}
-};
-void Combatant::UpdateEffectedTiles(){
-	if(effectedTiles.size() > 0){
-		if(effectedTilesAnimationClock.getElapsedTime() > sf::seconds(0.075)){
-			effectedTilesAnimationClock.restart();
-			tileEffectSprite.setTextureRect(sf::IntRect(tileEffectFrameCount * 32,0,32,32));
-			tileEffectFrameCount++;
-			if(tileEffectFrameCount == 3)
-				CompleteAttack();
-		}
-		if(tileEffectFrameCount >= (tileEffectTexture.getSize().x / 32)){
+		if(tileEffectFrameCount >= (6)){
 			tileEffectFrameCount = 0;
 			effectedTiles.clear();
 		}

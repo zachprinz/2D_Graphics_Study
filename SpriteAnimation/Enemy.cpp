@@ -30,6 +30,7 @@ void Enemy::Update(sf::RenderTexture& window){
 void Enemy::Update(GamePanel* panel){
 	UpdateEntity();
 	Combatant::Update(panel);
+	UpdateEffectedTiles(SpritePanel::instance);
 };
 void Enemy::UpdateEntity(){
 	if(currentDirection == None){
@@ -59,7 +60,7 @@ void Enemy::UpdateEntity(){
 						currentMode = Pursue;
 					}
 					else
-						TryLaunchAttack("One");
+						TryLaunchAttack("Simple Slash");
 					break;
 			}
 		}
@@ -95,10 +96,26 @@ void Enemy::OnClick(){
 	//Interact();
 }
 void Enemy::SetUpAttacks(){
-	std::vector<sf::Vector2i> atkOffset;
-	atkOffset.push_back(sf::Vector2i(Attack::RelativeDirection::Forward,1));
-	AddAttack(new Attack("One",1.f,atkOffset,1,0,0));
-	currentAttacks.push_back("One");
+	attacks.clear();
+	currentAttacks.clear();
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("xml/actionInfo.xml");
+	pugi::xml_node atlas = doc.child("Actions");
+	pugi::xml_node attackSet;
+	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
+		if(((std::string)(tool.first_attribute().as_string()))==("default")){
+			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
+				//std::cout << "Setting up a new attack!" << std::endl;
+				std::vector<sf::Vector2i> atkOffset;
+				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
+					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
+				}
+				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0));
+				currentAttacks.push_back(tool2.attribute("name").value());
+			}
+			break;
+		}
+	}
 };
 void Enemy::OnActionComplete(Actions action){
 	switch(action){
@@ -151,7 +168,7 @@ void Enemy::LoadFromXML(){
 			break;
 		}
 	}
-	for(pugi::xml_node drop = atlas.first_child(); drop; drop = drop.next_sibling()){
+	for(pugi::xml_node drop = enemyInfo.first_child(); drop; drop = drop.next_sibling()){
 		AddDrop(drop.attribute("id").as_int(),drop.attribute("chance").as_float());
 	}
 	//item->itemLevels = LevelSet(itemInfo.attribute("str").as_int(),itemInfo.attribute("end").as_int(),itemInfo.attribute("speed").as_int(),itemInfo.attribute("tech").as_int(),0,0,0,0);

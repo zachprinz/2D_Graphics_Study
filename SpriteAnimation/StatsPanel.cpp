@@ -49,6 +49,7 @@ void StatsPanel::SetLevel(std::string levelName){
 	std::cout << "TEST " + std::to_string(subLevelPercents[0])  + "  " + std::to_string(((ProgressBar*)(levelMap["mainLevelProgBar"]))->GetPercent()) << std::endl;
 	subLevelPercents[1] = std::stof(subLevels[1].attribute("percent").value())/100.0;
 	((Drawn*)(levelMap["levelHeadline"]))->GetSprite()->setTextureRect(Drawn::GetTextureFromAtlas("levelButtons/" + levelName + ".png"));//edit image path
+	((Drawn*)(levelMap["levelHeadline"]))->updateVertex = true;
 	((Label*)(levelMap["mainLevelBottomXP"]))->SetText("0");
 	((Label*)(levelMap["mainLevelCurrentXP"]))->SetText(level.attribute("xpPastCurrentLevel").value());
 	((Label*)(levelMap["spendXPValue"]))->SetText(level.attribute("spendXP").value());
@@ -136,7 +137,7 @@ void StatsPanel::SetUpLevelMap(){
 	mainLevelPercent = 0.5;
 	subLevelPercents.push_back(0.5);
 	subLevelPercents.push_back(0.5);
-	Drawn* levelHeadline = new Drawn("blank.png");
+	Drawn* levelHeadline = new Drawn("levelButtons/strength.png");
 	ProgressBar* mainLevelProgBar = new ProgressBar(8,100,310,&mainLevelPercent);
 	Label* mainLevelBottomXP = new Label(8,75,"blank.png",Label::Fonts::Game,"0");
 	Label* mainLevelCurrentXP = new Label(140,75,"blank.png",Label::Fonts::Game,"50");

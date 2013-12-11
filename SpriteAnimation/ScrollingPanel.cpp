@@ -7,9 +7,8 @@ ScrollingPanel::ScrollingPanel(int x,int y,int visibleX,int visibleY) : GamePane
 	scrollView.reset(sf::FloatRect(0,0,visibleX,visibleY - 80));
 	scrollView.setViewport(sf::FloatRect(0,0,0.9f,0.5f));
 	visibleSize = sf::Vector2f(visibleX,visibleY);
-	Drawn* backgroundWin = new Drawn(new SlicedSprite((int)GetPosition().x + 6,(int)GetPosition().y,(float)visibleX + 58,(float)visibleY + 16,SlicedSprite::SpriteStyle::Pixel));
+	SlicedSprite* backgroundWin = new SlicedSprite((int)GetPosition().x - 8,(int)GetPosition().y - 72,(float)visibleX + 58,(float)visibleY + 16,SlicedSprite::SpriteStyle::Pixel);
 	//Drawn* scrollBarBackground = new Drawn(SlicedSprite::GetSlicedScrollBar(visibleY - 80)); // TODO
-	backgroundWin->SetPosition(sf::Vector2f(GetPosition().x + 6,GetPosition().y));
 	//scrollBarBackground->SetPosition(sf::Vector2f(GetPosition().x + visibleX + 30,GetPosition().y + 48));
 	backgroundElements.insert(MyPair("background",backgroundWin));
 	//backgroundElements.insert(MyPair("scrollBarBackground",scrollBarBackground));
@@ -33,6 +32,9 @@ ScrollingPanel::ScrollingPanel(){
 };
 void ScrollingPanel::Update(){
 	if(isPanelOpen){
+		for(MyPair x: backgroundElements){
+			(x.second)->Draw((GamePanel*)this,&backgroundPanel);
+		}
 		GamePanel::Update();
 	}
 };

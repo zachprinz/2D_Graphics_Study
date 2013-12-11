@@ -57,6 +57,7 @@ void RClickMenu::Update(GamePanel* panel){
 	if(isOpen){
 		std::vector<Label*> temp = RClickMenu::GetMenu();
 		for(int x = 0; x < temp.size(); x++){
+			temp[x]->updateVertex = true;
 			temp[x]->Update(panel);
 		}
 	}
@@ -93,23 +94,24 @@ void RClickMenu::SetOrgin(Orgins orgin){
 	for(int x = 0; x < labels.size(); x++){
 		Label* tempLabel = labels[x];
 		sf::Sprite* tempSprite = tempLabel->GetSprite();
+		sf::Vector2f halfSize = sf::Vector2f(tempLabel->GetSize().x / 2,tempLabel->GetSize().y / 2);
 		sf::Text* tempText = tempLabel->GetText();
 		switch(orgin){
 			case(TopLeft):
-				tempSprite->setOrigin(0,0);
-				//tempLabel->CenterText();
+				tempLabel->SetOrgin(0,0);
+				tempLabel->CenterText();
 				break;
 			case(TopRight):
-				tempSprite->setOrigin(tempSprite->getLocalBounds().width,0);
-				//tempLabel->CenterText();
+				tempLabel->SetOrgin(halfSize.x * 2,0);
+				tempLabel->CenterText();
 				break;
 			case(BottomLeft):
-				tempSprite->setOrigin(0,tempSprite->getLocalBounds().height);
-				//tempLabel->CenterText();
+				tempLabel->SetOrgin(0,halfSize.y * 2);
+				tempLabel->CenterText();
 				break;
 			case(BottomRight):
-				tempSprite->setOrigin(tempSprite->getLocalBounds().width,tempSprite->getLocalBounds().height);
-				//tempLabel->CenterText();
+				tempLabel->SetOrgin(halfSize.x * 2,halfSize.y * 2);
+				tempLabel->CenterText();
 				break;
 		}
 	}

@@ -38,6 +38,7 @@ void LightEngine::DrawLights(sf::RenderTexture* panel){
 	std::vector<QuadTreeObject*> lightsToDraw = lightTree->SearchRegion(viewBounds);
 	for(int x = 0; x < lightsToDraw.size(); x++){
 		DrawLight(lightsToDraw[x]->myLight);
+		lightTexture.display();
 	}
 	lightTexture.display();
 	lightsSprite.setPosition(panelView.getCenter().x ,panelView.getCenter().y);

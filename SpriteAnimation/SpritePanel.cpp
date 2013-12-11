@@ -145,21 +145,22 @@ void SpritePanel::LoadMapAmbience(){
 	}
 };
 void SpritePanel::UpdateElements(){
+	//panel.clear();
 	for(MyPair x: backgroundElements){
 		//((SlicedSprite*)x.second)->Update(this);
 	}
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	panel.draw(mapSprite);
-	lightEngine->SetView(view);
-	lightEngine->DrawLights(&panel);
-	((Combatant*)(User::player))->UpdateEffectedTiles(panel);
+	((Combatant*)(User::player))->UpdateEffectedTiles((GamePanel*)this);
 	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
 	GamePanel::UpdateElements();
 	User::player->Update((GamePanel*)this);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
 	}
+	lightEngine->SetView(view);
+	lightEngine->DrawLights(&panel);
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}

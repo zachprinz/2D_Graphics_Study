@@ -1,6 +1,6 @@
 <enemyList>
 	<enemy name="cherub" health="100" strength="1" endurance="1" speed="2" technique="4" mining="0" smithing="0" woodcuting="0" crafting="0">
-		<drop id="1" chance="0.5"/>
-		<drop id="2" chance="0.25"/>
+		<drop id="1" chance="0.5f"/>
+		<drop id="2" chance="0.25f"/>
 	</enemy>
 </enemyList>

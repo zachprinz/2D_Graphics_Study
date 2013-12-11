@@ -58,6 +58,8 @@ EquipedContainer* EquipedPanel::FindContainerOf(Item item){
 	return (EquipedContainer*)(dynamicElements[std::to_string(item.GetSlot())]);
 };
 void EquipedPanel::SetUp(){
+	Drawn* background = new Drawn("equipedbackground.png");
+	dynamicElements.insert(MyPair("00", background));
 	int slotPosX[] = {125,32,125,233,125};
 	int slotPosY[] = {20,220,107,220,235};
 	GamePanel::SetUp();
@@ -68,8 +70,7 @@ void EquipedPanel::SetUp(){
 		//std::cout << std::to_string(x) << std::endl;
 	}
 	std::cout << " Done" << std::endl;
-	Drawn* background = new Drawn("equipedbackground.png");
-	staticElements.insert(MyPair("userImage", background));
+
 };
 void EquipedPanel::UpdateStats(){
 

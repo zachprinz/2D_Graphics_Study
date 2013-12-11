@@ -220,14 +220,13 @@ void Actor::SetUpFootLines(){
 	for(int x = 0; x < animations.size(); x++){
 		currentAnimation = animations[anims[x]];
 		std::vector<std::vector<ShadowLine>> tempSLineVec;
-		std::cout << "Entering (true) loops... pray..." << std::endl;
 		for(int y = 0; y < currentAnimation->yValues.size(); y++){
 			std::vector<ShadowLine> tempSLineVec2;
 			currentAnimationDir = Animation::AnimDir(y);
 			currentAnimationPos.y = currentAnimation->yValues[y];
 			currentAnimationPos.x = 0;
 			for(int z = 0; z < currentAnimation->numFrames; z++){
-				sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
+				sprite.setTextureRect(sf::IntRect(Drawn::GetTextureFromAtlas("userspritesheets/body/light.png").left + currentAnimationPos.x * currentAnimation->width,Drawn::GetTextureFromAtlas("userspritesheets/body/light.png").top + currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
 				tempSLineVec2.push_back(GetUpdatedFootLine());
 				currentAnimationPos.x++;
 			}
@@ -272,7 +271,7 @@ bool Actor::UpdateAnimation(){
 		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
 		ClearBoundries();
 		UpdateBoundries();// TODO LAGS HARD
-		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],sprite.getPosition());
+		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],GetPosition());
 		if(showHit){
 			sprite.setColor(sf::Color(255,0,0,255));
 			showHit = false;
@@ -301,12 +300,13 @@ ShadowLine Actor::GetUpdatedFootLine(){
 	sprite.setPosition(0,0);
 	tempText.draw(sprite);
 	sprite.setPosition(backupPosition);
+	tempText.display();
 	sf::Texture unsplitTexture = tempText.getTexture();
 	sf::Image unsplitImage = unsplitTexture.copyToImage();
 	int width = unsplitImage.getSize().x;
 	int height = unsplitImage.getSize().y;
-	sf::Vector2f firstPixel;
-	sf::Vector2f secondPixel;
+	sf::Vector2f firstPixel = sf::Vector2f(0,0);
+	sf::Vector2f secondPixel = sf::Vector2f(0,0);
 	for(int y = (height-1); y > 0; y--){
 		for(int x = 0; x < (width/2); x++){
 			if(unsplitImage.getPixel(x,y).a > 0){
@@ -315,6 +315,8 @@ ShadowLine Actor::GetUpdatedFootLine(){
 				break;
 			}
 		}
+		if(firstPixel.x != 0 && firstPixel.y != 0)
+			break;
 	}
 	for(int y = (height-1); y > 0; y--){
 		for(int x = (width/2); x < width; x++){
@@ -324,6 +326,8 @@ ShadowLine Actor::GetUpdatedFootLine(){
 				break;
 			}
 		}
+		if(secondPixel.x != 0 && secondPixel.y != 0)
+			break;
 	}
 	return ShadowLine(firstPixel,secondPixel);
 };

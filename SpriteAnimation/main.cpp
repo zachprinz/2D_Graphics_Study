@@ -45,7 +45,7 @@ int main()
 	window.setKeyRepeatEnabled(false);
 	window.create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
 	window.setPosition(sf::Vector2i(0,0));
-	window.setVerticalSyncEnabled(false);
+	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(300);
 	sf::Sprite loadingSprite;
 	loadingSprite.setTexture(Drawn::gameTexture);

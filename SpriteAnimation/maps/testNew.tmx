@@ -578,7 +578,7 @@
   </object>
   <object name="amb" type="Item" agid="1044" x="2432" y="2912" width="32" height="32">
    <properties>
-    <property name="id" value="107"/>
+    <property name="id" value="119"/>
     <property name="test" value="1"/>
    </properties>
   </object>
@@ -596,7 +596,13 @@
   </object>
   <object name="amb" type="Item" agid="1048" x="1376" y="2784" width="32" height="32">
    <properties>
-    <property name="id" value="111"/>
+    <property name="id" value="108"/>
+    <property name="test" value="1"/>
+   </properties>
+  </object>
+  <object name="amb" type="Item" agid="1048" x="1376" y="2785" width="32" height="32">
+   <properties>
+    <property name="id" value="108"/>
     <property name="test" value="1"/>
    </properties>
   </object>

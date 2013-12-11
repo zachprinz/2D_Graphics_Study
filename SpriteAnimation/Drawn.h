@@ -39,7 +39,9 @@ public:
 	void ReturnExpand();
 	void UpdateExpand();
 	bool GetIsExpanding();
+	void DrawVertex(sf::RenderTexture* , GamePanel*);
 	void Draw(GamePanel*);
+	void Draw(GamePanel*, sf::RenderTexture*);
 	void DrawAdditional(GamePanel*);
 	static void DrawGame(sf::RenderWindow&);
 	static void SetUp(sf::RenderWindow*);
@@ -67,8 +69,9 @@ public:
 	sf::Vector2f GetSize();
 	AABB GetBounds();
 	AABB GetBounds(sf::View);
-protected:
+	AABB GetSpritePanelBounds();
 	bool updateVertex;
+protected:
 	static void DrawAdds();
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;

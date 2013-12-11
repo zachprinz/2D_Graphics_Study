@@ -85,9 +85,9 @@ void User::UpdateEntity(){
 void User::GetUserWeaponImage(sf::RenderTexture* window){
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
-		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
-		window->draw(sprite);
 		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
+		window->draw(sprite);
+		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y + 40);
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 	}
 	else{
@@ -96,11 +96,13 @@ void User::GetUserWeaponImage(sf::RenderTexture* window){
 	}
 };
 void User::GetUserWeaponImage(GamePanel* panel){
+	Drawn::updateVertex = true;
 	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
 		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
+		SetScale(sf::Vector2f(3,3));
 		Draw(panel);
-		std::cout << "Drawing User Image to the Vertex Array." << std::endl;
+		SetScale(sf::Vector2f(1,1));
 		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 	}
