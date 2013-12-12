@@ -53,9 +53,6 @@ void RClickable::OnRClick(sf::Vector2i mousePos,GamePanel* panel){ //TODO: Delet
 void RClickable::AddRClickOption(int x){
 	rClickOptions.push_back(x);	
 };
-void RClickable::Update(sf::RenderTexture& panel){
-
-};
 void RClickable::Update(GamePanel* panel){
 
 };

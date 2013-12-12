@@ -12,7 +12,6 @@ class Enemy :  public Combatant
 public:
 	Enemy(int,int,std::string,std::string);
 	enum Mode {AttackMode,Patrol,Pursue};
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void AddPatrolPoint(sf::Vector2i);
 	void Interact();

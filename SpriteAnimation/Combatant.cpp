@@ -56,10 +56,6 @@ int Combatant::GetHealth(){
 int Combatant::GetEndurance(){
 	return endurance;
 };
-void Combatant::Update(sf::RenderTexture& panel){
-	UpdateEntity();
-	Actor::Update(panel);
-}
 void Combatant::Update(GamePanel* panel){
 	UpdateEntity();
 	Actor::Update(panel);
@@ -77,7 +73,7 @@ void Combatant::UpdateEntity(){
 		x.second->Update();
 	}
 };
-void Combatant::UpdateBar(sf::RenderTexture& panel){
+void Combatant::UpdateBar(GamePanel* panel){
 	if(inCombat || health < 100){
 		healthPercent = ((float)health) / 100.f;
 		healthBar.Update(panel);
@@ -152,7 +148,6 @@ void Combatant::OnHover(){
 		StatsPanel::instance->SetCombatant(this);
 };
 void Combatant::AddHealth(int add){
-	std::cout << "Adding Health" << std::endl;
 	if(health + add < 100)
 		health += add;
 	else

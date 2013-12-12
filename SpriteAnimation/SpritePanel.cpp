@@ -1,7 +1,6 @@
 #include "SpritePanel.h"
 #include "GroundItem.h"
 #include <iostream>
-#include "SlicedSpriteCreator.h"
 #include <MapLoader.h>
 #include "Enemy.h"
 #include "NPC.h"
@@ -25,9 +24,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	std::cout << "Creating Light Engine." << std::endl;
 	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
 	std::cout << "Finished Creating Lighting Engine." << std::endl;
-	drawCollision = false;
 	instance = this;
-	createPanelLabel = false;
 	SetUp();
 	LoadMapCollisions();
 	LoadMapAmbience();
@@ -145,10 +142,6 @@ void SpritePanel::LoadMapAmbience(){
 	}
 };
 void SpritePanel::UpdateElements(){
-	//panel.clear();
-	for(MyPair x: backgroundElements){
-		//((SlicedSprite*)x.second)->Update(this);
-	}
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	panel.draw(mapSprite);
@@ -157,14 +150,14 @@ void SpritePanel::UpdateElements(){
 	GamePanel::UpdateElements();
 	User::player->Update((GamePanel*)this);
 	for(int x = 0; x < combatants.size(); x++){
-		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(panel);
+		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(this);
 	}
 	lightEngine->SetView(view);
 	lightEngine->DrawLights(&panel);
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
-	User::player->UpdateBar(panel);
+	User::player->UpdateBar(this);
 	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
@@ -194,9 +187,6 @@ void SpritePanel::RemoveDynamicElement(std::string tag){
 		}
 	}
 	GamePanel::RemoveDynamicElement("enemy" + tag);
-};
-bool SpritePanel::CheckUpdate(){
-	return true;
 };
 void SpritePanel::AddHull(Hull* hull){
 	lightEngine->AddHull(hull);

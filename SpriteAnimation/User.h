@@ -15,7 +15,6 @@ class User :  public Combatant
 public:
 	User(int,int);
 	User();
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void Interact();
 	static User* player;
@@ -46,7 +45,6 @@ public:
 	bool cKeyPressed;
 	void ChangeEquiped(Item*);
 	void RemoveEquipment(int);
-	void DrawUser(sf::RenderTexture*);
 	void AddExperience(std::string,std::string,int);
 	void AddSpendExperience(std::string,int);
 	void UpdateUnlockables(std::string,std::string);
@@ -56,7 +54,6 @@ public:
 	void UpdateQuest(std::string);
 	void ResetXMLDocs();
 	void SetUpAttacks(std::string);
-	void GetUserWeaponImage(sf::RenderTexture*);
 	void GetUserWeaponImage(GamePanel*);
 private:
 	void UpdateEntity();

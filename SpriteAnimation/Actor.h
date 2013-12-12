@@ -69,7 +69,6 @@ protected:
 	ShadowLine actorShadowLine;
 	std::string name;
 	bool CheckTile(int x,int y);
-	virtual void Update(sf::RenderTexture&);
 	virtual void Update(GamePanel*);
 	Direction currentDirection;
 	Actions currentAction;

@@ -36,12 +36,11 @@ public:
 	void TryLaunchAttack(std::string);
 	std::string nextAttack;
 	std::vector<std::string> currentAttacks;
-	virtual void UpdateBar(sf::RenderTexture&);
+	virtual void UpdateBar(GamePanel*);
 	float healthPercent;
 	float endurancePercent;
 	void AddHealth(int);
 protected:
-	virtual void Update(sf::RenderTexture&);
 	virtual void Update(GamePanel*);
 	void UpdateEntity();
 	ProgressBar healthBar;

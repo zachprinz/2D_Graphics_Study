@@ -12,9 +12,9 @@
 class TextPanel : public GamePanel
 {
 public:
+	static TextPanel* instance;
 	TextPanel(int,int);
 	void DisplayText(std::string);
-	static TextPanel* instance;
 	void OnButtonEvent(std::string);
 private:
 	int currentDisplayedPage;

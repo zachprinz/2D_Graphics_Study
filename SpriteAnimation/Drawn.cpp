@@ -21,7 +21,7 @@ std::vector<sf::Vector2f> Drawn::addsPositions;
 
 Drawn::Drawn(std::string textureExtension){
 	updateVertex = true;
-	testPosition = sf::Vector2f(-.00000121234353223456,0);
+	testPosition = sf::Vector2f(-1,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
 	heldVerteces.resize(4);
 	for(int x = 0; x < 4; x++){
@@ -66,7 +66,7 @@ Drawn::Drawn(){
 };
 
 void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
-	sf::Vector2f pos = sprite.getPosition() - (texture->getView().getCenter() - sf::Vector2f(texture->getView().getSize().x / 2, texture->getView().getSize().y / 2.0));
+	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound();
 	if(testPosition != pos || updateVertex){
 		sf::Vector2f spriteScale = sprite.getScale();
 		sf::IntRect texRec = sprite.getTextureRect();
@@ -120,9 +120,6 @@ void Drawn::DrawGame(sf::RenderWindow& window){
 	window.draw(SpritePanel::instance->panelSprite);
 	window.draw(gameArray,gameRenderStates);
 	Drawn::DrawAdds();
-	//otherGraphicsPanel.display();
-	//window.draw(otherGraphicsSprite);
-	//otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 	gameArray.clear();
 	quadCount = 0;
 	sf::IntRect texRec = GetTextureFromAtlas("gamebackground.png");
@@ -151,6 +148,7 @@ void Drawn::SetUp(sf::RenderWindow* window){
 	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 	otherGraphicsPanel.display();
 	otherGraphicsSprite.setTexture(otherGraphicsPanel.getTexture());
+	
 };
 bool Drawn::GetVisible(){
 	return isVisible;
@@ -212,10 +210,6 @@ void Drawn::OnHover(bool hovered){
 sf::Vector2f Drawn::GetPositionOnPanel(){
 	return positionOnPanel;
 };
-
-void Drawn::Update(sf::RenderTexture& window){
-		window.draw(sprite);
-};
 void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	sf::Vector2f tempPos = label->getPosition();
 	addsPositions.push_back(tempPos);
@@ -223,14 +217,8 @@ void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	adds.push_back(label);
 	addsTransforms.push_back(label);
 };
-void Drawn::DrawOther(sf::Sprite* sprite,GamePanel* panel){
-	sf::Vector2f tempPos = sprite->getPosition();
-	addsPositions.push_back(tempPos);
-	sprite->setPosition(tempPos + panel->GetPosition());
-	adds.push_back(sprite);
-	addsTransforms.push_back(sprite);
-};
 void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
+	sf::Vector2f pos = sprite->getPosition() - panel->GetViewLowerBound();
 	sf::Vector2f tempPos = sprite->getPosition();
 	addsPositions.push_back(tempPos);
 	sprite->setPosition(tempPos + panel->GetPosition());
@@ -249,7 +237,6 @@ void Drawn::DrawAdds(){
 void Drawn::Update(GamePanel* panel){
 	Draw(panel);
 };
-
 void Drawn::MoveOnGrid(int x,int y){
 
 };

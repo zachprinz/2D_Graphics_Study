@@ -51,9 +51,6 @@ void Attack::Update(){
 		if(!isCooledDown)
 			percentCooledDown = cooldownClock.getElapsedTime().asSeconds() / cooldownTime.asSeconds();
 };
-void Attack::Update(sf::RenderTexture& panel){
-
-};
 sf::Vector2i Attack::GetForward(sf::Vector2i position,sf::Vector2i movement,int mult){
 	return sf::Vector2i((movement.x * mult)+ position.x, (movement.y * mult) + position.y);
 };

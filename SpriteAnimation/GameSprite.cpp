@@ -16,12 +16,6 @@ GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textur
 	tag = tagCount;
 	tagCount++;
 };
-void GameSprite::Update(sf::RenderTexture& panel){
-	if(displayDebug){
-		panel.draw(GetRoomTile()->getVisual());
-		DrawBoundries(panel);
-	}
-};
 void GameSprite::Update(GamePanel* panel){
 	if(ViewContains(panel->GetRenderPanel().getView(),sf::IntRect(sprite.getPosition().x,sprite.getPosition().y,sprite.getTextureRect().width,sprite.getTextureRect().height)))
 		this->DrawSprite(panel);

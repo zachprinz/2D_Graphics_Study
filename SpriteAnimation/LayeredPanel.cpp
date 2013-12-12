@@ -1,7 +1,6 @@
 #include "LayeredPanel.h"
 #include "User.h"
 #include "Button.h"
-#include "SlicedSpriteCreator.h"
 #include <iostream>
 
 LayeredPanel* LayeredPanel::instance;
@@ -13,6 +12,10 @@ LayeredPanel::LayeredPanel(std::vector<GamePanel*> panels) : GamePanel(GetLayere
 	SetUp();
 };
 LayeredPanel::LayeredPanel(){
+};
+void LayeredPanel::Update(){
+	GamePanel::Update();
+	panels[currentPanel]->Update();
 };
 void LayeredPanel::AddElement(std::string,Drawn*){
 
@@ -46,9 +49,6 @@ void LayeredPanel::OnButtonEvent(std::string btnFunction){
 			break;
 		}
 	}
-};
-bool LayeredPanel::CheckUpdate(){
-	return true;
 };
 sf::Vector2i LayeredPanel::GetLayeredPanelSize(std::vector<GamePanel*> panels){
 	int largestX = 0;

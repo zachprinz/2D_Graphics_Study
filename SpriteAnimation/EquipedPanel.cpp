@@ -1,6 +1,5 @@
 #include "EquipedPanel.h"
 #include <iostream>
-#include "SlicedSpriteCreator.h"
 #include "Label.h"
 #include "User.h"
 #include "HUDPanel.h"
@@ -25,14 +24,13 @@ EquipedContainer* EquipedPanel::GetSlotContainer(int slot){
 	return (EquipedContainer*)(dynamicElements[std::to_string(slot)]);
 };
 void EquipedPanel::Equip(Item item){
-	doUpdate = true;
+	//HUDPanel::instance->UpdateUserImage();
+	GetSlotContainer(item.GetSlot())->AddItem(item);
 	User::player->ChangeEquiped(&item);
 	if(item.GetSlot() == 1){
 		User::player->SetUpAttacks(item.GetAttackSet());
 		ActionBar::instance->UpdateActionImages();
 	}
-	//HUDPanel::instance->UpdateUserImage();
-	GetSlotContainer(item.GetSlot())->AddItem(item);
 };
 void EquipedPanel::Remove(Item item){
 
@@ -59,7 +57,7 @@ EquipedContainer* EquipedPanel::FindContainerOf(Item item){
 };
 void EquipedPanel::SetUp(){
 	Drawn* background = new Drawn("equipedbackground.png");
-	dynamicElements.insert(MyPair("00", background));
+	staticElements.insert(MyPair("00", background));
 	int slotPosX[] = {125,32,125,233,125};
 	int slotPosY[] = {20,220,107,220,235};
 	GamePanel::SetUp();
@@ -74,11 +72,4 @@ void EquipedPanel::SetUp(){
 };
 void EquipedPanel::UpdateStats(){
 
-};
-bool EquipedPanel::CheckUpdate(){
-	//if(doUpdate == true || GamePanel::currentMousePanel == this){
-	//	doUpdate = false;
-		return true;
-	//}
-	//	return false;
 };

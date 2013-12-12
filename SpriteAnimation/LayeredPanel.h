@@ -9,15 +9,15 @@
 class LayeredPanel : public GamePanel
 {
 public:
+	static LayeredPanel* instance;
 	LayeredPanel(std::vector<GamePanel*>);
 	LayeredPanel();
 	std::vector<GamePanel*> panels;
+	void Update();
 	int currentPanel;
-	static LayeredPanel* instance;
 	void AddElement(std::string,Drawn*);
 	void SetUp();
 	void OnButtonEvent(std::string);
-	bool CheckUpdate();
 	static sf::Vector2i GetLayeredPanelSize(std::vector<GamePanel*>);
 	void UpdatePanelsPosition();
 	void SetPosition(int x, int y);

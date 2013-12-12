@@ -21,10 +21,6 @@ NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NP
 	UpdateBoundries();
 	SpritePanel::instance->AddHull(actorHull);
 };
-void NPC::Update(sf::RenderTexture& window){
-	UpdateEntity();
-	Actor::Update(window);
-};
 void NPC::Update(GamePanel* panel){
 	UpdateEntity();
 	Actor::Update(panel);

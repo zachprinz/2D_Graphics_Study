@@ -108,6 +108,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EquipedContainer.cpp" />
     <ClCompile Include="EquipedPanel.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GamePanel.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GroundItem.cpp" />
@@ -125,7 +126,6 @@
     <ClCompile Include="LightEngine.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapPanel.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Point2i.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
@@ -140,7 +140,6 @@
     <ClCompile Include="ScrollingPanel.cpp" />
     <ClCompile Include="ShadowLine.cpp" />
     <ClCompile Include="SlicedSprite.cpp" />
-    <ClCompile Include="SlicedSpriteCreator.cpp" />
     <ClCompile Include="SpritePanel.cpp" />
     <ClCompile Include="StatsPanel.cpp" />
     <ClCompile Include="TextPanel.cpp" />
@@ -165,6 +164,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EquipedContainer.h" />
     <ClInclude Include="EquipedPanel.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GamePanel.h" />
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GroundItem.h" />
@@ -181,7 +181,6 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightEngine.h" />
     <ClInclude Include="LightObject.h" />
-    <ClInclude Include="MapPanel.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Point2i.h" />
     <ClInclude Include="ProgressBar.h" />
@@ -197,7 +196,6 @@
     <ClInclude Include="ScrollingPanel.h" />
     <ClInclude Include="ShadowLine.h" />
     <ClInclude Include="SlicedSprite.h" />
-    <ClInclude Include="SlicedSpriteCreator.h" />
     <ClInclude Include="SpritePanel.h" />
     <ClInclude Include="StatsPanel.h" />
     <ClInclude Include="TextPanel.h" />

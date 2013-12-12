@@ -23,10 +23,6 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	UpdateBoundries();
 	SpritePanel::instance->AddHull(actorHull);
 };
-void Enemy::Update(sf::RenderTexture& window){
-	UpdateEntity();
-	Combatant::Update(window);
-};
 void Enemy::Update(GamePanel* panel){
 	UpdateEntity();
 	Combatant::Update(panel);

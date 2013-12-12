@@ -3,7 +3,6 @@
 #include "User.h"
 #include "RClickMenu.h"
 #include "Label.h"
-#include "SlicedSpriteCreator.h"
 #include "SlicedSprite.h"
 #include "SpritePanel.h"
 
@@ -12,17 +11,8 @@ Drawn* GamePanel::currentMouseElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
 	mySize = sf::Vector2f(x,y);
-	currentMouseElement = new Drawn();
-	doUpdate = true;
-	createPanelLabel = true;
-	if(name == "Bank" || name == "Game" || name == "ActionBar" || "HUD")
-		createPanelLabel = false;
 	isPanelOpen = true;
-	drawCollision = false;
-	if(createPanelLabel)
-		backgroundPanel.create(x + 16, y + 46);
-	else
-		backgroundPanel.create(x + 16, y + 16);
+	backgroundPanel.create(x + 16, y + 16);
 	panel.create(x,y);
 	panelName = name;
 	panel.setSmooth(true);
@@ -34,26 +24,19 @@ GamePanel::GamePanel(){
 }
 void GamePanel::Update(){
 	if(isPanelOpen){
-	//	if(this->CheckUpdate() || doUpdate == true){
-			UpdateElements();
-	//	}
-	//	else{
-
-	//	}
+		UpdateElements();
 	}
 };
 void GamePanel::InitiateElements(){
 
 };
 void GamePanel::UpdateElements(){
-	for(MyPair x: backgroundElements){
+	//for(MyPair x: backgroundElements){
 		//((SlicedSprite*)x.second)->Update(this);
-	}
+	//}
 	for(MyPair x: staticElements){
 		x.second->Update(this);
 	}
-	if(drawCollision)
-		SpritePanel::room->DrawTiles(panel);
 	for(MyPair x: dynamicElements){
 		x.second->Update(this);
 	}
@@ -67,12 +50,12 @@ void GamePanel::Open(){
 void GamePanel::Close(){
 	isPanelOpen = false;
 };
+sf::Vector2f GamePanel::GetViewLowerBound(){
+	return sf::Vector2f(panel.getView().getCenter() - sf::Vector2f(panel.getView().getSize().x / 2, panel.getView().getSize().y / 2.0));
+}
 void GamePanel::SetPosition(int x, int y){
 	panelSprite.setPosition(x + 8,y + 8);
-	if(createPanelLabel)
-		backgroundPanelSprite.setPosition(x,y - 30);
-	else
-		backgroundPanelSprite.setPosition(x,y);
+	backgroundPanelSprite.setPosition(x,y);
 	panelBounds = AABB(Vec2f(x,y),Vec2f(x + GetSize().x,y + GetSize().y));
 }
 void GamePanel::OnClick(sf::Vector2i point){
@@ -127,14 +110,7 @@ sf::Vector2f GamePanel::GetPosition(){
 }
 void GamePanel::SetUp(){
 	SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
-	if(createPanelLabel)
-		background->SetPosition(sf::Vector2f(0,30));
 	backgroundElements.insert(MyPair("Background", background));
-	if(createPanelLabel){
-		Label* label = new Label((panel.getSize().x - 200) / 2,0,200,new SlicedSprite((panel.getSize().x - 200) / 2,0,200,30,SlicedSprite::WoodPanel),Label::Fonts::Game,panelName);
-		label->CenterText();
-		backgroundElements.insert(MyPair("Label", label));
-	}
 }
 bool GamePanel::GetIsPanelOpen(){
 	return isPanelOpen;
@@ -142,13 +118,9 @@ bool GamePanel::GetIsPanelOpen(){
 void GamePanel::OnButtonEvent(std::string){
 
 }
-bool GamePanel::CheckUpdate(){
-	return true;
-};
 std::string GamePanel::GetName(){
 	return panelName;
 };
 sf::Vector2f GamePanel::GetSize(){
 	return mySize;
-	//return sf::Vector2i(panelBounds.GetHalfDims().x * 2,panelBounds.GetHalfDims().y * 2);
 };

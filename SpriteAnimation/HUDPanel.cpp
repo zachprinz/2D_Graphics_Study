@@ -2,7 +2,6 @@
 #include "Button.h"
 #include "Label.h"
 #include "ProgressBar.h"
-#include "SlicedSpriteCreator.h"
 #include "User.h"
 #include "StatsPanel.h"
 #include <iostream>
@@ -11,6 +10,7 @@ HUDPanel* HUDPanel::instance;
 HUDPanel* HUDPanel::instanceEnemy;
 
 HUDPanel::HUDPanel(Combatant* target, int x,int y) : GamePanel(x,y,"HUD"){
+	instance = this;
 	this->target = target;
 	SetUp();
 };

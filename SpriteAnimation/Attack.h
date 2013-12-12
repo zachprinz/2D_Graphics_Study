@@ -19,7 +19,6 @@ public:
 	int numOfFrames;
 	std::string name;
 	void Update();
-	void Update(sf::RenderTexture&);
 	float damageModifier;
 	sf::Vector2i GetForward(sf::Vector2i position,sf::Vector2i movement,int);
 	sf::Vector2i GetBackward(sf::Vector2i position,sf::Vector2i movement,int);

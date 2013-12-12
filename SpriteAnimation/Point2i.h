@@ -12,5 +12,4 @@ public:
 	bool operator==(const Point2i &other) const;
 	bool operator!=(const Point2i &other) const;
 };
-
 #endif

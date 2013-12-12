@@ -2,7 +2,6 @@
 #include "Button.h"
 #include "Label.h"
 #include "ProgressBar.h"
-#include "SlicedSpriteCreator.h"
 #include "User.h"
 #include <iostream>
 

@@ -1,5 +1,4 @@
 #include "ScrollingPanel.h"
-#include "SlicedSpriteCreator.h"
 #include "Button.h"
 #include <iostream>
 
@@ -72,9 +71,6 @@ void ScrollingPanel::ScrollUp(){
 		scrollView.reset(sf::FloatRect(0,scrollView.getCenter().y - (scrollView.getSize().y / 2) - 12,visibleSize.x,visibleSize.y-80));
 		panel.setView(scrollView);
 	}
-};
-bool ScrollingPanel::CheckUpdate(){
-	return true;
 };
 void ScrollingPanel::SetPosition(int x, int y){
 	GamePanel::SetPosition(x,y);

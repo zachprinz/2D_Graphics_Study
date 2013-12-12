@@ -19,9 +19,6 @@ GuiElement::GuiElement(int x,int y,SlicedSprite* textureName,std::string fgTextu
 void GuiElement::SetForegroundSprite(std::string spriteRect){
 	foreground = new Drawn(spriteRect);
 };
-void GuiElement::Update(sf::RenderTexture&){
-
-};
 void GuiElement::Update(GamePanel* panel){
 
 };

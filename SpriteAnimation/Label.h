@@ -14,7 +14,6 @@ public:
 	Label(int,int,int,SlicedSprite*,Fonts,std::string);
 	void SetText(sf::Text);
 	sf::Text* GetText();
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	static void OnStart();
 	void SetLocation(float,float);

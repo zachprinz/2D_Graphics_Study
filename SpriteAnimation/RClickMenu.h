@@ -23,7 +23,6 @@ public:
 	static bool GetIsOpen();
 	static GamePanel* currentPanel;
 	static RClickable* currentTarget;
-	static void Update(sf::RenderTexture&);
 	static void Update(GamePanel*);
 	static float width;
 	static bool Contains(sf::Vector2f);

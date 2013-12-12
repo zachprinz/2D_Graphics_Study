@@ -1,7 +1,6 @@
 #include "StatsPanel.h"
 #include "Label.h"
 #include "Button.h"
-#include "SlicedSpriteCreator.h"
 #include "User.h"
 #include <iostream>
 
@@ -13,7 +12,6 @@ StatsPanel::StatsPanel(int x,int y) : GamePanel(x,y,"Stats") {
 	instance = this;
 };
 void StatsPanel::SetItem(Item* item){
-	doUpdate = true;
 	((Label*)(itemMap["StrengthValue"]))->SetText(std::to_string(item->itemLevels.strength));
 	((Label*)(itemMap["EndureValue"]))->SetText(std::to_string(item->itemLevels.endurance));
 	((Label*)(itemMap["SpeedValue"]))->SetText(std::to_string(item->itemLevels.speed));
@@ -28,7 +26,6 @@ void StatsPanel::SetItem(Item* item){
 	dynamicElements = itemMap;
 };
 void StatsPanel::SetLevel(std::string levelName){
-	doUpdate = true;
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("xml/userInfo.xml");
 	pugi::xml_node atlas = doc.child("User").child("LevelInfo");
@@ -68,7 +65,6 @@ void StatsPanel::SetLevel(std::string levelName){
 	dynamicElements = levelMap;
 };
 void StatsPanel::SetCombatant(Combatant* combatant){
-	doUpdate = true;
 	((Label*)(combatantMap["StrengthValue"]))->SetText(std::to_string(combatant->levelSet.strength));
 	((Label*)(combatantMap["EndureValue"]))->SetText(std::to_string(combatant->levelSet.endurance));
 	((Label*)(combatantMap["SpeedValue"]))->SetText(std::to_string(combatant->levelSet.speed));
@@ -172,14 +168,6 @@ void StatsPanel::SetUpLevelMap(){
 		levelMap.insert(MyPair("subLevelTopXP" + std::to_string(x),subLevelTopXP));
 	}
 };
-bool StatsPanel::CheckUpdate(){
-	//if(doUpdate || GamePanel::currentMousePanel == this || dynamicElements == levelMap){
-	//	doUpdate = false;
-		return true;
-	//}
-	//else
-	//	return false;
-};
 void StatsPanel::OnButtonEvent(std::string func){
 	if(func == "plusButton0"){
 		User::player->AddExperience(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),1);
@@ -190,7 +178,6 @@ void StatsPanel::OnButtonEvent(std::string func){
 		subLevelPercents[1] = ((float)(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"percent")))/100.0;
 	}
 	mainLevelPercent = ((float)(User::player->GetUserData(currentName,"percent")))/100.0;
-	doUpdate = true;
 	std::cout << "Percent" + std::to_string(mainLevelPercent) << std::endl;
 	((Label*)(levelMap["mainLevelCurrentXP"]))->SetText(std::to_string(User::player->GetUserData(currentName,"xpPastCurrentLevel")));
 	((Label*)(levelMap["subLevelCurrentXP0"]))->SetText(std::to_string(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"xpPastCurrentLevel")));

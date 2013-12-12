@@ -12,7 +12,6 @@ public:
 	ProgressBar(float* percent,sf::Sprite* relative);
 	ProgressBar(int x, int y, int length, float* percent);
 	ProgressBar();
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void SetPercent(float*);
 	bool stationary;

@@ -18,7 +18,6 @@ public:
 	void OnRClick(sf::Vector2i);
 	void ScrollDown();
 	void ScrollUp();
-	virtual bool CheckUpdate();
 	void SetPosition(int, int);
 	void Update();
 	AABB GetBounds();

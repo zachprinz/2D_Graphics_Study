@@ -12,7 +12,6 @@ class Button : public GuiElement
 public:
 	Button(int,int,std::string,std::string);
 	Button(int,int,SlicedSprite*,std::string);
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void OnClick();
 	void SetScale(float,float);

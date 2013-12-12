@@ -17,7 +17,6 @@ public:
 	void UpdateActionImages();
 	void SetUp();
 	void OnButtonEvent(std::string);
-	bool CheckUpdate();
 private:
 	std::vector<sf::RectangleShape*> sheets;
 };

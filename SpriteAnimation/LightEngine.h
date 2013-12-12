@@ -39,7 +39,6 @@ private:
 	sf::RenderTexture* spritePanelTexture;
 	QuadTree* lightTree;
 	QuadTree* hullTree;
-	//Camera lightCamera;
 	sf::RenderTexture finalTexture;
 	sf::Color ambienceColor;
 };

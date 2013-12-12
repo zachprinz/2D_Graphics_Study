@@ -39,14 +39,6 @@ void Container::OnHover(bool hovered){
 		//foreground->ReturnExpand();
 	}
 };
-void Container::Update(sf::RenderTexture& panel){
-	if(foreground->GetIsExpanding()){
-		foreground->UpdateExpand();
-	}
-	panel.draw(sprite);
-	if(isFull)
-		panel.draw(*foreground->GetSprite());
-}
 void Container::Update(GamePanel* panel){
 	if(foreground->GetIsExpanding()){
 		foreground->UpdateExpand();

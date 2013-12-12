@@ -11,9 +11,9 @@
 class EquipedPanel : public GamePanel
 {
 public:
+	static EquipedPanel* instance;
 	EquipedPanel(int,int);
 	EquipedPanel();
-	static EquipedPanel* instance;
 	void AddElement(std::string,Drawn*);
 	EquipedContainer* GetSlotContainer(int);
 	void Equip(Item item);
@@ -25,7 +25,6 @@ public:
 	static sf::Texture* equipedBackground;
 	void UpdateStats();
 	LevelSet equipedLevels;
-	bool CheckUpdate();
 private:
 	void SetUp();
 };

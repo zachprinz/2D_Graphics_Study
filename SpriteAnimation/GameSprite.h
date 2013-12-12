@@ -26,7 +26,6 @@ public:
 	virtual void OnHover();
 	virtual void DrawSprite(GamePanel*);
 	static bool displayDebug;
-	virtual void Update(sf::RenderTexture&);
 	virtual void Update(GamePanel*);
 	void AddBoundryPolygon(sf::ConvexShape);
 	void ClearBoundries();

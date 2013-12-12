@@ -27,22 +27,6 @@ ProgressBar::ProgressBar(int x, int y, int length, float* percent) : GuiElement(
 ProgressBar::ProgressBar() : GuiElement(0,0,"blank.png","blank.png") {
 
 };
-void ProgressBar::Update(sf::RenderTexture& panel){
-	if(!stationary){
-		if(percent > 0)
-			foregroundRect.setScale(*percent,1.f);
-		SetBarPosition(sf::Vector2f(relative->getPosition().x + 4,relative->getPosition().y - foregroundRect.getSize().y));
-		panel.draw(background);
-		panel.draw(foregroundRect);
-	}
-	else{
-		if(percent > 0){
-			//foreground->SetScale(sf::Vector2f(,8));
-		}
-		panel.draw(sprite);
-		panel.draw(*foreground->GetSprite());
-	}
-};
 void ProgressBar::Update(GamePanel* panel){
 	if(!stationary){
 		if(percent > 0)

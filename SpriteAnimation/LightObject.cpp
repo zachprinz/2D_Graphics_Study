@@ -15,9 +15,6 @@ LightObject::LightObject(int x,int y,tmx::MapObject* obj) : AmbienceObject(x,y,o
 	SpritePanel::instance->AddLight(myLight);
 	//SpritePanel::instance->AddLight(myLight3);
 };
-void LightObject::Update(sf::RenderTexture& panel){
-	AmbienceObject::Update(panel);
-};
 void LightObject::Update(GamePanel* panel){
 	AmbienceObject::Update(panel);
 };

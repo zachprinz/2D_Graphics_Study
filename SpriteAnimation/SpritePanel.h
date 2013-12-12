@@ -15,32 +15,31 @@
 class SpritePanel : public GamePanel
 {
 public:
+	static SpritePanel* instance;
 	SpritePanel(int,int);
 	SpritePanel();
-	static SpritePanel* instance;
 	void AddElement(std::string,Drawn*);
-	static sf::Texture* spritePanelBackground;
 	void SpawnItem(int,int,int,Room*);
-	tmx::MapLoader* ml;
-	std::vector<tmx::MapLayer*> otherLayers;
-	std::vector<tmx::MapLayer*> highLayers;
 	void UpdateElements();
-	void LoadMapCollisions();
-	void LoadMapSprites();
 	static Room* room;
-	sf::View view;
 	void MoveCamera(float,float);
-	std::vector<std::string> combatants;
 	void RemoveDynamicElement(std::string);
-	bool CheckUpdate();
-	void LoadMapAmbience();
-	LightEngine* lightEngine;
 	void AddLight(Light*);
 	void AddHull(Hull*);
+private:
+	static sf::Texture* spritePanelBackground;
+	tmx::MapLoader* ml;
+	sf::View view;
+	std::vector<tmx::MapLayer*> otherLayers;
+	std::vector<tmx::MapLayer*> highLayers;
+	std::vector<std::string> combatants;
+	void SetUp();
+	LightEngine* lightEngine;
 	sf::Texture mapTexture;
 	sf::Sprite mapSprite;
-private:
-	void SetUp();
+	void LoadMapAmbience();
+	void LoadMapCollisions();
+	void LoadMapSprites();
 	std::vector<GroundItem*> spawnedItems;
 };
 

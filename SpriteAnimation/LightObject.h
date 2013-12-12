@@ -8,13 +8,10 @@ class LightObject : public AmbienceObject
 {
 public:
 	LightObject(int,int,tmx::MapObject*);
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel* panel);
 	static std::vector<int> tags;
 	Light* getLight();
 	Light* myLight;
-	Light* myLight2;
-	Light* myLight3;
 private:
 };
 

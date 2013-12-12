@@ -11,7 +11,6 @@ class NPC :  public Actor
 
 public:
 	NPC(int,int,std::string,std::string);
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void Interact();
 	void OnClick();

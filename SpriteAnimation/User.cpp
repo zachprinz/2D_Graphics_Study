@@ -44,10 +44,6 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	UpdateBoundries();
 	SpritePanel::instance->AddHull(actorHull);
 };
-void User::Update(sf::RenderTexture& window){
-	UpdateEntity();
-	Combatant::Update(window);
-};
 void User::Update(GamePanel* panel){
 	UpdateEntity();
 	Combatant::Update(panel);
@@ -80,19 +76,6 @@ void User::UpdateEntity(){
 				break;
 			}
 		}
-	}
-};
-void User::GetUserWeaponImage(sf::RenderTexture* window){
-	if(((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetOversized()){
-		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
-		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
-		window->draw(sprite);
-		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y + 40);
-		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
-	}
-	else{
-		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
-		window->draw(sprite);
 	}
 };
 void User::GetUserWeaponImage(GamePanel* panel){
@@ -363,10 +346,8 @@ void User::CalculateLevelData(std::string levelName,std::string subLevelName){
 	level.attribute("xpPastCurrentLevel").set_value(totalXPTemp - minXPForCurrentLevel);
     level.attribute("xpToNextLevel").set_value(remainingXP);
 	level.attribute("percent").set_value((int)(((float)totalXPTemp / ((float)maxXPForCurrentLevel))*100));
-	if(std::stoi(level.attribute("level").value()) > beginLevel){
+	if(std::stoi(level.attribute("level").value()) > beginLevel)
 		UpdateUnlockables(levelName,subLevelName);
-		StatsPanel::instance->doUpdate = true;
-	}
 	//level.attribute("unlockXP").set_value(std::floor(4 * std::pow(std::stoi(level.find_child_by_attribute("nextUnlock",level.attribute("nextUnlock").value()).attribute("level").value()), 2.5f)));
 	doc.save_file("xml/userInfo.xml");
 };

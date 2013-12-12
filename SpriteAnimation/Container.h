@@ -16,7 +16,6 @@ public:
 	Item GetContents();
 	virtual void OnClick();
 	void OnHover(bool);
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	bool GetIsFull();
 	bool Contains(Item item);

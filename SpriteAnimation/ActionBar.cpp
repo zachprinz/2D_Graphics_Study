@@ -20,6 +20,7 @@ void ActionBar::UpdateElements(){
 	for(int x = 0; x < User::player->currentAttacks.size(); x++){
 		sheets[x]->setScale(1,1 - User::player->attacks[User::player->currentAttacks[x]]->percentCooledDown);
 		panel.draw(*sheets[x]);
+		Drawn::DrawOther(sheets[x],this);
 	}
 };
 void ActionBar::UpdateActionImages(){
@@ -49,7 +50,7 @@ void ActionBar::SetUp(){
 	}
 	for(MyPair x: dynamicElements){
 		sheets.push_back(new sf::RectangleShape(sf::Vector2f(64,64)));
-		sheets[sheets.size() - 1]->setPosition(((Button*)(x.second))->foreground->GetSprite()->getPosition());
+		sheets[sheets.size() - 1]->setPosition(((Button*)(x.second))->foreground->GetSprite()->getPosition() - ((Button*)(x.second))->foreground->GetSprite()->getOrigin());
 		sheets[sheets.size() - 1]->setFillColor(sf::Color(0,0,0,150));
 	}
 	GamePanel::SetUp();
@@ -58,7 +59,4 @@ void ActionBar::OnButtonEvent(std::string btnFunction){
 	std::cout << "Action Bar Button Clicked" << std::endl;
 	int bot = std::stoi(btnFunction);
 	User::player->TryLaunchAttack(User::player->currentAttacks[bot]);
-};
-bool ActionBar::CheckUpdate(){
-	return true;
 };

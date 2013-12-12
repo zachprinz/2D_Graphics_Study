@@ -15,16 +15,6 @@ Button::Button(int x,int y,SlicedSprite* texture,std::string fgTexture) : GuiEle
 	target = new GamePanel();
 	moveOnHover = false;
 };
-void Button::Update(sf::RenderTexture& panel){
-	if(foreground->GetIsMoving())
-		foreground->UpdateMove();
-	if(foreground->GetIsExpanding()){
-		foreground->UpdateExpand();
-		CenterForeground();
-	}
-	panel.draw(sprite);
-	panel.draw(*foreground->GetSprite());
-};
 void Button::Update(GamePanel* panel){
 	if(foreground->GetIsMoving())
 		foreground->UpdateMove();

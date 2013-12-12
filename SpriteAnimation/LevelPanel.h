@@ -11,11 +11,10 @@
 class LevelPanel : public GamePanel
 {
 public:
+	static LevelPanel* instance;
 	LevelPanel(int,int);
 	LevelPanel();
-	static LevelPanel* instance;
 	void AddElement(std::string,Drawn*);
-	bool CheckUpdate();
 	void OnButtonEvent(std::string);
 	void ResetButtonPositions();
 private:

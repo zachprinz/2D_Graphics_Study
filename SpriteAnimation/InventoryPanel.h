@@ -22,7 +22,6 @@ public:
 	bool DoesContain(std::vector<Item>);
 	InventoryContainer* FindContainerOf(Item item);
 	sf::Texture inventoryBackground;
-	bool CheckUpdate();
 private:
 	void SetUp();
 

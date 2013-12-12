@@ -117,20 +117,6 @@ bool Actor::SetDown(){
 
 	}
 };
-void Actor::Update(sf::RenderTexture& panel){
-	UpdateEntity();
-	if(isVisible){
-		UpdateRoomTile();
-		UpdateAnimation();
-		DrawSprite(&panel);
-		for(int x = 0; x < boundries.size(); x++){
-				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
-				boundries[x].setScale(0.85f,0.65f);
-		}
-	}
-	GameSprite::Update(panel);
-	actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
-}
 void Actor::Update(GamePanel* panel){
 	UpdateEntity();
 	if(isVisible){
@@ -180,22 +166,6 @@ void Actor::UpdateEntity(){
 					currentDirection = Finishing;
 			}
 	}
-};
-void Actor::DrawSprite(sf::RenderTexture* window){
-	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
-	for(int x = 0; x < animationSheets.size(); x++){
-		if(x != 2){
-			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
-			window->draw(sprite);
-		}
-	}
-	if(this == User::player){
-		if(currentAnimation == animations["Slash"] || currentAnimation == animations["Stab"] || currentAnimation == animations["Shoot"]){
-			std::cout << "Getting Sword Animation" << std::endl;
-			User::player->GetUserWeaponImage(window);
-		}
-	}
-	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
 };
 void Actor::DrawSprite(GamePanel* panel){
 	sprite.setPosition(sprite.getPosition().x - 11.2, sprite.getPosition().y - 9.6);
@@ -292,7 +262,6 @@ bool Actor::UpdateAnimation(){
 		return false;
 };
 ShadowLine Actor::GetUpdatedFootLine(){
-	std::cout << "Getting foot line..." << std::endl;
 	sf::RenderTexture tempText;
 	tempText.create(sprite.getGlobalBounds().width,sprite.getGlobalBounds().height);
 	tempText.clear(sf::Color(0,0,0,0));

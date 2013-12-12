@@ -1,6 +1,5 @@
 #include "InventoryPanel.h"
 #include <iostream>
-#include "SlicedSpriteCreator.h"
 #include "Label.h"
 
 InventoryPanel* InventoryPanel::instance = new InventoryPanel();
@@ -22,7 +21,6 @@ InventoryContainer* InventoryPanel::GetOpenContainer(){
 	}
 };
 void InventoryPanel::Add(Item item){
-	doUpdate = true;
 	std::cout << "Inventory adding a found item to a container." << std::endl;
 	GetOpenContainer()->AddItem(item);
 };
@@ -65,12 +63,4 @@ void InventoryPanel::SetUp(){
 		}
 	}
 	std::cout << " Done" << std::endl;
-};
-bool InventoryPanel::CheckUpdate(){
-	//if(doUpdate || GamePanel::currentMousePanel == this){
-	//	doUpdate = false;
-		return true;
-	//}
-	//else
-	//	return false;
 };

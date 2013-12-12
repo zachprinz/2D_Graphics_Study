@@ -36,10 +36,6 @@ void Label::SetText(sf::Text t){
 sf::Text* Label::GetText(){
 	return &text;
 };
-void Label::Update(sf::RenderTexture& panel){
-	panel.draw(sprite);
-	panel.draw(text);
-};
 void Label::Update(GamePanel* panel){
 	if(isSliced)
 		base->Update(panel);

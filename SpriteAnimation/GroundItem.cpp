@@ -13,13 +13,6 @@ GroundItem::GroundItem(int x, int y, Item myItem) : GameSprite(x,y,"itemsprites/
 Item GroundItem::GetItem(){
 	return item;
 };
-void GroundItem::Update(sf::RenderTexture& window){
-		if(isVisible){
-			UpdateRoomTile();
-			window.draw(sprite);
-			GameSprite::Update(window);
-		}
-};
 void GroundItem::Update(GamePanel* panel){
 	if(isVisible){
 		UpdateRoomTile();

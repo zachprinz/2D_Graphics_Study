@@ -10,9 +10,9 @@
 class BankPanel : public ScrollingPanel
 {
 public:
+	static BankPanel* instance;
 	BankPanel(int,int);
 	BankPanel();
-	static BankPanel* instance;
 	void AddElement(std::string,Drawn*);
 	BankContainer* GetOpenContainer();
 	void Add(Item item);

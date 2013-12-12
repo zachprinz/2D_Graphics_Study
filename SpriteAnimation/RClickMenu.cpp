@@ -45,14 +45,6 @@ void RClickMenu::Clear(){
 bool RClickMenu::GetIsOpen(){
 	return isOpen;
 };
-void RClickMenu::Update(sf::RenderTexture& panel){
-	if(isOpen){
-		std::vector<Label*> temp = RClickMenu::GetMenu();
-		for(int x = 0; x < temp.size(); x++){
-			temp[x]->Update(panel);
-		}
-	}
-}
 void RClickMenu::Update(GamePanel* panel){
 	if(isOpen){
 		std::vector<Label*> temp = RClickMenu::GetMenu();

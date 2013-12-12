@@ -18,13 +18,6 @@ AmbienceObject::AmbienceObject(int x,int y,tmx::MapObject* obj,bool isLightObjec
 	tags.push_back(std::to_string(GetTag()));
 	UpdateRoomTile();	
 };
-void AmbienceObject::Update(sf::RenderTexture& window){
-	GameSprite::Update(window);
-};
-void AmbienceObject::Update2(sf::RenderTexture& window){
-	window.draw(*(nonphysical->GetSprite()));
-	((GameSprite*)nonphysical)->Update(window);
-};
 void AmbienceObject::Update(GamePanel* panel){
 	GameSprite::Update(panel);
 };

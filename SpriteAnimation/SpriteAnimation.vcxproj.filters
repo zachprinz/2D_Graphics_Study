@@ -93,13 +93,7 @@
     <ClCompile Include="BankPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SlicedSpriteCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\Misc\TmxMapLoader\src\pugixml\pugixml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Combatant.cpp">
@@ -195,6 +189,9 @@
     <ClCompile Include="SlicedSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Room.h">
@@ -272,9 +269,6 @@
     <ClInclude Include="BankContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SlicedSpriteCreator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Combatant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -282,9 +276,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ActionBar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapPanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
@@ -360,6 +351,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SlicedSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

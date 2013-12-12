@@ -20,7 +20,6 @@ public:
 	void SetCombatant(Combatant* combatant);
 	void SetLevel(std::string);
 	std::string currentName;
-	bool CheckUpdate();
 	void OnButtonEvent(std::string);
 private:
 	ElementList itemMap;

@@ -18,7 +18,6 @@ public:
 	virtual void OnRClick(sf::Vector2i,GamePanel*);
 	virtual void OnHover(bool);
 	void AddRClickOption(int);
-	void Update(sf::RenderTexture&);
 	void Update(GamePanel*);
 	void EnableRClick(std::string);
 	void DisableRClick();
