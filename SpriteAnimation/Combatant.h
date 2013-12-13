@@ -7,6 +7,7 @@
 #include "Attack.h"
 #include "LevelSet.h"
 #include "ProgressBar.h"
+#include "Clock.h"
 
 class Combatant : public Actor
 {
@@ -54,8 +55,8 @@ private:
 	Drawn* tileEffect;
 	int tileEffectFrameCount;
 	std::vector<sf::Vector2i> effectedTiles;
-	sf::Clock effectedTilesAnimationClock;
-	sf::Clock inCombatClock;
+	Clock effectedTilesAnimationClock;
+	Clock inCombatClock;
 };
 
 #endif

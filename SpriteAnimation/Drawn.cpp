@@ -20,6 +20,7 @@ std::vector<sf::Transformable*> Drawn::addsTransforms;
 std::vector<sf::Vector2f> Drawn::addsPositions;
 
 Drawn::Drawn(std::string textureExtension){
+	drawOffset = sf::Vector2f(0,0);
 	updateVertex = true;
 	testPosition = sf::Vector2f(-1,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
@@ -41,6 +42,7 @@ Drawn::Drawn(std::string textureExtension){
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
+	drawOffset = sf::Vector2f(0,0);
 	updateVertex = true;
 	testPosition = sf::Vector2f(0,0);
 	heldVerteces.setPrimitiveType(sf::Quads);
@@ -62,11 +64,12 @@ Drawn::Drawn(SlicedSprite* sliced){
 };
 
 Drawn::Drawn(){
+		drawOffset = sf::Vector2f(0,0);
 		myScale = sf::Vector2f(1,1);
 };
 
 void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
-	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound();
+	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound() + drawOffset;
 	if(testPosition != pos || updateVertex){
 		sf::Vector2f spriteScale = sprite.getScale();
 		sf::IntRect texRec = sprite.getTextureRect();
@@ -110,6 +113,9 @@ void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
 void Drawn::Draw(GamePanel* panel){
 	DrawVertex(&panel->GetRenderPanel(),panel);
 }
+void Drawn::SetDrawOffset(sf::Vector2f off){
+	drawOffset = off;
+};
 void Drawn::Draw(GamePanel* panel, sf::RenderTexture* texture){
 	DrawVertex(texture,panel);
 };

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <boost\container\flat_set.hpp>
 #include "AABB.h"
+#include "Clock.h"
 
 class SlicedSprite;
 class ProgressBar;
@@ -72,6 +73,7 @@ public:
 	AABB GetBounds(sf::View);
 	AABB GetSpritePanelBounds();
 	bool updateVertex;
+	void SetDrawOffset(sf::Vector2f);
 protected:
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;
@@ -104,6 +106,7 @@ protected:
 	sf::Texture myTexture;
 	sf::Sprite sprite;
 	sf::Vector2f positionOnPanel;
+	sf::Vector2f drawOffset;
 };
 
 #endif

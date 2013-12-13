@@ -31,6 +31,8 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	LoadMapSprites();
 	mapTexture.loadFromFile("maps/testMap1.png");
 	mapSprite.setTexture(mapTexture);
+	isZooming = false;
+	currentZoom = 1;
 };
 SpritePanel::SpritePanel(){
 
@@ -142,18 +144,26 @@ void SpritePanel::LoadMapAmbience(){
 	}
 };
 void SpritePanel::UpdateElements(){
+	UpdateZoom();
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	panel.draw(mapSprite);
+	Drawn tempDrawn("aim.png");
+	tempDrawn.GetSprite()->setOrigin(320,160);
+	tempDrawn.SetPosition(User::player->GetPosition() + sf::Vector2f(16,22));
+	tempDrawn.GetSprite()->rotate(90 + ((User::player->currentAnimationPos.y % 4) * -90));
+	tempDrawn.Draw(this);
 	((Combatant*)(User::player))->UpdateEffectedTiles((GamePanel*)this);
-	Actor::elapsedTime = Actor::elapsedTimeClock.restart();
+	Actor::elapsedTime = Actor::elapsedTimeClock->getElapsedTime();
+	Actor::elapsedTimeClock->restart();
 	GamePanel::UpdateElements();
 	User::player->Update((GamePanel*)this);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(this);
 	}
 	lightEngine->SetView(view);
-	lightEngine->DrawLights(&panel);
+	if(!isZooming)
+		lightEngine->DrawLights(&panel);
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
@@ -194,3 +204,56 @@ void SpritePanel::AddHull(Hull* hull){
 void SpritePanel::AddLight(Light* light){
 	lightEngine->AddLight(light);
 };
+void SpritePanel::Zoom(float time, float zoomFactor){
+	if(!isZooming){
+		zoomPerSecond = abs(currentZoom - zoomFactor) / time;
+		zoomDirection = -1;
+		targetZoom = zoomFactor;
+		zoomClock.restart();
+		isZooming = true;
+	}
+};
+void SpritePanel::UpdateZoom(){
+	if(isZooming){
+		float zoomAmount = zoomPerSecond * zoomClock.restart().asSeconds() * zoomDirection;
+		if(zoomDirection > 0){
+			if(currentZoom + zoomAmount < targetZoom){
+				view.zoom((1.0/currentZoom));
+				view.zoom(currentZoom + zoomAmount);
+				currentZoom = currentZoom + zoomAmount;
+			}
+			else{
+				view.zoom((1.0/currentZoom));
+				view.zoom(targetZoom);
+				currentZoom = targetZoom;
+				isZooming = false;
+			}
+		}
+		else{
+			if(currentZoom + zoomAmount > targetZoom){
+				view.zoom((1.0/currentZoom));
+				view.zoom(currentZoom + zoomAmount);
+				currentZoom = currentZoom + zoomAmount;
+			}
+			else{
+				view.zoom((1.0/currentZoom));
+				view.zoom(targetZoom);
+				currentZoom = targetZoom;
+				isZooming = false;
+				ReturnZoom();
+				Clock::ReturnTime();
+			}
+		}
+	}
+};
+void SpritePanel::ReturnZoom(){
+	zoomPerSecond = abs(1 - currentZoom) / 0.5;
+	zoomDirection = 1;
+	targetZoom = 1;
+	zoomClock.restart();
+	isZooming = true;
+};
+sf::Vector2f SpritePanel::GetViewLowerBound(){
+	//sf::Vector2f temp = sf::Vector2f(panel.getDefaultView().getSize() - view.getSize());
+	return (sf::Vector2f(view.getCenter() - sf::Vector2f(panel.getDefaultView().getSize().x / 2, panel.getDefaultView().getSize().y / 2.0)));// - sf::Vector2f(temp.x / 2.0,temp.y / 2.0));
+}

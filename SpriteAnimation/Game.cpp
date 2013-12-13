@@ -10,11 +10,15 @@ Game::Game(){
 	settings.antialiasingLevel = 8;
 	window->setKeyRepeatEnabled(false);
 	window->create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
-	window->setVerticalSyncEnabled(false);
+	window->setVerticalSyncEnabled(true);
 	OnStart();
 	CreatePanels();
+	Actor::elapsedTimeClock->restart();
+	Clock::timeSpeed = 1;
+	Clock::myClock.restart();
 };
 void Game::Update(){
+	Clock::UpdateAll();
 	CheckForInput();
 	UpdatePanels();
 	Drawn::DrawGame(*window);
@@ -31,6 +35,7 @@ void Game::CreatePanels(){
 	textPanel = new TextPanel(1004,175);
 	textPanel->SetPosition(292,748);
 	spritePanel = new SpritePanel(1526,922);
+	Actor::elapsedTimeClock = new Clock();
 	spritePanel->SetPosition(-8,-8);
 	User::player->GetBank()->SetPosition(spritePanel->GetPosition().x + ((spritePanel->GetSize().x - 480) / 2),spritePanel->GetPosition().y + ((spritePanel->GetSize().y - 480) / 2));
 	actionBar = new ActionBar(1020,88);
@@ -39,7 +44,6 @@ void Game::CreatePanels(){
 	statsPanel->SetPosition(1566,16);
 	hudPanel = new HUDPanel(User::player, 485,90);
 	hudPanel->SetPosition(16,961);
-	Actor::elapsedTimeClock.restart();
 };
 void Game::UpdatePanels(){
 	spritePanel->Update();

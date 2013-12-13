@@ -8,6 +8,7 @@
 #include "pugixml\pugixml.hpp"
 #include "ShadowLine.h"
 #include "Hull.h"
+#include "Clock.h"
 
 class Actor : public GameSprite
 {
@@ -49,11 +50,11 @@ public:
 	Animation* currentAnimation;
 	sf::Vector2i currentAnimationPos;
 	std::vector<sf::IntRect> animationSheets;
-	sf::Clock animationClock;
+	Clock animationClock;
 	bool UpdateAnimation();
 	Animation::AnimDir currentAnimationDir;
 	bool playAnimation;
-	static sf::Clock elapsedTimeClock;
+	static Clock* elapsedTimeClock;
 	static sf::Time elapsedTime;
 	sf::Texture GetActorTexture();
 	void UpdateBoundries();

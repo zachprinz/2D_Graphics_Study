@@ -5,6 +5,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include "Clock.h"
 
 class Attack
 {
@@ -26,7 +27,7 @@ public:
 	sf::Vector2i GetRight(sf::Vector2i position,sf::Vector2i movement,int);
 	float percentCooledDown;
 	sf::Time cooldownTime;
-	sf::Clock cooldownClock;
+	Clock cooldownClock;
 	bool GetIsCooledDown();
 private:
 	bool isCooledDown;

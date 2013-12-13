@@ -600,9 +600,9 @@
     <property name="test" value="1"/>
    </properties>
   </object>
-  <object name="amb" type="Item" agid="1048" x="1376" y="2785" width="32" height="32">
+  <object name="amb" type="Item" agid="1048" x="1378" y="2786" width="32" height="32">
    <properties>
-    <property name="id" value="108"/>
+    <property name="id" value="115"/>
     <property name="test" value="1"/>
    </properties>
   </object>

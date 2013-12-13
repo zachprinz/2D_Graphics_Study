@@ -26,7 +26,13 @@ public:
 	void RemoveDynamicElement(std::string);
 	void AddLight(Light*);
 	void AddHull(Hull*);
+	void Zoom(float, float);
+	void ReturnZoom();
+	bool isZooming;
+	float currentZoom;
+	sf::Vector2f GetViewLowerBound();
 private:
+	void UpdateZoom();
 	static sf::Texture* spritePanelBackground;
 	tmx::MapLoader* ml;
 	sf::View view;
@@ -41,6 +47,10 @@ private:
 	void LoadMapCollisions();
 	void LoadMapSprites();
 	std::vector<GroundItem*> spawnedItems;
+	float zoomPerSecond;
+	float zoomDirection;
+	Clock zoomClock;
+	float targetZoom;
 };
 
 #endif

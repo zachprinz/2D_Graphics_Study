@@ -46,7 +46,7 @@ void Light::Update(){
 	while(zAngle > PI2)
 		zAngle -= PI2;
 	if(oscillate)
-		SetRadius(130 + 4*((float)std::sin(zAngle)) + 0.5f* (static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0f)))-5.0f);
+		SetRadius(130 + 3*((float)std::sin(zAngle)));// + 0.5f* (static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0f)))-5.0f);
 	oscillateFrame = false;
 	}
 	else

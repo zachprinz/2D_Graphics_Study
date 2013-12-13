@@ -16,14 +16,23 @@
 	</Attacks>
 	
 	<Attacks name="bow">
-		<Attack name="" damageMult="" anim="Shoot" cooldown="">
-			<EffectedTile direction="" distance=""/>
+		<Attack name="Simple Shot" damageMult="1.0" anim="Shoot" cooldown="1">
+			<EffectedTile direction="0" distance="1"/>
+			<EffectedTile direction="0" distance="2"/>
+			<EffectedTile direction="0" distance="3"/>
+			<EffectedTile direction="0" distance="4"/>
 		</Attack>
-		<Attack name="" damageMult="" anim="Shoot" cooldown="">
-			<EffectedTile direction="" distance=""/>
+		<Attack name="Multi Shot" damageMult="0.8" anim="Shoot" cooldown="2">
+			<EffectedTile direction="0" distance="1"/>
+			<EffectedTile direction="0" distance="2"/>
+			<EffectedTile direction="0" distance="3"/>
+			<EffectedTile direction="0" distance="4"/>
 		</Attack>			
-		<Attack name="" damageMult="" anim="Shoot" cooldown="">
-			<EffectedTile direction="" distance=""/>
+		<Attack name="Bleed Shot" damageMult="0.75" anim="Shoot" cooldown="4">
+			<EffectedTile direction="0" distance="1"/>
+			<EffectedTile direction="0" distance="2"/>
+			<EffectedTile direction="0" distance="3"/>
+			<EffectedTile direction="0" distance="4"/>
 		</Attack>			
 	</Attacks>
 

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "ShadowLine.h"
 #include "Hull.h"
+#include "Clock.h"
 
 class Light
 {
@@ -27,7 +28,7 @@ public:
 	void Update();
 	float zAngle;
 	bool oscillate;
-	sf::Clock oscillateClock;
+	Clock oscillateClock;
 	static double PI2;
 	static float zSpeed;
 private:

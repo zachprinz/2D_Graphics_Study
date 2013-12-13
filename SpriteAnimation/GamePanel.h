@@ -40,7 +40,7 @@ public:
 	std::string GetName();
 	sf::Vector2f GetSize();
 	sf::Sprite panelSprite;
-	sf::Vector2f GetViewLowerBound();
+	virtual sf::Vector2f GetViewLowerBound();
 protected:
 	sf::Vector2f mySize;
 	std::string panelName;

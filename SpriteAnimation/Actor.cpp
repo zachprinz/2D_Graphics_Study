@@ -4,7 +4,7 @@
 #include "User.h"
 #include "GamePanel.h"
 
-sf::Clock Actor::elapsedTimeClock;
+Clock* Actor::elapsedTimeClock;
 sf::Time Actor::elapsedTime;
 std::vector<std::vector<std::vector<ShadowLine>>> Actor::footLines;
 std::string Actor::anims[] = {"Slash","Stab","Cast","Shoot","Walk","Die"};
@@ -158,11 +158,11 @@ void Actor::UpdateEntity(){
 			}
 		}
 			else if(currentDirection == U || currentDirection == D){
-					Move(0, movement.y * elapsedTime.asSeconds() * 50);
+					Move(0, movement.y * elapsedTime.asSeconds() * 100);
 					currentDirection = Finishing;
 			}
 			else if(currentDirection == L || currentDirection == R){
-					Move(movement.x * elapsedTime.asSeconds() * 50,0);
+					Move(movement.x * elapsedTime.asSeconds() * 100,0);
 					currentDirection = Finishing;
 			}
 	}

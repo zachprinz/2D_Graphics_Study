@@ -22,6 +22,7 @@
 #include "ProgressBar.h"
 #include "HUDPanel.h"
 #include "TextPanel.h"
+#include "Clock.h"
 
 class Game
 {

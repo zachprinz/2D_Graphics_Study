@@ -9,7 +9,7 @@ Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offse
 	effectTileOffsets = offsets;
 	animationY = animY;
 	cooldownTime = sf::seconds(cooldown);
-	cooldownClock = sf::Clock();
+	cooldownClock = Clock();
 	hudTexture = Drawn::GetTextureFromAtlas("attacktextures/" + name + ".png");
 	hudSprite.setTexture(Drawn::gameTexture);
 	hudSprite.setTextureRect(hudTexture);

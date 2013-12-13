@@ -187,69 +187,79 @@ bool User::GetIsAnyKeyPressed(){
 				return true;
 };
 void User::CheckUserInput(){
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && User::player->GetCurrentDirection() == User::player->None){
-			if(!cKeyPressed){
-				cKeyPressed = true;
-				Interact();
-			}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
+			Clock::SlowTime(0.75,0.25);
+			SpritePanel::instance->Zoom(0.75,0.75);
 		}
-		else
-			if(cKeyPressed){
-				cKeyPressed = false;
-			}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 0){
-			TryLaunchAttack(currentAttacks[0]);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+			Clock::timeSpeed = 0.0;
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 1){
-			TryLaunchAttack(currentAttacks[1]);
+		if(Clock::timeSpeed > 0){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && User::player->GetCurrentDirection() == User::player->None){
+				if(!cKeyPressed){
+					cKeyPressed = true;
+					Interact();
+				}
+			}
+			else
+				if(cKeyPressed){
+					cKeyPressed = false;
+				}
+
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 0){
+				TryLaunchAttack(currentAttacks[0]);
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 1){
+				TryLaunchAttack(currentAttacks[1]);
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 2){
+				TryLaunchAttack(currentAttacks[2]);
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+				if(!wKeyPressed){
+					SetCurrentKey(sf::Keyboard::W);
+					wKeyPressed = true;
+				}
+			}
+			else
+				if(wKeyPressed){
+					wKeyPressed = false;
+					RemoveKey(sf::Keyboard::W);
+				}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+				if(!aKeyPressed){
+					SetCurrentKey(sf::Keyboard::A);
+					aKeyPressed = true;
+				}
+			}
+			else
+				if(aKeyPressed){
+					aKeyPressed = false;
+					RemoveKey(sf::Keyboard::A);
+				}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+				if(!sKeyPressed){
+					SetCurrentKey(sf::Keyboard::S);
+					sKeyPressed = true;
+				}
+			}
+			else
+				if(sKeyPressed){
+					sKeyPressed = false;
+					RemoveKey(sf::Keyboard::S);
+				}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+				if(!dKeyPressed){
+					SetCurrentKey(sf::Keyboard::D);
+					dKeyPressed = true;
+				}
+			}
+			else
+				if(dKeyPressed){
+					dKeyPressed = false;
+					RemoveKey(sf::Keyboard::D);
+				}
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && User::player->GetCurrentDirection() == User::player->None && currentAction == NoAction && currentAttacks.size() > 2){
-			TryLaunchAttack(currentAttacks[2]);
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-			if(!wKeyPressed){
-				SetCurrentKey(sf::Keyboard::W);
-				wKeyPressed = true;
-			}
-		}
-		else
-			if(wKeyPressed){
-				wKeyPressed = false;
-				RemoveKey(sf::Keyboard::W);
-			}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-			if(!aKeyPressed){
-				SetCurrentKey(sf::Keyboard::A);
-				aKeyPressed = true;
-			}
-		}
-		else
-			if(aKeyPressed){
-				aKeyPressed = false;
-				RemoveKey(sf::Keyboard::A);
-			}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-			if(!sKeyPressed){
-				SetCurrentKey(sf::Keyboard::S);
-				sKeyPressed = true;
-			}
-		}
-		else
-			if(sKeyPressed){
-				sKeyPressed = false;
-				RemoveKey(sf::Keyboard::S);
-			}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-			if(!dKeyPressed){
-				SetCurrentKey(sf::Keyboard::D);
-				dKeyPressed = true;
-			}
-		}
-		else
-			if(dKeyPressed){
-				dKeyPressed = false;
-				RemoveKey(sf::Keyboard::D);
-			}
 };
 void User::SetCurrentKey(sf::Keyboard::Key newKey){
 	backupKey = currentKey;
