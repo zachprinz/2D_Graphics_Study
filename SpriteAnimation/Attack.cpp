@@ -2,7 +2,8 @@
 #include <iostream>
 #include "Drawn.h"
 
-Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offsets, float cooldown, int animY, int frames){
+Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offsets, float cooldown, int animY, int frames,bool isRanged){
+	this->isRanged = isRanged;
 	name = nameA;
 	damageModifier = damageMod;
 	numOfFrames = frames;

@@ -169,7 +169,7 @@ void User::SetUpAttacks(std::string attackSetName){
 				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
 					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
 				}
-				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0));
+				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0,tool2.attribute("ranged").as_bool()));
 				currentAttacks.push_back(tool2.attribute("name").value());
 			}
 			break;
@@ -187,12 +187,12 @@ bool User::GetIsAnyKeyPressed(){
 				return true;
 };
 void User::CheckUserInput(){
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
-			Clock::SlowTime(0.75,0.25);
-			SpritePanel::instance->Zoom(0.75,0.75);
-		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-			Clock::timeSpeed = 0.0;
+			if(Clock::timeSpeed == 0.0){
+				Clock::timeSpeed == 1.0;
+			}
+			else
+				Clock::timeSpeed = 0.0;
 		}
 		if(Clock::timeSpeed > 0){
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && User::player->GetCurrentDirection() == User::player->None){

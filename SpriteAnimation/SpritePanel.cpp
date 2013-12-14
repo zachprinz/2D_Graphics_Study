@@ -148,11 +148,11 @@ void SpritePanel::UpdateElements(){
 	view.setCenter(sf::Vector2f(User::player->GetSprite()->getPosition().x,User::player->GetSprite()->getPosition().y));
 	panel.setView(view);
 	panel.draw(mapSprite);
-	Drawn tempDrawn("aim.png");
-	tempDrawn.GetSprite()->setOrigin(320,160);
-	tempDrawn.SetPosition(User::player->GetPosition() + sf::Vector2f(16,22));
-	tempDrawn.GetSprite()->rotate(90 + ((User::player->currentAnimationPos.y % 4) * -90));
-	tempDrawn.Draw(this);
+	//Drawn tempDrawn("aim.png");
+	//tempDrawn.GetSprite()->setOrigin(320,160);
+	//tempDrawn.SetPosition(User::player->GetPosition() + sf::Vector2f(16,22));
+	//tempDrawn.GetSprite()->rotate(90 + ((User::player->currentAnimationPos.y % 4) * -90));
+	//tempDrawn.Draw(this);
 	((Combatant*)(User::player))->UpdateEffectedTiles((GamePanel*)this);
 	Actor::elapsedTime = Actor::elapsedTimeClock->getElapsedTime();
 	Actor::elapsedTimeClock->restart();

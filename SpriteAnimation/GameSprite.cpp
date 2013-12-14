@@ -89,6 +89,27 @@ void GameSprite::RecieveAttack(int x){
 RoomTile* GameSprite::GetRoomTile(){
 	return &(SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x]);
 };
+std::vector<RoomTile*> GameSprite::GetSurroundingRoomTiles(){
+	std::vector<RoomTile*> returnVec;
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y + 1][graphPositionA.x]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y - 1][graphPositionA.x]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x + 1]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x - 1]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y + 1][graphPositionA.x + 1]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y - 1][graphPositionA.x - 1]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y + 1][graphPositionA.x + 1]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y - 1][graphPositionA.x - 1]);
+	return returnVec;
+};
+std::vector<RoomTile*> GameSprite::GetDirectionalRoomTiles(int xDir,int yDir){
+	std::vector<RoomTile*> returnVec;
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y + (yDir * 1)][graphPositionA.x + (xDir * 1)]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y][graphPositionA.x + (xDir * 1)]);
+	returnVec.push_back(&SpritePanel::room->roomTiles[graphPositionA.y + (yDir * 1)][graphPositionA.x]);
+	return returnVec;
+};
 RoomTile* GameSprite::GetRoomTile(int x, int y){
 	return &(SpritePanel::room->roomTiles[graphPositionA.y + y][graphPositionA.x + x]);
 };

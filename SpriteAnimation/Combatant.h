@@ -7,6 +7,7 @@
 #include "Attack.h"
 #include "LevelSet.h"
 #include "ProgressBar.h"
+#include "Projectile.h"
 #include "Clock.h"
 
 class Combatant : public Actor
@@ -49,6 +50,7 @@ protected:
 	int endurance;
 	//LevelSet levels;
 private:
+	std::vector<Projectile*> projectiles;
 	virtual void Drop();
 	void CompleteAttack();
 	int nextAttackDamage;

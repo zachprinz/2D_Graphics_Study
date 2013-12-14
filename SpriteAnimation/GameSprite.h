@@ -34,6 +34,8 @@ public:
 protected:
 	std::vector<sf::ConvexShape> boundries;
 	RoomTile* GetRoomTile();
+	std::vector<RoomTile*> GetSurroundingRoomTiles();
+	std::vector<RoomTile*> GetDirectionalRoomTiles(int,int);
 	RoomTile* GetRoomTile(int,int);
 	void UpdateRoomTile();
 	sf::Vector2f posB;

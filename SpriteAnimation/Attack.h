@@ -10,7 +10,7 @@
 class Attack
 {
 public:
-	Attack(std::string name,float damageMod,std::vector<sf::Vector2i> offsets,float cooldown, int animationY, int frames);
+	Attack(std::string name,float damageMod,std::vector<sf::Vector2i> offsets,float cooldown, int animationY, int frames, bool isRanged);
 	Attack();
 	std::vector<sf::Vector2i> Use(sf::Vector2i,sf::Vector2i);
 	sf::Sprite hudSprite;
@@ -29,6 +29,7 @@ public:
 	sf::Time cooldownTime;
 	Clock cooldownClock;
 	bool GetIsCooledDown();
+	bool isRanged;
 private:
 	bool isCooledDown;
 	std::vector<sf::Vector2i> effectTileOffsets;

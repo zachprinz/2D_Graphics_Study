@@ -130,6 +130,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Point2i.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="QuadTreeObject.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Point2i.h" />
     <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="QuadTreeObject.h" />
