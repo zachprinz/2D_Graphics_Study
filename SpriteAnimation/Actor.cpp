@@ -32,6 +32,7 @@ Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprit
 	actorHull = new Hull(footLines[0][0][0],sprite.getPosition(),sprite.getGlobalBounds().height);
 	texturePart.height = 64;
 	texturePart.width = 64;
+	SetRotation(0);
 };
 Actor::Actor(){
 

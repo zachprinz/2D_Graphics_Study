@@ -42,6 +42,10 @@ public:
 	float healthPercent;
 	float endurancePercent;
 	void AddHealth(int);
+	std::vector<sf::Vector2i> effectedTiles;
+	int nextAttackDamage;
+	Drawn* tileEffect;
+	int tileEffectFrameCount;
 protected:
 	virtual void Update(GamePanel*);
 	void UpdateEntity();
@@ -53,10 +57,7 @@ private:
 	std::vector<Projectile*> projectiles;
 	virtual void Drop();
 	void CompleteAttack();
-	int nextAttackDamage;
-	Drawn* tileEffect;
-	int tileEffectFrameCount;
-	std::vector<sf::Vector2i> effectedTiles;
+
 	Clock effectedTilesAnimationClock;
 	Clock inCombatClock;
 };

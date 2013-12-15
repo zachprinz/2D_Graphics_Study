@@ -16,7 +16,9 @@ public:
 	sf::Vector2f projectileVelocity;
 	float range;
 	void Destroy();
+	sf::RectangleShape debugBox;
 private:
+	bool hitting;
 	Combatant* owner;
 	sf::Vector2f orginPosition;
 	void Hit(RoomTile*);

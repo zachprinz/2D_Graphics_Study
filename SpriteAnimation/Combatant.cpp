@@ -126,7 +126,7 @@ void Combatant::UpdateEffectedTiles(GamePanel* panel){
 			if(this == ((Combatant*)User::player)){
 				Drawn::updateVertex = true;
 				tileEffect->SetPosition(sf::Vector2f(effectedTiles[x].x * 32,effectedTiles[x].y * 32));
-				tileEffect->Draw(panel);
+				panel->GetRenderPanel().draw(*tileEffect->GetSprite());
 			}
 		}
 		if(tileEffectFrameCount >= (6)){

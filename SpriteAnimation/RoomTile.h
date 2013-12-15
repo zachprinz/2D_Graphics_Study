@@ -20,6 +20,9 @@ public:
 	int gValue;
 	int hValue;
 	int fValue;
+	bool ContainsOcupant(int tag);
+	std::vector<int> GetOcupantsBut(int tag);
+	std::vector<int> GetOcupantsBut(std::vector<int>);
 private:
 	bool ocupied;
 	sf::RectangleShape visual;

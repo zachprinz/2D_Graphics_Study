@@ -28,6 +28,7 @@ Drawn::Drawn(std::string textureExtension){
 	for(int x = 0; x < 4; x++){
 		heldVerteces[x].position = sf::Vector2f(0,0);
 		heldVerteces[x].texCoords = sf::Vector2f(0,0);
+		cornerRotationOffsets.push_back(sf::Vector2f(0,0));
 	}
 	myScale = sf::Vector2f(1,1);
 	sprite.setTexture(gameTexture);
@@ -39,6 +40,8 @@ Drawn::Drawn(std::string textureExtension){
 	resetScale = sf::Vector2f(1,1);
 	z = 0;
 	vertexPointers.insert(this);
+	rotationAngle = 0;
+	SetRotation(0);
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
@@ -50,6 +53,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 	for(int x = 0; x < 4; x++){
 		heldVerteces[x].position = sf::Vector2f(0,0);
 		heldVerteces[x].texCoords = sf::Vector2f(0,0);
+		cornerRotationOffsets.push_back(sf::Vector2f(0,0));
 	}
 	myScale = sf::Vector2f(1,1);
 	sprite.setTexture(gameTexture);
@@ -61,6 +65,8 @@ Drawn::Drawn(SlicedSprite* sliced){
 	resetScale = sf::Vector2f(1,1);
 	z = 0;
 	vertexPointers.insert(this);
+	rotationAngle = 0;
+	SetRotation(0);
 };
 
 Drawn::Drawn(){
@@ -69,26 +75,23 @@ Drawn::Drawn(){
 };
 
 void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
-	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound() + drawOffset;
+	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound() + drawOffset + panel->GetPosition() - sprite.getOrigin();
 	if(testPosition != pos || updateVertex){
-		sf::Vector2f spriteScale = sprite.getScale();
 		sf::IntRect texRec = sprite.getTextureRect();
-		sf::Vector2f panelPos = panel->GetPosition();
-		sf::Vector2f orgin = sprite.getOrigin();
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + panelPos - orgin;
+		gameArray[quadCount].position = pos + cornerRotationOffsets[1];
 		heldVerteces[0].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(myScale.x * (float)texturePart.width * spriteScale.x,0) + panelPos - orgin;
+		gameArray[quadCount].position = pos + cornerRotationOffsets[0];
 		heldVerteces[1].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = sf::Vector2f(pos.x + (myScale.x * (float)texturePart.width * spriteScale.x),pos.y + (myScale.y * (float)texturePart.height * spriteScale.y)) + panelPos - orgin;
+		gameArray[quadCount].position = pos + cornerRotationOffsets[3];
 		heldVerteces[2].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + sf::Vector2f(0,myScale.y * (float)texturePart.height * spriteScale.y) + panelPos - orgin;
+		gameArray[quadCount].position = pos  + cornerRotationOffsets[2];
 		heldVerteces[3].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 		testPosition = pos;
@@ -250,6 +253,7 @@ void Drawn::SetScale(sf::Vector2f newScale){
 	updateVertex = true;
 	if(newScale.x != 0 && newScale.y != 0)
 		myScale = newScale;
+	SetRotation(rotationAngle);
 }
 sf::Vector2f Drawn::GetScale(){
 	return myScale;
@@ -431,4 +435,18 @@ bool Drawn::ViewContains(sf::View view,sf::IntRect rect){
 };
 sf::Vector2f Drawn::GetSize(){
 	return sf::Vector2f(texturePart.width * myScale.x * sprite.getScale().x, texturePart.height * myScale.y * sprite.getScale().y);
+};
+void Drawn::SetRotation(float angle){
+	rotationAngle = angle;
+	float radius = std::sqrt(std::pow(GetSize().y,2.0) + std::pow(GetSize().x,2.0)) / 2.0f;
+	float baseAngle = 0;
+	for(int x = 0; x < 4; x++){
+		// The below lines replaced a 15 line switch statement. Because IM SUCH A FUCKING BOSS.
+		baseAngle = std::atan(((float)GetSize().y) / ((float)GetSize().x));
+		float tempTemp = std::ceil(std::floor((x % 3) + .1)/((x % 3) + .1));
+		float isPos = (1 - (2*(x % 2)));
+		float tempBaseAngle = ((tempTemp  * 180)/57.29) + (isPos * baseAngle); 
+		cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
+		cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
+	}
 };

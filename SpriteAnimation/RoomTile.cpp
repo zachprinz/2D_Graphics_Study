@@ -41,3 +41,32 @@ void RoomTile::TryRemoveOcupant(int tag){
 void RoomTile::TileAttacked(){
 	
 };
+bool RoomTile::ContainsOcupant(int oc){
+	for(int x = 0; x < ocupants.size(); x++){
+		if(ocupants[x] == oc)
+			return true;
+	};
+	return false;
+};
+std::vector<int> RoomTile::GetOcupantsBut(int tag){
+	std::vector<int> returnOcupants;
+	for(int x = 0; x < ocupants.size(); x++){
+		if(ocupants[x] != tag)
+			returnOcupants.push_back(ocupants[x]);
+	}
+	return returnOcupants;
+};
+std::vector<int> RoomTile::GetOcupantsBut(std::vector<int> tags){
+	std::vector<int> returnOcupants;
+	for(int x = 0; x < ocupants.size(); x++){
+		bool temp = false;
+		for(int y = 0; y < tags.size(); y++){
+			if(ocupants[x] == tags[y]){
+				temp = true;
+			}
+		}
+		if(!temp)
+			returnOcupants.push_back(ocupants[x]);
+	}
+	return returnOcupants;
+};

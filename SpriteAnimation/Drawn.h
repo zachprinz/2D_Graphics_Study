@@ -74,7 +74,10 @@ public:
 	AABB GetSpritePanelBounds();
 	bool updateVertex;
 	void SetDrawOffset(sf::Vector2f);
+	float rotationAngle;
+	void SetRotation(float angle);
 protected:
+	std::vector<sf::Vector2f> cornerRotationOffsets;
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;
 	sf::Vector2f myScale;
