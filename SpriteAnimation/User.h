@@ -55,6 +55,7 @@ public:
 	void ResetXMLDocs();
 	void SetUpAttacks(std::string);
 	void GetUserWeaponImage(GamePanel*);
+	void UpdateAction(GamePanel*, bool);
 private:
 	void UpdateEntity();
 	void CalculateLevelData(std::string);

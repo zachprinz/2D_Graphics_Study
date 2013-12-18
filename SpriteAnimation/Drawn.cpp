@@ -440,12 +440,10 @@ void Drawn::SetRotation(float angle){
 	rotationAngle = angle;
 	float radius = std::sqrt(std::pow(GetSize().y,2.0) + std::pow(GetSize().x,2.0)) / 2.0f;
 	float baseAngle = 0;
+	baseAngle = std::atan(((float)GetSize().y) / ((float)GetSize().x));
 	for(int x = 0; x < 4; x++){
-		// The below lines replaced a 15 line switch statement. Because IM SUCH A FUCKING BOSS.
-		baseAngle = std::atan(((float)GetSize().y) / ((float)GetSize().x));
-		float tempTemp = std::ceil(std::floor((x % 3) + .1)/((x % 3) + .1));
-		float isPos = (1 - (2*(x % 2)));
-		float tempBaseAngle = ((tempTemp  * 180)/57.29) + (isPos * baseAngle); 
+		// The below line replaced a 15 line switch statement. Because IM SUCH A FUCKING BOSS.
+		float tempBaseAngle = ((std::ceil(std::floor((x % 3) + .1)/((x % 3) + .1)) * 180)/57.29) + ((1 - (2*(x % 2))) * baseAngle); 
 		cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
 		cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
 	}

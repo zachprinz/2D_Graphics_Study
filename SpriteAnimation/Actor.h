@@ -38,31 +38,44 @@ public:
 	ShadowLine GetUpdatedFootLine();
 	static std::vector<std::vector<std::vector<ShadowLine>>> footLines;
 	void SetUpFootLines();
+	Hull* GetHull();
 
 	//Animation//
-	typedef std::map<std::string, Animation*> AnimationMap;
-	typedef std::pair<std::string, Animation*> AnimationPair;
-	AnimationMap animations;
-	void AddAnimation(Animation*);
-	sf::Sprite animationSprite;
-	sf::RenderTexture animationPallate;
-	void SetAnimation(Animation*, Animation::AnimDir);
-	Animation* currentAnimation;
-	sf::Vector2i currentAnimationPos;
-	std::vector<sf::IntRect> animationSheets;
-	Clock animationClock;
-	bool UpdateAnimation();
-	Animation::AnimDir currentAnimationDir;
-	bool playAnimation;
 	static Clock* elapsedTimeClock;
 	static sf::Time elapsedTime;
-	sf::Texture GetActorTexture();
-	void UpdateBoundries();
+	typedef std::map<std::string, Animation*> AnimationMap;
+	typedef std::pair<std::string, Animation*> AnimationPair;
+
+
+	void LoopAnimation(Animation*, Animation::AnimDir);
+	void PlayAnimation(Animation*, Animation::AnimDir);
+	void PlayAnimation(Animation*, Animation::AnimDir, int, int);
+	void PauseAnimation();
+	void ResumeAnimation();
+
+	Animation* currentAnimation;
+	sf::Vector2i currentAnimationPos;
+	AnimationMap animations;
+	//sf::Sprite animationSprite;
+	virtual void UpdateAction(GamePanel*, bool);
+	bool isPaused;
+private:
+	bool isLooping;
+	bool isPlaying;
+	void SetAnimation(Animation*, Animation::AnimDir);
+	void AddAnimation(Animation*);
+	Clock animationClock;
 	void SetUpAnimation();
-	void DrawSprite(sf::RenderTexture*);
 	void DrawSprite(GamePanel*);
-	Hull* actorHull;
+	int startFrame;
+	int endFrame;
 protected:
+	bool isPerformingAction;
+	void UpdateBoundries();
+	bool UpdateAnimation();
+	std::vector<sf::IntRect> animationSheets;
+	Animation::AnimDir currentAnimationDir;
+	Hull* actorHull;
 	void UpdateEntity();
 	pugi::xml_node boundriesNode;
 	pugi::xml_document boundriesDoc;

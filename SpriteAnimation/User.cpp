@@ -30,7 +30,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
-	SetAnimation(animations["Walk"],Animation::Down);
+	LoopAnimation(animations["Walk"],Animation::Down);
 	backupKey = sf::Keyboard::F12;
 	currentKey = sf::Keyboard::F12;
 	wKeyPressed = false;
@@ -169,7 +169,7 @@ void User::SetUpAttacks(std::string attackSetName){
 				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
 					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
 				}
-				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0,tool2.attribute("ranged").as_bool()));
+				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0,tool2.attribute("ranged").as_bool(),tool2.attribute("anim").as_string(),tool2.attribute("trigger").as_int()));
 				currentAttacks.push_back(tool2.attribute("name").value());
 			}
 			break;
@@ -283,16 +283,14 @@ void User::OnActionComplete(Actions action){
 	}
 	currentDirection = None;
 	currentAction = NoAction;
-	SetAnimation(animations["Walk"],currentAnimationDir);
+	LoopAnimation(animations["Walk"],currentAnimationDir);
 };
 void User::LaunchAction(Actions action){
 	currentDirection = Action;
 	switch(action){
-	case(Attacking):{
+	case(Attacking):
 		LaunchAttack(nextAttack);
-		SetAnimation(animations[((EquipedContainer*)equiped->dynamicElements["1"])->GetContents().GetAnimation()],currentAnimationDir);
-					}
-					break;
+		break;
 
 	}
 };
@@ -554,4 +552,65 @@ void User::ResetXMLDocs(){
 		pugi::xml_document doc2;
 		pugi::xml_parse_result result2 = doc2.load_file("xml/questInfoBackup.xml");
 		doc2.save_file("xml/questInfo.xml");
+};
+void User::UpdateAction(GamePanel* panel,bool updateAll){
+	if(currentDirection == Direction::Action && currentAction == Actions::Attacking){
+		if(updateAll){
+			if(currentAnimationPos.x == 0){
+				if(attacks[nextAttack]->isRanged){
+					Clock::SlowTime(0.5,0.25);
+					SpritePanel::instance->Zoom(0.5,0.75);
+					PlayAnimation(animations[attacks[nextAttack]->animationName],currentAnimationDir);
+				}
+				else{
+
+				}
+			}
+			if(attacks[nextAttack]->hasTrigger && currentAnimationPos.x == attacks[nextAttack]->triggerFrame && !isPaused){
+				PauseAnimation();
+				if(attacks[nextAttack]->isRanged){
+
+				}
+				else{
+
+				}
+			}
+		}
+		if(isPaused && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+			float mousePosition = 0;
+			if(currentAnimationDir == Animation::AnimDir::Right || currentAnimationDir == Animation::AnimDir::Left){
+				float minPosition = GetBounds(SpritePanel::instance->GetRenderPanel().getView()).GetLowerBound().x + (GetBounds().GetSize().x / 2.0f) - 100;
+				float maxPosition = minPosition + 200;
+				mousePosition = sf::Mouse::getPosition().x;
+				if(mousePosition < minPosition)
+					mousePosition = minPosition;
+				else if(mousePosition > maxPosition)
+					mousePosition = maxPosition;
+				else{
+					mousePosition = mousePosition - minPosition;
+				}
+				if(currentAnimationDir == Animation::AnimDir::Up)
+					mousePosition = mousePosition * (-1.0);
+			}
+			if(currentAnimationDir == Animation::AnimDir::Up || currentAnimationDir == Animation::AnimDir::Down){
+				float minPosition = GetBounds(SpritePanel::instance->GetRenderPanel().getView()).GetLowerBound().y + (GetBounds().GetSize().y / 2.0f) - 100;
+				float maxPosition = minPosition + 200;
+				mousePosition = sf::Mouse::getPosition().y;
+				if(mousePosition < minPosition)
+					mousePosition = minPosition;
+				else if(mousePosition > maxPosition)
+					mousePosition = maxPosition;
+				else{
+					mousePosition = mousePosition - minPosition;
+				}
+				if(currentAnimationDir == Animation::AnimDir::Right)
+					mousePosition = mousePosition * (-1.0);
+			}
+			float angle = (mousePosition / 200.0f) * 90;
+			projectiles.push_back(new Projectile(this,GetGraphPositionA().x,GetGraphPositionA().y,*attacks["Simple Shot"],270 + ((currentAnimationPos.y % 4) * -90) + angle - 45,1000.0));
+			ResumeAnimation();
+			SpritePanel::instance->ReturnZoom();
+			Clock::ReturnTime();
+		}
+	}
 };

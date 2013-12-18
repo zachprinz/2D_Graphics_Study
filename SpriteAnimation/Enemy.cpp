@@ -16,7 +16,7 @@ Enemy::Enemy(int x, int y, std::string textureName,std::string name) : Combatant
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Down;
-	SetAnimation(animations["Walk"],Animation::Down);
+	LoopAnimation(animations["Walk"],Animation::Down);
 	currentPatrolTargetPoint = 0;
 	currentMode = Patrol;
 	UpdateAnimation();
@@ -101,12 +101,11 @@ void Enemy::SetUpAttacks(){
 	for(pugi::xml_node tool = atlas.first_child(); tool; tool = tool.next_sibling()){
 		if(((std::string)(tool.first_attribute().as_string()))==("default")){
 			for(pugi::xml_node tool2 = tool.first_child(); tool2; tool2 = tool2.next_sibling()){
-				//std::cout << "Setting up a new attack!" << std::endl;
 				std::vector<sf::Vector2i> atkOffset;
 				for(pugi::xml_node effectedTile = tool2.first_child(); effectedTile; effectedTile = effectedTile.next_sibling()){
 					atkOffset.push_back(sf::Vector2i(effectedTile.attribute("direction").as_int(),effectedTile.attribute("distance").as_int()));
 				}
-				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0,tool2.attribute("ranged").as_bool()));
+				AddAttack(new Attack(tool2.attribute("name").value(),tool2.attribute("damageMult").as_double(),atkOffset,tool2.attribute("cooldown").as_double(),0,0,tool2.attribute("ranged").as_bool(),tool2.attribute("anim").as_string(),tool2.attribute("trigger").as_int()));
 				currentAttacks.push_back(tool2.attribute("name").value());
 			}
 			break;
@@ -122,14 +121,14 @@ void Enemy::OnActionComplete(Actions action){
 	}
 	currentDirection = None;
 	currentAction = NoAction;
-	SetAnimation(animations["Walk"],currentAnimationDir);
+	LoopAnimation(animations["Walk"],currentAnimationDir);
 };
 void Enemy::LaunchAction(Actions action){
 	currentDirection = Action;
 	switch(action){
 	case(Attacking):{
 		LaunchAttack(nextAttack);
-		SetAnimation(animations["Walk"],currentAnimationDir);
+		PlayAnimation(animations["Walk"],currentAnimationDir);
 					}
 					break;
 

@@ -68,7 +68,7 @@ void Light::GetShadowQuad(ShadowLine* sl,Hull* hull,sf::Vector2f offset,sf::Vert
 	sf::Vector2f off2(-11.2,-9.6);
 	ShadowLine firstLine = GetPointShadowLine(sl->firstPoint,hull,offset);
 	ShadowLine secondLine = GetPointShadowLine(sl->secondPoint,hull,offset);
-	if(hull == User::player->actorHull){
+	if(hull == User::player->GetHull()){
 		if(sl->firstPoint.y > bounds.GetCenter().y && sl->secondPoint.y > bounds.GetCenter().y){
 			temp[0].position= firstLine.firstPoint + off;
 			temp[3].position= firstLine.secondPoint + off;

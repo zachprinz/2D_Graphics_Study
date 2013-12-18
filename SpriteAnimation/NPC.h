@@ -16,7 +16,6 @@ public:
 	void OnClick();
 private:
 	void UpdateEntity();
-	void SetUpAnimations();
 	void MoveTowardPoint(sf::Vector2i);
 	std::string GetResponce();
 };

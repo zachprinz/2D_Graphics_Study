@@ -27,6 +27,8 @@ public:
 	bool inCombat;
 
 	void LaunchAttack(std::string);
+	void TryLaunchAttack(std::string);
+
 
 	void RecieveAttack(int);
 	void UpdateEffectedTiles(GamePanel*);
@@ -35,7 +37,6 @@ public:
 	typedef std::pair<std::string, Attack*> AttackPair;
 	AttackMap attacks;
 	void AddAttack(Attack*);
-	void TryLaunchAttack(std::string);
 	std::string nextAttack;
 	std::vector<std::string> currentAttacks;
 	virtual void UpdateBar(GamePanel*);
@@ -46,6 +47,8 @@ public:
 	int nextAttackDamage;
 	Drawn* tileEffect;
 	int tileEffectFrameCount;
+	virtual void UpdateAction(GamePanel*, bool);
+	void LaunchAction(Actions action);
 protected:
 	virtual void Update(GamePanel*);
 	void UpdateEntity();
@@ -53,11 +56,9 @@ protected:
 	int health;
 	int endurance;
 	//LevelSet levels;
-private:
 	std::vector<Projectile*> projectiles;
 	virtual void Drop();
 	void CompleteAttack();
-
 	Clock effectedTilesAnimationClock;
 	Clock inCombatClock;
 };

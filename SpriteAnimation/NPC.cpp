@@ -9,12 +9,11 @@
 #include "GamePanel.h"
 
 NPC::NPC(int x, int y, std::string textureName,std::string name) : Actor(x,y,"NPC",textureName){
-	SetUpAnimations();
 	this->name = name;
 	animationSheets.push_back(GetTextureFromAtlas(textureName));
 	currentAnimation = animations["Walk"];
 	currentAnimationDir = Animation::Left;
-	SetAnimation(animations["Walk"],Animation::Left);
+	LoopAnimation(animations["Walk"],Animation::Left);
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	UpdateRoomTile();
 	UpdateAnimation();
@@ -35,9 +34,6 @@ void NPC::Interact(){
 };
 void NPC::OnClick(){
 
-};
-void NPC::SetUpAnimations(){
-	AddAnimation(new Animation("Walk",0.075,3,32,3,0,1,2,0));
 };
 void NPC::MoveTowardPoint(sf::Vector2i target){
 	int targetAddress = SpritePanel::room->GetGridAddress(target);

@@ -11,14 +11,13 @@ std::string Actor::anims[] = {"Slash","Stab","Cast","Shoot","Walk","Die"};
 
 
 Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprite(x,y,textureName){
+	isPaused = false;
 	currentDirection = None;
 	currentAnimationPos.x = 0;
-	animationSprite.setTexture(Drawn::gameTexture);
 	showHit = false;
 	isVisible = true;
 	this->name = name;
 	currentAnimationPos.y = Animation::Down;
-	playAnimation = true;
 	movement = sf::Vector2i(0,0);
 	currentAction = NoAction;
 	boundriesResult = boundriesDoc.load_file("xml/lpcboundries.xml");
@@ -122,14 +121,13 @@ void Actor::Update(GamePanel* panel){
 	UpdateEntity();
 	if(isVisible){
 		UpdateRoomTile();
-		UpdateAnimation();
+		UpdateAction(panel, UpdateAnimation());
 		for(int x = 0; x < boundries.size(); x++){
 				boundries[x].setPosition(sf::Vector2f(GetSprite()->getPosition().x  + GetSprite()->getLocalBounds().width / 4,GetSprite()->getPosition().y  + GetSprite()->getLocalBounds().height / 4));
 				boundries[x].setScale(0.85f,0.65f);
 		}
 	}
 	GameSprite::Update(panel);
-	//actorHull->shadowLines[0].Draw(&panel,sprite.getPosition());
 };
 void Actor::UpdateEntity(){
 	for(int b = 0; b < 2; b++){
@@ -231,36 +229,39 @@ void Actor::SetUpAnimation(){
 	AddAnimation(new Animation("Slash",0.05,6,64,12,14,13,15,0));
 	AddAnimation(new Animation("Stab",0.05,8,64,4,6,5,7,1));
 	AddAnimation(new Animation("Cast",0.05,7,64,0,2,1,3,2));
-	AddAnimation(new Animation("Shoot",0.05,13,64,16,18,17,19,3));
+	AddAnimation(new Animation("Shoot",0.025,13,64,16,18,17,19,3));
 	AddAnimation(new Animation("Walk",0.04,9,64,8,10,9,11,4));
 	AddAnimation(new Animation("Die",0.075,6,64,20,20,20,20,5));
 };
 bool Actor::UpdateAnimation(){
-	if(animationClock.getElapsedTime() > currentAnimation->timePerFrame){
-		sprite.setColor(sf::Color(255,255,255,255));
-		animationClock.restart();
-		sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width,currentAnimationPos.y * currentAnimation->width,currentAnimation->width,currentAnimation->width));
-		ClearBoundries();
-		UpdateBoundries();// TODO LAGS HARD
-		actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],GetPosition());
-		if(showHit){
-			sprite.setColor(sf::Color(255,0,0,255));
-			showHit = false;
+	if(isPlaying){
+		if(animationClock.getElapsedTime() > currentAnimation->timePerFrame){
+			animationClock.restart();
+			sprite.setColor(sf::Color(255,255,255,255));
+			sprite.setTextureRect(sf::IntRect(currentAnimationPos.x * currentAnimation->width, currentAnimationPos.y * currentAnimation->width, currentAnimation->width, currentAnimation->width));
+			UpdateBoundries();// TODO Lags
+			if(currentDirection != None || currentDirection == Action){
+				if(!isPaused)
+					currentAnimationPos.x++;
+			}
+			if(currentAnimationPos.x == endFrame){
+				if(isLooping)
+					currentAnimationPos.x = startFrame;
+				else{
+					currentAnimationPos.x = 0;
+					isPlaying = false;
+					if(currentDirection == Action)
+						OnActionComplete(currentAction);
+				}
+			}
+			return true;
 		}
-		if(currentDirection != None || currentDirection == Action)
-				currentAnimationPos.x++;
-		if(currentAnimationPos.x == currentAnimation->numFrames){
-			if(this == User::player && User::player->currentAnimation->name == "Walk")//TODO Terrible Temp Sollution.
-				currentAnimationPos.x = 1;
-			else
-				currentAnimationPos.x = 0;
-			if(currentDirection == Action)
-				OnActionComplete(currentAction);
-		}
-		return true;
 	}
 	else
 		return false;
+};
+void Actor::UpdateAction(GamePanel* panel, bool updateAll){
+
 };
 ShadowLine Actor::GetUpdatedFootLine(){
 	sf::RenderTexture tempText;
@@ -302,6 +303,7 @@ ShadowLine Actor::GetUpdatedFootLine(){
 	return ShadowLine(firstPixel,secondPixel);
 };
 void Actor::UpdateBoundries(){
+	ClearBoundries();
 	pugi::xml_node animationBoundsNode;
 	pugi::xml_node dirBoundsNode;
 	pugi::xml_node frameBoundsNode;
@@ -343,8 +345,43 @@ void Actor::UpdateBoundries(){
 		poly.setFillColor(sf::Color(43,119,173,170));
 		GameSprite::AddBoundryPolygon(poly);
 	}
+	actorHull->SetLines(footLines[currentAnimation->id][currentAnimationDir][currentAnimationPos.x],GetPosition());
 }
+void Actor::LoopAnimation(Animation* anim, Animation::AnimDir dir){
+	isPlaying = true;
+	isLooping = true;
+	this->startFrame = 0;
+	if(anim->name == "Walk")
+		this->startFrame = 1;
+	this->endFrame = anim->numFrames;
+	SetAnimation(anim,dir);
+};
+void Actor::PlayAnimation(Animation* anim, Animation::AnimDir dir){
+	isPlaying = true;
+	isLooping = false;
+	this->startFrame = 0;
+	if(anim->name == "Walk")
+		this->startFrame = 1;
+	this->endFrame = anim->numFrames;
+	SetAnimation(anim,dir);
+};
+void Actor::PlayAnimation(Animation* anim, Animation::AnimDir dir,int startFrame,int endFrame){
+	isPlaying = true;
+	isLooping = false;
+	this->startFrame = startFrame;
+	this->endFrame = endFrame;
+	SetAnimation(anim,dir);
+};
+void Actor::PauseAnimation(){
+	isPaused = true;
+};
+void Actor::ResumeAnimation(){
+	isPaused = false;
+	currentAnimationPos.x++;
+	animationClock.restart();
+};
 void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
+	animationClock.restart();
 	if(currentAnimation->name != anim->name || currentAnimationDir != dir){
 		currentAnimation = anim;
 		currentAnimationDir = dir;
@@ -355,20 +392,6 @@ void Actor::SetAnimation(Animation* anim, Animation::AnimDir dir){
 		currentAnimationPos.y = currentAnimation->GetY(dir);
 	}
 }
-sf::Texture Actor::GetActorTexture(){
-	sf::RenderTexture tempRendText;
-	tempRendText.create(64,64);
-	tempRendText.clear(sf::Color(0,0,0,0));
-	sf::Vector2f tempPos = sprite.getPosition();
-	sprite.setPosition(0,0);
-	for(int x = 0; x < animationSheets.size(); x++){
-		sprite.setTextureRect(sf::IntRect(animationSheets[x].left,animationSheets[x].top + (animations["Walk"]->GetY(Animation::AnimDir::Down) * 64),64,64));
-		tempRendText.draw(sprite);
-	}
-	sprite.setPosition(tempPos);
-	tempRendText.display();
-	return tempRendText.getTexture();
-};
 void Actor::AddAnimation(Animation* anim){
 	animations.insert(AnimationPair(anim->name,anim));
 };
@@ -377,4 +400,7 @@ sf::Texture Actor::GetTexture(){
 };
 void Actor::OnHover(){
 
+};
+Hull* Actor::GetHull(){
+	return actorHull;
 };

@@ -66,14 +66,34 @@ void Combatant::UpdateEntity(){
 		inCombat = false;
 		inCombatClock.restart();
 	}
-	if(inCombat == false && health < 100){
+	if(inCombat == false && health < 100)
 		AddHealth(1);
-	}
 	for(int x = 0; x < projectiles.size(); x++){
 		projectiles[x]->Update(SpritePanel::instance);
 	}
 	for(AttackPair x: attacks){
 		x.second->Update();
+	}
+	if(showHit){
+		sprite.setColor(sf::Color(255,0,0,255));
+		showHit = false;
+	}
+	else
+		sprite.setColor(sf::Color(255,255,255,255));
+	if(currentDirection == Action && currentAction == Attacking && currentAnimationPos.x == attacks[nextAttack]->triggerFrame){
+		PauseAnimation();
+
+	}
+};
+void Combatant::UpdateAction(GamePanel* panel, bool updateAll){
+
+};
+void Combatant::LaunchAction(Actions action){
+	currentDirection = Action;
+	switch(action){
+		case(Attacking):
+			LaunchAttack(nextAttack);
+		break;
 	}
 };
 void Combatant::UpdateBar(GamePanel* panel){
@@ -85,17 +105,19 @@ void Combatant::UpdateBar(GamePanel* panel){
 void Combatant::LaunchAttack(std::string atkName){
 	if(attacks[atkName]->GetIsCooledDown()){
 		if(attacks[atkName]->isRanged){
-			Clock::SlowTime(0.5,0.25);
-			SpritePanel::instance->Zoom(0.5,0.75);
+			currentAnimationPos.x = 0;
 			tileEffectFrameCount = 0;
-			nextAttackDamage = -1;
-			projectiles.push_back(new Projectile(this,GetGraphPositionA().x,GetGraphPositionA().y,*attacks["Simple Shot"],270 + ((currentAnimationPos.y % 4) * -90),1000.0));
+			nextAttackDamage = SendDamage() * attacks[atkName]->damageModifier;
+			UpdateAction(SpritePanel::instance, true);
+			//PlayAnimation(animations[attacks[atkName]->animationName],currentAnimationDir);
 		}
 		else{
 			tileEffectFrameCount = 0;
 			nextAttackDamage = SendDamage() * attacks[atkName]->damageModifier;
 			effectedTiles = attacks[atkName]->Use(graphPositionA,movement);
+			PlayAnimation(animations[attacks[atkName]->animationName],currentAnimationDir);
 		}
+		isPerformingAction = true;
 	}
 };
 void Combatant::CompleteAttack(){

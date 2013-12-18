@@ -2,7 +2,11 @@
 #include <iostream>
 #include "Drawn.h"
 
-Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offsets, float cooldown, int animY, int frames,bool isRanged){
+Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offsets, float cooldown, int animY, int frames,bool isRanged,std::string animation,int trigger){
+	hasTrigger = true;
+	if(trigger == -1)
+		hasTrigger = false;
+	triggerFrame = trigger;
 	this->isRanged = isRanged;
 	name = nameA;
 	damageModifier = damageMod;
@@ -16,6 +20,7 @@ Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offse
 	hudSprite.setTextureRect(hudTexture);
 	percentCooledDown = 1;
 	isCooledDown = true;
+	animationName = animation;
 };
 Attack::Attack(){
 
