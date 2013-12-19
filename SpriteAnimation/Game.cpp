@@ -10,10 +10,11 @@ Game::Game(){
 	settings.antialiasingLevel = 8;
 	window->setKeyRepeatEnabled(false);
 	window->create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
-	window->setVerticalSyncEnabled(false);
+	window->setVerticalSyncEnabled(true);
 	OnStart();
 	CreatePanels();
 	Actor::elapsedTimeClock->restart();
+	SpritePanel::instance->cameraMoveClock.restart();
 	Clock::timeSpeed = 1;
 	Clock::myClock.restart();
 };

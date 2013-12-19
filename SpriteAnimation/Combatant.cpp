@@ -82,7 +82,6 @@ void Combatant::UpdateEntity(){
 		sprite.setColor(sf::Color(255,255,255,255));
 	if(currentDirection == Action && currentAction == Attacking && currentAnimationPos.x == attacks[nextAttack]->triggerFrame){
 		PauseAnimation();
-
 	}
 };
 void Combatant::UpdateAction(GamePanel* panel, bool updateAll){

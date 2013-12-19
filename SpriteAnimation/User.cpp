@@ -194,6 +194,14 @@ void User::CheckUserInput(){
 			else
 				Clock::timeSpeed = 0.0;
 		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
+			SpritePanel::instance->ShakeScreen(40,1.5);
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+			sf::View tempView = SpritePanel::instance->GetRenderPanel().getView();
+			tempView.setCenter(GetPosition());
+			SpritePanel::instance->GetRenderPanel().setView(tempView);
+		}
 		if(Clock::timeSpeed > 0){
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && User::player->GetCurrentDirection() == User::player->None){
 				if(!cKeyPressed){
@@ -607,6 +615,13 @@ void User::UpdateAction(GamePanel* panel,bool updateAll){
 					mousePosition = mousePosition * (-1.0);
 			}
 			float angle = (mousePosition / 200.0f) * 90;
+			projectiles.push_back(new Projectile(this,GetGraphPositionA().x,GetGraphPositionA().y,*attacks["Simple Shot"],270 + ((currentAnimationPos.y % 4) * -90) + angle - 45,1000.0));
+			ResumeAnimation();
+			SpritePanel::instance->ReturnZoom();
+			Clock::ReturnTime();
+		}
+		if(isPaused && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
+			float angle = 45;
 			projectiles.push_back(new Projectile(this,GetGraphPositionA().x,GetGraphPositionA().y,*attacks["Simple Shot"],270 + ((currentAnimationPos.y % 4) * -90) + angle - 45,1000.0));
 			ResumeAnimation();
 			SpritePanel::instance->ReturnZoom();

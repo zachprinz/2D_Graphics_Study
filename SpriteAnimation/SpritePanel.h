@@ -31,7 +31,12 @@ public:
 	bool isZooming;
 	float currentZoom;
 	sf::Vector2f GetViewLowerBound();
+	void MoveCamera();
+	float cameraMoveSpeed;
+	sf::Clock cameraMoveClock;
+	void ShakeScreen(float, float);
 private:
+	bool isCameraCaughtUp;
 	void UpdateZoom();
 	static sf::Texture* spritePanelBackground;
 	tmx::MapLoader* ml;
@@ -51,6 +56,17 @@ private:
 	float zoomDirection;
 	Clock zoomClock;
 	float targetZoom;
+	double FindNoise();
+	bool InterpolateShake();
+	sf::Vector2f targetPosition;
+	Clock shakeClock;
+	float shakeTime;
+	float shakeAmplitude;
+	void MoveCameraTo(sf::Vector2f,float speed);
+	bool isShaking;
+	boost::container::flat_set<float> shakeOffsetsX;
+	boost::container::flat_set<float> shakeOffsetsY;
+	bool shakeOdd;
+	int shakeCount;
 };
-
 #endif
