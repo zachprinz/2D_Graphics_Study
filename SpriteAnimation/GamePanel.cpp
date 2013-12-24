@@ -5,9 +5,11 @@
 #include "Label.h"
 #include "SlicedSprite.h"
 #include "SpritePanel.h"
+#include "Game.h"
 
 GamePanel* GamePanel::currentMousePanel;
 Drawn* GamePanel::currentMouseElement;
+Drawn* GamePanel::currentPressedElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
 	mySize = sf::Vector2f(x,y);
@@ -58,14 +60,12 @@ void GamePanel::SetPosition(int x, int y){
 	backgroundPanelSprite.setPosition(x,y);
 	panelBounds = AABB(Vec2f(x,y),Vec2f(x + GetSize().x,y + GetSize().y));
 }
-void GamePanel::OnClick(sf::Vector2i point){
-	//std::cout << "Target Point: " << point.x << "," << point.y << std::endl;
+void GamePanel::OnMousePress(sf::Vector2i point){
 	for(MyPair x: dynamicElements){
 		if(x.second->GetBounds(panel.getView()).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
-			x.second->OnClick();
-		}
-		else{
-			AABB rect = x.second->GetBounds();
+			x.second->OnMousePress();
+			currentPressedElement = x.second;
+			Game::mouseIsPressed = true;
 		}
 	}
 }

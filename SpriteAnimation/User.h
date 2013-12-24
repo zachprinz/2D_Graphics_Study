@@ -14,7 +14,6 @@ class User :  public Combatant
 {
 public:
 	User(int,int);
-	User();
 	void Update(GamePanel*);
 	void Interact();
 	static User* player;

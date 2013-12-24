@@ -12,6 +12,7 @@ class GamePanel
 public:
 	static GamePanel* currentMousePanel;
 	static Drawn* currentMouseElement;
+	static Drawn* currentPressedElement;
 
 	GamePanel(int,int,std::string);
 	GamePanel();
@@ -26,7 +27,8 @@ public:
 	virtual void UpdateElements();
 	void Open();
 	void Close();
-	void OnClick(sf::Vector2i);
+	//void OnClick(sf::Vector2i);
+	void OnMousePress(sf::Vector2i);
 	void OnRClick(sf::Vector2i);
 	virtual void OnButtonEvent(std::string);
 	void OnHover(sf::Vector2i);

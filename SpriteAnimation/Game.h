@@ -30,7 +30,12 @@ public:
 	Game();
 	void Update();
 	static bool run;
+	void Load();
+	static bool mouseIsPressed;
 private:
+	enum State{LogOn,GamePlay};
+	State gameState;
+	void StartLogOnScreen();
 	void CheckForInput();
 	void UpdatePanels();
 	void CreatePanels();

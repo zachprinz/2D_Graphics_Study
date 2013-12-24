@@ -64,8 +64,8 @@ private:
 	float shakeAmplitude;
 	void MoveCameraTo(sf::Vector2f,float speed);
 	bool isShaking;
-	boost::container::flat_set<float> shakeOffsetsX;
-	boost::container::flat_set<float> shakeOffsetsY;
+	std::vector<double> shakeOffsetsY;
+	std::vector<double> shakeOffsetsX;
 	bool shakeOdd;
 	int shakeCount;
 };

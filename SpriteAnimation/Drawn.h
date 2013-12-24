@@ -42,6 +42,8 @@ public:
 	virtual void Update(GamePanel*);
 	virtual void OnClick();
 	virtual void OnRClick(sf::Vector2i);
+	virtual void OnMousePress();
+	virtual void OnMouseRelease();
 	virtual void OnHover(bool);
 	virtual void SetPosition(sf::Vector2f);
 	void Move(float,float);

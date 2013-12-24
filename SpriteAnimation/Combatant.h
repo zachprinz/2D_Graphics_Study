@@ -8,13 +8,13 @@
 #include "LevelSet.h"
 #include "ProgressBar.h"
 #include "Projectile.h"
+#include "HealthBar.h"
 #include "Clock.h"
 
 class Combatant : public Actor
 {
 public:
 	Combatant(int,int,std::string,std::string);
-	Combatant();
 	int SendDamage();
 	int TakeDamage(int damage);
 	int SpendEndurance(int end);
@@ -25,11 +25,8 @@ public:
 	//LevelSet GetTotalStats();
 	void OnHover();
 	bool inCombat;
-
 	void LaunchAttack(std::string);
 	void TryLaunchAttack(std::string);
-
-
 	void RecieveAttack(int);
 	void UpdateEffectedTiles(GamePanel*);
 	//void UpdateEffectedTiles();
@@ -52,7 +49,7 @@ public:
 protected:
 	virtual void Update(GamePanel*);
 	void UpdateEntity();
-	ProgressBar healthBar;
+	HealthBar* healthBar;
 	int health;
 	int endurance;
 	//LevelSet levels;

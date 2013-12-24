@@ -17,6 +17,8 @@ public:
 	virtual void OnClick();
 	virtual void OnRClick(sf::Vector2i,GamePanel*);
 	virtual void OnHover(bool);
+	virtual void OnMousePress();
+	virtual void OnMouseRelease();
 	void AddRClickOption(int);
 	void Update(GamePanel*);
 	void EnableRClick(std::string);

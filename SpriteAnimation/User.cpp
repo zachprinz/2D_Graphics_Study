@@ -195,7 +195,7 @@ void User::CheckUserInput(){
 				Clock::timeSpeed = 0.0;
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
-			SpritePanel::instance->ShakeScreen(40,1.5);
+			SpritePanel::instance->ShakeScreen(16,1.5);
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
 			sf::View tempView = SpritePanel::instance->GetRenderPanel().getView();

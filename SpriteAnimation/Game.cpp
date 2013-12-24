@@ -1,29 +1,45 @@
 #include "Game.h"
 
 bool Game::run;
+bool Game::mouseIsPressed;
 
 Game::Game(){
+	mouseIsPressed = false;
+	gameState = GamePlay;
 	run = true;
 	window = new sf::RenderWindow();
 	sf::ContextSettings settings;
-	Drawn::SetUp(window);
 	settings.antialiasingLevel = 8;
 	window->setKeyRepeatEnabled(false);
 	window->create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
 	window->setVerticalSyncEnabled(true);
+	Load();
+};
+void Game::StartLogOnScreen(){
+	
+};
+void Game::Load(){
+	Drawn::SetUp(window);
 	OnStart();
 	CreatePanels();
 	Actor::elapsedTimeClock->restart();
 	SpritePanel::instance->cameraMoveClock.restart();
 	Clock::timeSpeed = 1;
 	Clock::myClock.restart();
-};
+}
 void Game::Update(){
-	Clock::UpdateAll();
-	CheckForInput();
-	UpdatePanels();
-	Drawn::DrawGame(*window);
-	window->display();
+    switch(gameState){
+	case(GamePlay):
+		Clock::UpdateAll();
+		CheckForInput();
+		UpdatePanels();
+		Drawn::DrawGame(*window);
+		window->display();
+	break;
+	case(LogOn):
+		int x = 0;
+	break;
+    }
 }
 void Game::OnStart(){
 	Label::OnStart();
@@ -56,41 +72,51 @@ void Game::UpdatePanels(){
 	User::player->GetBank()->Update();
 };
 void Game::HandleMouseMovement(sf::Event event){
-	sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
-	if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory()){
-		User::player->GetInventory()->OnHover(temp);
-		GamePanel::currentMousePanel = User::player->GetInventory();
-	}
-	else if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped()){
-		User::player->GetEquiped()->OnHover(temp);
-		GamePanel::currentMousePanel = User::player->GetEquiped();
-	}
-	else if(User::player->GetLevelPanel()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetLevelPanel()){
-		User::player->GetLevelPanel()->OnHover(temp);
-		GamePanel::currentMousePanel = User::player->GetLevelPanel();
-	}
-	else if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y)){
-		User::player->GetLayered()->OnHover(temp);
-		GamePanel::currentMousePanel = User::player->GetLayered();
-	}
-	else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y)){
-		User::player->GetBank()->OnHover(temp);
-		GamePanel::currentMousePanel = User::player->GetBank();
-	}
-	else if(actionBar->GetBounds().Contains(temp.x,temp.y)){
-		actionBar->OnHover(temp);
-		GamePanel::currentMousePanel = actionBar;
-	}
-	else if(spritePanel->GetBounds().Contains(temp.x,temp.y)){
-		spritePanel->OnHover(sf::Vector2i(temp));
-		GamePanel::currentMousePanel = spritePanel;
-	}
-	else if(hudPanel->GetBounds().Contains(temp.x,temp.y)){
-		hudPanel->OnHover(temp);
-		GamePanel::currentMousePanel = hudPanel;
+	switch(gameState){
+		case(GamePlay):{
+		sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
+		if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory()){
+			User::player->GetInventory()->OnHover(temp);
+			GamePanel::currentMousePanel = User::player->GetInventory();
+		}
+		else if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped()){
+			User::player->GetEquiped()->OnHover(temp);
+			GamePanel::currentMousePanel = User::player->GetEquiped();
+		}
+		else if(User::player->GetLevelPanel()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetLevelPanel()){
+			User::player->GetLevelPanel()->OnHover(temp);
+			GamePanel::currentMousePanel = User::player->GetLevelPanel();
+		}
+		else if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y)){
+			User::player->GetLayered()->OnHover(temp);
+			GamePanel::currentMousePanel = User::player->GetLayered();
+		}
+		else if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y)){
+			User::player->GetBank()->OnHover(temp);
+			GamePanel::currentMousePanel = User::player->GetBank();
+		}
+		else if(actionBar->GetBounds().Contains(temp.x,temp.y)){
+			actionBar->OnHover(temp);
+			GamePanel::currentMousePanel = actionBar;
+		}
+		else if(spritePanel->GetBounds().Contains(temp.x,temp.y)){
+			spritePanel->OnHover(sf::Vector2i(temp));
+			GamePanel::currentMousePanel = spritePanel;
+		}
+		else if(hudPanel->GetBounds().Contains(temp.x,temp.y)){
+			hudPanel->OnHover(temp);
+			GamePanel::currentMousePanel = hudPanel;
+		}
+		}
+		break;
+		case(LogOn):
+			int x = 0;
+		break;
 	}
 };
 void Game::HandleMouseClick(sf::Event event){
+    switch(gameState){
+	case(GamePlay):
 	if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left){ //Eventually will iterate through these
 		sf::Vector2i temp(event.mouseButton.x,event.mouseButton.y);
 		if(RClickMenu::GetIsOpen()){
@@ -101,32 +127,32 @@ void Game::HandleMouseClick(sf::Event event){
 		}
 		else{
 			if(textPanel->GetBounds().Contains(temp.x,temp.y) && textPanel->GetIsPanelOpen())
-				textPanel->OnClick(temp);
+				textPanel->OnMousePress(temp);
 			else if(spritePanel->GetBounds().Contains(temp.x,temp.y))
-				spritePanel->OnClick(temp);
+				spritePanel->OnMousePress(temp);
 			if(User::player->GetInventory()->GetBounds().Contains(temp.x,temp.y)&& User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetInventory())
-				User::player->GetInventory()->OnClick(temp);
+				User::player->GetInventory()->OnMousePress(temp);
 			else{
 				if(User::player->GetEquiped()->GetBounds().Contains(temp.x,temp.y) && User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel] == User::player->GetEquiped())
-					User::player->GetEquiped()->OnClick(temp);
+					User::player->GetEquiped()->OnMousePress(temp);
 				else if(User::player->GetLevelPanel()->GetBounds().Contains(temp.x,temp.y)){
-					User::player->GetLevelPanel()->OnClick(temp);
+					User::player->GetLevelPanel()->OnMousePress(temp);
 					std::cout << "Layered Panel Clicked" << std::endl;
 				}
 			}
 			if(User::player->GetBank()->GetIsPanelOpen() && User::player->GetBank()->GetBounds().Contains(temp.x,temp.y))
-				User::player->GetBank()->OnClick(temp);
+				User::player->GetBank()->OnMousePress(temp);
 			if(actionBar->GetBounds().Contains(temp.x,temp.y))
-				actionBar->OnClick(temp);
+				actionBar->OnMousePress(temp);
 			if(hudPanel->GetBounds().Contains(temp.x,temp.y))
-				hudPanel->OnClick(temp);
+				hudPanel->OnMousePress(temp);
 			if(statsPanel->GetBounds().Contains(temp.x,temp.y))
-				statsPanel->OnClick(temp);
+				statsPanel->OnMousePress(temp);
 			if(User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->GetBounds().Contains(temp.x,temp.y)){
-				User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->OnClick(temp);
+				User::player->GetLayered()->panels[User::player->GetLayered()->currentPanel]->OnMousePress(temp);
 			}
 			else if(User::player->GetLayered()->GetBounds().Contains(temp.x,temp.y))
-				User::player->GetLayered()->OnClick(temp);
+				User::player->GetLayered()->OnMousePress(temp);
 		}
 	}
 	if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right){ //Eventually will iterate through these
@@ -140,6 +166,11 @@ void Game::HandleMouseClick(sf::Event event){
 				User::player->GetBank()->OnRClick(temp);
 		}
 	}
+	break;
+	case(LogOn):
+		int x = 0;
+	break;
+    }
 };
 void Game::HandleMouseScroll(sf::Event event){
 	/*
@@ -152,6 +183,10 @@ void Game::HandleMouseScroll(sf::Event event){
 	*/
 };
 void Game::CheckForInput(){
+	if(mouseIsPressed && !sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+		GamePanel::currentPressedElement->OnMouseRelease();
+		mouseIsPressed = false;
+	}
 	sf::Event event;
 	while (Drawn::gameWindow->pollEvent(event)){
 		switch(event.type){

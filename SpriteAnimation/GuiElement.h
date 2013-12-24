@@ -15,11 +15,14 @@ public:
 	virtual void Update(GamePanel*);
 	virtual void OnClick();
 	virtual void OnHover(bool);
+	virtual void OnMousePress();
+	virtual void OnMouseRelease();
 	ARectangle* GetBounds();
 	virtual void SetPosition(sf::Vector2f);
 	Drawn* foreground;
 	void SetOrgin(int,int);
 	void CenterForeground();
+	bool pressed;
 protected:
 	bool isSliced;
 	SlicedSprite* base;

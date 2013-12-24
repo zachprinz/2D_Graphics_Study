@@ -6,21 +6,18 @@
 #include "GamePanel.h"
 
 Combatant::Combatant(int x, int y,std::string name,std::string textureName) : Actor(x,y,name,textureName){
+	healthBar = new HealthBar(&healthPercent,GetSprite());
 	health = 100;
 	endurance = 1000;
 	healthPercent = 1;
 	endurancePercent = 1;
 	levelSet = LevelSet();
 	inCombat = false;
-	healthBar = ProgressBar(&healthPercent,GetSprite());
 	tileEffect = new Drawn("tileeffect.png");
 	sf::IntRect tempIntRect = tileEffect->GetSprite()->getTextureRect();
 	tileEffect->GetSprite()->setTextureRect(sf::IntRect(0 + tempIntRect.left,0 + tempIntRect.top,32,32));
 	tileEffect->SetScale(sf::Vector2f(0.15,1));
 	inCombatClock.restart();
-};
-Combatant::Combatant(){
-
 };
 void Combatant::AddAttack(Attack* atk){
 	attacks.insert(AttackPair(atk->name, atk));
@@ -98,7 +95,7 @@ void Combatant::LaunchAction(Actions action){
 void Combatant::UpdateBar(GamePanel* panel){
 	if(inCombat || health < 100){
 		healthPercent = ((float)health) / 100.f;
-		healthBar.Update(panel);
+		healthBar->Update(panel);
 	}
 };
 void Combatant::LaunchAttack(std::string atkName){

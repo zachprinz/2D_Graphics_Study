@@ -114,7 +114,7 @@ void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
 	}
 };
 void Drawn::Draw(GamePanel* panel){
-	DrawVertex(&panel->GetRenderPanel(),panel);
+	DrawVertex(&panel->GetRenderPanel(),panel);//Test
 }
 void Drawn::SetDrawOffset(sf::Vector2f off){
 	drawOffset = off;
@@ -168,15 +168,15 @@ sf::Sprite* Drawn::GetSprite(){
 };
 AABB Drawn::GetBounds(){
 	return AABB(Vec2f(GetPosition().x - sprite.getOrigin().x,
-					  (GetPosition().y - sprite.getOrigin().y)),
-				Vec2f(GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x - sprite.getOrigin().x),
-					  GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y) - sprite.getOrigin().y));
+			 (GetPosition().y - sprite.getOrigin().y)),
+        	    Vec2f(GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x - sprite.getOrigin().x),
+			  GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y) - sprite.getOrigin().y));
 };
 AABB Drawn::GetBounds(sf::View view){
 	return AABB(Vec2f((GetPosition().x - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x,
-					  (GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y),
-				Vec2f((GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x,
-					  (GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y));
+			  (GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y),
+		    Vec2f((GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x,
+			  (GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y));
 };
 AABB Drawn::GetSpritePanelBounds(){
 	return GetBounds(SpritePanel::instance->GetRenderPanel().getView());
@@ -447,4 +447,10 @@ void Drawn::SetRotation(float angle){
 		cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
 		cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
 	}
+};
+void Drawn::OnMousePress(){
+
+};
+void Drawn::OnMouseRelease(){
+    this->OnClick();
 };

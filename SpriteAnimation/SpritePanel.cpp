@@ -256,44 +256,42 @@ sf::Vector2f SpritePanel::GetViewLowerBound(){
 	return (sf::Vector2f(view.getCenter() - sf::Vector2f(panel.getDefaultView().getSize().x / 2, panel.getDefaultView().getSize().y / 2.0)));// - sf::Vector2f(temp.x / 2.0,temp.y / 2.0));
 }
 void SpritePanel::MoveCamera(){
-	if(std::abs(view.getCenter().x - User::player->GetPosition().x) < 5 &&
-	   std::abs(view.getCenter().y - User::player->GetPosition().y) < 5){
-		isCameraCaughtUp = true;
-		cameraMoveSpeed = 0.0;
-	}
-	else{
-		isCameraCaughtUp = false;
-		if(cameraMoveSpeed != 100)
-			cameraMoveSpeed += (100-cameraMoveSpeed) * 0.05f;
-		sf::Vector2f tempVec = User::player->GetPosition() - view.getCenter();
-		tempVec = sf::Vector2f(std::abs(tempVec.x),std::abs(tempVec.y));
-		float tempHyp = Actor::elapsedTime.asSeconds() * cameraMoveSpeed;
-		if(tempHyp > std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f)))
-			tempHyp = std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f));
-		float tempAngle = std::atan(tempVec.y / tempVec.x);
-		sf::Vector2f directionVec(1,1);
-		if(view.getCenter().x > User::player->GetPosition().x)
-			directionVec.x = -1;
-		if(view.getCenter().y > User::player->GetPosition().y)
-			directionVec.y = -1;
-		sf::Vector2f moveToPoint = sf::Vector2f(directionVec.x * (std::cos(tempAngle) * tempHyp),directionVec.y * (std::sin(tempAngle) * tempHyp));
-		view.setCenter(view.getCenter() + moveToPoint);
+	if(!isShaking){
+		if(std::abs(view.getCenter().x - User::player->GetPosition().x) < 5 &&
+		   std::abs(view.getCenter().y - User::player->GetPosition().y) < 5){
+			isCameraCaughtUp = true;
+			cameraMoveSpeed = 0.0;
+		}
+		else{
+			isCameraCaughtUp = false;
+			if(cameraMoveSpeed != 100)
+				cameraMoveSpeed += (100-cameraMoveSpeed) * 0.075f;
+			sf::Vector2f tempVec = User::player->GetPosition() - view.getCenter();
+			tempVec = sf::Vector2f(std::abs(tempVec.x),std::abs(tempVec.y));
+			float tempHyp = Actor::elapsedTime.asSeconds() * cameraMoveSpeed;
+			if(tempHyp > std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f)))
+				tempHyp = std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f));
+			float tempAngle = std::atan(tempVec.y / tempVec.x);
+			sf::Vector2f directionVec(1,1);
+			if(view.getCenter().x > User::player->GetPosition().x)
+				directionVec.x = -1;
+			if(view.getCenter().y > User::player->GetPosition().y)
+				directionVec.y = -1;
+			sf::Vector2f moveToPoint = sf::Vector2f(directionVec.x * (std::cos(tempAngle) * tempHyp),directionVec.y * (std::sin(tempAngle) * tempHyp));
+			view.setCenter(view.getCenter() + moveToPoint);
+		}
 	}
 	if(isShaking){
-		//float tempAmplitude = shakeAmplitude * (1 - (shakeClock.getElapsedTime().asSeconds() / shakeTime));
 		float tempAmplitude = shakeAmplitude;
 		if(InterpolateShake()){
 			if(shakeCount < (shakeOffsetsY.size() / 2)){
 				if(!shakeOdd){
-					double teemp = *(shakeOffsetsY.end() -  (shakeOffsetsY.capacity() - shakeOffsetsY.size() - shakeCount)).get_ptr();
-					targetPosition.y = User::player->GetPosition().y + teemp;
-					teemp = *(shakeOffsetsX.cbegin() + shakeCount).get_ptr();
-					targetPosition.x = User::player->GetPosition().x + teemp;
-
+					targetPosition.y = User::player->GetPosition().y + (shakeOffsetsX[shakeOffsetsX.size() - 1 - shakeCount]);
+					targetPosition.x = User::player->GetPosition().x + shakeOffsetsY[shakeCount];
 				}
 				else{
-					targetPosition.x = User::player->GetPosition().x + *(shakeOffsetsX.end() -  (shakeOffsetsX.capacity() - shakeOffsetsX.size() - shakeCount)).get_ptr();
-					targetPosition.y = User::player->GetPosition().y + *(shakeOffsetsY.cbegin() + shakeCount).get_ptr();
+					targetPosition.x = User::player->GetPosition().x + shakeOffsetsX[shakeOffsetsX.size() - 1 - shakeCount];
+					targetPosition.y = User::player->GetPosition().y + shakeOffsetsY[shakeCount];
 					shakeCount++;
 				}
 				if(shakeOdd)
@@ -303,7 +301,7 @@ void SpritePanel::MoveCamera(){
 				InterpolateShake();
 			}
 			else
-			isShaking = false;
+				isShaking = false;
 		}
 	}
 };
@@ -320,14 +318,22 @@ void SpritePanel::ShakeScreen(float amplitude, float timeSeconds){
 		shakeClock.restart();
 		targetPosition = view.getCenter();
 		int sampleCount = (timeSeconds) * 16;
-		shakeOffsetsX.clear();
-		shakeOffsetsY.clear();
+		shakeOffsetsX = std::vector<double>();
+		shakeOffsetsY = std::vector<double>();
 		for(int x = 0; x < 16; x++){
-			double temp = amplitude * FindNoise();
-			shakeOffsetsX.insert(temp);
-			temp = amplitude * FindNoise();
-			shakeOffsetsY.insert(temp);
+			shakeOffsetsX.push_back(amplitude * FindNoise());
+			shakeOffsetsY.push_back(amplitude * FindNoise());
 		}
+		std::sort(shakeOffsetsX.begin(), shakeOffsetsX.end());
+		std::sort(shakeOffsetsY.begin(), shakeOffsetsY.end());
+		for(int x = 0; x < 16 / 3; x++){
+			shakeOffsetsX[abs(std::ceil((std::abs(FindNoise()) * 10.0) * 1.5))] = amplitude * FindNoise();
+			shakeOffsetsY[abs(std::ceil((std::abs(FindNoise()) * 10.0) * 1.5))] = amplitude * FindNoise();
+		}
+		for(int x = 0; x < shakeOffsetsX.size(); x++){
+			std::cout << "X: " << std::to_string(shakeOffsetsX[x]) << " Y: " << std::to_string(shakeOffsetsY[x]) << std::endl;
+		}
+		InterpolateShake();
 	}
 };
 double SpritePanel::FindNoise(){
@@ -336,20 +342,25 @@ double SpritePanel::FindNoise(){
 	n=(n<<13)^n;
 	int nn=(n*(n*n*60493+19990303)+1376312589)&0x7fffffff;
 	double ret = 1.0-((double)nn/1073741824.0);
-	if(std::abs(ret) > 1)
-		return FindNoise();
 	return ret;
 };
 bool SpritePanel::InterpolateShake(){
-	if(std::abs(targetPosition.x - view.getCenter().x) < 5 && std::abs(targetPosition.y - view.getCenter().y) < 5){
+	float tempTime = shakeClock.restart().asSeconds();
+	if(std::abs(targetPosition.x - view.getCenter().x) < 6 && std::abs(targetPosition.y - view.getCenter().y) < 6){
 		return true;
 	}
+	if(tempTime > 0.05)
+		tempTime = 0.015;
+	std::cout << "Time: " << std::to_string(tempTime) << std::endl;
 	sf::Vector2f delta;
 	delta.x = (targetPosition.x - view.getCenter().x);
-	delta.x = delta.x * (0.25 * shakeClock.getElapsedTime().asSeconds() * 1);
+	delta.x = delta.x * (0.25 * tempTime * 5);
 	delta.y = (targetPosition.y - view.getCenter().y);
-	delta.y = delta.y * (0.25 * shakeClock.getElapsedTime().asSeconds() * 1);
-	shakeClock.restart();
+	delta.y = delta.y * (0.25 * tempTime * 5);
+	while(std::abs(delta.x) < (3 * (1 - (shakeCount / 16))) + 1)
+		delta.x *= 2;
+	while(std::abs(delta.y) < (3 * (1 - (shakeCount / 16))) + 1)
+		delta.y *= 2;
 	view.setCenter(view.getCenter() + delta);
 	return false;
 };

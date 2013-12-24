@@ -68,6 +68,12 @@ bool RClickable::GetRClickEnabled(){
 };
 void RClickable::OnMenuSelection(std::string){
 
-}
+};
+void RClickable::OnMousePress(){
+
+};
+void RClickable::OnMouseRelease(){
+
+};
 
 
