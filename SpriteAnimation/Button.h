@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "GuiElement.h"
-typedef void (__thiscall GamePanel::*CallBack)(void);
+//typedef void (__thiscall GamePanel::*CallBack)(void);
 
 
 class Button : public GuiElement

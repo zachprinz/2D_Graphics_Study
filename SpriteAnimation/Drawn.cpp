@@ -10,7 +10,8 @@
 sf::Texture Drawn::gameTexture;
 sf::VertexArray Drawn::gameArray;
 sf::RenderStates Drawn::gameRenderStates;
-boost::container::flat_set<Drawn*> Drawn::vertexPointers;
+//boost::container::flat_set<Drawn*> Drawn::vertexPointers;
+std::vector<Drawn*> Drawn::vertexPointers;
 sf::RenderTexture Drawn::otherGraphicsPanel;
 sf::Sprite Drawn::otherGraphicsSprite;
 int Drawn::quadCount;
@@ -31,7 +32,7 @@ Drawn::Drawn(std::string textureExtension){
 		cornerRotationOffsets.push_back(sf::Vector2f(0,0));
 	}
 	myScale = sf::Vector2f(1,1);
-	sprite.setTexture(gameTexture);
+	sprite = sf::Sprite(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas(textureExtension));
 	sprite.setPosition(0,0);
 	texturePart = sprite.getTextureRect();
@@ -39,7 +40,7 @@ Drawn::Drawn(std::string textureExtension){
 	isExpanding = false;
 	resetScale = sf::Vector2f(1,1);
 	z = 0;
-	vertexPointers.insert(this);
+	vertexPointers.push_back(this);
 	rotationAngle = 0;
 	SetRotation(0);
 };
@@ -64,7 +65,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 	isExpanding = false;
 	resetScale = sf::Vector2f(1,1);
 	z = 0;
-	vertexPointers.insert(this);
+	vertexPointers.push_back(this);
 	rotationAngle = 0;
 	SetRotation(0);
 };
@@ -182,9 +183,9 @@ AABB Drawn::GetSpritePanelBounds(){
 	return GetBounds(SpritePanel::instance->GetRenderPanel().getView());
 }
 void Drawn::SetZ(int z){
-	vertexPointers.erase(this);
+	//vertexPointers.erase(this);
 	this->z = z;
-	vertexPointers.insert(this);
+	//vertexPointers.insert(this);
 };
 sf::Texture Drawn::GetSingleTexture(){
 	sf::RenderTexture tempRendText;

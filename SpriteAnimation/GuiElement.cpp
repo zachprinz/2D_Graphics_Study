@@ -43,8 +43,9 @@ void GuiElement::SetOrgin(int x,int y){
 	sprite.setOrigin(x,y);
 };
 void GuiElement::OnMousePress(){
-
+    pressed = true;
 };
 void GuiElement::OnMouseRelease(){
+    pressed = false;
     this->OnClick();
 };

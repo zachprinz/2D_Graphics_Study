@@ -7,7 +7,6 @@ ProgressBar::ProgressBar(int x, int y, int length, float* percent) : Bar(x,y,per
 	foreground->SetPosition(sf::Vector2f(x + 22,y + 3));
 	this->percent = percent;
 };
-
 void ProgressBar::Update(GamePanel* panel){
 	if(percent > 0)
 	    foreground->SetScale(sf::Vector2f((*percent) * fullscale,foreground->GetScale().y));

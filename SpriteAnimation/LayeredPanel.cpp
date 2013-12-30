@@ -78,4 +78,9 @@ void LayeredPanel::SetPosition(int x, int y){
 void LayeredPanel::UpdateCurrentPanel(){
 	panels[currentPanel]->Update();
 };
-
+void LayeredPanel::OnHover(sf::Vector2i temp){
+	if(panels[currentPanel]->GetBounds().Contains(temp.x,temp.y))
+	    panels[currentPanel]->OnHover(temp);
+	else
+	    GamePanel::OnHover(temp);
+};

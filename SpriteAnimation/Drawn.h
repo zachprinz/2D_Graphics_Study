@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <boost\container\flat_set.hpp>
+//#include <boost\container\flat_set.hpp>
 #include "AABB.h"
 #include "Clock.h"
 
@@ -31,8 +31,8 @@ public:
 	static sf::IntRect GetTextureFromAtlas(std::string);
 	static sf::Texture gameTexture;
 	static void DrawAdds();
-	static boost::container::flat_set<Drawn*> vertexPointers;
-
+	//static boost::container::flat_set<Drawn*> vertexPointers;
+	static std::vector<Drawn*> vertexPointers;
 	Drawn(std::string);
 	Drawn(SlicedSprite*);
 	Drawn();

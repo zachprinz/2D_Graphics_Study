@@ -31,7 +31,7 @@ public:
 	void OnMousePress(sf::Vector2i);
 	void OnRClick(sf::Vector2i);
 	virtual void OnButtonEvent(std::string);
-	void OnHover(sf::Vector2i);
+	virtual void OnHover(sf::Vector2i);
 	virtual void SetPosition(int,int);
 	virtual AABB GetBounds();
 	virtual void RemoveDynamicElement(std::string);

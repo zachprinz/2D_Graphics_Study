@@ -23,6 +23,7 @@
 #include "HUDPanel.h"
 #include "TextPanel.h"
 #include "Clock.h"
+#include "OptionPanel.h"
 
 class Game
 {
@@ -32,6 +33,14 @@ public:
 	static bool run;
 	void Load();
 	static bool mouseIsPressed;
+	static void UpdateSettings();
+    	static bool verticleSync;
+	static bool fullscreen;
+	static float brightness;
+	static bool mute;
+	static float masterVolume;
+	static float effectVolume;
+	static float musicVolume;
 private:
 	enum State{LogOn,GamePlay};
 	State gameState;
@@ -43,11 +52,13 @@ private:
 	void HandleMouseClick(sf::Event);
 	void HandleMouseMovement(sf::Event);
 	void HandleMouseScroll(sf::Event);
+	std::vector<GamePanel*> panels;
 	TextPanel* textPanel;
 	SpritePanel* spritePanel;
 	ActionBar* actionBar;
 	StatsPanel* statsPanel;
 	HUDPanel* hudPanel;
+	OptionPanel* optionPanel;
 	sf::RenderWindow* window;
 };
 #endif

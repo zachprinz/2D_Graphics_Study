@@ -22,6 +22,7 @@ public:
 	void UpdatePanelsPosition();
 	void SetPosition(int x, int y);
 	void UpdateCurrentPanel();
+	void OnHover(sf::Vector2i);
 private:
 	std::vector<sf::RectangleShape*> sheets;
 	sf::Vector2i largestSubpanelSize;

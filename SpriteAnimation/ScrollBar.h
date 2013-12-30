@@ -6,8 +6,12 @@
 class ScrollBar : public Bar
 {
 public:
-
+    ScrollBar(int x, int y, int length, float* percent);
+    void SetVerticle();
+    void SetHorizontle();
+    void Update(GamePanel*);
 private:
-
+	bool isHorizontle;
+	bool isVerticle;
 };
 #endif

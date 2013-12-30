@@ -29,7 +29,7 @@ it freely, subject to the following restrictions:
 
 #include <MapLoader.h>
 #include <sstream>
-#include <zlib.h>
+//#include <zlib.h>
 #include <cstring>
 
 using namespace tmx;
@@ -824,7 +824,11 @@ sf::Color MapLoader::m_ColourFromHex(const char* hexStr) const
 
 	return sf::Color(r, g, b);
 }
+bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& dest, int inSize, int expectedSize){
+    return false;
+};
 
+/*
 bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& dest, int inSize, int expectedSize)
 {
 	if(!source)
@@ -892,7 +896,6 @@ bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& des
 
 	const int outSize = currentSize - stream.avail_out;
 	inflateEnd(&stream);
-
 	unsigned char* newArray = new unsigned char[outSize / sizeof(unsigned char)];
 	std::memcpy(newArray, byteArray, outSize);
 	delete[] byteArray;
@@ -905,7 +908,7 @@ bool MapLoader::m_Decompress(const char* source, std::vector<unsigned char>& des
 	delete[] byteArray;
 	return true;
 }
-
+*/
 sf::Image& MapLoader::m_LoadImage(std::string path)
 {
 	auto i = m_cachedImages.find(path);

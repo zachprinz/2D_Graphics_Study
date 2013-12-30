@@ -11,7 +11,7 @@
 
 User* User::player;
 
-User::User(int x, int y) : Combatant(x,y,"User","User"){
+User::User(int x, int y) : Combatant(x,y,"User","blank.png"){
 	ResetXMLDocs();
 	oversize = true;
 	User::player = this;
@@ -23,7 +23,7 @@ User::User(int x, int y) : Combatant(x,y,"User","User"){
 	temp.push_back(inventory);
 	temp.push_back(equiped);
 	temp.push_back(levelPanel);
-	std::cout << "About to create Layered Panel" << std::endl;
+	std::cout << "fcreate Layered Panel" << std::endl;
 	layered = new LayeredPanel(temp);
 	layered->SetPosition(1566,459);
 	SetUpImages();
@@ -139,7 +139,9 @@ void User::SetUpImages(){
 	for(int x = 0; x < 5; x++){
 		std::vector<sf::IntRect> temp;
 		for(int y = 0; y < 4; y++){
-			temp.push_back(GetTextureFromAtlas("userspritesheets/Slot" + std::to_string(x) + "/" + std::to_string(y) + ".png"));
+			std::cout << "Temp Test X: " << std::to_string(x) << " Y: " << std::to_string(y) << std::endl;
+			if(x != 1)
+			    temp.push_back(GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/" + std::to_string(y) + ".png"));
 		}
 		itemSpriteSheets.push_back(temp);
 	}
@@ -149,9 +151,9 @@ void User::SetUpImages(){
 	animationSheets.push_back(tempIntRect);
 	for(int x = 0; x < 5; x++){
 		if(x != 1)
-			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/default.png"));
+			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/" + std::to_string(x) + "/0.png"));
 		if(x == 1)
-			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/1/default.png"));
+			animationSheets.push_back(Drawn::GetTextureFromAtlas("userspritesheets/1/0/0.png"));
 	}
 };
 void User::SetUpAttacks(std::string attackSetName){
