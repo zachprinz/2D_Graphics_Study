@@ -12,6 +12,8 @@ public:
     void SetPercent(float*);
     virtual void SetBarPosition(sf::Vector2f);
     float GetPercent();
+    void OnMousePress();
+    void OnMouseRelease();
 protected:
     int fullscale;
     float* percent;

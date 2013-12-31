@@ -22,6 +22,8 @@ public:
 	void SetZ(int z);
 	void Update(GamePanel*);
 	sf::Vector2f GetSize();
+	void SetRotation(float angle);
+	void SetSlicedOrigin(sf::Vector2f);
 private:
 	sf::Vector2f size;
 	std::vector<Drawn*> parts;

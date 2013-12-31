@@ -21,6 +21,7 @@ std::vector<sf::Transformable*> Drawn::addsTransforms;
 std::vector<sf::Vector2f> Drawn::addsPositions;
 
 Drawn::Drawn(std::string textureExtension){
+    drawBounds = false;
 	drawOffset = sf::Vector2f(0,0);
 	updateVertex = true;
 	testPosition = sf::Vector2f(-1,0);
@@ -60,7 +61,8 @@ Drawn::Drawn(SlicedSprite* sliced){
 	sprite.setTexture(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas("blank.png"));
 	sprite.setPosition(0,0);
-	texturePart = sprite.getTextureRect();
+	//texturePart = sprite.getTextureRect();
+	texturePart = sf::IntRect(0,0,sliced->GetSize().x,sliced->GetSize().y);
 	isMoving = false;
 	isExpanding = false;
 	resetScale = sf::Vector2f(1,1);
@@ -113,6 +115,14 @@ void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
 		gameArray[quadCount].position = heldVerteces[3].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 	}
+	if(drawBounds){
+		sf::ConvexShape temp(4);
+		temp.setPoint(0,heldVerteces[0].position);
+		temp.setPoint(1,heldVerteces[1].position);
+		temp.setPoint(2,heldVerteces[2].position);
+		temp.setPoint(3,heldVerteces[3].position);
+		//DrawOther(&temp,panel);
+	}
 };
 void Drawn::Draw(GamePanel* panel){
 	DrawVertex(&panel->GetRenderPanel(),panel);//Test
@@ -158,7 +168,6 @@ void Drawn::SetUp(sf::RenderWindow* window){
 	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
 	otherGraphicsPanel.display();
 	otherGraphicsSprite.setTexture(otherGraphicsPanel.getTexture());
-	
 };
 bool Drawn::GetVisible(){
 	return isVisible;
@@ -167,17 +176,17 @@ bool Drawn::GetVisible(){
 sf::Sprite* Drawn::GetSprite(){
 	return &sprite;
 };
-AABB Drawn::GetBounds(){
-	return AABB(Vec2f(GetPosition().x - sprite.getOrigin().x,
-			 (GetPosition().y - sprite.getOrigin().y)),
-        	    Vec2f(GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x - sprite.getOrigin().x),
-			  GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y) - sprite.getOrigin().y));
+AABB Drawn::GetBounds(){//1032
+	return AABB(Vec2f(GetPosition().x - sprite.getOrigin().x + cornerRotationOffsets[1].x,
+			 (GetPosition().y - sprite.getOrigin().y) + cornerRotationOffsets[1].y),
+        	    Vec2f(GetPosition().x + (myScale.x * texturePart.width * sprite.getScale().x - sprite.getOrigin().x) + cornerRotationOffsets[3].x,
+			  GetPosition().y + (myScale.y * texturePart.height * sprite.getScale().y) - sprite.getOrigin().y + cornerRotationOffsets[3].y));
 };
 AABB Drawn::GetBounds(sf::View view){
-	return AABB(Vec2f((GetPosition().x - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x,
-			  (GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y),
-		    Vec2f((GetPosition().x + (myScale.x * (float)texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x,
-			  (GetPosition().y + (myScale.y * (float)texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y));
+	return AABB(Vec2f((GetPosition().x - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x  + cornerRotationOffsets[1].x,
+			  (GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y  + cornerRotationOffsets[1].y),
+		    Vec2f((GetPosition().x + (myScale.x * texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x  + cornerRotationOffsets[3].x,
+			  (GetPosition().y + (myScale.y * texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y  + cornerRotationOffsets[3].y));
 };
 AABB Drawn::GetSpritePanelBounds(){
 	return GetBounds(SpritePanel::instance->GetRenderPanel().getView());
@@ -228,6 +237,14 @@ void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	addsTransforms.push_back(label);
 };
 void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
+	sf::Vector2f pos = sprite->getPosition() - panel->GetViewLowerBound();
+	sf::Vector2f tempPos = sprite->getPosition();
+	addsPositions.push_back(tempPos);
+	sprite->setPosition(tempPos + panel->GetPosition());
+	adds.push_back(sprite);	
+	addsTransforms.push_back(sprite);
+};
+void Drawn::DrawOther(sf::ConvexShape* sprite, GamePanel* panel){
 	sf::Vector2f pos = sprite->getPosition() - panel->GetViewLowerBound();
 	sf::Vector2f tempPos = sprite->getPosition();
 	addsPositions.push_back(tempPos);
@@ -448,10 +465,18 @@ void Drawn::SetRotation(float angle){
 		cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
 		cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
 	}
+	//Rotate the Origin
+	float orginLength = std::sqrt(std::pow(sprite.getOrigin().x,2.0) + std::pow(sprite.getOrigin().y, 2.0));
+	float newOriginY = std::sin(angle / 57.29) * orginLength;
+	float newOriginX = std::cos(angle / 57.29) * orginLength;
+	sprite.setOrigin(-newOriginX,-newOriginY);
 };
 void Drawn::OnMousePress(){
 
 };
 void Drawn::OnMouseRelease(){
     this->OnClick();
+};
+void Drawn::SetDrawBounds(bool draw){
+    drawBounds = draw;
 };

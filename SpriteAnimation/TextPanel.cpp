@@ -4,6 +4,7 @@
 #include "ProgressBar.h"
 #include "User.h"
 #include <iostream>
+#include "OptionPanel.h"
 
 TextPanel* TextPanel::instance;
 
@@ -25,6 +26,10 @@ TextPanel::TextPanel(int x,int y) : GamePanel(x,y,"Text"){
 	linesPerPage--;
 	charsPerLine = (panel.getSize().x + 300) / averageWidth;
 	DisplayText("Welcome to my world. I made it. It's not quite finished but you should be able to find some stuff to do. Check out you're inventory and levels to the right. Try mousing over some items or enemies to take advantage of the stats panel. After you're aquainted with everything go talk to that mysterious man hanging out up there, see what he wants.");
+};
+void TextPanel::Update(){
+	if(!(OptionPanel::instance->GetIsPanelOpen()))
+	GamePanel::Update();
 };
 void TextPanel::SetUp(){
 	GamePanel::SetUp();

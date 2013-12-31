@@ -8,6 +8,7 @@
 #include "StatsPanel.h"
 #include "ActionBar.h"
 #include "GamePanel.h"
+#include "OptionPanel.h"
 
 User* User::player;
 
@@ -38,6 +39,7 @@ User::User(int x, int y) : Combatant(x,y,"User","blank.png"){
 	dKeyPressed = false;
 	sKeyPressed = false;
 	cKeyPressed = false;
+	escKeyPressed = false;
 	Drawn::gameTexture.setRepeated(false);
 	SetUpLevels();
 	UpdateAnimation();
@@ -198,6 +200,18 @@ void User::CheckUserInput(){
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
 			SpritePanel::instance->ShakeScreen(16,1.5);
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+			if(!escKeyPressed){
+				    escKeyPressed = true;
+				    if(OptionPanel::instance->GetIsPanelOpen())
+					OptionPanel::instance->Close();
+				    else
+					OptionPanel::instance->Open();
+			}
+		}
+		else{
+			escKeyPressed = false;
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
 			sf::View tempView = SpritePanel::instance->GetRenderPanel().getView();

@@ -42,6 +42,7 @@ public:
 	bool dKeyPressed;
 	bool sKeyPressed;
 	bool cKeyPressed;
+	bool escKeyPressed;
 	void ChangeEquiped(Item*);
 	void RemoveEquipment(int);
 	void AddExperience(std::string,std::string,int);

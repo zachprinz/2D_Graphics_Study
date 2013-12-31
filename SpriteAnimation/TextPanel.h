@@ -14,6 +14,7 @@ class TextPanel : public GamePanel
 public:
 	static TextPanel* instance;
 	TextPanel(int,int);
+	void Update();
 	void DisplayText(std::string);
 	void OnButtonEvent(std::string);
 private:

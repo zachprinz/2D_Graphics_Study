@@ -17,6 +17,7 @@ public:
 	static void SetUp(sf::RenderWindow*);
 	static void DrawOther(sf::Text*,GamePanel*);
 	static void DrawOther(sf::RectangleShape*,GamePanel*);
+	static void DrawOther(sf::ConvexShape*, GamePanel*);
 	static sf::RenderTexture otherGraphicsPanel;
 	static sf::Sprite otherGraphicsSprite;
 	static int quadCount;
@@ -70,14 +71,15 @@ public:
 	sf::Vector2f GetScale();
 	sf::IntRect GetTexturePart();
 	sf::Vector2f GetPosition();
-	sf::Vector2f GetSize();
+	virtual sf::Vector2f GetSize();
 	AABB GetBounds();
 	AABB GetBounds(sf::View);
 	AABB GetSpritePanelBounds();
 	bool updateVertex;
 	void SetDrawOffset(sf::Vector2f);
 	float rotationAngle;
-	void SetRotation(float angle);
+	virtual void SetRotation(float angle);
+	void SetDrawBounds(bool);
 protected:
 	std::vector<sf::Vector2f> cornerRotationOffsets;
 	sf::Vector2f testPosition;
@@ -112,6 +114,7 @@ protected:
 	sf::Sprite sprite;
 	sf::Vector2f positionOnPanel;
 	sf::Vector2f drawOffset;
+	bool drawBounds;
 };
 
 #endif

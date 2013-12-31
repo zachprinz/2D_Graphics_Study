@@ -13,5 +13,6 @@ public:
 private:
 	bool isHorizontle;
 	bool isVerticle;
+	sf::Vector2f oPos;
 };
 #endif

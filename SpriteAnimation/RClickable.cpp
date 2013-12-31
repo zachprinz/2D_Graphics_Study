@@ -70,10 +70,10 @@ void RClickable::OnMenuSelection(std::string){
 
 };
 void RClickable::OnMousePress(){
-
+    Drawn::OnMousePress();
 };
 void RClickable::OnMouseRelease(){
-
+    Drawn::OnMouseRelease();
 };
 
 

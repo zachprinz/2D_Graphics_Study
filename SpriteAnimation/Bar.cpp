@@ -27,3 +27,10 @@ float Bar::GetPercent(){
 void Bar::SetBarPosition(sf::Vector2f){
 
 };
+void Bar::OnMousePress(){
+    pressed = true;
+    std::cout << "Bar Pressed" << std::endl;
+};
+void Bar::OnMouseRelease(){
+    pressed = false;
+};

@@ -3,7 +3,7 @@
 
 #include "GuiElement.h"
 
-class CheckBox : GuiElement
+class CheckBox : public GuiElement
 {
 public:
     CheckBox(bool*,int,int,std::string,std::string);
@@ -16,5 +16,5 @@ public:
     //void SetHoverMovePosition(sf::Vector2f);
 protected:
     bool* myBool;
-}
+};
 #endif

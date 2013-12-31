@@ -34,11 +34,12 @@ SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::S
 	SetPosition(sf::Vector2f(xPos,yPos));
 };
 SlicedSprite::SlicedSprite(int x, int y, int length) : Drawn("blank.png"){
-	CreateTiled(22 + x,y,length - 50,"progressbar/background/1.png");
+	CreateTiled(x,y,length - 50,"progressbar/background/1.png");
 	parts.push_back(new Drawn("progressbar/background/0.png"));
 	parts[parts.size() - 1]->SetPosition(sf::Vector2f(x,y));
 	parts.push_back(new Drawn("progressbar/background/2.png"));
-	parts[parts.size() - 1]->SetPosition(sf::Vector2f(length-28 + x,y));
+	parts[parts.size() - 1]->SetPosition(sf::Vector2f(x,y));
+	parts[parts.size() - 1]->GetSprite()->setOrigin(-(length-28),0);
 };
 
 void SlicedSprite::CreateTiled(int xPos, int yPos, int length, std::string spritePath){
@@ -50,7 +51,8 @@ void SlicedSprite::CreateTiled(int xPos, int yPos, int length, std::string sprit
 	for(int x = 0; x < fit; x++){
 		parts.push_back(new Drawn(spritePath));
 		parts[parts.size() - 1]->SetScale(scale);
-		parts[parts.size() - 1]->SetPosition(sf::Vector2f((x * (spriteDims.width * scale.x)) + xPos,yPos));
+		parts[parts.size() - 1]->SetPosition(sf::Vector2f(xPos,yPos));
+		parts[parts.size() - 1]->GetSprite()->setOrigin(-1*((x * (spriteDims.width * scale.x)) + 22),0);
 	}
 };
 void SlicedSprite::Update(GamePanel* panel){
@@ -92,4 +94,14 @@ void SlicedSprite::OnStart(){
 };
 sf::Vector2f SlicedSprite::GetSize(){
 	return size;
+};
+void SlicedSprite::SetRotation(float angle){
+    for(int x = 0; x < parts.size(); x++){
+	parts[x]->SetRotation(angle);
+	};
+};
+void SlicedSprite::SetSlicedOrigin(sf::Vector2f newOrigin){
+    for(int x = 0; x < parts.size(); x++){
+	parts[x]->GetSprite()->setOrigin(parts[x]->GetSprite()->getOrigin().x + newOrigin.x,parts[x]->GetSprite()->getOrigin().y + newOrigin.y);
+	};
 };

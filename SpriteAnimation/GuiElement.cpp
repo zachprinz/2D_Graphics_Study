@@ -7,6 +7,7 @@ GuiElement::GuiElement(int x,int y,std::string textureName,std::string fgTexture
 	SetPosition(sf::Vector2f(x,y));
 	foreground = new Drawn(fgTextureName);
 	foreground->SetPosition(sf::Vector2f(x,y));
+	pressed = false;
 };
 GuiElement::GuiElement(int x,int y,SlicedSprite* textureName,std::string fgTextureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,textureName->GetSize().x,textureName->GetSize().y);
@@ -15,6 +16,7 @@ GuiElement::GuiElement(int x,int y,SlicedSprite* textureName,std::string fgTextu
 	SetPosition(sf::Vector2f(x,y));
 	foreground = new Drawn(fgTextureName);
 	foreground->SetPosition(sf::Vector2f(x,y));
+	pressed = false;
 };
 void GuiElement::SetForegroundSprite(std::string spriteRect){
 	foreground = new Drawn(spriteRect);
@@ -28,9 +30,6 @@ void GuiElement::OnClick(){
 void GuiElement::OnHover(bool hovered){
 
 };
-ARectangle* GuiElement::GetBounds(){
-	return &elementBounds;
-}
 void GuiElement::SetPosition(sf::Vector2f pos){
 	if(!isSliced)
 		Drawn::SetPosition(pos);
@@ -43,6 +42,7 @@ void GuiElement::SetOrgin(int x,int y){
 	sprite.setOrigin(x,y);
 };
 void GuiElement::OnMousePress(){
+    std::cout << "GuiElement Pressed" << std::endl;
     pressed = true;
 };
 void GuiElement::OnMouseRelease(){

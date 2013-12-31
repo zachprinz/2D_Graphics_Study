@@ -25,8 +25,8 @@ public:
 	virtual void Update();
 	void InitiateElements();
 	virtual void UpdateElements();
-	void Open();
-	void Close();
+	virtual void Open();
+	virtual void Close();
 	//void OnClick(sf::Vector2i);
 	void OnMousePress(sf::Vector2i);
 	void OnRClick(sf::Vector2i);

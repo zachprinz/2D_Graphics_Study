@@ -13,5 +13,7 @@ public:
 	static sf::Texture* optionBackground;
 	void SetUp();
 	void OnButtonEvent(std::string messages);
+	void Open();
+	void Close();
 };
 #endif

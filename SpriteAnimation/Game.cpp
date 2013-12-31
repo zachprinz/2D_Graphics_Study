@@ -11,6 +11,10 @@ float Game::effectVolume;
 float Game::musicVolume;
 
 Game::Game(){
+	musicVolume = 1.0;
+	effectVolume = 1.0;
+	masterVolume = 1.0;
+	brightness = 1.0;
 	mouseIsPressed = false;
 	gameState = GamePlay;
 	run = true;
@@ -77,7 +81,7 @@ void Game::CreatePanels(){
 	hudPanel = new HUDPanel(User::player, 485,90);
 	hudPanel->SetPosition(16,961);
 	optionPanel = new OptionPanel(800,800);
-	optionPanel->SetPosition(350,100);
+	optionPanel->SetPosition(390,60);
 };
 void Game::UpdatePanels(){
 	spritePanel->Update();

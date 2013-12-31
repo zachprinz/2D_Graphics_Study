@@ -1,14 +1,19 @@
 #include "ScrollBar.h"
 #include "GamePanel.h"
 
-ScrollBar::ScrollBar(int x, int y, int length, float* percent) : Bar(x,y,percent,new SlicedSprite(x,y,length),"slider.png"){
+ScrollBar::ScrollBar(int x, int y, int length, float* percent) : Bar(x,y,percent,length,new SlicedSprite(x,y,length),"slider.png"){
     isVerticle = false;
     isHorizontle = true;
-    foreground->SetPosition(sf::Vector2f(x + 15 + (length * (*percent)),y));
+    foreground->SetPosition(sf::Vector2f(x + 15 + ((length - 15) * (*percent)),y));
     this->percent = percent;
+    SetHorizontle();
+    oPos = sf::Vector2f(x,y);
+    SetDrawBounds(true);
+    foreground->GetSprite()->setOrigin(0,7);
 };
 void ScrollBar::Update(GamePanel* panel){
 	if(pressed){
+		std::cout << "ScrollBar Pressed" << std::endl;
 		float tempPast = 0.0f;
 	    if(isVerticle){
 		tempPast = sf::Mouse::getPosition().y - (GetPosition().y + GetPosition().x + panel->GetPosition().y);
@@ -18,16 +23,17 @@ void ScrollBar::Update(GamePanel* panel){
 		}
 		if(tempPast < 0)
 			tempPast = 0;
-		if(tempPast > length)
-			tempPast = length;
-		(*percent) = tempPast / length;
+		if(tempPast > fullscale)
+			tempPast = fullscale;
+		(*percent) = tempPast / fullscale;
 	}
 	if(isVerticle){
-		foreground->SetPosition(sf::Vector2f(GetPosition().x,GetPosition().y + ((*percent) * length));
+		foreground->SetPosition(sf::Vector2f(oPos.x,GetPosition().y + ((*percent) * fullscale)));
 	}
 	if(isHorizontle){
-		foregorund->SetPosition(sf::Vector2f(GetPosition().x + ((*percent) * length),GetPosition().y));
+		foreground->SetPosition(sf::Vector2f(oPos.x + 22 + ((*percent) * (fullscale - 60)),oPos.y));
 	}
+	AABB tempBounds = ((Drawn*)base)->GetBounds();
 	base->Update(panel);
 	foreground->Draw(panel);
 };
@@ -35,13 +41,13 @@ void ScrollBar::SetHorizontle(){
     isHorizontle = true;
     isVerticle = false;
     base->SetRotation(0);
-    foreground->SetRotation(0);
-    foregorund->SetPosition(sf::Vector2f(GetPosition().x + ((*percent) * length),GetPosition().y));
+    foreground->SetRotation(90);
+    foreground->SetPosition(sf::Vector2f(GetPosition().x + ((*percent) * fullscale),GetPosition().y));
 };
 void ScrollBar::SetVerticle(){
     isHorizontle = false;
     isVerticle = true;
-    foreground->SetRotation(90);
+    foreground->SetRotation(0);
     base->SetRotation(90);
-    foreground->SetPosition(sf::Vector2f(GetPosition().x,GetPosition().y + ((*percent) * length));
+    foreground->SetPosition(sf::Vector2f(GetPosition().x,GetPosition().y + ((*percent) * fullscale)));
 };
