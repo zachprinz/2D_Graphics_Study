@@ -69,7 +69,6 @@ Drawn::Drawn(SlicedSprite* sliced){
 	resetScale = sf::Vector2f(1,1);
 	vertexPointers.push_back(this);
 	rotationAngle = 0;
-	SetRotation(0);
 	sprite.setPosition(sliced->GetPosition().x,sliced->GetPosition().y);
 	isSliced = true;
 	z = 0;
