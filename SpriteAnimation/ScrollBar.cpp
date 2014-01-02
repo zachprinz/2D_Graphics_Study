@@ -1,5 +1,6 @@
 #include "ScrollBar.h"
 #include "GamePanel.h"
+#include "OptionPanel.h"
 
 ScrollBar::ScrollBar(int x, int y, int length, float* percent) : Bar(x,y,percent,length,new SlicedSprite(x,y,length),"slider.png"){
     isVerticle = false;
@@ -10,10 +11,12 @@ ScrollBar::ScrollBar(int x, int y, int length, float* percent) : Bar(x,y,percent
     oPos = sf::Vector2f(x,y);
     SetDrawBounds(true);
     foreground->GetSprite()->setOrigin(0,7);
+    texturePart = sf::IntRect(0,0,length,30);
 };
 void ScrollBar::Update(GamePanel* panel){
+	//AABB temp = GetBounds(OptionPanel::instance->GetRenderPanel().getView());
+	//std::cout << "Lower( X: " << temp.GetLowerBound().x << " Y: " << temp.GetLowerBound().y << " ) Upper( X: " << temp.GetUpperBound().x << " Y: " << temp.GetUpperBound().y << ")" << std::endl;
 	if(pressed){
-		std::cout << "ScrollBar Pressed" << std::endl;
 		float tempPast = 0.0f;
 	    if(isVerticle){
 		tempPast = sf::Mouse::getPosition().y - (GetPosition().y + GetPosition().x + panel->GetPosition().y);

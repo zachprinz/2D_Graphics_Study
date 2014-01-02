@@ -9,6 +9,7 @@ sf::Sprite* SlicedSprite::backgroundCenter;
 sf::Sprite* SlicedSprite::foregroundCenter;
 
 SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::SpriteStyle style) : Drawn("blank.png"){
+	sprite.setPosition(xPos,yPos);
 	size = sf::Vector2f(x,y);
 	std::vector<sf::IntRect> textParts = spriteParts[style];
 	for(int x = 0; x < textParts.size(); x++){
@@ -32,8 +33,13 @@ SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::S
 	parts[7]->SetPosition(sf::Vector2f(parts[6]->GetTexturePart().width,parts[0]->GetTexturePart().height + parts[3]->GetTexturePart().height));
 	parts[8]->SetPosition(sf::Vector2f(parts[6]->GetTexturePart().width + parts[7]->GetTexturePart().width,parts[0]->GetTexturePart().height + parts[3]->GetTexturePart().height));
 	SetPosition(sf::Vector2f(xPos,yPos));
+	SetRotation(0);
+	texturePart = sf::IntRect(0,0,x,y);
 };
 SlicedSprite::SlicedSprite(int x, int y, int length) : Drawn("blank.png"){
+	sprite.setPosition(x,y);
+	texturePart = sf::IntRect(0,0,length,30);
+	SetRotation(0);
 	CreateTiled(x,y,length - 50,"progressbar/background/1.png");
 	parts.push_back(new Drawn("progressbar/background/0.png"));
 	parts[parts.size() - 1]->SetPosition(sf::Vector2f(x,y));

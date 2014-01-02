@@ -80,8 +80,8 @@ public:
 	float rotationAngle;
 	virtual void SetRotation(float angle);
 	void SetDrawBounds(bool);
+	bool isSliced;
 protected:
-	std::vector<sf::Vector2f> cornerRotationOffsets;
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;
 	sf::Vector2f myScale;
@@ -115,6 +115,8 @@ protected:
 	sf::Vector2f positionOnPanel;
 	sf::Vector2f drawOffset;
 	bool drawBounds;
+private:
+	std::vector<sf::Vector2f> cornerRotationOffsets;
 };
 
 #endif

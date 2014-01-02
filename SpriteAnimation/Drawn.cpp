@@ -21,7 +21,7 @@ std::vector<sf::Transformable*> Drawn::addsTransforms;
 std::vector<sf::Vector2f> Drawn::addsPositions;
 
 Drawn::Drawn(std::string textureExtension){
-    drawBounds = false;
+	drawBounds = false;
 	drawOffset = sf::Vector2f(0,0);
 	updateVertex = true;
 	testPosition = sf::Vector2f(-1,0);
@@ -44,6 +44,7 @@ Drawn::Drawn(std::string textureExtension){
 	vertexPointers.push_back(this);
 	rotationAngle = 0;
 	SetRotation(0);
+	isSliced = false;
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
@@ -55,21 +56,23 @@ Drawn::Drawn(SlicedSprite* sliced){
 	for(int x = 0; x < 4; x++){
 		heldVerteces[x].position = sf::Vector2f(0,0);
 		heldVerteces[x].texCoords = sf::Vector2f(0,0);
-		cornerRotationOffsets.push_back(sf::Vector2f(0,0));
+		sf::Vector2f temp(0,0);
+		cornerRotationOffsets.push_back(temp);
 	}
 	myScale = sf::Vector2f(1,1);
 	sprite.setTexture(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas("blank.png"));
-	sprite.setPosition(0,0);
-	//texturePart = sprite.getTextureRect();
-	texturePart = sf::IntRect(0,0,sliced->GetSize().x,sliced->GetSize().y);
+	texturePart = sf::IntRect(0,0,sliced->size.x,sliced->size.y);
+	sprite.setTextureRect(texturePart);
 	isMoving = false;
 	isExpanding = false;
 	resetScale = sf::Vector2f(1,1);
-	z = 0;
 	vertexPointers.push_back(this);
 	rotationAngle = 0;
 	SetRotation(0);
+	sprite.setPosition(sliced->GetPosition().x,sliced->GetPosition().y);
+	isSliced = true;
+	z = 0;
 };
 
 Drawn::Drawn(){
@@ -139,7 +142,7 @@ void Drawn::Destroy(){
 void Drawn::DrawGame(sf::RenderWindow& window){
 	window.draw(SpritePanel::instance->panelSprite);
 	window.draw(gameArray,gameRenderStates);
-	Drawn::DrawAdds();
+	Drawn::DrawAdds(); //Vertecies are all the same.
 	gameArray.clear();
 	quadCount = 0;
 	sf::IntRect texRec = GetTextureFromAtlas("gamebackground.png");
@@ -176,25 +179,45 @@ bool Drawn::GetVisible(){
 sf::Sprite* Drawn::GetSprite(){
 	return &sprite;
 };
-AABB Drawn::GetBounds(){//1032
-	return AABB(Vec2f(GetPosition().x - sprite.getOrigin().x + cornerRotationOffsets[1].x,
-			 (GetPosition().y - sprite.getOrigin().y) + cornerRotationOffsets[1].y),
-        	    Vec2f(GetPosition().x + (myScale.x * texturePart.width * sprite.getScale().x - sprite.getOrigin().x) + cornerRotationOffsets[3].x,
-			  GetPosition().y + (myScale.y * texturePart.height * sprite.getScale().y) - sprite.getOrigin().y + cornerRotationOffsets[3].y));
+AABB Drawn::GetBounds(){
+	sf::Vector2f position = GetPosition();
+	sf::Vector2f origin = sprite.getOrigin();
+	int tempSize = cornerRotationOffsets.size();
+	sf::Vector2f offsets1 = cornerRotationOffsets[1];
+	sf::Vector2f offsets3 = cornerRotationOffsets[3];
+	sf::Vector2f myTempSize(texturePart.width,texturePart.height);
+	float x1 = (position.x) - origin.x  + offsets1.x;
+	float y1 = (position.y) - origin.y  + offsets1.y;
+	float x2 = (position.x + (myScale.x * myTempSize.x * sprite.getScale().x)) - origin.x  + offsets3.x;
+	float y2 = (position.y + (myScale.y * myTempSize.y * sprite.getScale().y)) - origin.y  + offsets3.y;
+	Vec2f vec1 = Vec2f(x1,y1);
+	Vec2f vec2 = Vec2f(x2,y2);
+	AABB temp(vec1,vec2);
+	return temp;
 };
 AABB Drawn::GetBounds(sf::View view){
-	return AABB(Vec2f((GetPosition().x - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x  + cornerRotationOffsets[1].x,
-			  (GetPosition().y - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y  + cornerRotationOffsets[1].y),
-		    Vec2f((GetPosition().x + (myScale.x * texturePart.width * sprite.getScale().x)  - (view.getCenter().x - (view.getSize().x / 2))) - sprite.getOrigin().x  + cornerRotationOffsets[3].x,
-			  (GetPosition().y + (myScale.y * texturePart.height * sprite.getScale().y)  - (view.getCenter().y - (view.getSize().y / 2))) - sprite.getOrigin().y  + cornerRotationOffsets[3].y));
+	sf::Vector2f position = GetPosition();
+	sf::Vector2f viewCenter = view.getCenter();
+	sf::Vector2f viewSize = view.getSize();
+	sf::Vector2f origin = sprite.getOrigin();
+	int tempSize = cornerRotationOffsets.size();
+	sf::Vector2f offsets1 = cornerRotationOffsets[1];
+	sf::Vector2f offsets3 = cornerRotationOffsets[3];
+	sf::Vector2f myTempSize(texturePart.width,texturePart.height);
+	float x1 = (position.x - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets1.x;
+	float y1 = (position.y - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets1.y;
+	float x2 = (position.x + (myScale.x * myTempSize.x * sprite.getScale().x)  - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets3.x;
+	float y2 = (position.y + (myScale.y * myTempSize.y * sprite.getScale().y)  - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets3.y;
+	Vec2f vec1 = Vec2f(x1,y1);
+	Vec2f vec2 = Vec2f(x2,y2);
+	AABB temp(vec1,vec2);
+	return temp;
 };
 AABB Drawn::GetSpritePanelBounds(){
 	return GetBounds(SpritePanel::instance->GetRenderPanel().getView());
 }
 void Drawn::SetZ(int z){
-	//vertexPointers.erase(this);
 	this->z = z;
-	//vertexPointers.insert(this);
 };
 sf::Texture Drawn::GetSingleTexture(){
 	sf::RenderTexture tempRendText;
@@ -460,10 +483,10 @@ void Drawn::SetRotation(float angle){
 	float baseAngle = 0;
 	baseAngle = std::atan(((float)GetSize().y) / ((float)GetSize().x));
 	for(int x = 0; x < 4; x++){
-		// The below line replaced a 15 line switch statement. Because IM SUCH A FUCKING BOSS.
-		float tempBaseAngle = ((std::ceil(std::floor((x % 3) + .1)/((x % 3) + .1)) * 180)/57.29) + ((1 - (2*(x % 2))) * baseAngle); 
-		cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
-		cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
+	// The below line replaced a 15 line switch statement. Because IM SUCH A FUCKING BOSS.
+	float tempBaseAngle = ((std::ceil(std::floor((x % 3) + .1)/((x % 3) + .1)) * 180)/57.29) + ((1 - (2*(x % 2))) * baseAngle); 
+	cornerRotationOffsets[x].x = cos((angle / 57.29) + tempBaseAngle) * radius + (GetSize().x / 2.0f);
+	cornerRotationOffsets[x].y = -sin((angle / 57.29) + tempBaseAngle) * radius + (GetSize().y / 2.0f);
 	}
 	//Rotate the Origin
 	float orginLength = std::sqrt(std::pow(sprite.getOrigin().x,2.0) + std::pow(sprite.getOrigin().y, 2.0));

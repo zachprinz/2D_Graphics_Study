@@ -24,8 +24,8 @@ public:
 	sf::Vector2f GetSize();
 	void SetRotation(float angle);
 	void SetSlicedOrigin(sf::Vector2f);
+    	sf::Vector2f size;
 private:
-	sf::Vector2f size;
 	std::vector<Drawn*> parts;
 };
 
