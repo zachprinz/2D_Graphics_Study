@@ -5,7 +5,7 @@
 #include "RClickMenu.h"
 
 EquipedContainer::EquipedContainer(int x,int y,std::string text) : Container(x,y,text){
-	AddRClickOption(RClickMenu::Options::Unequip);
+	rightClickOptions.push_back("Unequip");
 };
 void EquipedContainer::OnClick(){
 	if(isFull)
@@ -16,7 +16,7 @@ void EquipedContainer::Remove(){
 		User::player->RemoveEquipment(GetContents().GetSlot());
 		ClearContents();
 };
-void EquipedContainer::OnMenuSelection(std::string selection){
+void EquipedContainer::OnButtonEvent(std::string selection){
 	if(selection == "Unequip")
 		Remove();
 };

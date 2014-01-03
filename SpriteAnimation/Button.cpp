@@ -2,18 +2,51 @@
 #include "GamePanel.h"
 #include <iostream>
 #include "GamePanel.h"
+#include "Label.h"
 
 
 std::string Button::circleButtonBackground = "circlebuttonbackground.png";
 std::string Button::x = "x.png";
 
 Button::Button(int x,int y,std::string texture,std::string fgTexture) : GuiElement(x,y,texture,fgTexture){
-	target = new GamePanel();
+	target = NULL;
+	elementTarget = NULL;
 	moveOnHover = false;
+	hasText = false;
 };
-Button::Button(int x,int y,SlicedSprite* texture,std::string fgTexture) : GuiElement(x,y,texture,fgTexture){
-	target = new GamePanel();
-	moveOnHover = false;
+Button::Button(int x, int y,SlicedSprite::SpriteStyle style, std::string str) : GuiElement(x,y,GetSlicedSpriteForText(x,y,str),"blank.png"){
+    foreground = new Label(x + 4,y + 2,"blank.png",Label::Fonts::Game,str);
+    ((Label*)foreground)->SetText(sf::Text(str,Label::fonts[Label::Fonts::Game],30));
+    target = NULL;
+    elementTarget = NULL;
+    moveOnHover = false;
+    isSliced = true;
+    hasText = true;
+};
+Button::Button(int x, int y, std::string str) : GuiElement(x,y,GetSlicedSpriteForText(x,y,str),"blank.png"){
+    foreground = new Label(x + 4,y + 2,"blank.png",Label::Fonts::Game,str);
+    ((Label*)foreground)->SetText(sf::Text(str,Label::fonts[Label::Fonts::Game],30));
+    float textPartWidth = ((Label*)foreground)->GetText()->getGlobalBounds().width;
+    float textPartHeight = ((Label*)foreground)->GetText()->getGlobalBounds().height;
+    target = NULL;
+    elementTarget = NULL;
+    moveOnHover = false;
+    isSliced = false;
+    hasText = true;
+};
+Button::Button(int x, int y, std::string bg, std::string str,bool idk) : GuiElement(x,y,bg,"blank.png"){
+    foreground = new Label(x + 4,y + 2,"blank.png",Label::Fonts::Game,str);
+    ((Label*)foreground)->SetText(sf::Text(str,Label::fonts[Label::Fonts::Game],30));
+    target = NULL;
+    elementTarget = NULL;
+    moveOnHover = false;
+    isSliced = false;
+	hasText = true;
+};
+SlicedSprite* Button::GetSlicedSpriteForText(int x, int y, std::string str){
+    float width = (sf::Text(str,Label::fonts[0],30)).getGlobalBounds().width + 8;
+    float height = (sf::Text(str,Label::fonts[0],30)).getGlobalBounds().height + 16;
+	return new SlicedSprite(x,y,width,height,SlicedSprite::SpriteStyle::WoodPanel);
 };
 void Button::Update(GamePanel* panel){
 	if(foreground->GetIsMoving())
@@ -26,10 +59,16 @@ void Button::Update(GamePanel* panel){
 		base->Update(panel);
 	else
 		Draw(panel);
-	foreground->Draw(panel);
+	if(hasText)
+		foreground->Update(panel);
+	else
+		foreground->Draw(panel);
 };
 void Button::OnClick(){
-	target->OnButtonEvent(function);
+	if(target != NULL)
+	    target->OnButtonEvent(function);
+	if(elementTarget != NULL)
+	    elementTarget->OnButtonEvent(function);
 };
 void Button::OnStart(){
 	circleButtonBackground = "circlebuttonbackground.png";
@@ -45,6 +84,9 @@ void Button::SetFunction(std::string str){
 void Button::SetTarget(GamePanel* myTarget){
 	target = myTarget;
 };
+void Button::SetTarget(GuiElement* myTarget){
+    elementTarget = myTarget;
+}
 void Button::SetMoveOnHover(bool yn){
 	moveOnHover = yn;
 };

@@ -22,6 +22,7 @@ public:
 	void SetTextColor(sf::Color);
 	void CenterText();
 	void SetText(std::string);
+	static int GetPixelLengthOfString(std::string);
 protected:
 	sf::Text text;
 };

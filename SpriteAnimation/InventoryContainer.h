@@ -10,7 +10,7 @@ class InventoryContainer : public Container
 public:
 	InventoryContainer(int,int,std::string,sf::Sprite*);
 	InventoryContainer(int,int,std::string);
-	void OnMenuSelection(std::string);
+	void OnButtonEvent(std::string);
 	void OnClick();
 	void Drop();
 	void Barter();

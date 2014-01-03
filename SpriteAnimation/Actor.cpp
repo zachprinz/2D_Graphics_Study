@@ -290,7 +290,7 @@ ShadowLine Actor::GetUpdatedFootLine(){
 			break;
 	}
 	for(int y = (height-1); y > 0; y--){
-		for(int x = (width/2); x < width; x++){
+		for(int x = (width - 1); x > (width/2); x--){
 			if(unsplitImage.getPixel(x,y).a > 0){
 				secondPixel.x = x;
 				secondPixel.y = y;

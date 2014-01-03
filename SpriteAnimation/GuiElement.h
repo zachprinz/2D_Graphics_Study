@@ -14,6 +14,7 @@ public:
 	void SetForegroundSprite(std::string);
 	virtual void Update(GamePanel*);
 	virtual void OnClick();
+	virtual void OnRClick(sf::Vector2i,GamePanel*);
 	virtual void OnHover(bool);
 	virtual void OnMousePress();
 	virtual void OnMouseRelease();
@@ -22,6 +23,8 @@ public:
 	void SetOrgin(int,int);
 	void CenterForeground();
 	bool pressed;
+	std::vector<std::string> rightClickOptions;
+	virtual void OnButtonEvent(std::string);
 protected:
 	bool isSliced;
 	SlicedSprite* base;

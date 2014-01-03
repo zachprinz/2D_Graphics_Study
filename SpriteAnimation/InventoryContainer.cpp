@@ -7,8 +7,8 @@
 #include "InventoryPanel.h"
 
 InventoryContainer::InventoryContainer(int x,int y,std::string text) : Container(x,y,text){
-	AddRClickOption(RClickMenu::Options::Drop);
-	AddRClickOption(RClickMenu::Options::Equip);
+	rightClickOptions.push_back("Drop");
+	rightClickOptions.push_back("Equip");
 };
 void InventoryContainer::OnClick(){
 	if(isFull)
@@ -29,7 +29,7 @@ void InventoryContainer::Deposit(){
 	BankPanel::instance->Add(contents);
 	ClearContents();
 };
-void InventoryContainer::OnMenuSelection(std::string selection){
+void InventoryContainer::OnButtonEvent(std::string selection){
 	if(selection == "Equip")
 		Equip();
 	else if(selection == "Drop")

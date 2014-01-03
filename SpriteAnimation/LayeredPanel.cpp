@@ -79,8 +79,11 @@ void LayeredPanel::UpdateCurrentPanel(){
 	panels[currentPanel]->Update();
 };
 void LayeredPanel::OnHover(sf::Vector2i temp){
-	if(panels[currentPanel]->GetBounds().Contains(temp.x,temp.y))
+	AABB temp2 = panels[currentPanel]->GetBounds();
+	if(temp2.Contains(temp.x,temp.y)){
 	    panels[currentPanel]->OnHover(temp);
+	    GamePanel::currentMousePanel = panels[currentPanel];
+	}
 	else
 	    GamePanel::OnHover(temp);
 };

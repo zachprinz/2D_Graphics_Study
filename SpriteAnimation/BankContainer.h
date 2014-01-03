@@ -10,7 +10,7 @@ class BankContainer : public Container
 public:
 	BankContainer(int,int,std::string,sf::Sprite*);
 	BankContainer(int,int,std::string);
-	void OnMenuSelection(std::string);
+	void OnButtonEvent(std::string);
 	void OnClick();
 	void Withdraw();
 	void Equip();

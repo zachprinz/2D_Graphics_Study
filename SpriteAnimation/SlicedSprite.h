@@ -13,7 +13,7 @@ public:
 	static std::vector<std::vector<sf::IntRect>> spriteParts;
 	static std::vector<std::vector<sf::IntRect>> scrollBarParts;
 	static enum Parts {TopLeft,Top,TopRight,Left,Center,Right,BottomLeft,Bottom,BottomRight};
-	static enum SpriteStyle {Pixel,WoodPanel,TextPanel,Last};
+	static enum SpriteStyle {Pixel,WoodPanel,TextPanel,RightClick,Last};
 	static void OnStart();
 	SlicedSprite(int,int,float,float,SlicedSprite::SpriteStyle);
 	SlicedSprite(int,int,int);

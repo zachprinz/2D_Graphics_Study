@@ -1,5 +1,6 @@
 #include "GuiElement.h"
 #include "GamePanel.h"
+#include "DropDownMenu.h"
 
 GuiElement::GuiElement(int x,int y,std::string textureName,std::string fgTextureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
@@ -27,6 +28,10 @@ void GuiElement::Update(GamePanel* panel){
 void GuiElement::OnClick(){
 
 };
+void GuiElement::OnRClick(sf::Vector2i,GamePanel* panel){
+    new DropDownMenu(sf::Mouse::getPosition().x - panel->GetPosition().x,sf::Mouse::getPosition().y - panel->GetPosition().y,rightClickOptions);
+    DropDownMenu::instance->SetTarget(this);
+};
 void GuiElement::OnHover(bool hovered){
 
 };
@@ -48,4 +53,7 @@ void GuiElement::OnMousePress(){
 void GuiElement::OnMouseRelease(){
     pressed = false;
     this->OnClick();
+};
+void GuiElement::OnButtonEvent(std::string){
+
 };

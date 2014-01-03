@@ -3,12 +3,14 @@
 #include <iostream>
 
 Container::Container(int x,int y,std::string textureName) : GuiElement(x,y,textureName,"blank.png"){
+	rightClickOptions.push_back("name");
 	isFull = false;	
 };
 void Container::SetUp(){
 
 };
 void Container::AddItem(Item item){
+	rightClickOptions[0] = item.GetName();
 	std::cout << "Container adding a found item." << std::endl;
 	ClearContents();
 	contents = item;
@@ -56,6 +58,6 @@ bool Container::Contains(Item item){
 	else
 		return false;
 };
-void Container::OnMenuSelection(std::string){
+void Container::OnButtonEvent(std::string){
 
 }

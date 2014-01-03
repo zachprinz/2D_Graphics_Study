@@ -5,8 +5,8 @@
 #include "RClickMenu.h"
 
 BankContainer::BankContainer(int x,int y,std::string text) : Container(x,y,text){
-	AddRClickOption(RClickMenu::Options::Withdraw);
-	AddRClickOption(RClickMenu::Options::Equip);
+	rightClickOptions.push_back("Withdraw");
+	rightClickOptions.push_back("Equip");
 };
 void BankContainer::OnClick(){
 	if(isFull)
@@ -20,7 +20,7 @@ void BankContainer::Withdraw(){
 	User::player->GetInventory()->Add(contents);
 	ClearContents();
 }
-void BankContainer::OnMenuSelection(std::string selection){
+void BankContainer::OnButtonEvent(std::string selection){
 	if(selection == "Equip")
 		Equip();
 	else if(selection == "Withdraw")

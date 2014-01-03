@@ -183,6 +183,7 @@
     <ClCompile Include="Combatant.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Drawn.cpp" />
+    <ClCompile Include="DropDownMenu.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EquipedContainer.cpp" />
     <ClCompile Include="EquipedPanel.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="Combatant.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="Drawn.h" />
+    <ClInclude Include="DropDownMenu.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EquipedContainer.h" />
     <ClInclude Include="EquipedPanel.h" />

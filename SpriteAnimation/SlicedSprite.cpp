@@ -10,7 +10,6 @@ sf::Sprite* SlicedSprite::foregroundCenter;
 
 SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::SpriteStyle style) : Drawn("blank.png"){
 	sprite.setPosition(xPos,yPos);
-	size = sf::Vector2f(x,y);
 	std::vector<sf::IntRect> textParts = spriteParts[style];
 	for(int x = 0; x < textParts.size(); x++){
 		parts.push_back(new Drawn("slicedsprites/" + std::to_string(style) + "/" + std::to_string(x) + ".png"));
@@ -35,6 +34,7 @@ SlicedSprite::SlicedSprite(int xPos, int yPos, float x, float y, SlicedSprite::S
 	SetPosition(sf::Vector2f(xPos,yPos));
 	SetRotation(0);
 	texturePart = sf::IntRect(0,0,x,y);
+	size = sf::Vector2f(x,y);
 };
 SlicedSprite::SlicedSprite(int x, int y, int length) : Drawn("blank.png"){
 	sprite.setPosition(x,y);

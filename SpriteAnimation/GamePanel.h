@@ -44,6 +44,7 @@ public:
 	sf::Sprite panelSprite;
 	virtual sf::Vector2f GetViewLowerBound();
 protected:
+	bool CheckHover(Drawn* check,sf::Vector2i point);
 	sf::Vector2f mySize;
 	std::string panelName;
 	AABB panelBounds;

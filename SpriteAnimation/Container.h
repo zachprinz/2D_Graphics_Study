@@ -19,7 +19,7 @@ public:
 	void Update(GamePanel*);
 	bool GetIsFull();
 	bool Contains(Item item);
-	void OnMenuSelection(std::string);
+	virtual void OnButtonEvent(std::string);
 protected:
 	bool isFull;
 	Item contents;

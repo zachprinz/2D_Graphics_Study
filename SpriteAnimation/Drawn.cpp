@@ -36,6 +36,7 @@ Drawn::Drawn(std::string textureExtension){
 	sprite = sf::Sprite(gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas(textureExtension));
 	sprite.setPosition(0,0);
+	sprite.setScale(1,1);
 	texturePart = sprite.getTextureRect();
 	isMoving = false;
 	isExpanding = false;
@@ -64,6 +65,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 	sprite.setTextureRect(GetTextureFromAtlas("blank.png"));
 	texturePart = sf::IntRect(0,0,sliced->size.x,sliced->size.y);
 	sprite.setTextureRect(texturePart);
+	sprite.setScale(1,1);
 	isMoving = false;
 	isExpanding = false;
 	resetScale = sf::Vector2f(1,1);
@@ -185,10 +187,13 @@ AABB Drawn::GetBounds(){
 	sf::Vector2f offsets1 = cornerRotationOffsets[1];
 	sf::Vector2f offsets3 = cornerRotationOffsets[3];
 	sf::Vector2f myTempSize(texturePart.width,texturePart.height);
+    	float idkWhy = 2.0; //I'll fix this shit later.
+	if(isSliced)
+		idkWhy = 1.0;
 	float x1 = (position.x) - origin.x  + offsets1.x;
 	float y1 = (position.y) - origin.y  + offsets1.y;
-	float x2 = (position.x + (myScale.x * myTempSize.x * sprite.getScale().x)) - origin.x  + offsets3.x;
-	float y2 = (position.y + (myScale.y * myTempSize.y * sprite.getScale().y)) - origin.y  + offsets3.y;
+	float x2 = (position.x + (((myScale.x * myTempSize.x * sprite.getScale().x)) - origin.x  + offsets3.x)/idkWhy);
+	float y2 = (position.y + (((myScale.y * myTempSize.y * sprite.getScale().y)) - origin.y  + offsets3.y)/idkWhy);
 	Vec2f vec1 = Vec2f(x1,y1);
 	Vec2f vec2 = Vec2f(x2,y2);
 	AABB temp(vec1,vec2);
@@ -203,10 +208,13 @@ AABB Drawn::GetBounds(sf::View view){
 	sf::Vector2f offsets1 = cornerRotationOffsets[1];
 	sf::Vector2f offsets3 = cornerRotationOffsets[3];
 	sf::Vector2f myTempSize(texturePart.width,texturePart.height);
+	float idkWhy = 2.0;
+	if(isSliced)
+		idkWhy = 1.0;
 	float x1 = (position.x - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets1.x;
 	float y1 = (position.y - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets1.y;
-	float x2 = (position.x + (myScale.x * myTempSize.x * sprite.getScale().x)  - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets3.x;
-	float y2 = (position.y + (myScale.y * myTempSize.y * sprite.getScale().y)  - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets3.y;
+	float x2 = (position.x + (((myScale.x * myTempSize.x * sprite.getScale().x)  - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets3.x)/idkWhy);
+	float y2 = (position.y + (((myScale.y * myTempSize.y * sprite.getScale().y)  - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets3.y)/idkWhy);
 	Vec2f vec1 = Vec2f(x1,y1);
 	Vec2f vec2 = Vec2f(x2,y2);
 	AABB temp(vec1,vec2);

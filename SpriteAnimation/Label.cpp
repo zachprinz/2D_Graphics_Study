@@ -31,7 +31,9 @@ Label::Label(int x,int y,int textureLength,SlicedSprite* texture, Fonts font, st
 };
 
 void Label::SetText(sf::Text t){
+	sf::Vector2f tempPos = text.getPosition();
 	text = t;
+	text.setPosition(tempPos.x,tempPos.y);
 };
 sf::Text* Label::GetText(){
 	return &text;
@@ -65,4 +67,7 @@ void Label::CenterText(){
 void Label::SetText(std::string str){
 	std::cout << "setting Text" << text.getString().toAnsiString() << std::endl;
 	text.setString(str + "");
+};
+int Label::GetPixelLengthOfString(std::string str){
+    return (sf::Text(str,fonts[0],24)).getCharacterSize();
 };

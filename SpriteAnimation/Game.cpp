@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "DropDownMenu.h"
 
 bool Game::run;
 bool Game::mouseIsPressed;
@@ -99,8 +100,8 @@ void Game::HandleMouseMovement(sf::Event event){
 	    	sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
 		for(int x = 0; x < panels.size(); x++){
 			if(panels[x]->GetBounds().Contains(temp.x,temp.y)){
-			    panels[x]->OnHover(temp);
-			    GamePanel::currentMousePanel = panels[x];
+			        GamePanel::currentMousePanel = panels[x];
+				panels[x]->OnHover(temp);
 			}
 		};
 		}
@@ -113,13 +114,13 @@ void Game::HandleMouseMovement(sf::Event event){
 void Game::HandleMouseClick(sf::Event event){
     switch(gameState){
 	case(GamePlay):
-	if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left){ //Eventually will iterate through these
+	if(sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left){
 		sf::Vector2i temp(event.mouseButton.x,event.mouseButton.y);
-		if(RClickMenu::GetIsOpen()){
-			temp = sf::Vector2i(temp.x - RClickMenu::currentPanel->GetPosition().x , temp.y - RClickMenu::currentPanel->GetPosition().y);
-			std::cout << temp.x << "," << temp.y << std::endl;
-			if(!RClickMenu::Contains(sf::Vector2f(temp)))
-				RClickMenu::Close();
+		if(DropDownMenu::instance->isOpen){
+			if(!DropDownMenu::instance->GetBounds().Contains(temp.x - GamePanel::currentMousePanel->GetPosition().x,temp.y - GamePanel::currentMousePanel->GetPosition().y))
+			    DropDownMenu::instance->Close();
+			else
+			    GamePanel::currentMousePanel->OnMousePress(temp);
 		}
 		else
 			GamePanel::currentMousePanel->OnMousePress(temp);
