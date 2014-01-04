@@ -19,8 +19,8 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	cameraMoveSpeed = 0;
 	isShaking = false;
 	ml = new tmx::MapLoader("maps/");
-    ml->Load("testNew.tmx");
-	view.reset(sf::FloatRect(0,0,1526,922));
+	ml->Load("testNew.tmx");
+	view.reset(sf::FloatRect(0,0,1920,1080));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
 	std::cout << "Creating Light Engine." << std::endl;
@@ -35,7 +35,8 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	mapSprite.setTexture(mapTexture);
 	isZooming = false;
 	currentZoom = 1;
-	view.setCenter(User::player->GetSprite()->getPosition());
+	sf::Vector2f cameraOffset(100,70);
+	view.setCenter(User::player->GetSprite()->getPosition() + cameraOffset);
 };
 SpritePanel::SpritePanel(){
 
@@ -159,13 +160,13 @@ void SpritePanel::UpdateElements(){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(this);
 	}
 	lightEngine->SetView(view);
-	if(!isZooming)
-		lightEngine->DrawLights(&panel);
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
 	MoveCamera();
 	User::player->UpdateBar(this);
+	if(!isZooming)
+		lightEngine->DrawLights(&panel);
 	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
@@ -256,9 +257,10 @@ sf::Vector2f SpritePanel::GetViewLowerBound(){
 	return (sf::Vector2f(view.getCenter() - sf::Vector2f(panel.getDefaultView().getSize().x / 2, panel.getDefaultView().getSize().y / 2.0)));// - sf::Vector2f(temp.x / 2.0,temp.y / 2.0));
 }
 void SpritePanel::MoveCamera(){
+	sf::Vector2f cameraOffset(100,70);
 	if(!isShaking){
-		if(std::abs(view.getCenter().x - User::player->GetPosition().x) < 5 &&
-		   std::abs(view.getCenter().y - User::player->GetPosition().y) < 5){
+		if(std::abs(view.getCenter().x - (User::player->GetPosition().x + cameraOffset.x)) < 5 &&
+		   std::abs(view.getCenter().y - (User::player->GetPosition().y + cameraOffset.y)) < 5){
 			isCameraCaughtUp = true;
 			cameraMoveSpeed = 0.0;
 		}
@@ -266,16 +268,16 @@ void SpritePanel::MoveCamera(){
 			isCameraCaughtUp = false;
 			if(cameraMoveSpeed != 100)
 				cameraMoveSpeed += (100-cameraMoveSpeed) * 0.075f;
-			sf::Vector2f tempVec = User::player->GetPosition() - view.getCenter();
+			sf::Vector2f tempVec = User::player->GetPosition() + cameraOffset - view.getCenter();
 			tempVec = sf::Vector2f(std::abs(tempVec.x),std::abs(tempVec.y));
 			float tempHyp = Actor::elapsedTime.asSeconds() * cameraMoveSpeed;
 			if(tempHyp > std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f)))
 				tempHyp = std::sqrt(std::pow(tempVec.x,2.0f) + std::pow(tempVec.y,2.0f));
 			float tempAngle = std::atan(tempVec.y / tempVec.x);
 			sf::Vector2f directionVec(1,1);
-			if(view.getCenter().x > User::player->GetPosition().x)
+			if(view.getCenter().x > (User::player->GetPosition().x + cameraOffset.x))
 				directionVec.x = -1;
-			if(view.getCenter().y > User::player->GetPosition().y)
+			if(view.getCenter().y > (User::player->GetPosition().y + cameraOffset.y))
 				directionVec.y = -1;
 			sf::Vector2f moveToPoint = sf::Vector2f(directionVec.x * (std::cos(tempAngle) * tempHyp),directionVec.y * (std::sin(tempAngle) * tempHyp));
 			view.setCenter(view.getCenter() + moveToPoint);

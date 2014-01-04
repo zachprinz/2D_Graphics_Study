@@ -7,7 +7,7 @@ sf::Texture* BankPanel::bankBackground = new sf::Texture();
 BankPanel* BankPanel::instance = new BankPanel();
 
 
-BankPanel::BankPanel(int x,int y) : ScrollingPanel(x,((float)(y-80)*2),x,y){
+BankPanel::BankPanel(int x,int y) : ScrollingPanel(x,((float)(y-80)*2),x,y,"Bank"){
 	SetUp();
 	instance = this;
 	isPanelOpen = false;

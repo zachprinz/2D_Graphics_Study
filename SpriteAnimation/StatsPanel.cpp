@@ -138,8 +138,8 @@ void StatsPanel::SetUpLevelMap(){
 	Label* mainLevelBottomXP = new Label(8,75,"blank.png",Label::Fonts::Game,"0");
 	Label* mainLevelCurrentXP = new Label(140,75,"blank.png",Label::Fonts::Game,"50");
 	Label* mainLevelTopXP = new Label(245,75,"blank.png",Label::Fonts::Game,"100");
-	Label* spendXPLabel = new Label(8,390,"blank.png",Label::Fonts::Game,"Spend XP:");
-	Label* spendXPValue = new Label(100,390,"blank.png",Label::Fonts::Game,"100");
+	Label* spendXPLabel = new Label(8,362,"blank.png",Label::Fonts::Game,"Spend XP:");
+	Label* spendXPValue = new Label(100,362,"blank.png",Label::Fonts::Game,"100");
 	levelMap.insert(MyPair("spendXPLabel",spendXPLabel));
 	levelMap.insert(MyPair("spendXPValue",spendXPValue));
 	levelMap.insert(MyPair("levelHeadline",levelHeadline));

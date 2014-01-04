@@ -22,7 +22,6 @@ public:
 	Drawn* foreground;
 	void SetOrgin(int,int);
 	void CenterForeground();
-	bool pressed;
 	std::vector<std::string> rightClickOptions;
 	virtual void OnButtonEvent(std::string);
 protected:

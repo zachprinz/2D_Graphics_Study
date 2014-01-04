@@ -29,7 +29,11 @@ void OptionPanel::SetUp(){
 	tempButton = new Button(15,736,SlicedSprite::SpriteStyle::WoodPanel,"Main Menu");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("main menu");
-	dynamicElements.insert(MyPair("main menu",tempButton));
+    	dynamicElements.insert(MyPair("main menu",tempButton));
+	tempButton = new Button(195,736,SlicedSprite::SpriteStyle::WoodPanel,"Exit");
+	tempButton->SetTarget(this);
+	tempButton->SetFunction("exit");
+	dynamicElements.insert(MyPair("exit",tempButton));
 	dynamicElements.insert(MyPair("fullscreen",new CheckBox(&(Game::fullscreen),262,167)));
 	dynamicElements.insert(MyPair("vsync",new CheckBox(&(Game::verticleSync),262,265)));
 	dynamicElements.insert(MyPair("brightness",new ScrollBar(262,317,300,&(Game::brightness))));
@@ -46,6 +50,8 @@ void OptionPanel::OnButtonEvent(std::string function){
 	}
 	if(function == "cancel")
 		Close();
+	if(function == "exit")
+		Drawn::gameWindow->close();
 };
 void OptionPanel::Open(){
     Clock::timeSpeed = 0;

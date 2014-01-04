@@ -46,6 +46,7 @@ Drawn::Drawn(std::string textureExtension){
 	rotationAngle = 0;
 	SetRotation(0);
 	isSliced = false;
+	pressed = false;
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
@@ -74,6 +75,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 	sprite.setPosition(sliced->GetPosition().x,sliced->GetPosition().y);
 	isSliced = true;
 	z = 0;
+	pressed = false;
 };
 
 Drawn::Drawn(){
@@ -143,22 +145,9 @@ void Drawn::Destroy(){
 void Drawn::DrawGame(sf::RenderWindow& window){
 	window.draw(SpritePanel::instance->panelSprite);
 	window.draw(gameArray,gameRenderStates);
-	Drawn::DrawAdds(); //Vertecies are all the same.
+	Drawn::DrawAdds();
 	gameArray.clear();
 	quadCount = 0;
-	sf::IntRect texRec = GetTextureFromAtlas("gamebackground.png");
-	gameArray.append(sf::Vertex());
-	gameArray[quadCount].position = sf::Vector2f(0,0);
-	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
-	gameArray.append(sf::Vertex());
-	gameArray[quadCount].position = sf::Vector2f(1920,0);
-	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
-	gameArray.append(sf::Vertex());
-	gameArray[quadCount].position = sf::Vector2f(1920,1080);
-	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
-	gameArray.append(sf::Vertex());
-	gameArray[quadCount].position = sf::Vector2f(0,1080);
-	gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 };
 void Drawn::SetUp(sf::RenderWindow* window){
 	gameWindow = window;
@@ -502,9 +491,10 @@ void Drawn::SetRotation(float angle){
 	sprite.setOrigin(-newOriginX,-newOriginY);
 };
 void Drawn::OnMousePress(){
-
+    pressed = true;
 };
 void Drawn::OnMouseRelease(){
+    pressed = false;
     this->OnClick();
 };
 void Drawn::SetDrawBounds(bool draw){

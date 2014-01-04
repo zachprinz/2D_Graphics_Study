@@ -2,7 +2,7 @@
 #include "Button.h"
 #include <iostream>
 
-ScrollingPanel::ScrollingPanel(int x,int y,int visibleX,int visibleY) : GamePanel(x + 58,y,"Scrolling Window"){
+ScrollingPanel::ScrollingPanel(int x,int y,int visibleX,int visibleY,std::string name) : GamePanel(x + 58,y,name){
 	scrollView.reset(sf::FloatRect(0,0,visibleX,visibleY - 80));
 	scrollView.setViewport(sf::FloatRect(0,0,0.9f,0.5f));
 	visibleSize = sf::Vector2f(visibleX,visibleY);

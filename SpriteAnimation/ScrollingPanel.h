@@ -12,7 +12,7 @@
 class ScrollingPanel : public GamePanel
 {
 public:
-	ScrollingPanel(int,int,int,int);
+	ScrollingPanel(int,int,int,int,std::string);
 	ScrollingPanel();
 	void OnClick(sf::Vector2i);
 	void OnRClick(sf::Vector2i);

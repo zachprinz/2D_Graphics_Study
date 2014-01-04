@@ -26,14 +26,15 @@ void LayeredPanel::SetUp(){
 	Drawn panelButton;
 	int spaceBetweenButtons = ((largestSubpanelSize.x) - (80*panels.size()))/(panels.size() + 1);
 	for(int x = 0; x < panels.size(); x++){
-		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 28, "attacktextures/background.png", "buttonImages/" + panels[x]->GetName() + ".png");
+		Button* tempButton = new Button((spaceBetweenButtons * (x+1)) + (80 * x), largestSubpanelSize.y + 10, "attacktextures/background.png", "buttonImages/" + panels[x]->GetName() + ".png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(panels[x]->GetName());
 		tempButton->CenterForeground();
 		dynamicElements.insert(MyPair("Button" + panels[x]->GetName(),tempButton));
 	}
-	SlicedSprite* background = new SlicedSprite(-8,largestSubpanelSize.y + 14,(float)((panel.getSize().x) + 16),(float)(88 + 16),SlicedSprite::SpriteStyle::Pixel);
-	backgroundElements.insert(MyPair("Background", background));
+	//SlicedSprite* background = new SlicedSprite(-8,largestSubpanelSize.y + 14,(float)((panel.getSize().x) + 16),(float)(88 + 16),SlicedSprite::SpriteStyle::Pixel);
+	GamePanel::SetUp();
+	//backgroundElements.insert(MyPair("Background", background));
 };
 void LayeredPanel::OnButtonEvent(std::string btnFunction){
 	std::cout << "Panel Switch Button Clicked" << std::endl;

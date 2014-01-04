@@ -71,16 +71,16 @@ void Game::OnStart(){
 void Game::CreatePanels(){
 	textPanel = new TextPanel(1004,175);
 	textPanel->SetPosition(292,748);
-	spritePanel = new SpritePanel(1526,922);
+	spritePanel = new SpritePanel(1920,1080);
 	Actor::elapsedTimeClock = new Clock();
 	spritePanel->SetPosition(-8,-8);
 	User::player->GetBank()->SetPosition(spritePanel->GetPosition().x + ((spritePanel->GetSize().x - 480) / 2),spritePanel->GetPosition().y + ((spritePanel->GetSize().y - 480) / 2));
 	actionBar = new ActionBar(1020,88);
-	actionBar->SetPosition(523,961);
+	actionBar->SetPosition(523,970);
 	statsPanel = new StatsPanel(320,420);
-	statsPanel->SetPosition(1566,16);
+	statsPanel->SetPosition(1576,32);
 	hudPanel = new HUDPanel(User::player, 485,90);
-	hudPanel->SetPosition(16,961);
+	hudPanel->SetPosition(16,970);
 	optionPanel = new OptionPanel(800,800);
 	optionPanel->SetPosition(390,60);
 };
@@ -99,7 +99,7 @@ void Game::HandleMouseMovement(sf::Event event){
 		case(GamePlay):{
 	    	sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
 		for(int x = 0; x < panels.size(); x++){
-			if(panels[x]->GetBounds().Contains(temp.x,temp.y)){
+			if(panels[x]->GetBounds().Contains(temp.x + 37,temp.y) || panels[x]->GetBounds().Contains(temp.x,temp.y)){
 			        GamePanel::currentMousePanel = panels[x];
 				panels[x]->OnHover(temp);
 			}

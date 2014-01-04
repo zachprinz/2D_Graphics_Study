@@ -35,6 +35,7 @@ public:
 	float cameraMoveSpeed;
 	sf::Clock cameraMoveClock;
 	void ShakeScreen(float, float);
+    	LightEngine* lightEngine;
 private:
 	bool isCameraCaughtUp;
 	void UpdateZoom();
@@ -45,7 +46,6 @@ private:
 	std::vector<tmx::MapLayer*> highLayers;
 	std::vector<std::string> combatants;
 	void SetUp();
-	LightEngine* lightEngine;
 	sf::Texture mapTexture;
 	sf::Sprite mapSprite;
 	void LoadMapAmbience();

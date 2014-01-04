@@ -81,6 +81,7 @@ public:
 	virtual void SetRotation(float angle);
 	void SetDrawBounds(bool);
 	bool isSliced;
+	bool pressed;
 protected:
 	sf::Vector2f testPosition;
 	sf::VertexArray heldVerteces;

@@ -43,6 +43,7 @@ public:
 	sf::Vector2f GetSize();
 	sf::Sprite panelSprite;
 	virtual sf::Vector2f GetViewLowerBound();
+	void UpdateDrag();
 protected:
 	bool CheckHover(Drawn* check,sf::Vector2i point);
 	sf::Vector2f mySize;

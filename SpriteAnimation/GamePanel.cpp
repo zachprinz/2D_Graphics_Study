@@ -34,9 +34,14 @@ void GamePanel::InitiateElements(){
 
 };
 void GamePanel::UpdateElements(){
-	//for(MyPair x: backgroundElements){
-		//((SlicedSprite*)x.second)->Update(this);
-	//}
+	if(dynamicElements.find("barPlaceHolder") != dynamicElements.end() && dynamicElements["barPlaceHolder"]->pressed)
+		UpdateDrag();
+	for(MyPair x: backgroundElements){
+		if(x.second->isSliced)
+			x.second->Update(this);
+		else
+			x.second->Draw(this);
+	}
 	std::vector<Drawn*> remaining;
 	std::vector<Drawn*> remaining2;
 	int current = 1;
@@ -114,15 +119,6 @@ void GamePanel::OnMousePress(sf::Vector2i point){
 	currentMouseElement->OnMousePress();
 	currentPressedElement = currentMouseElement;
 	Game::mouseIsPressed = true;
-    /*
-	for(MyPair x: dynamicElements){
-		if(x.second->GetBounds(panel.getView()).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
-			x.second->OnMousePress();
-			currentPressedElement = x.second;
-			Game::mouseIsPressed = true;
-		}
-	}
-    */
 }
 void GamePanel::OnRClick(sf::Vector2i point){
 	std::cout << "Right Click" << std::endl;
@@ -204,8 +200,23 @@ sf::Vector2f GamePanel::GetPosition(){
 	return panelSprite.getPosition();
 }
 void GamePanel::SetUp(){
-	SlicedSprite* background = new SlicedSprite(-8,-8,panel.getSize().x + 16,panel.getSize().y + 16,SlicedSprite::Pixel);
+	std::string tempName = GetName();
+	int tempHigher = -37;
+	Drawn* background  = new Drawn("windows/" + GetName() + "background.png");
+	background->SetPosition(sf::Vector2f(-4,-37));
+	background->texturePart.height = 35;
 	backgroundElements.insert(MyPair("Background", background));
+	if(tempName != "LayeredPanel" && tempName != "Text"){
+	    Button* btnLabel = new Button(0,tempHigher,tempName);
+	    backgroundElements.insert(MyPair("BackgroundLabel",btnLabel));
+	}
+	Drawn* barPlaceHolder = new Drawn("blank.png");
+	barPlaceHolder->SetPosition(sf::Vector2f(-4,-37));
+	barPlaceHolder->texturePart.height = 35;
+	barPlaceHolder->texturePart.width = GetSize().x;
+	barPlaceHolder->SetRotation(0);
+	barPlaceHolder->SetZ(2);
+	dynamicElements.insert(MyPair("barPlaceHolder",barPlaceHolder));
 }
 bool GamePanel::GetIsPanelOpen(){
 	return isPanelOpen;
@@ -218,4 +229,12 @@ std::string GamePanel::GetName(){
 };
 sf::Vector2f GamePanel::GetSize(){
 	return mySize;
+};
+void GamePanel::UpdateDrag(){
+	sf::Vector2i mousePositionTemp = sf::Mouse::getPosition(*(Drawn::gameWindow));
+	sf::Vector2f mousePosition(mousePositionTemp.x,mousePositionTemp.y);
+	sf::Vector2f relativePosition = mousePosition - GetPosition();
+	//mousePosition += relativePosition;
+	//SetPosition(mousePosition.x + relativePosition.x,mousePosition.y + relativePosition.y);
+	SetPosition(mousePosition.x,mousePosition.y);
 };
