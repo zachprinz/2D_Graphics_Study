@@ -71,3 +71,9 @@ void Label::SetText(std::string str){
 int Label::GetPixelLengthOfString(std::string str){
     return (sf::Text(str,fonts[0],24)).getCharacterSize();
 };
+void Label::SetPosition(sf::Vector2f pos){
+	sf::Vector2f difference = pos - GetPosition();
+	if(!isSliced)
+	    Drawn::SetPosition(pos);
+	text.setPosition(text.getPosition() + difference);
+};

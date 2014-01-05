@@ -68,7 +68,7 @@ void SlicedSprite::Update(GamePanel* panel){
 };
 void SlicedSprite::SetPosition(sf::Vector2f newPos){
 	for(int x = 0; x < parts.size(); x++){
-		parts[x]->SetPosition(parts[x]->GetPosition() + newPos);
+		parts[x]->SetPosition(newPos);
 	}
 };
 void SlicedSprite::SetZ(int z){

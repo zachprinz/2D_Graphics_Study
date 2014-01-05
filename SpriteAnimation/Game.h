@@ -41,6 +41,7 @@ public:
 	static float masterVolume;
 	static float effectVolume;
 	static float musicVolume;
+    	static sf::Vector2f resolution;
 private:
 	enum State{LogOn,GamePlay};
 	State gameState;
@@ -60,5 +61,6 @@ private:
 	HUDPanel* hudPanel;
 	OptionPanel* optionPanel;
 	sf::RenderWindow* window;
+	void SetUpDefaultPositions();
 };
 #endif

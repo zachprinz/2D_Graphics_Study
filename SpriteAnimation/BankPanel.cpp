@@ -60,7 +60,7 @@ void BankPanel::SetUp(){
 		for (int y = 0; y < 6; y++)
 		{
 			BankContainer* element = new BankContainer((y*80) + 8,x*80,"containerbackground.png");
-			dynamicElements.insert(MyPair(std::to_string((x*6) + y), element));
+			AddDynamicElement(MyPair(std::to_string((x*6) + y), element));
 		}
 	}
 	std::cout << " Done" << std::endl;

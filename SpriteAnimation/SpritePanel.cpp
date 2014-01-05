@@ -5,9 +5,13 @@
 #include "Enemy.h"
 #include "NPC.h"
 #include "User.h"
-#include "Bank.h"
 #include "AmbienceObject.h"
 #include "LightObject.h"
+#include "Game.h"
+#include "Thor/Config.hpp"
+#include "Thor\Graphics.hpp"
+#include "Thor\Resources.hpp"
+#include "Thor/Math.hpp"
 #include <assert.h>
 
 sf::Texture* SpritePanel::spritePanelBackground = new sf::Texture();
@@ -16,11 +20,12 @@ Room* SpritePanel::room = new Room();
 
 
 SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
+	panelScale = sf::Vector2f(1,1);
 	cameraMoveSpeed = 0;
 	isShaking = false;
 	ml = new tmx::MapLoader("maps/");
 	ml->Load("testNew.tmx");
-	view.reset(sf::FloatRect(0,0,1920,1080));
+	view.reset(sf::FloatRect(0,0,Game::resolution.x,Game::resolution.y));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
 	std::cout << "Creating Light Engine." << std::endl;
@@ -37,6 +42,22 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	currentZoom = 1;
 	sf::Vector2f cameraOffset(100,70);
 	view.setCenter(User::player->GetSprite()->getPosition() + cameraOffset);
+	
+	// Particle System Test //
+	
+	particleTexture.loadFromFile("Images\particle.png");
+	particleSystem.setTexture(particleTexture);
+	emitter.setEmissionRate(30);
+	emitter.setParticleLifetime(sf::seconds(4));
+	emitter.setParticleScale(sf::Vector2f(1,1));
+	emitter.setParticlePosition(User::player->GetPosition());
+	//emitter.setParticlePosition( thor::Distributions::circle(User::player->GetPosition(), 2));   // Emit particles in given circle
+	particleSystem.addEmitter(emitter);
+	//thor::ScaleAffector sizeAffector(sf::Vector2f(1,1));
+	//particleSystem.addAffector(sizeAffector);
+	//sf::Vector2f acceleration(0.f, 10.f);
+	//thor::ForceAffector gravityAffector(acceleration);
+	//particleSystem.addAffector(gravityAffector);
 };
 SpritePanel::SpritePanel(){
 
@@ -165,8 +186,11 @@ void SpritePanel::UpdateElements(){
 	}
 	MoveCamera();
 	User::player->UpdateBar(this);
-	if(!isZooming)
+    	particleSystem.update(particleClock.restart());
+	if(!isZooming){
 		lightEngine->DrawLights(&panel);
+		panel.draw(particleSystem);
+	}
 	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);

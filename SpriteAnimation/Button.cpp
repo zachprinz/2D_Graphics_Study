@@ -13,6 +13,7 @@ Button::Button(int x,int y,std::string texture,std::string fgTexture) : GuiEleme
 	elementTarget = NULL;
 	moveOnHover = false;
 	hasText = false;
+	CenterForeground();
 };
 Button::Button(int x, int y,SlicedSprite::SpriteStyle style, std::string str) : GuiElement(x,y,GetSlicedSpriteForText(x,y,str),"blank.png"){
     foreground = new Label(x + 4,y + 2,"blank.png",Label::Fonts::Game,str);
@@ -22,6 +23,7 @@ Button::Button(int x, int y,SlicedSprite::SpriteStyle style, std::string str) : 
     moveOnHover = false;
     isSliced = true;
     hasText = true;
+    CenterForeground();
 };
 Button::Button(int x, int y, std::string str) : GuiElement(x,y,GetSlicedSpriteForText(x,y,str),"blank.png"){
     foreground = new Label(x + 4,y + 2,"blank.png",Label::Fonts::Game,str);

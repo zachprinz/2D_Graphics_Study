@@ -5,18 +5,16 @@
 GuiElement::GuiElement(int x,int y,std::string textureName,std::string fgTextureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,texturePart.width,texturePart.height);
 	isSliced = false;
-	SetPosition(sf::Vector2f(x,y));
 	foreground = new Drawn(fgTextureName);
-	foreground->SetPosition(sf::Vector2f(x,y));
+    	SetPosition(sf::Vector2f(x,y));
 	pressed = false;
 };
 GuiElement::GuiElement(int x,int y,SlicedSprite* textureName,std::string fgTextureName) : RClickable(textureName){
 	elementBounds.SetRectangle(x,y,textureName->GetSize().x,textureName->GetSize().y);
 	isSliced = true;
 	base = textureName;
-	SetPosition(sf::Vector2f(x,y));
 	foreground = new Drawn(fgTextureName);
-	foreground->SetPosition(sf::Vector2f(x,y));
+	SetPosition(sf::Vector2f(x,y));
 	pressed = false;
 };
 void GuiElement::SetForegroundSprite(std::string spriteRect){
@@ -36,8 +34,10 @@ void GuiElement::OnHover(bool hovered){
 
 };
 void GuiElement::SetPosition(sf::Vector2f pos){
+	sf::Vector2f difference = pos - GetPosition();
 	if(!isSliced)
 		Drawn::SetPosition(pos);
+	foreground->SetPosition(foreground->GetPosition() + difference);
 };
 void GuiElement::CenterForeground(){
 	foreground->GetSprite()->setOrigin(sf::Vector2f((foreground->GetSize().x / 2.0f),(foreground->GetSize().y / 2.0f)));

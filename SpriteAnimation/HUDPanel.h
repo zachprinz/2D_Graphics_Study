@@ -12,6 +12,7 @@
 class HUDPanel : public GamePanel
 {
 public:
+	
 	HUDPanel(Combatant*, int,int);
 	Combatant* target;
 	void UpdateUserImage();

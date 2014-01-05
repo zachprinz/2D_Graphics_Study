@@ -91,17 +91,24 @@ void StatsPanel::SetUpItemMap(){
 	for (int x = 0; x < 6; x++){
 		Label* element = new Label(labelsPosX[x],labelsPosY[x],"blank.png",Label::Fonts::Game,labelsString[x] + ":");
 		Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],"blank.png",Label::Fonts::Game,"null");
-		itemMap.insert(MyPair(std::to_string(x), element));
-		itemMap.insert(MyPair(labelsString[x] + "Value",valueElement));
+		AddItemElement(MyPair(std::to_string(x), element));
+		AddItemElement(MyPair(labelsString[x] + "Value",valueElement));
 	}
 	Button* tempButton = new Button(127.5,15,"attacktextures/background.png","attacktextures/default.png");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
-	itemMap.insert(MyPair("Image",tempButton));
+	AddItemElement(MyPair("Image",tempButton));
 	Label* label = new Label(103,110,120,"menubackground.png",Label::Fonts::Game,"null");
 	label->CenterText();
-	itemMap.insert(MyPair("Name",label));
+	AddItemElement(MyPair("Name",label));
+		Drawn* barPlaceHolder = new Drawn("blank.png");
+	barPlaceHolder->SetPosition(sf::Vector2f(0,0));
+	barPlaceHolder->texturePart.height = 35;
+	barPlaceHolder->texturePart.width = GetSize().x;
+	barPlaceHolder->SetRotation(0);
+	barPlaceHolder->SetZ(2);
+	itemMap.insert(MyPair("barPlaceHolder",barPlaceHolder));
 };
 void StatsPanel::SetUpCombatantMap(){
 	int labelsPosX[] = {5,170,5,170,5,5};
@@ -109,25 +116,32 @@ void StatsPanel::SetUpCombatantMap(){
 	std::string labelsString[] = {"Strength","Endure","Technique","Speed","Health","Endurance"};
 	for (int x = 0; x < 6; x++){
 		Label* element = new Label(labelsPosX[x],labelsPosY[x],"blank.png",Label::Fonts::Game,labelsString[x] + ":");
-		combatantMap.insert(MyPair(std::to_string(x), element));
+		AddCombatantElement(MyPair(std::to_string(x), element));
 		if(x < 4){
 			Label* valueElement = new Label(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x],"blank.png",Label::Fonts::Game,"null");
-			combatantMap.insert(MyPair(labelsString[x] + "Value",valueElement));
+			AddCombatantElement(MyPair(labelsString[x] + "Value",valueElement));
 		}
 		else{
 			float tempFloat = 1;
 			ProgressBar* progBar = new ProgressBar(labelsPosX[x] + element->GetText()->getLocalBounds().width + 15,labelsPosY[x], 180, &tempFloat);
-			combatantMap.insert(MyPair(labelsString[x] + "Bar",progBar));
+			AddCombatantElement(MyPair(labelsString[x] + "Bar",progBar));
 		}
 	}
 	Button* tempButton = new Button(127.5,15,"attacktextures/background.png","attacktextures/default.png");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("none");
 	tempButton->CenterForeground();
-	combatantMap.insert(MyPair("Image",tempButton));
+	AddCombatantElement(MyPair("Image",tempButton));
 	Label* label = new Label(103,110,120,"menubackground.png",Label::Fonts::Game,"null");
 	label->CenterText();
-	combatantMap.insert(MyPair("Name",label));
+	AddCombatantElement(MyPair("Name",label));
+    	Drawn* barPlaceHolder = new Drawn("blank.png");
+	barPlaceHolder->SetPosition(sf::Vector2f(0,0));
+	barPlaceHolder->texturePart.height = 35;
+	barPlaceHolder->texturePart.width = GetSize().x;
+	barPlaceHolder->SetRotation(0);
+	barPlaceHolder->SetZ(2);
+	combatantMap.insert(MyPair("barPlaceHolder",barPlaceHolder));
 };
 void StatsPanel::SetUpLevelMap(){
 	mainLevelPercent = 0.5;
@@ -140,13 +154,13 @@ void StatsPanel::SetUpLevelMap(){
 	Label* mainLevelTopXP = new Label(245,75,"blank.png",Label::Fonts::Game,"100");
 	Label* spendXPLabel = new Label(8,362,"blank.png",Label::Fonts::Game,"Spend XP:");
 	Label* spendXPValue = new Label(100,362,"blank.png",Label::Fonts::Game,"100");
-	levelMap.insert(MyPair("spendXPLabel",spendXPLabel));
-	levelMap.insert(MyPair("spendXPValue",spendXPValue));
-	levelMap.insert(MyPair("levelHeadline",levelHeadline));
-	levelMap.insert(MyPair("mainLevelProgBar",mainLevelProgBar));
-	levelMap.insert(MyPair("mainLevelBottomXP",mainLevelBottomXP));
-	levelMap.insert(MyPair("mainLevelTopXP",mainLevelTopXP));
-	levelMap.insert(MyPair("mainLevelCurrentXP",mainLevelCurrentXP));
+	AddLevelElement(MyPair("spendXPLabel",spendXPLabel));
+	AddLevelElement(MyPair("spendXPValue",spendXPValue));
+	AddLevelElement(MyPair("levelHeadline",levelHeadline));
+	AddLevelElement(MyPair("mainLevelProgBar",mainLevelProgBar));
+	AddLevelElement(MyPair("mainLevelBottomXP",mainLevelBottomXP));
+	AddLevelElement(MyPair("mainLevelTopXP",mainLevelTopXP));
+	AddLevelElement(MyPair("mainLevelCurrentXP",mainLevelCurrentXP));
 	for(int x = 0; x < 2; x++){
 		int displacement = 140;
 		int displacement2 = 115;
@@ -159,14 +173,21 @@ void StatsPanel::SetUpLevelMap(){
 		Button* subLevelPlusButton = new Button(290,(x*displacement2) + displacement + 45,"buttonImages/plusButton.png","blank.png");
 		subLevelPlusButton->SetTarget(this);
 		subLevelPlusButton->SetFunction("plusButton" + std::to_string(x));
-		levelMap.insert(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));
-		levelMap.insert(MyPair("subLevelPlusButton" + std::to_string(x),subLevelPlusButton));
-		levelMap.insert(MyPair("subLevelTitle" + std::to_string(x),subLevelTitle));
-		levelMap.insert(MyPair("subLevelDescription" + std::to_string(x),subLevelDescription));
-		levelMap.insert(MyPair("subLevelCurrentXP" + std::to_string(x),subLevelCurrentXP));
-		levelMap.insert(MyPair("subLevelBottomXP" + std::to_string(x),subLevelBottomXP));
-		levelMap.insert(MyPair("subLevelTopXP" + std::to_string(x),subLevelTopXP));
+		AddLevelElement(MyPair("asubLevelProgBar" + std::to_string(x),subLevelProgBar));
+		AddLevelElement(MyPair("subLevelPlusButton" + std::to_string(x),subLevelPlusButton));
+		AddLevelElement(MyPair("subLevelTitle" + std::to_string(x),subLevelTitle));
+		AddLevelElement(MyPair("subLevelDescription" + std::to_string(x),subLevelDescription));
+		AddLevelElement(MyPair("subLevelCurrentXP" + std::to_string(x),subLevelCurrentXP));
+		AddLevelElement(MyPair("subLevelBottomXP" + std::to_string(x),subLevelBottomXP));
+		AddLevelElement(MyPair("subLevelTopXP" + std::to_string(x),subLevelTopXP));
 	}
+    	Drawn* barPlaceHolder = new Drawn("blank.png");
+	barPlaceHolder->SetPosition(sf::Vector2f(0,0));
+	barPlaceHolder->texturePart.height = 35;
+	barPlaceHolder->texturePart.width = GetSize().x;
+	barPlaceHolder->SetRotation(0);
+	barPlaceHolder->SetZ(2);
+	levelMap.insert(MyPair("barPlaceHolder",barPlaceHolder));
 };
 void StatsPanel::OnButtonEvent(std::string func){
 	if(func == "plusButton0"){
@@ -183,4 +204,22 @@ void StatsPanel::OnButtonEvent(std::string func){
 	((Label*)(levelMap["subLevelCurrentXP0"]))->SetText(std::to_string(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle0"]))->GetText()->getString(),"xpPastCurrentLevel")));
 	((Label*)(levelMap["subLevelCurrentXP1"]))->SetText(std::to_string(User::player->GetUserData(currentName,((Label*)(levelMap["subLevelTitle1"]))->GetText()->getString(),"xpPastCurrentLevel")));
 	((Label*)(levelMap["spendXPValue"]))->SetText(std::to_string(User::player->GetUserData(currentName,"spendXP")));
+};
+void StatsPanel::AddLevelElement(MyPair element){
+    sf::Vector2f tempPos = element.second->GetPosition();
+    tempPos.y += 35;
+    element.second->SetPosition(tempPos);
+    levelMap.insert(element);
+};
+void StatsPanel::AddItemElement(MyPair element){
+    sf::Vector2f tempPos = element.second->GetPosition();
+    tempPos.y += 35;
+    element.second->SetPosition(tempPos);
+    itemMap.insert(element);
+};
+void StatsPanel::AddCombatantElement(MyPair element){
+    sf::Vector2f tempPos = element.second->GetPosition();
+    tempPos.y += 35;
+    element.second->SetPosition(tempPos);
+    combatantMap.insert(element);
 };

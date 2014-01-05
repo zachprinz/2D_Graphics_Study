@@ -9,6 +9,7 @@
 class LayeredPanel : public GamePanel
 {
 public:
+	
 	static LayeredPanel* instance;
 	LayeredPanel(std::vector<GamePanel*>);
 	LayeredPanel();

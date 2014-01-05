@@ -39,14 +39,14 @@ void ActionBar::SetUp(){
 		tempButton->SetFunction(std::to_string(dynamicElements.size()));
 		tempButton->CenterForeground();
 		std::cout << "Button" << std::to_string(dynamicElements.size()) << std::endl;
-		dynamicElements.insert(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
+		AddDynamicElement(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
 	}
 	for(int x = dynamicElements.size(); x < 9; x++){
 		Button* tempButton = new Button((x * 110) + 30,4,"attacktextures/background.png","attacktextures/default.png");
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(std::to_string(x));
 		tempButton->CenterForeground();
-		dynamicElements.insert(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
+		AddDynamicElement(MyPair("Button" + std::to_string(dynamicElements.size()),tempButton));
 	}
 	for(MyPair x: dynamicElements){
 		sheets.push_back(new sf::RectangleShape(sf::Vector2f(64,64)));

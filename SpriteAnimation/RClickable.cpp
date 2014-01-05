@@ -75,5 +75,7 @@ void RClickable::OnMousePress(){
 void RClickable::OnMouseRelease(){
     Drawn::OnMouseRelease();
 };
+void RClickable::SetPosition(sf::Vector2f){
 
+};
 

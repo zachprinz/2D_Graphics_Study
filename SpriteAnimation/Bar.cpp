@@ -34,3 +34,8 @@ void Bar::OnMousePress(){
 void Bar::OnMouseRelease(){
     pressed = false;
 };
+void Bar::SetPosition(sf::Vector2f pos){
+    	sf::Vector2f difference = pos - GetPosition();
+	base->SetPosition(pos);
+	foreground->SetPosition(foreground->GetPosition() + difference);
+};

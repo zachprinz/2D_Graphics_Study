@@ -13,7 +13,8 @@ public:
 	static GamePanel* currentMousePanel;
 	static Drawn* currentMouseElement;
 	static Drawn* currentPressedElement;
-
+	static enum AspectRatios {x16_9,x16_10,x4_3,x5_4};
+	std::vector<sf::Vector2f> defaultPositions;
 	GamePanel(int,int,std::string);
 	GamePanel();
 	typedef std::map<std::string, Drawn*> ElementList;
@@ -36,6 +37,7 @@ public:
 	virtual AABB GetBounds();
 	virtual void RemoveDynamicElement(std::string);
 	ElementList* GetDynamicElements();
+	void AddDynamicElement(MyPair);
 	sf::RenderTexture& GetRenderPanel();
 	sf::Vector2f GetPosition();
 	void SetUp();
@@ -44,7 +46,9 @@ public:
 	sf::Sprite panelSprite;
 	virtual sf::Vector2f GetViewLowerBound();
 	void UpdateDrag();
+	sf::Vector2f panelScale;
 protected:
+	sf::Vector2f dragOffset;
 	bool CheckHover(Drawn* check,sf::Vector2i point);
 	sf::Vector2f mySize;
 	std::string panelName;

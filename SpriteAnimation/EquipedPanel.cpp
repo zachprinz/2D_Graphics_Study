@@ -57,6 +57,7 @@ EquipedContainer* EquipedPanel::FindContainerOf(Item item){
 };
 void EquipedPanel::SetUp(){
 	Drawn* background = new Drawn("equipedbackground.png");
+	background->SetPosition(sf::Vector2f(0,35));
 	staticElements.insert(MyPair("00", background));
 	int slotPosX[] = {125,32,125,233,125};
 	int slotPosY[] = {20,220,107,220,235};
@@ -64,8 +65,7 @@ void EquipedPanel::SetUp(){
 	std::cout << "Creating Equiped Slots...";
 	for (int x = 0; x < 5; x++){
 		EquipedContainer* element = new EquipedContainer(slotPosX[x],slotPosY[x],"containerbackground.png");
-		dynamicElements.insert(MyPair(std::to_string(x), element));
-		//std::cout << std::to_string(x) << std::endl;
+		AddDynamicElement(MyPair(std::to_string(x), element));
 	}
 	std::cout << " Done" << std::endl;
 

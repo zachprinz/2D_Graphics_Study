@@ -7,6 +7,7 @@ LayeredPanel* LayeredPanel::instance;
 
 
 LayeredPanel::LayeredPanel(std::vector<GamePanel*> panels) : GamePanel(GetLayeredPanelSize(panels).x ,GetLayeredPanelSize(panels).y + 104,"LayeredPanel"){
+	instance = this;
 	this->panels = panels;
 	currentPanel = 0;
 	SetUp();
@@ -30,7 +31,7 @@ void LayeredPanel::SetUp(){
 		tempButton->SetTarget(this);
 		tempButton->SetFunction(panels[x]->GetName());
 		tempButton->CenterForeground();
-		dynamicElements.insert(MyPair("Button" + panels[x]->GetName(),tempButton));
+		AddDynamicElement(MyPair("Button" + panels[x]->GetName(),tempButton));
 	}
 	//SlicedSprite* background = new SlicedSprite(-8,largestSubpanelSize.y + 14,(float)((panel.getSize().x) + 16),(float)(88 + 16),SlicedSprite::SpriteStyle::Pixel);
 	GamePanel::SetUp();

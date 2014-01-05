@@ -26,7 +26,7 @@ void LevelPanel::SetUp(){
 		tempButton->SetFunction(levelNames[x]);
 		tempButton->SetMoveOnHover(true);
 		tempButton->SetHoverMovePosition(sf::Vector2i(30,x*60));
-		dynamicElements.insert(MyPair(levelNames[x], tempButton));
+		AddDynamicElement(MyPair(levelNames[x], tempButton));
 	}
 	GamePanel::SetUp();
 };

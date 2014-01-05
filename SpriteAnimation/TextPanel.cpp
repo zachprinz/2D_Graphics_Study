@@ -34,16 +34,16 @@ void TextPanel::Update(){
 void TextPanel::SetUp(){
 	GamePanel::SetUp();
 	Label* textDisplay = new Label(8,0,"blank.png",Label::Fonts::Game,"Where all the text will be displayed. ");
-	dynamicElements.insert(MyPair("text",textDisplay));
+	AddDynamicElement(MyPair("text",textDisplay));
 	((Label*)dynamicElements["text"])->GetText()->setCharacterSize(30);
 	Button* previousButton = new Button(-60,panel.getSize().y - 120,"buttonImages/minusButton.png","blank.png");
 	previousButton->SetTarget(this);
 	previousButton->SetFunction("previousButton");
-	dynamicElements.insert(MyPair("previousButton",previousButton));
+	AddDynamicElement(MyPair("previousButton",previousButton));
 	Button* nextButton = new Button(panel.getSize().x - 40,panel.getSize().y - 120,"buttonImages/plusButton.png","blank.png");
 	nextButton->SetTarget(this);
 	nextButton->SetFunction("nextButton");
-	dynamicElements.insert(MyPair("nextButton",nextButton));
+	AddDynamicElement(MyPair("nextButton",nextButton));
 };
 void TextPanel::DisplayText(std::string text){
 	sortedText.clear();

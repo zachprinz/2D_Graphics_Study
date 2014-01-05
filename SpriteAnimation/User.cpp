@@ -26,7 +26,7 @@ User::User(int x, int y) : Combatant(x,y,"User","blank.png"){
 	temp.push_back(levelPanel);
 	std::cout << "fcreate Layered Panel" << std::endl;
 	layered = new LayeredPanel(temp);
-	layered->SetPosition(1576,482);
+	layered->SetPosition(1576,447);
 	SetUpImages();
 	sprite.setTextureRect(sf::IntRect(0,0,64,64));
 	currentAnimation = animations["Walk"];
@@ -603,7 +603,7 @@ void User::UpdateAction(GamePanel* panel,bool updateAll){
 		if(isPaused && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
 			float mousePosition = 0;
 			if(currentAnimationDir == Animation::AnimDir::Right || currentAnimationDir == Animation::AnimDir::Left){
-				float minPosition = GetBounds(SpritePanel::instance->GetRenderPanel().getView()).GetLowerBound().x + (GetBounds().GetSize().x / 2.0f) - 100;
+				float minPosition = GetBounds(SpritePanel::instance).GetLowerBound().x + (GetBounds().GetSize().x / 2.0f) - 100;
 				float maxPosition = minPosition + 200;
 				mousePosition = sf::Mouse::getPosition().x;
 				if(mousePosition < minPosition)
@@ -617,7 +617,7 @@ void User::UpdateAction(GamePanel* panel,bool updateAll){
 					mousePosition = mousePosition * (-1.0);
 			}
 			if(currentAnimationDir == Animation::AnimDir::Up || currentAnimationDir == Animation::AnimDir::Down){
-				float minPosition = GetBounds(SpritePanel::instance->GetRenderPanel().getView()).GetLowerBound().y + (GetBounds().GetSize().y / 2.0f) - 100;
+				float minPosition = GetBounds(SpritePanel::instance).GetLowerBound().y + (GetBounds().GetSize().y / 2.0f) - 100;
 				float maxPosition = minPosition + 200;
 				mousePosition = sf::Mouse::getPosition().y;
 				if(mousePosition < minPosition)

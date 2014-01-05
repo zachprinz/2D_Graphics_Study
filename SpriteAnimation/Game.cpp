@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "DropDownMenu.h"
+#include "SpritePanel.h"
 
 bool Game::run;
 bool Game::mouseIsPressed;
@@ -10,6 +11,7 @@ bool Game::mute;
 float Game::masterVolume;
 float Game::effectVolume;
 float Game::musicVolume;
+sf::Vector2f Game::resolution;
 
 Game::Game(){
 	musicVolume = 1.0;
@@ -23,7 +25,8 @@ Game::Game(){
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	window->setKeyRepeatEnabled(false);
-	window->create(sf::VideoMode(1920, 1080), "Exploration II",sf::Style::Fullscreen,settings);
+	resolution = sf::Vector2f(sf::VideoMode::getDesktopMode().width,sf::VideoMode::getDesktopMode().height);
+	window->create(sf::VideoMode(resolution.x, resolution.y), "Exploration II",sf::Style::Fullscreen,settings);
 	window->setVerticalSyncEnabled(false);
 	Load();
 };
@@ -46,7 +49,15 @@ void Game::Load(){
 	panels.push_back(User::player->GetLayered());
 	panels.push_back(User::player->GetBank());
 	panels.push_back(optionPanel);
+	SpritePanel::instance->particleClock.restart();
 }
+void Game::SetUpDefaultPositions(){
+	statsPanel->defaultPositions.push_back(sf::Vector2f(.82,0));
+	hudPanel->defaultPositions.push_back(sf::Vector2f(0.0083,.866));
+	actionBar->defaultPositions.push_back(sf::Vector2f(0.272,0.866));
+	LayeredPanel::instance->defaultPositions.push_back(sf::Vector2f(0.821,0.414));
+	textPanel->defaultPositions.push_back(sf::Vector2f(0.152,0.662));
+};
 void Game::Update(){
     switch(gameState){
 	case(GamePlay):
@@ -70,19 +81,22 @@ void Game::OnStart(){
 };
 void Game::CreatePanels(){
 	textPanel = new TextPanel(1004,175);
-	textPanel->SetPosition(292,748);
-	spritePanel = new SpritePanel(1920,1080);
+	spritePanel = new SpritePanel(resolution.x,resolution.y);
 	Actor::elapsedTimeClock = new Clock();
-	spritePanel->SetPosition(-8,-8);
-	User::player->GetBank()->SetPosition(spritePanel->GetPosition().x + ((spritePanel->GetSize().x - 480) / 2),spritePanel->GetPosition().y + ((spritePanel->GetSize().y - 480) / 2));
 	actionBar = new ActionBar(1020,88);
-	actionBar->SetPosition(523,970);
 	statsPanel = new StatsPanel(320,420);
-	statsPanel->SetPosition(1576,32);
 	hudPanel = new HUDPanel(User::player, 485,90);
-	hudPanel->SetPosition(16,970);
 	optionPanel = new OptionPanel(800,800);
-	optionPanel->SetPosition(390,60);
+	int x = 0;
+	SetUpDefaultPositions();
+	optionPanel->SetPosition(390,25);
+    	textPanel->SetPosition(textPanel->defaultPositions[0].x * resolution.x,textPanel->defaultPositions[0].y * resolution.y);
+	hudPanel->SetPosition(hudPanel->defaultPositions[0].x * resolution.x,hudPanel->defaultPositions[0].y * resolution.y);
+    	statsPanel->SetPosition(statsPanel->defaultPositions[0].x * resolution.x,statsPanel->defaultPositions[0].y * resolution.y);
+	actionBar->SetPosition(actionBar->defaultPositions[0].x * resolution.x,actionBar->defaultPositions[0].y * resolution.y);
+	LayeredPanel::instance->SetPosition(LayeredPanel::instance->defaultPositions[0].x * resolution.x,LayeredPanel::instance->defaultPositions[0].y * resolution.y);
+	spritePanel->SetPosition(-8,-8);
+    	User::player->GetBank()->SetPosition(200,200);
 };
 void Game::UpdatePanels(){
 	spritePanel->Update();
@@ -99,7 +113,7 @@ void Game::HandleMouseMovement(sf::Event event){
 		case(GamePlay):{
 	    	sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
 		for(int x = 0; x < panels.size(); x++){
-			if(panels[x]->GetBounds().Contains(temp.x + 37,temp.y) || panels[x]->GetBounds().Contains(temp.x,temp.y)){
+			if(panels[x]->GetBounds().Contains(temp.x,temp.y)){
 			        GamePanel::currentMousePanel = panels[x];
 				panels[x]->OnHover(temp);
 			}

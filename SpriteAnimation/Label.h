@@ -23,6 +23,7 @@ public:
 	void CenterText();
 	void SetText(std::string);
 	static int GetPixelLengthOfString(std::string);
+	void SetPosition(sf::Vector2f);
 protected:
 	sf::Text text;
 };

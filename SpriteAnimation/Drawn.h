@@ -25,6 +25,7 @@ public:
 	static std::vector<sf::Drawable*> adds;
 	static std::vector<sf::Transformable*> addsTransforms;
 	static std::vector<sf::Vector2f> addsPositions;
+	static std::vector<sf::Vector2f> addsScale;
 	static sf::VertexArray gameArray;
 	static sf::RenderStates gameRenderStates;
 	static int GetDistance(sf::Vector2i,sf::Vector2i);
@@ -73,7 +74,7 @@ public:
 	sf::Vector2f GetPosition();
 	virtual sf::Vector2f GetSize();
 	AABB GetBounds();
-	AABB GetBounds(sf::View);
+	AABB GetBounds(GamePanel*);
 	AABB GetSpritePanelBounds();
 	bool updateVertex;
 	void SetDrawOffset(sf::Vector2f);

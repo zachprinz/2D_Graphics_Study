@@ -13,6 +13,9 @@ Drawn* GamePanel::currentMouseElement;
 Drawn* GamePanel::currentPressedElement;
 
 GamePanel::GamePanel(int x, int y, std::string name){
+	panelScale = sf::Vector2f(Game::resolution.x / 1920.0f,Game::resolution.y / 1080.0f); // Yeah I don't need to do it twice since I'll already have the aspect ratio set.
+	if(panelScale.x < 0.75)
+		panelScale = sf::Vector2f(0.75,0.75);
 	mySize = sf::Vector2f(x,y);
 	isPanelOpen = true;
 	backgroundPanel.create(x + 16, y + 16);
@@ -21,6 +24,7 @@ GamePanel::GamePanel(int x, int y, std::string name){
 	panel.setSmooth(true);
 	panelSprite.setTexture(panel.getTexture());
 	backgroundPanelSprite.setTexture(backgroundPanel.getTexture());
+	dragOffset = sf::Vector2f(-1,-1);
 };
 GamePanel::GamePanel(){
 
@@ -34,8 +38,12 @@ void GamePanel::InitiateElements(){
 
 };
 void GamePanel::UpdateElements(){
-	if(dynamicElements.find("barPlaceHolder") != dynamicElements.end() && dynamicElements["barPlaceHolder"]->pressed)
-		UpdateDrag();
+	if(dynamicElements.find("barPlaceHolder") != dynamicElements.end()){
+		if(dynamicElements["barPlaceHolder"]->pressed)
+			UpdateDrag();
+		else
+			dragOffset = sf::Vector2f(-1,-1);
+	}
 	for(MyPair x: backgroundElements){
 		if(x.second->isSliced)
 			x.second->Update(this);
@@ -113,7 +121,7 @@ sf::Vector2f GamePanel::GetViewLowerBound(){
 void GamePanel::SetPosition(int x, int y){
 	panelSprite.setPosition(x + 8,y + 8);
 	backgroundPanelSprite.setPosition(x,y);
-	panelBounds = AABB(Vec2f(x,y),Vec2f(x + GetSize().x,y + GetSize().y));
+	panelBounds = AABB(Vec2f(x,y),Vec2f(x + (GetSize().x),y + (GetSize().y)));
 }
 void GamePanel::OnMousePress(sf::Vector2i point){
 	currentMouseElement->OnMousePress();
@@ -171,7 +179,7 @@ bool GamePanel::CheckHover(Drawn* check,sf::Vector2i point){
 		int x = 0;
 		tempBool = true;
 	};
-    	if(check->GetBounds(panel.getView()).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
+    	if(check->GetBounds(this).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
 			if(GamePanel::currentMouseElement != check){
 				if(currentMouseElement != NULL)
 					currentMouseElement->OnHover(false);
@@ -201,17 +209,17 @@ sf::Vector2f GamePanel::GetPosition(){
 }
 void GamePanel::SetUp(){
 	std::string tempName = GetName();
-	int tempHigher = -37;
 	Drawn* background  = new Drawn("windows/" + GetName() + "background.png");
-	background->SetPosition(sf::Vector2f(-4,-37));
+	background->SetPosition(sf::Vector2f(0,0));
 	background->texturePart.height = 35;
 	backgroundElements.insert(MyPair("Background", background));
-	if(tempName != "LayeredPanel" && tempName != "Text"){
-	    Button* btnLabel = new Button(0,tempHigher,tempName);
+	if(tempName != "LayeredPanel" && tempName != "Text" && tempName != "Game"){
+	    Button* btnLabel = new Button(0,0,tempName);
+	    btnLabel->foreground->GetSprite()->setOrigin(0,0);
 	    backgroundElements.insert(MyPair("BackgroundLabel",btnLabel));
 	}
 	Drawn* barPlaceHolder = new Drawn("blank.png");
-	barPlaceHolder->SetPosition(sf::Vector2f(-4,-37));
+	barPlaceHolder->SetPosition(sf::Vector2f(0,0));
 	barPlaceHolder->texturePart.height = 35;
 	barPlaceHolder->texturePart.width = GetSize().x;
 	barPlaceHolder->SetRotation(0);
@@ -231,10 +239,16 @@ sf::Vector2f GamePanel::GetSize(){
 	return mySize;
 };
 void GamePanel::UpdateDrag(){
-	sf::Vector2i mousePositionTemp = sf::Mouse::getPosition(*(Drawn::gameWindow));
-	sf::Vector2f mousePosition(mousePositionTemp.x,mousePositionTemp.y);
-	sf::Vector2f relativePosition = mousePosition - GetPosition();
-	//mousePosition += relativePosition;
-	//SetPosition(mousePosition.x + relativePosition.x,mousePosition.y + relativePosition.y);
-	SetPosition(mousePosition.x,mousePosition.y);
+    	sf::Vector2f mousePosition(sf::Mouse::getPosition(*Drawn::gameWindow).x,sf::Mouse::getPosition(*Drawn::gameWindow).y);
+	if(dragOffset.x == -1 && dragOffset.y == -1)
+		dragOffset = mousePosition - GetPosition();
+	//std::cout << "Offsets X: " << std::to_string(offset.x) << " Y: " << std::to_string(offset.y) << std::endl;
+	sf::Vector2f newPosition(mousePosition.x - dragOffset.x - 8,mousePosition.y - dragOffset.y - 8);
+	SetPosition(newPosition.x,newPosition.y);
+};
+void GamePanel::AddDynamicElement(MyPair pair){
+    sf::Vector2f tempPos = pair.second->GetPosition();
+    tempPos.y += 35;
+    pair.second->SetPosition(tempPos);
+    dynamicElements.insert(pair);
 };

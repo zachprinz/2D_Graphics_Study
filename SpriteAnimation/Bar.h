@@ -14,6 +14,7 @@ public:
     float GetPercent();
     void OnMousePress();
     void OnMouseRelease();
+    virtual void SetPosition(sf::Vector2f);
 protected:
     int fullscale;
     float* percent;

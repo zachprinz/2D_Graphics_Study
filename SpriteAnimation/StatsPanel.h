@@ -14,6 +14,7 @@ class Combatant;
 class StatsPanel : public GamePanel
 {
 public:
+	
 	StatsPanel(int,int);
 	static StatsPanel* instance;
 	void SetItem(Item* item);
@@ -21,6 +22,9 @@ public:
 	void SetLevel(std::string);
 	std::string currentName;
 	void OnButtonEvent(std::string);
+	void AddCombatantElement(MyPair);
+	void AddLevelElement(MyPair);
+	void AddItemElement(MyPair);
 private:
 	ElementList itemMap;
 	ElementList combatantMap;

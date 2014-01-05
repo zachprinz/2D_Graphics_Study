@@ -19,6 +19,7 @@ sf::RenderWindow* Drawn::gameWindow;
 std::vector<sf::Drawable*> Drawn::adds;
 std::vector<sf::Transformable*> Drawn::addsTransforms;
 std::vector<sf::Vector2f> Drawn::addsPositions;
+std::vector<sf::Vector2f> Drawn::addsScale;
 
 Drawn::Drawn(std::string textureExtension){
 	drawBounds = false;
@@ -84,23 +85,23 @@ Drawn::Drawn(){
 };
 
 void Drawn::DrawVertex(sf::RenderTexture* texture, GamePanel* panel){
-	sf::Vector2f pos = sprite.getPosition() - panel->GetViewLowerBound() + drawOffset + panel->GetPosition() - sprite.getOrigin();
+	sf::Vector2f pos = (sprite.getPosition() * panel->panelScale.x) - panel->GetViewLowerBound() + drawOffset + panel->GetPosition() - (sprite.getOrigin() * panel->panelScale.x);
 	if(testPosition != pos || updateVertex){
 		sf::IntRect texRec = sprite.getTextureRect();
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + cornerRotationOffsets[1];
+		gameArray[quadCount].position = pos + (cornerRotationOffsets[1] * panel->panelScale.x);
 		heldVerteces[0].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + cornerRotationOffsets[0];
+		gameArray[quadCount].position = pos + (cornerRotationOffsets[0] * panel->panelScale.x);
 		heldVerteces[1].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos + cornerRotationOffsets[3];
+		gameArray[quadCount].position = pos + (cornerRotationOffsets[3] * panel->panelScale.x);
 		heldVerteces[2].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left + texRec.width,texRec.top + texRec.height);
 		gameArray.append(sf::Vertex());
-		gameArray[quadCount].position = pos  + cornerRotationOffsets[2];
+		gameArray[quadCount].position = pos  + (cornerRotationOffsets[2] * panel->panelScale.x);
 		heldVerteces[3].position = gameArray[quadCount].position;
 		gameArray[quadCount++].texCoords = sf::Vector2f(texRec.left,texRec.top + texRec.height);
 		testPosition = pos;
@@ -188,10 +189,10 @@ AABB Drawn::GetBounds(){
 	AABB temp(vec1,vec2);
 	return temp;
 };
-AABB Drawn::GetBounds(sf::View view){
+AABB Drawn::GetBounds(GamePanel* panel){
 	sf::Vector2f position = GetPosition();
-	sf::Vector2f viewCenter = view.getCenter();
-	sf::Vector2f viewSize = view.getSize();
+	sf::Vector2f viewCenter = panel->GetRenderPanel().getView().getCenter();
+	sf::Vector2f viewSize = panel->GetRenderPanel().getView().getSize();
 	sf::Vector2f origin = sprite.getOrigin();
 	int tempSize = cornerRotationOffsets.size();
 	sf::Vector2f offsets1 = cornerRotationOffsets[1];
@@ -202,15 +203,16 @@ AABB Drawn::GetBounds(sf::View view){
 		idkWhy = 1.0;
 	float x1 = (position.x - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets1.x;
 	float y1 = (position.y - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets1.y;
-	float x2 = (position.x + (((myScale.x * myTempSize.x * sprite.getScale().x)  - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets3.x)/idkWhy);
-	float y2 = (position.y + (((myScale.y * myTempSize.y * sprite.getScale().y)  - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets3.y)/idkWhy);
-	Vec2f vec1 = Vec2f(x1,y1);
-	Vec2f vec2 = Vec2f(x2,y2);
+	float x2 = (position.x + (((myScale.x * panel->panelScale.x * myTempSize.x * sprite.getScale().x)  - (viewCenter.x - (viewSize.x / 2))) - origin.x  + offsets3.x)/idkWhy);
+	float y2 = (position.y + (((myScale.y * panel->panelScale.y * myTempSize.y * sprite.getScale().y)  - (viewCenter.y - (viewSize.y / 2))) - origin.y  + offsets3.y)/idkWhy);
+	float pScale = panel->panelScale.x;
+	Vec2f vec1 = Vec2f(x1 * pScale,y1 * pScale);
+	Vec2f vec2 = Vec2f(x2 * pScale,y2 * pScale);
 	AABB temp(vec1,vec2);
 	return temp;
 };
 AABB Drawn::GetSpritePanelBounds(){
-	return GetBounds(SpritePanel::instance->GetRenderPanel().getView());
+	return GetBounds(SpritePanel::instance);
 }
 void Drawn::SetZ(int z){
 	this->z = z;
@@ -251,7 +253,9 @@ sf::Vector2f Drawn::GetPositionOnPanel(){
 void Drawn::DrawOther(sf::Text* label,GamePanel* panel){
 	sf::Vector2f tempPos = label->getPosition();
 	addsPositions.push_back(tempPos);
-	label->setPosition(tempPos + panel->GetPosition());
+	addsScale.push_back(panel->panelScale);
+	label->setPosition((panel->panelScale.x * tempPos + panel->GetPosition()));
+	label->setScale(panel->panelScale);
 	adds.push_back(label);
 	addsTransforms.push_back(label);
 };
@@ -259,7 +263,9 @@ void Drawn::DrawOther(sf::RectangleShape* sprite, GamePanel* panel){
 	sf::Vector2f pos = sprite->getPosition() - panel->GetViewLowerBound();
 	sf::Vector2f tempPos = sprite->getPosition();
 	addsPositions.push_back(tempPos);
-	sprite->setPosition(tempPos + panel->GetPosition());
+	addsScale.push_back(panel->panelScale);
+	sprite->setPosition((panel->panelScale.x * tempPos + panel->GetPosition()));
+	sprite->setScale(panel->panelScale);
 	adds.push_back(sprite);	
 	addsTransforms.push_back(sprite);
 };
@@ -267,13 +273,16 @@ void Drawn::DrawOther(sf::ConvexShape* sprite, GamePanel* panel){
 	sf::Vector2f pos = sprite->getPosition() - panel->GetViewLowerBound();
 	sf::Vector2f tempPos = sprite->getPosition();
 	addsPositions.push_back(tempPos);
-	sprite->setPosition(tempPos + panel->GetPosition());
+	addsScale.push_back(panel->panelScale);
+	sprite->setPosition((panel->panelScale.x * tempPos + panel->GetPosition()));
+	sprite->setScale(panel->panelScale);
 	adds.push_back(sprite);	
 	addsTransforms.push_back(sprite);
 };
 void Drawn::DrawAdds(){
 	for(int x = 0; x < adds.size(); x++){
 		gameWindow->draw(*adds[x]);
+		addsTransforms[x]->setScale(1.0/addsScale[0].x,1.0/addsScale[0].y);
 		addsTransforms[x]->setPosition(addsPositions[x]);
 	}
 	addsTransforms.clear();

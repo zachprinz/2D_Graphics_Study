@@ -21,27 +21,27 @@ void OptionPanel::SetUp(){
 	Button* tempButton = new Button(570,736,SlicedSprite::SpriteStyle::WoodPanel,"Cancel");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("cancel");
-	dynamicElements.insert(MyPair("cancel",tempButton));
+	AddDynamicElement(MyPair("cancel",tempButton));
 	tempButton = new Button(690,736, SlicedSprite::SpriteStyle::WoodPanel,"Accept");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("accept");
-	dynamicElements.insert(MyPair("accept",tempButton));
+	AddDynamicElement(MyPair("accept",tempButton));
 	tempButton = new Button(15,736,SlicedSprite::SpriteStyle::WoodPanel,"Main Menu");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("main menu");
-    	dynamicElements.insert(MyPair("main menu",tempButton));
+    	AddDynamicElement(MyPair("main menu",tempButton));
 	tempButton = new Button(195,736,SlicedSprite::SpriteStyle::WoodPanel,"Exit");
 	tempButton->SetTarget(this);
 	tempButton->SetFunction("exit");
-	dynamicElements.insert(MyPair("exit",tempButton));
-	dynamicElements.insert(MyPair("fullscreen",new CheckBox(&(Game::fullscreen),262,167)));
-	dynamicElements.insert(MyPair("vsync",new CheckBox(&(Game::verticleSync),262,265)));
-	dynamicElements.insert(MyPair("brightness",new ScrollBar(262,317,300,&(Game::brightness))));
+	AddDynamicElement(MyPair("exit",tempButton));
+	AddDynamicElement(MyPair("fullscreen",new CheckBox(&(Game::fullscreen),262,167)));
+	AddDynamicElement(MyPair("vsync",new CheckBox(&(Game::verticleSync),262,265)));
+	AddDynamicElement(MyPair("brightness",new ScrollBar(262,317,300,&(Game::brightness))));
 	
-	dynamicElements.insert(MyPair("masterVolume",new ScrollBar(262,483,300,&(Game::masterVolume))));
-	dynamicElements.insert(MyPair("musicVolume",new ScrollBar(262,602,300,&(Game::musicVolume))));
-	dynamicElements.insert(MyPair("effectVolume",new ScrollBar(262,542,300,&(Game::effectVolume))));
-	dynamicElements.insert(MyPair("mute",new CheckBox(&(Game::mute),262,657)));
+	AddDynamicElement(MyPair("masterVolume",new ScrollBar(262,483,300,&(Game::masterVolume))));
+	AddDynamicElement(MyPair("musicVolume",new ScrollBar(262,602,300,&(Game::musicVolume))));
+	AddDynamicElement(MyPair("effectVolume",new ScrollBar(262,542,300,&(Game::effectVolume))));
+	AddDynamicElement(MyPair("mute",new CheckBox(&(Game::mute),262,657)));
 };
 void OptionPanel::OnButtonEvent(std::string function){
 	if(function == "accept"){

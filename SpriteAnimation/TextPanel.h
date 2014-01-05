@@ -12,6 +12,7 @@
 class TextPanel : public GamePanel
 {
 public:
+	
 	static TextPanel* instance;
 	TextPanel(int,int);
 	void Update();

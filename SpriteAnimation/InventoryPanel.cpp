@@ -58,7 +58,7 @@ void InventoryPanel::SetUp(){
 		for (int y = 0; y < 4; y++)
 		{
 			InventoryContainer* element = new InventoryContainer((y*80) + 8,(x*80) + 8,"containerbackground.png");
-			dynamicElements.insert(MyPair(std::to_string((x*4) + y), element));
+			AddDynamicElement(MyPair(std::to_string((x*4) + y), element));
 			//std::cout << std::to_string((x*4) + y) << std::endl;
 		}
 	}

@@ -9,6 +9,7 @@
 class ActionBar : public GamePanel
 {
 public:
+	
 	ActionBar(int,int);
 	ActionBar();
 	static ActionBar* instance;
