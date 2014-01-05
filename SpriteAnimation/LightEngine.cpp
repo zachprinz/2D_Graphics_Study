@@ -58,8 +58,7 @@ void LightEngine::DrawLight(Light* light){
 	std::vector<QuadTreeObject*> intersectingHulls = hullTree->SearchRegion(light->GetBounds());
 	sf::VertexArray shadows(sf::Quads,intersectingHulls.size() * 4);
 	sf::Transform shadowsTransform;
-    	//tempLightText.clear(light->color); //TODO lags
-	tempLightText.clear(sf::Color(255,255,255,255));
+    	tempLightText.clear(light->color); //TODO lags
 	tempShadowText.clear(sf::Color(255,255,255,255));
 	for(int x = 0; x < intersectingHulls.size(); x++){
 		light->GetShadowQuad(&intersectingHulls[x]->myHull->shadowLines[0],intersectingHulls[x]->myHull,sf::Vector2f(0,0),&shadows[x*4]);
@@ -78,8 +77,9 @@ void LightEngine::DrawLight(Light* light){
     	tempLightText.draw(predoneLight);
 	tempLightSprite.setPosition(light->GetBounds().GetLowerBound().x - panelLowerPoint.x,light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
 	tempLightSprite.setTextureRect(sf::IntRect(0,0,light->radius * 2.0f,light->radius* 2.0f));
+    	shadowShader.setParameter("color",light->color);
 	lightTexture.draw(tempLightSprite,&shadowShader);
-    	tempLightText.display();
+	tempLightText.display();
 	predoneLight.setScale(1.0,1.0);
 };
 void LightEngine::DrawHigh(sf::RenderTexture* panel){
