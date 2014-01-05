@@ -86,14 +86,16 @@ void User::GetUserWeaponImage(GamePanel* panel){
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 192),animationSheets[2].top + ((currentAnimationPos.y % 4) * 192),192,192));
 		sprite.setPosition(sprite.getPosition().x - 55,sprite.getPosition().y - 40);
 		SetScale(sf::Vector2f(3,3));
-		Draw(panel);
+		panel->GetRenderPanel().draw(*GetSprite());
+		//Draw(panel);
 		SetScale(sf::Vector2f(1,1));
 		sprite.setPosition(sprite.getPosition().x + 55,sprite.getPosition().y + 40);
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
 	}
 	else{
 		sprite.setTextureRect(sf::IntRect(animationSheets[2].left + (currentAnimationPos.x * 64),animationSheets[2].top + (currentAnimationPos.y * 64),64,64));
-		Draw(panel);
+		panel->GetRenderPanel().draw(*GetSprite());
+		//Draw(panel);
 	}
 };
 

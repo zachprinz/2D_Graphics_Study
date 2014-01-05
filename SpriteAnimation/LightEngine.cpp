@@ -14,51 +14,72 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	lightsSprite.setOrigin(lightsSprite.getGlobalBounds().width / 2, lightsSprite.getGlobalBounds().height /2);
 	lightsSprite.setPosition(512,400);
 	lightsSprite.scale(1.0f,1.0f);
+
 	lightShader.loadFromFile("lightShader.frag",sf::Shader::Fragment);
 	lightShader.setParameter("texture", sf::Shader::CurrentTexture);
 	lightToTextureShader.loadFromFile("lightToPanelShader.frag",sf::Shader::Fragment);
 	lightToTextureShader.setParameter("texture",sf::Shader::CurrentTexture);
 	shadowShader.loadFromFile("shadowShader.frag",sf::Shader::Fragment);
 	shadowShader.setParameter("texture",sf::Shader::CurrentTexture);
+	subtractShader.loadFromFile("subtractShader.frag",sf::Shader::Fragment);
+	subtractShader.setParameter("texture",sf::Shader::CurrentTexture);
+	whiteShader.loadFromFile("whiteShader.frag",sf::Shader::Fragment);
+	whiteShader.setParameter("texture",sf::Shader::CurrentTexture);
+	
 	tempLightText.create(300,300);
 	tempLightText.clear(sf::Color(0,0,0,0));
 	tempLightText.display();
 	tempLightSprite.setTexture(tempLightText.getTexture());
-	panelLightTempText.create(1080,800);
-	panelLightTempText.clear(sf::Color(0,0,0,0));
-	panelLightTempText.display();
-	panelLightTempSprite.setTexture(panelLightTempText.getTexture());
-	predoneLightTexture = Drawn::GetSingleTexture("lightData/light.png");
+
+	tempShadowText.create(300,300);
+	tempShadowText.display();
+	tempShadowSprite.setTexture(tempShadowText.getTexture());
+	
+	predoneLightTexture.loadFromFile("Images/light.png");
 	predoneLight.setTexture(predoneLightTexture);
 };
-void LightEngine::DrawLights(sf::RenderTexture* panel){
+void LightEngine::UpdateLights(sf::RenderTexture* panel){
 	hullTree->Update();
 	lightTree->Update();
-	lightTexture.clear(sf::Color(0,0,0,120));
+	lightTexture.clear(sf::Color(0,0,0,180));
 	std::vector<QuadTreeObject*> lightsToDraw = lightTree->SearchRegion(viewBounds);
 	for(int x = 0; x < lightsToDraw.size(); x++){
 		DrawLight(lightsToDraw[x]->myLight);
-		lightTexture.display();
 	}
 	lightTexture.display();
 	lightsSprite.setPosition(panelView.getCenter().x ,panelView.getCenter().y);
-	panel->draw(lightsSprite,&shadowShader);
+};
+void LightEngine::DrawLights(sf::RenderTexture* panel){
+    panel->draw(lightsSprite);
 };
 void LightEngine::DrawLight(Light* light){
 	light->Update();
+	tempLightSprite.setPosition(0,0);
 	std::vector<QuadTreeObject*> intersectingHulls = hullTree->SearchRegion(light->GetBounds());
 	sf::VertexArray shadows(sf::Quads,intersectingHulls.size() * 4);
 	sf::Transform shadowsTransform;
+    	//tempLightText.clear(light->color); //TODO lags
+	tempLightText.clear(sf::Color(255,255,255,255));
+	tempShadowText.clear(sf::Color(255,255,255,255));
 	for(int x = 0; x < intersectingHulls.size(); x++){
 		light->GetShadowQuad(&intersectingHulls[x]->myHull->shadowLines[0],intersectingHulls[x]->myHull,sf::Vector2f(0,0),&shadows[x*4]);
+		tempShadowText.draw(*(intersectingHulls[x]->myHull->mySprite->GetSprite()));
 	}
-	tempLightSprite.setPosition(light->GetBounds().GetLowerBound().x - panelLowerPoint.x,light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
 	predoneLight.setScale((light->radius * 2) / predoneLight.getGlobalBounds().width,(2*light->radius) / predoneLight.getGlobalBounds().height);
-	tempLightText.clear(sf::Color(0,0,0,0)); //TODO lags
-	tempLightText.draw(predoneLight);
-	tempLightText.draw(shadows);
-	tempLightText.display();
-	lightTexture.draw(tempLightSprite,&lightShader);
+        tempShadowText.draw(shadows);
+	for(int x = 0; x < intersectingHulls.size(); x++){
+		sf::Vector2f tempPosition = intersectingHulls[x]->myHull->mySprite->GetSprite()->getPosition();
+		intersectingHulls[x]->myHull->mySprite->GetSprite()->setPosition(tempPosition - sf::Vector2f(light->GetBounds().GetLowerBound().x + 11.2,light->GetBounds().GetLowerBound().y + 9.6));
+		tempShadowText.draw(*(intersectingHulls[x]->myHull->mySprite->GetSprite()),&whiteShader);
+		intersectingHulls[x]->myHull->mySprite->GetSprite()->setPosition(tempPosition);
+	}
+	tempShadowText.display();
+	tempLightText.draw(tempShadowSprite,&subtractShader);
+    	tempLightText.draw(predoneLight);
+	tempLightSprite.setPosition(light->GetBounds().GetLowerBound().x - panelLowerPoint.x,light->GetBounds().GetLowerBound().y - panelLowerPoint.y);
+	tempLightSprite.setTextureRect(sf::IntRect(0,0,light->radius * 2.0f,light->radius* 2.0f));
+	lightTexture.draw(tempLightSprite,&shadowShader);
+    	tempLightText.display();
 	predoneLight.setScale(1.0,1.0);
 };
 void LightEngine::DrawHigh(sf::RenderTexture* panel){

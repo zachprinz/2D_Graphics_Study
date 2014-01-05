@@ -17,15 +17,12 @@ GameSprite::GameSprite(int x, int y,std::string textureName) : RClickable(textur
 	tagCount++;
 };
 void GameSprite::Update(GamePanel* panel){
-	if(SpritePanel::instance->isZooming){
-		SetScale(sf::Vector2f(1.0 / SpritePanel::instance->currentZoom,1.0 / SpritePanel::instance->currentZoom));
-		SetDrawOffset(1.0f * ((float)((1.0/SpritePanel::instance->currentZoom) - 1.0f) * (GetPosition() - panel->GetRenderPanel().getView().getCenter())));
-	}
 	if(ViewContains(panel->GetRenderPanel().getView(),sf::IntRect(sprite.getPosition().x,sprite.getPosition().y,sprite.getTextureRect().width,sprite.getTextureRect().height)))
-		this->DrawSprite(panel);
+	    this->DrawSprite(panel);
 };
 void GameSprite::DrawSprite(GamePanel* panel){
-	Draw(panel);
+	panel->GetRenderPanel().draw(*GetSprite());
+	//Draw(panel);
 };
 sf::Vector2f GameSprite::GetPositionOnPanel(){
 	return sprite.getPosition() - SpritePanel::instance->GetRenderPanel().getView().getCenter() + sf::Vector2f(SpritePanel::instance->GetRenderPanel().getView().getSize().x / 2, SpritePanel::instance->GetRenderPanel().getView().getSize().y / 2.0);

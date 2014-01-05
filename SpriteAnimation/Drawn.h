@@ -33,6 +33,7 @@ public:
 	static sf::IntRect GetTextureFromAtlas(std::string);
 	static sf::Texture gameTexture;
 	static void DrawAdds();
+	
 	//static boost::container::flat_set<Drawn*> vertexPointers;
 	static std::vector<Drawn*> vertexPointers;
 	Drawn(std::string);

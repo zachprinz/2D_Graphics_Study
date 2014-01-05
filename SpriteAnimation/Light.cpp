@@ -96,10 +96,10 @@ void Light::GetShadowQuad(ShadowLine* sl,Hull* hull,sf::Vector2f offset,sf::Vert
 			temp[3].position= firstLine.firstPoint - firstLine.size + off2;
 		}
 	}
-	temp[0].color = sf::Color(0,255,0,255);
-	temp[1].color = sf::Color(0,255,0,255);
-	temp[2].color = sf::Color(0,255,0,255);
-	temp[3].color = sf::Color(0,255,0,255);
+	temp[0].color = sf::Color(0,0,0,255);
+	temp[1].color = sf::Color(0,0,0,255);
+	temp[2].color = sf::Color(0,0,0,255);
+	temp[3].color = sf::Color(0,0,0,255);
 };
 ShadowLine Light::GetPointShadowLine(sf::Vector2f point,Hull* hull,sf::Vector2f offset){
 	Vec2f centerPoint = bounds.GetCenter();

@@ -1,12 +1,15 @@
 #include "Hull.h"
+#include "GameSprite.h"
 
-Hull::Hull(sf::ConvexShape poly,sf::Vector2f pos,float height){
+Hull::Hull(sf::ConvexShape poly,sf::Vector2f pos,float height,GameSprite* spt){
+	mySprite = spt;
 	this->height = height;
 	poly.setPosition(pos);
 	this->polygon = poly;
 	Calculate();
 };
-Hull::Hull(ShadowLine sl,sf::Vector2f pos,float height){
+Hull::Hull(ShadowLine sl,sf::Vector2f pos,float height,GameSprite* spt){
+	mySprite = spt;
 	this->height = height;
 	sl.firstPoint = sf::Vector2f(sl.firstPoint.x + pos.x,sl.firstPoint.y + pos.y);
 	sl.secondPoint = sf::Vector2f(sl.secondPoint.x + pos.x, sl.secondPoint.y + pos.y);

@@ -28,7 +28,7 @@ Actor::Actor(int x, int y,std::string name, std::string textureName) : GameSprit
 	if(footLines.size() < 1){
 		SetUpFootLines();
 	}
-	actorHull = new Hull(footLines[0][0][0],sprite.getPosition(),sprite.getGlobalBounds().height);
+	actorHull = new Hull(footLines[0][0][0],sprite.getPosition(),sprite.getGlobalBounds().height,this);
 	texturePart.height = 64;
 	texturePart.width = 64;
 	SetRotation(0);
@@ -171,7 +171,8 @@ void Actor::DrawSprite(GamePanel* panel){
 	for(int x = 0; x < animationSheets.size(); x++){
 		if(x != 2){
 			sprite.setTextureRect(sf::IntRect(animationSheets[x].left + (currentAnimationPos.x * 64),animationSheets[x].top + (currentAnimationPos.y * 64),64,64));
-			Draw(panel);
+			panel->GetRenderPanel().draw(*GetSprite());
+			//Draw(panel);
 		}
 	}
 	if(this == User::player){
@@ -180,6 +181,7 @@ void Actor::DrawSprite(GamePanel* panel){
 		}
 	}
 	sprite.setPosition(sprite.getPosition().x + 11.2, sprite.getPosition().y + 9.6);
+	sprite.setTextureRect(sf::IntRect(animationSheets[0].left + (currentAnimationPos.x * 64),animationSheets[0].top + (currentAnimationPos.y * 64),64,64));
 };
 void Actor::OnClick(){
 

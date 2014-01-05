@@ -42,22 +42,6 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	currentZoom = 1;
 	sf::Vector2f cameraOffset(100,70);
 	view.setCenter(User::player->GetSprite()->getPosition() + cameraOffset);
-	
-	// Particle System Test //
-	
-	particleTexture.loadFromFile("Images\particle.png");
-	particleSystem.setTexture(particleTexture);
-	emitter.setEmissionRate(30);
-	emitter.setParticleLifetime(sf::seconds(4));
-	emitter.setParticleScale(sf::Vector2f(1,1));
-	emitter.setParticlePosition(User::player->GetPosition());
-	//emitter.setParticlePosition( thor::Distributions::circle(User::player->GetPosition(), 2));   // Emit particles in given circle
-	particleSystem.addEmitter(emitter);
-	//thor::ScaleAffector sizeAffector(sf::Vector2f(1,1));
-	//particleSystem.addAffector(sizeAffector);
-	//sf::Vector2f acceleration(0.f, 10.f);
-	//thor::ForceAffector gravityAffector(acceleration);
-	//particleSystem.addAffector(gravityAffector);
 };
 SpritePanel::SpritePanel(){
 
@@ -172,10 +156,14 @@ void SpritePanel::UpdateElements(){
 	UpdateZoom();
 	panel.setView(view);
 	panel.draw(mapSprite);
+	lightEngine->UpdateLights(&panel);
+	//lightEngine->DrawShadows(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles((GamePanel*)this);
 	Actor::elapsedTime = Actor::elapsedTimeClock->getElapsedTime();
 	Actor::elapsedTimeClock->restart();
-	GamePanel::UpdateElements();
+	for(MyPair x: dynamicElements){
+		x.second->Update(this);
+	};
 	User::player->Update((GamePanel*)this);
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(this);
@@ -186,11 +174,7 @@ void SpritePanel::UpdateElements(){
 	}
 	MoveCamera();
 	User::player->UpdateBar(this);
-    	particleSystem.update(particleClock.restart());
-	if(!isZooming){
-		lightEngine->DrawLights(&panel);
-		panel.draw(particleSystem);
-	}
+	lightEngine->DrawLights(&panel);
 	panel.display();
 	//lightEngine->DrawHigh(&panel);
 	//lightEngine->DebugRender(&panel);
