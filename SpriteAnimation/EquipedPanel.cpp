@@ -5,8 +5,8 @@
 #include "HUDPanel.h"
 #include "ActionBar.h"
 
-sf::Texture* EquipedPanel::equipedBackground = new sf::Texture();
-EquipedPanel* EquipedPanel::instance = new EquipedPanel();
+sf::Texture* EquipedPanel::equipedBackground;
+EquipedPanel* EquipedPanel::instance;
 
 EquipedPanel::EquipedPanel(int x,int y) : GamePanel(x,y,"Equipment"){
 	SetUp();

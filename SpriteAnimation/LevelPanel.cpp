@@ -6,7 +6,7 @@
 #include "HUDPanel.h"
 #include "StatsPanel.h"
 
-LevelPanel* LevelPanel::instance = new LevelPanel();
+LevelPanel* LevelPanel::instance;
 
 LevelPanel::LevelPanel(int x,int y) : GamePanel(x,y,"Levels"){
 	SetUp();

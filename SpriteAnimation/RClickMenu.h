@@ -18,7 +18,6 @@ public:
 	static void Reset(int,int,std::string,RClickable*,GamePanel*);
 	static std::vector<Label*> GetMenu();
 	static void OnStart();
-	static sf::Texture menuTexture;
 	static void Clear();
 	static bool GetIsOpen();
 	static GamePanel* currentPanel;

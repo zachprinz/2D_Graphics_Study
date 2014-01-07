@@ -1,6 +1,7 @@
 #include "Attack.h"
 #include <iostream>
 #include "Drawn.h"
+#include "Game.h"
 
 Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offsets, float cooldown, int animY, int frames,bool isRanged,std::string animation,int trigger){
 	hasTrigger = true;
@@ -16,7 +17,7 @@ Attack::Attack(std::string nameA,float damageMod,std::vector<sf::Vector2i> offse
 	cooldownTime = sf::seconds(cooldown);
 	cooldownClock = Clock();
 	hudTexture = Drawn::GetTextureFromAtlas("attacktextures/" + name + ".png");
-	hudSprite.setTexture(Drawn::gameTexture);
+	hudSprite.setTexture(Game::instance->gameTexture);
 	hudSprite.setTextureRect(hudTexture);
 	percentCooledDown = 1;
 	isCooledDown = true;

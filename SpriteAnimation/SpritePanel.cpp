@@ -14,8 +14,8 @@
 #include "Thor/Math.hpp"
 #include <assert.h>
 
-sf::Texture* SpritePanel::spritePanelBackground = new sf::Texture();
-SpritePanel* SpritePanel::instance = new SpritePanel();
+sf::Texture* SpritePanel::spritePanelBackground;
+SpritePanel* SpritePanel::instance;
 Room* SpritePanel::room = new Room();
 
 
@@ -28,9 +28,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	view.reset(sf::FloatRect(0,0,Game::resolution.x,Game::resolution.y));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
-	std::cout << "Creating Light Engine." << std::endl;
-	lightEngine = new LightEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),view,sf::Color(47,102,111,150));
-	std::cout << "Finished Creating Lighting Engine." << std::endl;
+	ambienceEngine = new AmbienceEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),&view);
 	instance = this;
 	SetUp();
 	LoadMapCollisions();
@@ -156,8 +154,6 @@ void SpritePanel::UpdateElements(){
 	UpdateZoom();
 	panel.setView(view);
 	panel.draw(mapSprite);
-	lightEngine->UpdateLights(&panel);
-	//lightEngine->DrawShadows(&panel);
 	((Combatant*)(User::player))->UpdateEffectedTiles((GamePanel*)this);
 	Actor::elapsedTime = Actor::elapsedTimeClock->getElapsedTime();
 	Actor::elapsedTimeClock->restart();
@@ -168,17 +164,15 @@ void SpritePanel::UpdateElements(){
 	for(int x = 0; x < combatants.size(); x++){
 		((Combatant*)dynamicElements[combatants[x]])->UpdateBar(this);
 	}
-	lightEngine->SetView(view);
 	for(int x = 0; x < AmbienceObject::tags.size(); x++){
 		((AmbienceObject*)dynamicElements["AmbienceObject" + AmbienceObject::tags[x]])->Update2(this); //TODO Very Laggy
 	}
 	MoveCamera();
+	ambienceEngine->Update();
+	ambienceEngine->DrawAmbience(&panel);
 	User::player->UpdateBar(this);
-	lightEngine->DrawLights(&panel);
 	panel.display();
-	//lightEngine->DrawHigh(&panel);
-	//lightEngine->DebugRender(&panel);
-}
+};
 void SpritePanel::AddElement(std::string name, Drawn* element){
 	dynamicElements.insert(MyPair(name, element));
 };
@@ -206,10 +200,10 @@ void SpritePanel::RemoveDynamicElement(std::string tag){
 	GamePanel::RemoveDynamicElement("enemy" + tag);
 };
 void SpritePanel::AddHull(Hull* hull){
-	lightEngine->AddHull(hull);
+	ambienceEngine->lightEngine->AddHull(hull);
 };
 void SpritePanel::AddLight(Light* light){
-	lightEngine->AddLight(light);
+	ambienceEngine->lightEngine->AddLight(light);
 };
 void SpritePanel::Zoom(float time, float zoomFactor){
 	if(!isZooming){

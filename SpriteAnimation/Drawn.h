@@ -18,7 +18,8 @@ public:
 	static void DrawOther(sf::Text*,GamePanel*);
 	static void DrawOther(sf::RectangleShape*,GamePanel*);
 	static void DrawOther(sf::ConvexShape*, GamePanel*);
-	static sf::RenderTexture otherGraphicsPanel;
+	//static sf::RenderTexture 
+;
 	static sf::Sprite otherGraphicsSprite;
 	static int quadCount;
 	static sf::RenderWindow* gameWindow;
@@ -31,7 +32,6 @@ public:
 	static int GetDistance(sf::Vector2i,sf::Vector2i);
 	static sf::Texture GetSingleTexture(std::string);
 	static sf::IntRect GetTextureFromAtlas(std::string);
-	static sf::Texture gameTexture;
 	static void DrawAdds();
 	
 	//static boost::container::flat_set<Drawn*> vertexPointers;

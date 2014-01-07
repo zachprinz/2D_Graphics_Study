@@ -7,7 +7,7 @@
 class LightEngine{
 public:
 	LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor);
-	void UpdateLights(sf::RenderTexture*);
+	void UpdateLights();
 	void DrawLights(sf::RenderTexture*);
 	void DrawShadows(sf::RenderTexture*);
 	void AddLight(Light*);
@@ -15,7 +15,6 @@ public:
 	void SetView(sf::View);
 	void DebugRender(sf::RenderTexture* panel);
 	void SetAmbienceColor(sf::Color);
-	sf::Shader lightShader;
 	sf::Shader lightToTextureShader;
 	sf::Shader shadowShader;
 	sf::Shader whiteShader;

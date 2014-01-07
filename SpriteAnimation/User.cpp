@@ -9,6 +9,7 @@
 #include "ActionBar.h"
 #include "GamePanel.h"
 #include "OptionPanel.h"
+#include "Game.h"
 
 User* User::player;
 
@@ -40,7 +41,7 @@ User::User(int x, int y) : Combatant(x,y,"User","blank.png"){
 	sKeyPressed = false;
 	cKeyPressed = false;
 	escKeyPressed = false;
-	Drawn::gameTexture.setRepeated(false);
+	Game::instance->gameTexture.setRepeated(false);
 	SetUpLevels();
 	UpdateAnimation();
 	UpdateBoundries();

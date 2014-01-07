@@ -6,7 +6,6 @@
 #include "LayeredPanel.h"
 
 std::vector<Label*> RClickMenu::OptionButtons;
-sf::Texture RClickMenu::menuTexture;
 std::vector<Label*> RClickMenu::labels;
 bool RClickMenu::isOpen = false;
 GamePanel* RClickMenu::currentPanel;

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Label.h"
 
-InventoryPanel* InventoryPanel::instance = new InventoryPanel();
+InventoryPanel* InventoryPanel::instance;
 
 InventoryPanel::InventoryPanel(int x,int y) : GamePanel(x,y,"Inventory"){
 	SetUp();

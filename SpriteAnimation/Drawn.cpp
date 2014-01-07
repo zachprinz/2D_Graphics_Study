@@ -6,13 +6,13 @@
 #include "AABB.h"
 #include "SlicedSprite.h"
 #include "SpritePanel.h"
+#include "Game.h"
 
-sf::Texture Drawn::gameTexture;
 sf::VertexArray Drawn::gameArray;
 sf::RenderStates Drawn::gameRenderStates;
 //boost::container::flat_set<Drawn*> Drawn::vertexPointers;
 std::vector<Drawn*> Drawn::vertexPointers;
-sf::RenderTexture Drawn::otherGraphicsPanel;
+//sf::RenderTexture Drawn::otherGraphicsPanel;
 sf::Sprite Drawn::otherGraphicsSprite;
 int Drawn::quadCount;
 sf::RenderWindow* Drawn::gameWindow;
@@ -34,7 +34,7 @@ Drawn::Drawn(std::string textureExtension){
 		cornerRotationOffsets.push_back(sf::Vector2f(0,0));
 	}
 	myScale = sf::Vector2f(1,1);
-	sprite = sf::Sprite(gameTexture);
+	sprite = sf::Sprite(Game::instance->gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas(textureExtension));
 	sprite.setPosition(0,0);
 	sprite.setScale(1,1);
@@ -63,7 +63,7 @@ Drawn::Drawn(SlicedSprite* sliced){
 		cornerRotationOffsets.push_back(temp);
 	}
 	myScale = sf::Vector2f(1,1);
-	sprite.setTexture(gameTexture);
+	sprite.setTexture(Game::instance->gameTexture);
 	sprite.setTextureRect(GetTextureFromAtlas("blank.png"));
 	texturePart = sf::IntRect(0,0,sliced->size.x,sliced->size.y);
 	sprite.setTextureRect(texturePart);
@@ -154,14 +154,10 @@ void Drawn::SetUp(sf::RenderWindow* window){
 	gameWindow = window;
 	quadCount = 0;
 	gameArray.setPrimitiveType(sf::Quads);
-	gameTexture.loadFromFile("Atlas/GameAtlas.png");
-	gameTexture.setSmooth(true);
-	gameTexture.setRepeated(false);
-	gameRenderStates.texture = &gameTexture;
-	otherGraphicsPanel.create(1920,1080);
-	otherGraphicsPanel.clear(sf::Color(0,0,0,0));
-	otherGraphicsPanel.display();
-	otherGraphicsSprite.setTexture(otherGraphicsPanel.getTexture());
+	Game::instance->gameTexture.loadFromFile("Atlas/GameAtlas.png");
+	Game::instance->gameTexture.setSmooth(true);
+	Game::instance->gameTexture.setRepeated(false);
+	gameRenderStates.texture = &Game::instance->gameTexture;
 };
 bool Drawn::GetVisible(){
 	return isVisible;
@@ -237,7 +233,7 @@ sf::Texture Drawn::GetSingleTexture(std::string name){
 	tempRendText.create(tempTextRect.width,tempTextRect.height);
 	tempRendText.clear(sf::Color(0,0,0,0));
 	sf::Sprite tempSprite;
-	tempSprite.setTexture(gameTexture);
+	tempSprite.setTexture(Game::instance->gameTexture);
 	tempSprite.setTextureRect(tempTextRect);
 	tempRendText.draw(tempSprite);
 	tempRendText.display();

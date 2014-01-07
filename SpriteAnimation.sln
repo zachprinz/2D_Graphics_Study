@@ -18,7 +18,8 @@ Global
 		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Debug|Win32.Deploy.0 = Debug|Win32
 		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Release|ARM.ActiveCfg = Release|Win32
 		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Release|ARM.Build.0 = Release|Win32
-		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Release|Win32.ActiveCfg = Debug|Win32
+		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Release|Win32.ActiveCfg = Release|Win32
+		{D22079E5-6E42-44DC-AD7E-DCDA25936913}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

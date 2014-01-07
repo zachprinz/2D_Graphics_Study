@@ -34,7 +34,6 @@ public:
 private:
 	bool oscillateFrame;
 	ShadowLine GetPointShadowLine(sf::Vector2f,Hull*,sf::Vector2f);
-	static sf::Shader lightShader;
 	float intensity;
 	AABB bounds;
 	float spreadAngle;

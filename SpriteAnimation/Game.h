@@ -41,6 +41,8 @@ public:
 	static float masterVolume;
 	static float effectVolume;
 	static float musicVolume;
+	sf::Texture gameTexture;
+	static Game* instance;
     	static sf::Vector2f resolution;
 private:
 	enum State{LogOn,GamePlay};

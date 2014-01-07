@@ -15,8 +15,6 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	lightsSprite.setPosition(512,400);
 	lightsSprite.scale(1.0f,1.0f);
 
-	lightShader.loadFromFile("lightShader.frag",sf::Shader::Fragment);
-	lightShader.setParameter("texture", sf::Shader::CurrentTexture);
 	lightToTextureShader.loadFromFile("lightToPanelShader.frag",sf::Shader::Fragment);
 	lightToTextureShader.setParameter("texture",sf::Shader::CurrentTexture);
 	shadowShader.loadFromFile("shadowShader.frag",sf::Shader::Fragment);
@@ -38,7 +36,7 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	predoneLightTexture.loadFromFile("Images/light.png");
 	predoneLight.setTexture(predoneLightTexture);
 };
-void LightEngine::UpdateLights(sf::RenderTexture* panel){
+void LightEngine::UpdateLights(){
 	hullTree->Update();
 	lightTree->Update();
 	lightTexture.clear(sf::Color(0,0,0,180));

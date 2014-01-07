@@ -12,6 +12,7 @@
 #include "AmbienceObject.h"
 #include "LightEngine.h"
 #include "Thor\Particles.hpp"
+#include "AmbienceEngine.h"
 
 class SpritePanel : public GamePanel
 {
@@ -36,11 +37,7 @@ public:
 	float cameraMoveSpeed;
 	sf::Clock cameraMoveClock;
 	void ShakeScreen(float, float);
-    	LightEngine* lightEngine;
-	thor::ParticleSystem particleSystem;
-	thor::UniversalEmitter emitter;
-	sf::Texture particleTexture;
-    	Clock particleClock;
+	AmbienceEngine* ambienceEngine;
 private:
 	bool isCameraCaughtUp;
 	void UpdateZoom();

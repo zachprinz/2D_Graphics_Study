@@ -22,7 +22,7 @@ public:
 	bool DoesContain(Item);
 	bool DoesContain(std::vector<Item>);
 	BankContainer* FindContainerOf(Item item);
-	static sf::Texture* bankBackground;
+	sf::Texture* bankBackground;
 private:
 	void SetUp();
 

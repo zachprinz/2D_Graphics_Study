@@ -2,7 +2,6 @@
 #include "Hull.h"
 #include "User.h"
 
-sf::Shader Light::lightShader;
 float Light::zSpeed = 1.0f;
 double Light::PI2 = 3.1415926535897932384626433832795f * 2.0f;
 

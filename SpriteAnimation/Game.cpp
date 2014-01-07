@@ -12,8 +12,13 @@ float Game::masterVolume;
 float Game::effectVolume;
 float Game::musicVolume;
 sf::Vector2f Game::resolution;
+Game* Game::instance;
 
 Game::Game(){
+	instance = this;
+	gameTexture.loadFromFile("Atlas/GameAtlas.png");
+	gameTexture.setSmooth(true);
+	gameTexture.setRepeated(false);
 	musicVolume = 1.0;
 	effectVolume = 1.0;
 	masterVolume = 1.0;
@@ -49,7 +54,7 @@ void Game::Load(){
 	panels.push_back(User::player->GetLayered());
 	panels.push_back(User::player->GetBank());
 	panels.push_back(optionPanel);
-	SpritePanel::instance->particleClock.restart();
+	SpritePanel::instance->ambienceEngine->particleClock.restart();
 }
 void Game::SetUpDefaultPositions(){
 	statsPanel->defaultPositions.push_back(sf::Vector2f(.82,0));

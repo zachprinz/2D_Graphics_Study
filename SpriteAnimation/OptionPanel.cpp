@@ -6,7 +6,7 @@
 #include "Game.h"
 
 OptionPanel* OptionPanel::instance;
-sf::Texture* OptionPanel::optionBackground = new sf::Texture();
+sf::Texture* OptionPanel::optionBackground;
 
 
 OptionPanel::OptionPanel(int x, int y) : GamePanel(x,y,"OptionPanel"){

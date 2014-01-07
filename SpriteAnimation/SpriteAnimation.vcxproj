@@ -91,16 +91,16 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Thor\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Misc\SFML-S\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\Thor-S\include;C:\Misc\Thor-S\extlibs\aurora\include</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\Thor\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;OpenGL32.lib;thor.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Misc\SFML-S\lib;C:\Misc\Thor-S\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew.lib;jpeg.lib;openal32.lib;sndfile.lib;glew32.lib;OpenGL32.lib;freetype.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;winmm.lib;thor-s-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
@@ -129,16 +129,16 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Misc\SFML-2.1\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Misc\SFML-S\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\include;C:\Users\Zachary\Documents\Visual Studio 2012\Projects\SpriteAnimation\TmxMapLoader\src;C:\Misc\Thor-S\include;C:\Misc\Thor-S\extlibs\aurora\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Misc\SFML-2.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window.lib;sfml-system.lib;sfml-graphics.lib;sfml-main.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Misc\SFML-S\lib;C:\Misc\Thor-S\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew.lib;jpeg.lib;openal32.lib;sndfile.lib;glew32.lib;OpenGL32.lib;freetype.lib;shlwapi.lib;sfml-audio-s.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;thor-s.lib;sfml-main.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -169,6 +169,7 @@
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="ActionBar.cpp" />
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AmbienceEngine.cpp" />
     <ClCompile Include="AmbienceObject.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Attack.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="ActionBar.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="AmbienceEngine.h" />
     <ClInclude Include="AmbienceObject.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Attack.h" />
