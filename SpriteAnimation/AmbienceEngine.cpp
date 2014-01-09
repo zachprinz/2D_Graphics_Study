@@ -10,7 +10,7 @@ AmbienceEngine::AmbienceEngine(AABB size,sf::View* view){
 	particleSystem = new thor::ParticleSystem();
 	particleSystem->setTexture(m_particleTexture);
 	particleSystem->addTextureRect(sf::IntRect(0,0,32,32));
-	emitter.setEmissionRate(120.f);
+	emitter.setEmissionRate(60.f);
 	emitter.setParticleScale(sf::Vector2f(0.5f,0.5f));
 	//emitter.setParticlePosition( thor::Distributions::circle(sf::Vector2f(1000,1000), 900) );   // Emit particles in given circle
 	//emitter.setParticleVelocity( thor::Distributions::deflect(sf::Vector2f(20,0), 15.f) ); // Emit towards direction with deviation of 15°
@@ -28,7 +28,7 @@ AmbienceEngine::AmbienceEngine(AABB size,sf::View* view){
 void AmbienceEngine::Update(){
     	lightEngine->UpdateLights();
 	lightEngine->SetView(*myView);
-	emitter.setParticlePosition(thor::Distributions::rect(myView->getCenter() - sf::Vector2f(0,(Game::resolution.y / 2.0) + 100.0f),sf::Vector2f(Game::resolution.x / 2.0,100)));
+	emitter.setParticlePosition(thor::Distributions::rect(myView->getCenter() - sf::Vector2f(0,(myView->getSize().y / 2.0) + 100.0f),sf::Vector2f(myView->getSize().x / 2.0,100)));
 	particleSystem->update(particleClock.restart());
 };
 

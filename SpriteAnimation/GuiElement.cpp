@@ -45,6 +45,7 @@ void GuiElement::CenterForeground(){
 };
 void GuiElement::SetOrgin(int x,int y){
 	sprite.setOrigin(x,y);
+	foreground->GetSprite()->setOrigin(x,y);
 };
 void GuiElement::OnMousePress(){
     std::cout << "GuiElement Pressed" << std::endl;

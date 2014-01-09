@@ -19,6 +19,7 @@ public:
 	sf::Shader shadowShader;
 	sf::Shader whiteShader;
 	sf::Shader subtractShader;
+	sf::Shader lightShader;
 	void DrawHigh(sf::RenderTexture* panel);
 private:
 	sf::Sprite predoneLight;

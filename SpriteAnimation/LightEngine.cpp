@@ -23,6 +23,8 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 	subtractShader.setParameter("texture",sf::Shader::CurrentTexture);
 	whiteShader.loadFromFile("whiteShader.frag",sf::Shader::Fragment);
 	whiteShader.setParameter("texture",sf::Shader::CurrentTexture);
+	lightShader.loadFromFile("lightShader.frag",sf::Shader::Fragment);
+	lightShader.setParameter("texture",sf::Shader::CurrentTexture);
 	
 	tempLightText.create(300,300);
 	tempLightText.clear(sf::Color(0,0,0,0));
@@ -39,7 +41,7 @@ LightEngine::LightEngine(AABB bounds,sf::View panelView, sf::Color ambientColor)
 void LightEngine::UpdateLights(){
 	hullTree->Update();
 	lightTree->Update();
-	lightTexture.clear(sf::Color(0,0,0,180));
+	lightTexture.clear(sf::Color(0,0,0,0));
 	std::vector<QuadTreeObject*> lightsToDraw = lightTree->SearchRegion(viewBounds);
 	for(int x = 0; x < lightsToDraw.size(); x++){
 		DrawLight(lightsToDraw[x]->myLight);
@@ -48,7 +50,7 @@ void LightEngine::UpdateLights(){
 	lightsSprite.setPosition(panelView.getCenter().x ,panelView.getCenter().y);
 };
 void LightEngine::DrawLights(sf::RenderTexture* panel){
-    panel->draw(lightsSprite);
+    panel->draw(lightsSprite,&lightShader);
 };
 void LightEngine::DrawLight(Light* light){
 	light->Update();

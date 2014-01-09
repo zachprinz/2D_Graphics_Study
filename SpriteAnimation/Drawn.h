@@ -83,6 +83,7 @@ public:
 	virtual void SetRotation(float angle);
 	void SetDrawBounds(bool);
 	bool isSliced;
+    	sf::Clock movementClock;
 	bool pressed;
 protected:
 	sf::Vector2f testPosition;
@@ -90,7 +91,6 @@ protected:
 	sf::Vector2f myScale;
 	bool ViewContains(sf::View, sf::IntRect);
 	AABB screenBounds;
-	sf::Clock movementClock;
 	sf::Vector2i targetPosition;
 	sf::Vector2i homePosition;
 	sf::Vector2i resetPosition;

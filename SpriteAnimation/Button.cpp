@@ -94,22 +94,18 @@ void Button::SetMoveOnHover(bool yn){
 };
 void Button::OnHover(bool hovered){
 	if(!moveOnHover){
-		if(hovered){
+		if(hovered)
 			foreground->ExpandBy(1.075,sf::seconds(0.1));
-		}
-		else{
+		else
 			foreground->ReturnExpand();
-		}
 	}
 	if(moveOnHover){
-		if(hovered){
+		if(hovered)
 			foreground->MoveTo(hoverMovePosition.x,hoverMovePosition.y,sf::seconds(0.15));
-		}
-		else{
+		else
 			foreground->Return();
-		}
 	}
 };
 void Button::SetHoverMovePosition(sf::Vector2i hoverMovePosition){
-	this-> hoverMovePosition = hoverMovePosition;
+	this->hoverMovePosition = hoverMovePosition;
 };

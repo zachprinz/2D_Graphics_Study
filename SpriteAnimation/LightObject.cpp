@@ -8,7 +8,7 @@ std::vector<int> LightObject::tags;
 
 
 LightObject::LightObject(int x,int y,tmx::MapObject* obj) : AmbienceObject(x,y,obj,true){
-	myLight = new Light((x*32) + 12,(y*32)+ 10,sf::Color(248,255,127,60),300,1.0f,75); //Need to check and send the correct height, not just 75.
+	myLight = new Light((x*32) + 12,(y*32)+ 30,sf::Color(248,255,127,60),300,1.0f,75); //Need to check and send the correct height, not just 75.
 	SpritePanel::instance->AddLight(myLight);
 };
 void LightObject::Update(GamePanel* panel){

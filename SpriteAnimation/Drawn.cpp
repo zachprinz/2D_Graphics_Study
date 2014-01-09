@@ -48,6 +48,7 @@ Drawn::Drawn(std::string textureExtension){
 	SetRotation(0);
 	isSliced = false;
 	pressed = false;
+	homePosition = sf::Vector2i(0,0);
 };
 
 Drawn::Drawn(SlicedSprite* sliced){
@@ -304,6 +305,7 @@ sf::IntRect Drawn::GetTexturePart(){
 	return sf::IntRect(texturePart.left,texturePart.top,texturePart.width * myScale.x, texturePart.height * myScale.y);
 };
 void Drawn::SetPosition(sf::Vector2f newPos){
+	homePosition = sf::Vector2i(newPos.x,newPos.y);
 	positionOnPanel = newPos;
 	resetPosition = sf::Vector2i(newPos.x,newPos.y);
 	sprite.setPosition(newPos.x,newPos.y);
@@ -340,11 +342,12 @@ sf::IntRect Drawn::GetTextureFromAtlas(std::string name){
 void Drawn::MoveTo(int x,int y, sf::Time sec){
 	if(isMoving == false){
 		distanceMoved = 0;
-		homePosition = sf::Vector2i((int)GetSprite()->getGlobalBounds().left, (int)GetSprite()->getGlobalBounds().top);
-		targetPosition = sf::Vector2i((int)x,(int)y);
+		homePosition = sf::Vector2i(GetPosition().x,GetPosition().y);
+		targetPosition = sf::Vector2i(GetPosition().x + x,GetPosition().y + y);
 		moveDistance = GetDistance(homePosition,targetPosition);
 		componentMoveDistance.x = (targetPosition.x - homePosition.x);
 		componentMoveDistance.y = (targetPosition.y - homePosition.y);
+		velocity = moveDistance / sec.asSeconds();
 		if(componentMoveDistance.x > 0)
 			moveDirection.x = componentMoveDistance.x/(std::abs(componentMoveDistance.x));
 		else
@@ -353,7 +356,6 @@ void Drawn::MoveTo(int x,int y, sf::Time sec){
 			moveDirection.y = componentMoveDistance.y/(std::abs(componentMoveDistance.y));
 		else
 			moveDirection.y = 0;
-		velocity = moveDistance / sec.asSeconds();
 		if(componentMoveDistance.x != 0)
 			moveAngle = std::atan(std::abs(componentMoveDistance.y)/std::abs(componentMoveDistance.x));
 		else
@@ -364,7 +366,7 @@ void Drawn::MoveTo(int x,int y, sf::Time sec){
 };
 void Drawn::Return(){
 	distanceMoved = 0;
-	homePosition = sf::Vector2i(sprite.getGlobalBounds().left,sprite.getGlobalBounds().top);
+	homePosition = sf::Vector2i(GetPosition());
 	targetPosition = resetPosition;
 	moveDistance = GetDistance(homePosition,targetPosition);
 	componentMoveDistance.x = (targetPosition.x - homePosition.x);
@@ -392,7 +394,8 @@ int Drawn::GetDistance(sf::Vector2i initialPoint, sf::Vector2i finalPoint){
 };
 void Drawn::UpdateMove(){
 	if(isMoving){
-		float tempMoveDistance = movementClock.restart().asSeconds() * velocity;
+		float tempTime = movementClock.restart().asSeconds();
+		float tempMoveDistance = tempTime * velocity;
 		float tempDeltaY = moveDirection.y * (std::sin(moveAngle) * tempMoveDistance);
 		float tempDeltaX = moveDirection.x * (std::cos(moveAngle) * tempMoveDistance);
 		if(moveDistance <= tempMoveDistance){
@@ -401,7 +404,7 @@ void Drawn::UpdateMove(){
 			isMoving = false;
 		}
 		else if(moveDistance > tempMoveDistance) {
-			GetSprite()->setPosition(GetSprite()->getGlobalBounds().left + tempDeltaX, GetSprite()->getGlobalBounds().top + tempDeltaY);
+			GetSprite()->setPosition(GetPosition().x + tempDeltaX, GetPosition().y + tempDeltaY);
 			distanceMoved += tempMoveDistance;
 			moveDistance -= tempMoveDistance;
 		}
@@ -415,7 +418,6 @@ void Drawn::ResetPosition(){
 }
 void Drawn::ExpandBy(float expandRatio,sf::Time sec){
 	if(isExpanding == false){
-		//amountExpanded = 0;
 		homeScale = sf::Vector2f(GetScale().x, GetScale().y);
 		targetScale = sf::Vector2f(expandRatio * GetScale().x,expandRatio * GetScale().y);
 		expandAmount = targetScale - homeScale;
@@ -468,10 +470,10 @@ bool Drawn::GetIsExpanding(){
 bool Drawn::ViewContains(sf::View view,sf::IntRect rect){
 	sf::Vector2f viewUpper(view.getCenter() - sf::Vector2f(view.getSize().x / 2, view.getSize().y/2));
 	sf::IntRect viewRect(viewUpper.x,viewUpper.y,view.getSize().x,view.getSize().y);
-	if(viewRect.contains(rect.left,rect.top)
-		&& viewRect.contains(rect.left + rect.width, rect.top)
-		&& viewRect.contains(rect.left, rect.top + rect.height)
-		&& viewRect.contains(rect.left + rect.width, rect.top + rect.height))
+	if(viewRect.intersects(rect))
+		//&& viewRect.intersects(rect.left + rect.width, rect.top)
+		//&& viewRect.contains(rect.left, rect.top + rect.height)
+		//&& viewRect.contains(rect.left + rect.width, rect.top + rect.height))
 		return true;
 	return false;
 };

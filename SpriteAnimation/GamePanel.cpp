@@ -149,6 +149,8 @@ void GamePanel::OnHover(sf::Vector2i point){
 				    stop = CheckHover(x.second,point);
 		    else
 				    remaining.push_back(x.second);
+		    if(stop)
+			break;
 	}
 	while(current > -1 && (!stop) && remaining.size() > 0){
 		    for(int x = 0; x < remaining.size(); x++){
@@ -156,6 +158,8 @@ void GamePanel::OnHover(sf::Vector2i point){
 				    stop = CheckHover(remaining[x],point);
 			else
 				    remaining2.push_back(remaining[x]);
+			if(stop)
+			    break;
 		    }
 		    current--;
 		    remaining.clear();
@@ -166,11 +170,12 @@ void GamePanel::OnHover(sf::Vector2i point){
 				    stop = CheckHover(remaining2[x],point);
 			else
 				    remaining.push_back(remaining2[x]);
+			if(stop)
+			    break;
 		    };
 			remaining2.clear();
 		current--;
 	}
-	int asdf = 0;
 };
 bool GamePanel::CheckHover(Drawn* check,sf::Vector2i point){
 	bool tempBool = false;
@@ -181,13 +186,12 @@ bool GamePanel::CheckHover(Drawn* check,sf::Vector2i point){
 	};
     	if(check->GetBounds(this).Contains(point.x - GetPosition().x,point.y - GetPosition().y)){
 			if(GamePanel::currentMouseElement != check){
+				std::cout << "New Element." <<  std::to_string(check->GetPosition().x) << std::endl;
 				if(currentMouseElement != NULL)
 					currentMouseElement->OnHover(false);
 				currentMouseElement = check;
-				(check)->OnHover(true);
+				check->OnHover(true);
 			}
-			if(tempBool)
-			    int asdfijijig = 0;
 			return true;
 		}
 	return false;
@@ -209,10 +213,12 @@ sf::Vector2f GamePanel::GetPosition(){
 }
 void GamePanel::SetUp(){
 	std::string tempName = GetName();
-	Drawn* background  = new Drawn("windows/" + GetName() + "background.png");
-	background->SetPosition(sf::Vector2f(0,0));
-	background->texturePart.height = 35;
-	backgroundElements.insert(MyPair("Background", background));
+	if(tempName != "Text" && tempName != "Game" && tempName != "Inventory" && tempName != "Equipment" && tempName != "Levels" && tempName != "OptionPanel"){
+	    Drawn* background  = new Drawn("windows/" + GetName() + "background.png");
+	    background->SetPosition(sf::Vector2f(0,0));
+	    background->texturePart.height = 35;
+	    backgroundElements.insert(MyPair("Background", background));
+	}
 	if(tempName != "LayeredPanel" && tempName != "Text" && tempName != "Game"){
 	    Button* btnLabel = new Button(0,0,tempName);
 	    btnLabel->foreground->GetSprite()->setOrigin(0,0);

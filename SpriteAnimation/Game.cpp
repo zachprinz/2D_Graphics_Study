@@ -117,10 +117,11 @@ void Game::HandleMouseMovement(sf::Event event){
 	switch(gameState){
 		case(GamePlay):{
 	    	sf::Vector2i temp(event.mouseMove.x,event.mouseMove.y);
-		for(int x = 0; x < panels.size(); x++){
+		for(int x = panels.size() - 1; x > -1; x--){
 			if(panels[x]->GetBounds().Contains(temp.x,temp.y)){
 			        GamePanel::currentMousePanel = panels[x];
 				panels[x]->OnHover(temp);
+				break;
 			}
 		};
 		}

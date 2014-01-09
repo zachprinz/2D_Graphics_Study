@@ -25,7 +25,7 @@ SpritePanel::SpritePanel(int x, int y) : GamePanel(x,y,"Game"){
 	isShaking = false;
 	ml = new tmx::MapLoader("maps/");
 	ml->Load("testNew.tmx");
-	view.reset(sf::FloatRect(0,0,Game::resolution.x,Game::resolution.y));
+	view.reset(sf::FloatRect(0,0,1280,720));
 	view.setViewport(sf::FloatRect(0,0,1.0f,1.0f));
 	panel.setView(view);
 	ambienceEngine = new AmbienceEngine(AABB(Vec2f(0,0),Vec2f(4096,4096)),&view);
